@@ -1,0 +1,26 @@
+<!-- tools/markdown-to-html-converter.html -->
+<div class="container-fluid mt-4">
+    <h4 class="mb-4 text-center text-light"><i class="fa-brands fa-markdown me-2"></i> Markdown to HTML Converter</h4>
+    <div class="row">
+        <!-- Markdown Input -->
+        <div class="col-md-6 text-light">
+            <h5>Markdown Input</h5>
+            <textarea id="markdown-input" class="form-control" rows="20" placeholder="Type your Markdown here...
+# Hello World!
+
+This is a **real-time** Markdown to HTML converter.
+
+- List item 1
+- List item 2"></textarea>
+        </div>
+
+        <!-- HTML Output & Preview -->
+        <div class="col-md-6 text-light">
+            <h5>HTML Output</h5>
+            <pre><code id="html-output" class="html language-html" style="min-height: 250px; display: block; border-radius: 5px; white-space: pre-wrap; word-break: break-all;"></code></pre>
+            
+            <h5 class="mt-3">Live Preview</h5>
+            <div id="html-preview" class="p-3 border rounded" style="min-height: 200px;"></div>
+        </div>
+    </div>
+</div>

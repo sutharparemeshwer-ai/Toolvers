@@ -1,0 +1,27 @@
+<!-- tools/emoji-keyboard.html -->
+<div class="container-fluid mt-4">
+    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-face-smile me-2"></i> Emoji Keyboard</h4>
+
+    <div class="card p-3">
+        <!-- Search Bar -->
+        <div class="mb-3">
+            <input type="text" id="emoji-search-input" class="form-control" placeholder="Search for an emoji...">
+        </div>
+
+        <!-- Emoji Grid -->
+        <div id="emoji-grid" class="emoji-grid">
+            <!-- Emojis will be injected here by JS -->
+        </div>
+    </div>
+
+    <!-- Copy Notification Toast -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
+        <div id="emoji-copy-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Copied!</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">Emoji copied to clipboard.</div>
+        </div>
+    </div>
+</div>

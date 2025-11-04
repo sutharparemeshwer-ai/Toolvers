@@ -1,0 +1,44 @@
+<div class="card p-4 text-center">
+    <h4><i class="fa-solid fa-calculator"></i> Compound Interest Calculator</h4>
+    <p class="small ">Calculate the future value of your investment.</p>
+    
+    <form id="interest-form" class="row g-3 text-start">
+        <div class="col-md-6">
+            <label for="principal" class="form-label">Principal Amount (P)</label>
+            <input type="number" class="form-control" id="principal" value="10000" min="0" step="any" required>
+        </div>
+
+        <div class="col-md-6">
+            <label for="rate" class="form-label">Annual Interest Rate (r, %)</label>
+            <input type="number" class="form-control" id="rate" value="5" min="0" step="any" required>
+        </div>
+
+        <div class="col-md-6">
+            <label for="time" class="form-label">Time in Years (t)</label>
+            <input type="number" class="form-control" id="time" value="10" min="1" step="any" required>
+        </div>
+
+        <div class="col-md-6">
+            <label for="compounding-frequency" class="form-label">Compounding Frequency (n)</label>
+            <select class="form-select" id="compounding-frequency">
+                <option value="1">Annually (1)</option>
+                <option value="2">Semi-Annually (2)</option>
+                <option value="4">Quarterly (4)</option>
+                <option value="12" selected>Monthly (12)</option>
+                <option value="365">Daily (365)</option>
+            </select>
+        </div>
+
+        <div class="col-12 text-center mt-4">
+            <button type="submit" class="btn btn-primary w-50">Calculate Interest</button>
+        </div>
+    </form>
+
+    <div class="mt-4 p-3 bg-light rounded text-dark text-center">
+        <strong>Future Value (A):</strong> 
+        <h5 id="future-value" class="mt-1">--</h5>
+        
+        <strong>Total Interest Earned:</strong>
+        <p id="total-interest" class="mb-0">--</p>
+    </div>
+</div>

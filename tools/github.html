@@ -1,0 +1,16 @@
+<div class="card p-4 mx-auto" style="max-width: 700px;">
+    <h4 class="text-center"><i class="fa-brands fa-github"></i> GitHub Profile Finder</h4>
+    <p class="small text-center mb-4">Enter a GitHub username to view their profile stats and repositories.</p>
+
+    <form id="github-search-form" class="input-group mb-4">
+        <input type="text" class="form-control" id="github-username-input" placeholder="Enter GitHub Username (e.g., torvalds)" required>
+        <button class="btn btn-dark" type="submit" id="search-github-btn">Search Profile</button>
+    </form>
+    
+    <div id="message-area-github" class="alert alert-info text-center d-none" role="alert">
+        Fetching profile...
+    </div>
+
+    <div id="profile-container" class="mt-4">
+        </div>
+</div>

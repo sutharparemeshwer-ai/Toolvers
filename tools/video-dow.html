@@ -1,0 +1,13 @@
+ <div class="card text-center">
+    <h1>🎥 Direct Video Downloader</h1>
+    <p>Enter a direct link to a video file (e.g., ending in .mp4, .webm). This tool does not support streaming sites like YouTube or Vimeo.</p>
+<br>
+    <input type="text" id="videoUrl" placeholder="Enter direct video URL..." />
+    <br>
+    <button id="loadBtn" class="btn btn-light " >Load Video</button>
+ <br>
+    <div id="videoContainer" class="hidden">
+      <video id="preview" controls></video>
+      <a id="downloadBtn" class="btn btn-success mt-2" href="#" download>⬇️ Download Video</a>
+    </div>
+  </div>

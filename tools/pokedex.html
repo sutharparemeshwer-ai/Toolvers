@@ -1,0 +1,47 @@
+<!-- tools/pokedex.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center">
+    <i class="fa-solid fa-dragon me-2"></i> Pokédex
+  </h4>
+
+  <div class="card p-3 p-md-4 mx-auto" style="max-width: 500px">
+    <!-- Search Form -->
+    <form id="pokedex-search-form" class="input-group mb-4">
+      <input
+        type="text"
+        id="pokemon-search-input"
+        class="form-control"
+        placeholder="Enter Pokémon name or number..."
+        required
+      />
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <!-- Status/Message Area -->
+    <div id="pokedex-status" class="text-center">
+      Search for a Pokémon to begin.
+    </div>
+
+    <!-- Results Container -->
+    <div id="pokedex-card" class="card d-none">
+      <div id="pokedex-card-header" class="card-header text-center p-3">
+        <img
+          id="pokemon-image"
+          src=""
+          alt="Pokémon Image"
+          style="width: 150px; height: 150px"
+        />
+        <h3 id="pokemon-name" class="mt-2 mb-0"></h3>
+        <p id="pokemon-id" class="text-muted"></p>
+      </div>
+      <div class="card-body">
+        <div id="pokemon-types" class="text-center mb-3">
+          <!-- Type badges will be injected here -->
+        </div>
+        <div id="pokemon-stats">
+          <!-- Stats will be injected here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<!-- tools/sleep-tracker.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center text-light">
+    <i class="fa-solid fa-moon me-2"></i> Sleep Tracker
+  </h4>
+
+  <div class="card p-3 p-md-4 mx-auto" style="max-width: 700px">
+    <!-- Sleep Input Form -->
+    <div class="mb-4">
+      <h5 class="mb-3">Log Your Sleep</h5>
+      <div class="row g-3 align-items-end">
+        <div class="col-md-5">
+          <label for="sleep-bedtime-input" class="form-label">Bedtime</label>
+          <input
+            type="time"
+            class="form-control"
+            id="sleep-bedtime-input"
+            required
+          />
+        </div>
+        <div class="col-md-5">
+          <label for="sleep-wake-input" class="form-label">Wake Up Time</label>
+          <input
+            type="time"
+            class="form-control"
+            id="sleep-wake-input"
+            required
+          />
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-primary w-100" id="log-sleep-btn">Log</button>
+        </div>
+      </div>
+      <p id="sleep-error-message" class="text-danger small mt-2 d-none">
+        Please enter valid times where wake up is after bedtime.
+      </p>
+    </div>
+
+    <!-- Today's Summary -->
+    <div class="text-center mb-4 border-top pt-3">
+      <h5 class="mb-2">
+        Today's Sleep (<span id="today-date-display"></span>)
+      </h5>
+      <p class="display-5 fw-bold" id="today-sleep-duration">0h 0m</p>
+      <p class="small text-muted" id="today-sleep-times">Not logged yet.</p>
+    </div>
+
+    <!-- Average Sleep -->
+    <div class="text-center mb-4 border-top pt-3">
+      <h5 class="mb-2">7-Day Average Sleep</h5>
+      <p class="display-5 fw-bold" id="average-sleep-duration">0h 0m</p>
+    </div>
+
+    <!-- Sleep History -->
+    <div class="border-top pt-3">
+      <h5 class="mb-3">Recent Sleep History</h5>
+      <div id="sleep-history-list" class="list-group">
+        <p class="text-muted text-center" id="no-sleep-entries">
+          No sleep entries yet.
+        </p>
+      </div>
+    </div>
+
+    <!-- Clear All Data Button -->
+    <div class="text-center border-top pt-3 mt-3">
+      <button id="clear-sleep-data-btn" class="btn btn-outline-danger">
+        Clear All Sleep Data
+      </button>
+    </div>
+  </div>
+</div>

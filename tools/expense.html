@@ -1,0 +1,39 @@
+<div class="card p-4 mx-auto" style="max-width: 450px;">
+    <h4 class="text-center"><i class="fa-solid fa-money-bill-transfer"></i> Expense Tracker</h4>
+    <p class="small text-center">Track your personal finances.</p>
+
+    <div class="mt-3 text-center">
+        <h5>YOUR BALANCE</h5>
+        <h1 id="balance" class="display-4 fw-bold">$0.00</h1>
+    </div>
+
+    <div class="row bg-light p-3 my-3 rounded">
+        <div class="col-6 text-center border-end">
+            <h6 class="text-success">INCOME</h6>
+            <p id="money-plus" class="lead fw-bold text-success">+$0.00</p>
+        </div>
+        <div class="col-6 text-center">
+            <h6 class="text-danger">EXPENSE</h6>
+            <p id="money-minus" class="lead fw-bold text-danger">-$0.00</p>
+        </div>
+    </div>
+
+    <h5 class=" pb-2">History</h5>
+    <ul id="list" class="list-group list-group-flush mb-4" style="max-height: 250px; overflow-y: auto;">
+        <li class="list-group-item text-center text-muted small" id="no-transactions">No transactions yet.</li>
+    </ul>
+
+    <h5 class="border-bottom pb-2 mt-3">Add New Transaction</h5>
+    <form id="form">
+        <div class="mb-3">
+            <label for="text" class="form-label">Description (e.g., Salary, Groceries)</label>
+            <input type="text" class="form-control" id="text" placeholder="Enter text..." required>
+        </div>
+        <div class="mb-3">
+            <label for="amount" class="form-label">Amount</label>
+            <p class="small ">Negative - expense, Positive - income (e.g., -20.50 or 100.00)</p>
+            <input type="number" class="form-control" id="amount" placeholder="Enter amount..."  required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Add Transaction</button>
+    </form>
+</div>

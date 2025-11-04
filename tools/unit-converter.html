@@ -1,0 +1,27 @@
+<!-- tools/unit-converter.html -->
+<div class="container-fluid mt-4">
+    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-ruler-combined me-2"></i> Unit Converter</h4>
+
+    <div class="card p-4 mx-auto" style="max-width: 600px;">
+        <div class="mb-3">
+            <label for="unit-category" class="form-label">Category</label>
+            <select id="unit-category" class="form-select"></select>
+        </div>
+
+        <div class="row g-3 align-items-center">
+            <div class="col">
+                <input type="number" id="input-value" class="form-control" value="1">
+                <select id="from-unit" class="form-select mt-2"></select>
+            </div>
+            <div class="col-auto">
+                <i class="fa-solid fa-equals fa-2x"></i>
+            </div>
+            <div class="col">
+                <input type="text" id="output-value" class="form-control" readonly>
+                <select id="to-unit" class="form-select mt-2"></select>
+            </div>
+        </div>
+
+        <p id="conversion-formula" class="text-center text-muted small mt-3"></p>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="card p-4 mx-auto" style="max-width: 600px;">
+    <h4 class="mb-4 text-center"><i class="fa-solid fa-calculator"></i> Word Counter</h4>
+    
+    <div class="mb-4">
+        <textarea 
+            id="text-input" 
+            class="form-control" 
+            rows="8" 
+            placeholder="Start typing or paste your text here..."
+        ></textarea>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-4">
+            <div class="bg-light p-3 rounded shadow-sm">
+                <h5 class="mb-0 text-primary" id="word-count">0</h5>
+                <small class="text-muted">Words</small>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="bg-light p-3 rounded shadow-sm">
+                <h5 class="mb-0 text-success" id="char-count">0</h5>
+                <small class="text-muted">Characters</small>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="bg-light p-3 rounded shadow-sm">
+                <h5 class="mb-0 text-danger" id="sentence-count">0</h5>
+                <small class="text-muted">Sentences</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <button id="clear-btn" class="btn btn-outline-secondary w-100">
+            <i class="fa-solid fa-broom"></i> Clear Text
+        </button>
+    </div>
+</div>

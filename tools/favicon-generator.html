@@ -1,0 +1,83 @@
+<!-- tools/favicon-generator.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center">
+    <i class="fa-solid fa-star me-2"></i> Favicon Generator
+  </h4>
+
+  <div class="card p-3 p-md-4 mx-auto" style="max-width: 600px">
+    <div class="row g-3">
+      <!-- Controls -->
+      <div class="col-md-6">
+        <h5>1. Customize</h5>
+        <div class="mb-3">
+          <label for="favicon-image" class="form-label"
+            >Background Image (Optional):</label
+          >
+          <input
+            class="form-control"
+            type="file"
+            id="favicon-image"
+            accept="image/*"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="favicon-char" class="form-label">Character:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="favicon-char"
+            maxlength="1"
+            placeholder="e.g., A"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="favicon-bg-color" class="form-label"
+            >Background Color:</label
+          >
+          <input
+            type="color"
+            class="form-control form-control-color"
+            id="favicon-bg-color"
+            value="#56caad"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="favicon-font-color" class="form-label">Font Color:</label>
+          <input
+            type="color"
+            class="form-control form-control-color"
+            id="favicon-font-color"
+            value="#ffffff"
+          />
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="favicon-corner-radius" class="form-label">Corner Radius:</label>
+        <input type="range" class="form-range" id="favicon-corner-radius" min="0" max="64" value="0" />
+        <small class="form-text text-muted">0 = sharp, 64 = circle</small>
+      </div>
+
+
+      <!-- Preview & Download -->
+      <div class="col-md-6 text-center">
+        <h5>2. Preview</h5>
+        <canvas
+          id="favicon-canvas"
+          width="128"
+          height="128"
+          class="rounded border mb-3"
+          style="background-color: #333"
+        ></canvas>
+        <p class="small text-muted">A 32x32px ICO file will be generated.</p>
+        <a
+          href="#"
+          id="download-favicon-btn"
+          class="btn btn-primary w-100 disabled"
+          download="favicon.ico"
+        >
+          <i class="fa-solid fa-download me-2"></i> Download Favicon
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

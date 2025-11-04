@@ -1,0 +1,40 @@
+<div class="card p-4 mx-auto" style="max-width: 900px;">
+    <h4 class="text-center"><i class="fa-solid fa-face-grin-squint-tears"></i> Meme Generator</h4>
+    <p class="small text-muted text-center mb-4">Search an image, add text, and generate your custom meme.</p>
+
+    <div class="row">
+        <div class="col-md-5">
+            <form id="meme-controls-form" class="mb-4">
+                
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="image-search-input" placeholder="Search background image (e.g., cat, confused)" required>
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+
+                <div class="mb-3">
+                    <label for="top-text-input" class="form-label">Top Text</label>
+                    <input type="text" class="form-control" id="top-text-input" placeholder="Enter top meme text">
+                </div>
+                <div class="mb-3">
+                    <label for="bottom-text-input" class="form-label">Bottom Text</label>
+                    <input type="text" class="form-control" id="bottom-text-input" placeholder="Enter bottom meme text">
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button id="generate-meme-btn" type="button" class="btn btn-success" disabled>Draw Text</button>
+                    <a id="download-meme-link" class="btn btn-warning d-none" download="my-meme.png">Download Meme</a>
+                </div>
+            </form>
+            
+            <div id="search-results-list" class="list-group">
+                </div>
+            <div id="search-message" class="text-center small mt-2"></div>
+        </div>
+
+        <div class="col-md-7 d-flex justify-content-center align-items-center">
+            <div id="canvas-container" class="border border-secondary rounded overflow-hidden" style="width: 100%; max-width: 500px;">
+                <canvas id="meme-canvas" style="display: block; width: 100%; height: auto;"></canvas>
+            </div>
+        </div>
+    </div>
+</div>

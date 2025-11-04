@@ -1,0 +1,59 @@
+<div class="card p-4 mx-auto" style="max-width: 950px;">
+    <div class="row g-4">
+        <!-- Calendar View -->
+        <div class="col-lg-7">
+            <div class="calendar-header d-flex justify-content-between align-items-center mb-3">
+                <button id="prev-month-btn" class="btn btn-outline-primary btn-sm" title="Previous Month">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <div class="d-flex align-items-center gap-3">
+                    <h4 id="month-year-header" class="mb-0 text-center"></h4>
+                    <button id="today-btn" class="btn btn-sm btn-outline-secondary">Today</button>
+                </div>
+                <button id="next-month-btn" class="btn btn-outline-primary btn-sm" title="Next Month">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+            <div id="calendar-container" class="calendar-grid"></div>
+        </div>
+
+        <!-- Events View -->
+        <div class="col-lg-5">
+            <div class="events-container p-3 rounded" style="background-color: var(--bg-color);">
+                <h5 class="mb-3">Events for <span id="selected-date-display"></span></h5>
+                <div id="events-list" class="list-group mb-3"></div>
+                <button id="add-event-btn" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#event-modal">
+                    <i class="fa-solid fa-plus"></i> Add Event
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Event Form Modal -->
+<div class="modal fade" id="event-modal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="event-form">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eventModalLabel">Add New Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="event-name" class="form-label">Event Name</label>
+                        <input type="text" id="event-name" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="event-time" class="form-label">Time (optional)</label>
+                        <input type="time" id="event-time" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Event</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

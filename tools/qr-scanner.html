@@ -1,0 +1,31 @@
+<style>
+    #scanner-container {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        margin: auto;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    #scanner-video {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+</style>
+
+<div class="card p-4 mx-auto" style="max-width: 600px;">
+    <h4 class="mb-4 text-center"><i class="fa-solid fa-qrcode"></i> QR Code Scanner</h4>
+
+    <div id="scanner-container" class="mb-3 border">
+        <video id="scanner-video" playsinline></video>
+    </div>
+
+    <div id="scanner-status" class="alert alert-info text-center">Point your camera at a QR code.</div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+        <button id="scanner-toggle-btn" class="btn btn-primary flex-grow-1">Start Camera</button>
+        <button id="scan-file-btn" class="btn btn-secondary flex-grow-1">Upload Image</button>
+        <input type="file" id="scan-file-input" class="d-none" accept="image/*">
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<!-- tools/coin-toss-simulator.html -->
+<div class="container-fluid mt-4 text-center">
+    <h4 class="mb-4 text-light"><i class="fa-solid fa-coins me-2"></i> Coin Toss Simulator</h4>
+
+    <div class="card p-4 mx-auto" style="max-width: 500px;">
+        <!-- Coin Display -->
+        <div id="coin" class="mb-4">
+            <div class="side-a">H</div>
+            <div class="side-b">T</div>
+        </div>
+
+        <!-- Results -->
+        <div id="result-message" class="fs-4 fw-bold mb-3">Click the button to toss the coin!</div>
+
+        <!-- Controls -->
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <button id="toss-btn" class="btn btn-warning btn-lg">Toss Coin</button>
+        </div>
+
+        <!-- Scoreboard -->
+        <div class="mt-4">
+            <h5>Scoreboard</h5>
+            <div class="d-flex justify-content-around">
+                <div>Heads: <span id="heads-count" class="fw-bold">0</span></div>
+                <div>Tails: <span id="tails-count" class="fw-bold">0</span></div>
+            </div>
+            <button id="reset-score-btn" class="btn btn-sm btn-outline-secondary mt-3">Reset Score</button>
+        </div>
+    </div>
+</div>

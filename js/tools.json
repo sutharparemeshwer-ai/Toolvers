@@ -1,0 +1,1215 @@
+[
+  {
+    "id": "bmi",
+    "name": "BMI Calculator",
+    "description": "Calculate body-mass index",
+    "tags": ["health", "calculator"],
+    "category": "Health & Fitness"
+  },
+  {
+    "id": "gpa-calculator",
+    "name": "GPA / Grade Calculator",
+    "description": "Calculate your Grade Point Average (GPA) based on course credits and grades.",
+    "tags": ["gpa", "grade", "calculator", "student", "study"],
+    "category": "Calculators"
+  },
+  {
+    "id": "date-difference",
+    "name": "Date Difference Calculator",
+    "description": "Calculates the number of days, months, and years between two dates.",
+    "tags": ["date", "calculator", "time", "duration"],
+    "category": "Calculators"
+  },
+  {
+    "id": "calorie-counter",
+    "name": "Calorie Counter",
+    "description": "Track your daily calorie intake by logging food items. Data is saved locally for the day.",
+    "tags": ["calories", "diet", "health", "tracker", "fitness"],
+    "category": "Health & Fitness"
+  },
+  {
+    "id": "age",
+    "name": "Age Calculator",
+    "description": "Find your exact age in years, months, and days",
+    "tags": ["date", "calculator"],
+    "category": "Calculators"
+  },
+  {
+    "id": "contact",
+    "name": "Contact Form",
+    "description": "A simple contact form with validation",
+    "tags": ["form", "contact"],
+    "category": "Forms & UI"
+  },
+  {
+    "id": "blackjack",
+    "name": "Blackjack Game",
+    "description": "Play a simple blackjack card game",
+    "tags": ["game", "cards"],
+    "category": "Games"
+  },
+  {
+    "id": "began",
+    "name": "Background Generator",
+    "description": "generate a cretive background",
+    "tags": ["background", "generator"],
+    "category": "Generators"
+  },
+  {
+    "id": "battery",
+    "name": "Battery Percentage Indicator",
+    "description": "Indicates your battery percentage.",
+    "tags": ["charge", "battery"],
+    "category": "System & Hardware"
+  },
+  {
+    "id": "ttt",
+    "name": "Tic Tac Toe",
+    "description": "'x' and 'o' game for multiplayers",
+    "tags": ["game", "fun"],
+    "category": "Games"
+  },
+  {
+    "id": "Anime",
+    "name": "anime finder",
+    "description": "find any anime in one click",
+    "tags": ["anime", "finder"],
+    "category": "Data & API"
+  },
+  {
+    "id": "mood-tracker",
+    "name": "Mood Tracker",
+    "description": "Log your daily mood and view your mood history over time.",
+    "tags": ["mood", "tracker", "health", "productivity", "localstorage"],
+    "category": "Health & Fitness"
+  },
+  {
+    "id": "calculator",
+    "name": "Simple Calculator",
+    "description": "Perform basic arithmetic calculations.",
+    "tags": ["math", "calculator", "utility"],
+    "category": "Calculators"
+  },
+  {
+    "id": "notes",
+    "name": "Local Notes App",
+    "description": "Create, read, and delete notes using local storage (CRUD demo).",
+    "tags": ["utility", "crud", "storage"],
+    "category": "Productivity & Organization"
+  },
+  {
+    "id": "cat",
+    "name": "Cat Generator",
+    "description": "Generate a random cat picture or fact.",
+    "tags": ["fun", "generator", "api"],
+    "category": "Generators"
+  },
+  {
+    "id": "chuck",
+    "name": "Chuck Norris Joke Generator",
+    "description": "Generate random, hilarious Chuck Norris facts.",
+    "tags": ["fun", "api", "generator"],
+    "category": "Generators"
+  },
+  {
+    "id": "color-game",
+    "name": "Color Guessing Game (RGB)",
+    "description": "Guess the correct color from the RGB code.",
+    "tags": ["game", "fun", "color", "guessing"],
+    "category": "Games"
+  },
+  {
+    "id": "interest",
+    "name": "Compound Interest Calculator",
+    "description": "Calculate future value based on compounding interest.",
+    "tags": ["finance", "calculator", "math"],
+    "category": "Finance & Calculators"
+  },
+  {
+    "id": "timer",
+    "name": "Countdown Timer",
+    "description": "A simple timer to count down from a set time.",
+    "tags": ["utility", "time", "productivity"],
+    "category": "Productivity & Organization"
+  },
+  {
+    "id": "stopwatch",
+    "name": "Stopwatch",
+    "description": "Measure elapsed time with start, pause, and reset controls.",
+    "tags": ["utility", "time", "measurement"],
+    "category": "Productivity & Organization"
+  },
+  {
+    "id": "corona",
+    "name": "Global COVID-19 Tracker",
+    "description": "Displays the latest global case statistics from an external API.",
+    "tags": ["api", "data", "health", "tracker"],
+    "category": "Data & API"
+  },
+  {
+    "id": "range",
+    "name": "Custom Range Slider",
+    "description": "Interactive range input with live value display.",
+    "tags": ["ui", "component", "utility", "input"],
+    "category": "Forms & UI"
+  },
+  {
+    "id": "watch",
+    "name": "Digital Watch",
+    "description": "Displays the current system time in a large format.",
+    "tags": ["utility", "time", "clock"],
+    "category": "Productivity & Organization"
+  },
+  {
+    "id": "dino",
+    "name": "Dinosaur Game",
+    "description": "A simple, jump-and-run game (like the Chrome Dinosaur game).",
+    "tags": ["game", "fun", "classic", "javascript"],
+    "category": "Games"
+  },
+  {
+    "id": "drum-kit",
+    "name": "Drum Kit",
+    "description": "Play drums using the keyboard or mouse clicks.",
+    "tags": ["fun", "audio", "music", "game"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "expense",
+    "name": "Expense Tracker",
+    "description": "Track income and expenses using local storage.",
+    "tags": ["finance", "utility", "local-storage", "productivity"],
+    "category": "Finance & Calculators"
+  },
+  {
+    "id": "expand",
+    "name": "Expand/Fullscreen Button",
+    "description": "Demonstrates toggling fullscreen mode for a container.",
+    "tags": ["ui", "utility", "fullscreen", "javascript"],
+    "category": "Forms & UI"
+  },
+  {
+    "id": "film",
+    "name": "Film Finder",
+    "description": "Search for movie details using an external API (OMDb).",
+    "tags": ["api", "data", "movie", "entertainment"],
+    "category": "Data & API"
+  },
+  {
+    "id": "glform",
+    "name": "Glassmorphism Login Form",
+    "description": "A stylish login form demonstrating the modern glassmorphism UI trend.",
+    "tags": ["ui", "css", "animation", "design"],
+    "category": "Forms & UI"
+  },
+  {
+    "id": "google",
+    "name": "Google Search Clone (UI)",
+    "description": "A static recreation of the Google search homepage UI.",
+    "tags": ["ui", "css", "replication", "design"],
+    "category": "Forms & UI"
+  },
+  {
+    "id": "github",
+    "name": "GitHub Profile Finder",
+    "description": "Fetch and display GitHub user profiles using the official GitHub API.",
+    "tags": ["api", "github", "profile", "data"],
+    "category": "Data & API"
+  },
+  {
+    "id": "imgfinder",
+    "name": "Image Finder (Pexels)",
+    "description": "Search and display high-quality images using the Pexels API.",
+    "tags": ["api", "image", "search", "data"],
+    "category": "Data & API"
+  },
+  {
+    "id": "color-change",
+    "name": "JS Color Changer",
+    "description": "A simple tool to change the background color using JavaScript.",
+    "tags": ["javascript", "dom", "utility"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "tip-calculator",
+    "name": "Tip Calculator",
+    "description": "Calculate tips and total bill amount easily.",
+    "tags": ["javascript", "math", "form"],
+    "category": "Calculators"
+  },
+  {
+    "id": "love-calculator",
+    "name": "Love Calculator",
+    "description": "Calculate the compatibility percentage between two names.",
+    "tags": ["javascript", "string", "fun"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "meme-generator",
+    "name": "Meme Generator",
+    "description": "Create custom memes with text and downloadable images.",
+    "tags": ["javascript", "canvas", "image", "api", "dom"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "quiz-tool",
+    "name": "Trivia Quiz",
+    "description": "A multiple-choice quiz demonstrating array and state management.",
+    "tags": ["javascript", "array", "logic", "game"],
+    "category": "Games"
+  },
+  {
+    "id": "cognitive-speed",
+    "name": "Cognitive Speed Test",
+    "description": "A quick test of mental math and reaction time.",
+    "tags": ["javascript", "logic", "timer", "game"],
+    "category": "Games"
+  },
+  {
+    "id": "password-generator",
+    "name": "Password Generator",
+    "description": "Generate strong, randomized passwords based on user-defined criteria.",
+    "tags": ["javascript", "string", "security", "utility"],
+    "category": "Generators"
+  },
+  {
+    "id": "favicon-generator",
+    "name": "Favicon Generator",
+    "description": "Creates a favicon.ico file from an uploaded image and input text.",
+    "tags": ["favicon", "icon", "generator", "image", "website", "brand"],
+    "category": "Generators"
+  },
+  {
+    "id": "virtual-piano",
+    "name": "Virtual Piano",
+    "description": "A simple keyboard that plays notes using the Audio API.",
+    "tags": ["javascript", "audio", "dom", "game"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "quote-generator",
+    "name": "Random Quote Generator",
+    "description": "Fetches and displays inspirational quotes using an external API.",
+    "tags": ["javascript", "api", "fetch", "utility"],
+    "category": "Generators"
+  },
+  {
+    "id": "user-generator",
+    "name": "Random User Generator",
+    "description": "Generates random profiles with names, contact details, and images.",
+    "tags": ["javascript", "api", "data", "presentation"],
+    "category": "Generators"
+  },
+  {
+    "id": "word-generator",
+    "name": "Random Word Generator",
+    "description": "Generates a random word from a large, local dictionary.",
+    "tags": ["javascript", "array", "utility", "text"],
+    "category": "Generators"
+  },
+  {
+    "id": "recipe-finder",
+    "name": "Recipe Finder",
+    "description": "Search for recipes by ingredient or meal name using an external database.",
+    "tags": ["javascript", "api", "fetch", "search", "data"],
+    "category": "Data & API"
+  },
+  {
+    "id": "rock-paper-scissors",
+    "name": "Rock, Paper, Scissors",
+    "description": "A classic game demonstrating random selection and logical comparisons.",
+    "tags": ["javascript", "game", "logic", "comparison"],
+    "category": "Games"
+  },
+  {
+    "id": "drawing-app",
+    "name": "Drawing App",
+    "description": "A basic drawing board using the HTML Canvas API.",
+    "tags": ["javascript", "canvas", "graphics", "dom"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "todo-list",
+    "name": "Simple To-Do List",
+    "description": "A classic to-do list demonstrating CRUD operations and localStorage persistence.",
+    "tags": ["javascript", "dom", "localstorage", "crud", "utility"],
+    "category": "Productivity & Organization"
+  },
+  {
+    "id": "time-zone-converter",
+    "name": "Time Zone Converter",
+    "description": "Shows the current time in various cities around the world.",
+    "tags": ["time", "timezone", "world clock", "converter", "utility"],
+    "category": "Productivity & Organization"
+  },
+  {
+    "id": "weather-app",
+    "name": "Weather App",
+    "description": "Fetches current weather data for a city using the OpenWeatherMap API.",
+    "tags": ["javascript", "api", "fetch", "external", "utility"],
+    "category": "Data & API"
+  },
+  {
+    "id": "word-count",
+    "name": "Word Counter",
+    "description": "A useful app which counts words, characters, and sentences.",
+    "tags": ["javascript", "count", "fun", "game", "word"],
+    "category": "Text & Content"
+  },
+  {
+    "id": "temperature-converter",
+    "name": "Temperature Converter",
+    "description": "A useful app which allows you to convert temperatures.",
+    "tags": ["temperature", "converter", "fun", "tool"],
+    "category": "Calculators"
+  },
+  {
+    "id": "daily-goals",
+    "name": "Daily Goals",
+    "description": "A useful app which tracks your daily goals and helps you achieve them.",
+    "tags": ["goals", "tracker", "achievement", "tool"],
+    "category": "Productivity & Organization"
+  },
+  {
+    "id": "habit-tracker",
+    "name": "Habit Tracker",
+    "description": "A useful app which tracks your habits and helps improve them.",
+    "tags": ["health", "tracker", "habit", "tool"],
+    "category": "Productivity & Organization"
+  },
+  {
+    "id": "memory-game",
+    "name": "Memory Card Game",
+    "description": "Match all pairs using the fewest moves possible.",
+    "tags": ["game", "fun", "cards"],
+    "category": "Games"
+  },
+  {
+    "id": "hangman",
+    "name": "hangman game",
+    "description": "Classic word guessing game with dynamic drawing and keyboard",
+    "tags": ["game", "fun", "word"],
+    "category": "Games"
+  },
+  {
+    "id": "snake-game",
+    "name": "snake game",
+    "description": "Classic game using HTML Canvas, game loop, and collision detection.",
+    "tags": ["game", "fun", "snake"],
+    "category": "Games"
+  },
+  {
+    "id": "expense-splitter",
+    "name": "expense splitter",
+    "description": "Calculates group expenses and determines the minimal settlement plan.",
+    "tags": ["expenses", "fun", "tool"],
+    "category": "Finance & Calculators"
+  },
+  {
+    "id": "pomodoro-timer",
+    "name": "pomodoro timer",
+    "description": "A productivity timer with 25-minute focus and 5-minute break cycles.",
+    "tags": ["timer", "study", "work"],
+    "category": "Productivity & Organization"
+  },
+  {
+    "id": "speech-to-text",
+    "name": "speech to text",
+    "description": "Converts spoken words into text using the Web Speech API",
+    "tags": ["speach to text", "text", "work"],
+    "category": "Text & Content"
+  },
+  {
+    "id": "Currency-Converter",
+    "name": "Currency Converter",
+    "description": "its very usefull tool wich compare and convert the currency",
+    "tags": ["currency", "converter", "tool"],
+    "category": "Finance & Calculators"
+  },
+  {
+    "id": "typing-test",
+    "name": "Typing Speed Test",
+    "description": "Test your typing speed in words per minute (WPM)",
+    "tags": ["game", "typing", "productivity"],
+    "category": "Games"
+  },
+  {
+    "id": "qr-generator",
+    "name": "QR Code Generator",
+    "description": "Generate QR codes for any text or link",
+    "tags": ["qr", "utility", "generator"],
+    "category": "Generators"
+  },
+  {
+    "id": "image-cropper",
+    "name": "Image Cropper",
+    "description": "Crop, zoom, and download images easily",
+    "tags": ["image", "editor", "utility"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "video-dow",
+    "name": "video downloader",
+    "description": "Download any video from its URL easily and safely.",
+    "tags": ["video", "download", "social"],
+    "category": "Utilities"
+  },
+  {
+    "id": "password-strength-checker",
+    "name": "Password Strength Checker",
+    "description": "Analyze the strength of your password in real-time with visual feedback.",
+    "tags": ["password", "security", "checker", "utility", "strength"],
+    "category": "Utilities"
+  },
+  {
+    "id": "internet-speed-checker",
+    "name": "Internet Speed Checker",
+    "description": "Test your internet download speed, upload speed, and latency (ping).",
+    "tags": ["internet", "speed", "test", "network", "utility"],
+    "category": "Utilities"
+  },
+  {
+    "id": "file-encryption",
+    "name": "File Encryption / Decryption",
+    "description": "Securely encrypt and decrypt files in your browser using a password.",
+    "tags": [
+      "security",
+      "encryption",
+      "decryption",
+      "file",
+      "utility",
+      "crypto"
+    ],
+    "category": "Utilities"
+  },
+  {
+    "id": "qr-scanner",
+    "name": "QR Code Scanner",
+    "description": "Scan QR codes in real-time using your device's camera.",
+    "tags": ["qr", "scanner", "camera", "utility"],
+    "category": "Utilities"
+  },
+  {
+    "id": "file-compressor",
+    "name": "File Compressor (ZIP)",
+    "description": "Compress multiple files into a ZIP archive and decompress ZIP files, all within your browser.",
+    "tags": ["zip", "unzip", "compress", "decompress", "file", "utility"],
+    "category": "Utilities"
+  },
+  {
+    "id": "dictionary-thesaurus",
+    "name": "Dictionary + Thesaurus",
+    "description": "Look up word definitions, phonetics, and synonyms using a free dictionary API.",
+    "tags": ["dictionary", "thesaurus", "words", "api", "language"],
+    "category": "Text & Content"
+  },
+  {
+    "id": "image-compressor",
+    "name": "Image Compressor / Resizer",
+    "description": "Compress and resize images directly in your browser to reduce file size.",
+    "tags": ["image", "compressor", "resizer", "optimizer", "utility"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "image-filters",
+    "name": "Image Editor",
+    "description": "Apply filters, adjustments, rotation, and flips to your images and download the result.",
+    "tags": ["image", "editor", "filters", "rotate", "flip", "photo"],
+    "category": "Fun & Creative"
+  },
+
+  {
+    "id": "virtual-card",
+    "name": "Virtual Business Card",
+    "description": "Create and share a digital business card.",
+    "tags": ["contact", "digital", "card", "utility"],
+    "category": "Productivity & Organization"
+  },
+
+  {
+    "id": "interactive-resume-builder",
+    "name": "Interactive Resume Builder",
+    "description": "Build and customize your professional resume in real-time.",
+    "tags": ["resume", "cv", "builder", "professional", "utility"],
+    "category": "Productivity & Organization"
+  },
+
+  {
+    "id": "social-media-post-scheduler",
+    "name": "Social Media Post Scheduler",
+    "description": "Draft and schedule posts for your social media accounts.",
+    "tags": ["social", "scheduler", "productivity", "utility"],
+    "category": "Productivity & Organization"
+  },
+
+  {
+    "id": "pdf-to-text-extractor",
+    "name": "PDF to Text Extractor",
+    "description": "Extract text content from a PDF file directly in your browser.",
+    "tags": ["pdf", "text", "extractor", "utility", "file"],
+    "category": "Text & Content"
+  },
+
+  {
+    "id": "language-translator",
+    "name": "Language Translator",
+    "description": "Translate text between different languages using a simple API.",
+    "tags": ["language", "translator", "api", "text", "utility"],
+    "category": "Text & Content"
+  },
+
+  {
+    "id": "crypto-price-tracker",
+    "name": "Crypto Price Tracker",
+    "description": "Track the latest prices of top cryptocurrencies.",
+    "tags": ["crypto", "price", "tracker", "api", "finance"],
+    "category": "Finance & Calculators"
+  },
+  {
+    "id": "markdown-to-html-converter",
+    "name": "Markdown to HTML Converter",
+    "description": "Convert Markdown text into HTML in real-time.",
+    "tags": ["markdown", "html", "converter", "text", "utility"],
+    "category": "Text & Content"
+  },
+  {
+    "id": "ecommerce-cart",
+    "name": "E-commerce Shopping Cart",
+    "description": "A simple shopping cart interface for an e-commerce site.",
+    "tags": ["ecommerce", "cart", "shopping", "ui", "utility"],
+    "category": "Forms & UI"
+  },
+  {
+    "id": "blog-comment-system",
+    "name": "Blog Comment System",
+    "description": "A front-end simulation of a nested blog comment section.",
+    "tags": ["blog", "comments", "ui", "utility", "nested"],
+    "category": "Forms & UI"
+  },
+  {
+    "id": "faq",
+    "name": "FAQ Accordion",
+    "description": "A responsive FAQ section using Bootstrap's Accordion component.",
+    "tags": ["ui", "component", "bootstrap", "faq"],
+    "category": "Forms & UI"
+  },
+  {
+    "id": "animated-weather-dashboard",
+    "name": "Animated Weather Dashboard",
+    "description": "A visually engaging weather dashboard with dynamic backgrounds and icons.",
+    "tags": ["weather", "api", "animation", "dashboard"],
+    "category": "Data & API"
+  },
+  {
+    "id": "data-visualization-dashboard",
+    "name": "Data Visualization Dashboard",
+    "description": "An interactive dashboard to visualize data with various chart types using Chart.js.",
+    "tags": ["data", "chart", "visualization", "dashboard"],
+    "category": "Data & API"
+  },
+  {
+    "id": "ai-powered-news-aggregator",
+    "name": "News Aggregator",
+    "description": "Fetches and displays the latest news articles from various sources, powered by a news API.",
+    "tags": ["news", "api", "aggregator", "data"],
+    "category": "AI Tools"
+  },
+  {
+    "id": "instagram-caption-generator",
+    "name": "Instagram Caption / Hashtag Generator",
+    "description": "Generate engaging captions and relevant hashtags for your Instagram posts using AI.",
+    "tags": ["ai", "instagram", "social media", "content", "generator"],
+    "category": "AI Tools"
+  },
+  {
+    "id": "news-headlines",
+    "name": "News Headlines",
+    "description": "Browse the latest top news headlines from various categories.",
+    "tags": ["news", "headlines", "api", "data"],
+    "category": "Data & API"
+  },
+  {
+    "id": "viral-memes",
+    "name": "Viral & Dark Memes",
+    "description": "Browse the latest viral and dark memes from Reddit.",
+    "tags": ["meme", "fun", "api", "generator", "reddit"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "job-application-tracker",
+    "name": "Job Application Tracker",
+    "description": "Organize and track your job applications from submission to offer using local storage.",
+    "tags": ["job", "tracker", "productivity", "organization", "utility"],
+    "category": "Productivity & Organization"
+  },
+  {
+    "id": "pong-game",
+    "name": "Pong Game",
+    "description": "A classic two-player Pong game controlled by the keyboard.",
+    "tags": ["game", "classic", "fun", "multiplayer"],
+    "category": "Games"
+  },
+  {
+    "id": "calendar-with-events",
+    "name": "Calendar with Events",
+    "description": "A dynamic calendar to add, view, and manage events for any date. Events are saved in local storage.",
+    "tags": ["calendar", "events", "scheduler", "productivity", "localstorage"],
+    "category": "Productivity & Organization"
+  },
+  {
+    "id": "file-organizer",
+    "name": "File Organizer",
+    "description": "A client-side file manager to organize virtual files and folders. Data is saved in local storage.",
+    "tags": ["file", "organizer", "manager", "localstorage", "drag-and-drop"],
+    "category": "Productivity & Organization"
+  },
+  {
+    "id": "interactive-flashcard-app",
+    "name": "Interactive Flashcard App",
+    "description": "Create, manage, and study your own set of flashcards. Your cards are saved locally.",
+    "tags": ["study", "flashcards", "learning", "productivity", "localstorage"],
+    "category": "Productivity & Organization"
+  },
+  {
+    "id": "ai-resume-analyzer",
+    "name": "AI Resume Analyzer",
+    "description": "Analyzes a resume against a job description to provide a match score and keyword analysis using AI.",
+    "tags": ["ai", "resume", "jobs", "analyzer", "text", "parser"],
+    "category": "AI Tools"
+  },
+  {
+    "id": "workout-planner",
+    "name": "Workout Planner",
+    "description": "Create and manage your weekly workout schedule. Your plan is saved locally.",
+    "tags": ["workout", "fitness", "planner", "health", "schedule"],
+    "category": "Health & Fitness"
+  },
+  {
+    "id": "water-intake-tracker",
+    "name": "Water Intake Tracker",
+    "description": "Track your daily water consumption to stay hydrated. Progress is saved for the day.",
+    "tags": ["water", "health", "tracker", "hydration", "fitness"],
+    "category": "Health & Fitness"
+  },
+  {
+    "id": "sleep-tracker",
+    "name": "Sleep Tracker",
+    "description": "Log your sleep and track your average sleep duration over time.",
+    "tags": ["sleep", "health", "tracker", "wellness", "productivity"],
+    "category": "Health & Fitness"
+  },
+  {
+    "id": "meditation-timer",
+    "name": "Meditation Timer",
+    "description": "A simple timer for meditation sessions with optional start and end bells.",
+    "tags": [
+      "meditation",
+      "timer",
+      "mindfulness",
+      "health",
+      "focus",
+      "wellness"
+    ],
+    "category": "Health & Fitness"
+  },
+  {
+    "id": "blog-with-ai-content-generator",
+    "name": "Blog with AI Content Generator",
+    "description": "Generate blog post drafts on various topics using an AI assistant.",
+    "tags": ["ai", "blog", "content", "generator", "text"],
+    "category": "AI Tools"
+  },
+  {
+    "id": "code-editor",
+    "name": "Code Editor",
+    "description": "A simple code editor with syntax highlighting for HTML, CSS, and JavaScript.",
+    "tags": ["developer", "code", "editor", "syntax"],
+    "category": "Developer Tools"
+  },
+  {
+    "id": "ai-code-explainer",
+    "name": "AI Code Explainer",
+    "description": "Paste a snippet of code and get a plain English explanation of what it does.",
+    "tags": ["ai", "code", "explainer", "developer", "utility", "text"],
+    "category": "AI Tools"
+  },
+  {
+    "id": "subnet-calculator",
+    "name": "Subnet Calculator",
+    "description": "A tool for network administrators to calculate subnet masks and IP ranges.",
+    "tags": ["network", "ip", "subnet", "cidr", "developer", "utility"],
+    "category": "Developer Tools"
+  },
+  {
+    "id": "public-api-explorer",
+    "name": "Public API Explorer",
+    "description": "A curated list of fun and useful public APIs to explore.",
+    "tags": ["api", "public", "developer", "data", "list", "explorer"],
+    "category": "Developer Tools"
+  },
+  {
+    "id": "company-logo-finder",
+    "name": "Company Logo Finder",
+    "description": "Find and download a company's logo using its domain name.",
+    "tags": ["logo", "finder", "generator", "api", "brand"],
+    "category": "Generators"
+  },
+  {
+    "id": "logo-maker",
+    "name": "Logo Maker",
+    "description": "Create a simple, custom logo with text and an icon, then download it as a PNG.",
+    "tags": ["logo", "maker", "generator", "design", "creative", "brand"],
+    "category": "Generators"
+  },
+  {
+    "id": "unit-converter",
+    "name": "Unit Converter",
+    "description": "Convert various units of measurement like length, weight, and volume.",
+    "tags": ["converter", "utility", "math", "units"],
+    "category": "Calculators"
+  },
+  {
+    "id": "kanban-board",
+    "name": "Kanban Board",
+    "description": "A simple drag-and-drop task board to organize your workflow.",
+    "tags": ["productivity", "task", "board", "organization", "drag-and-drop"],
+    "category": "Productivity & Organization"
+  },
+  {
+    "id": "brainstorm-board",
+    "name": "Mind Map",
+    "description": "Create and organize ideas in a hierarchical mind map with connecting nodes.",
+    "tags": [
+      "productivity",
+      "ideas",
+      "whiteboard",
+      "organization",
+      "drag-and-drop",
+      "mind-map"
+    ],
+    "category": "Productivity & Organization"
+  },
+
+  {
+    "id": "map-viewer",
+    "name": "Geolocation & Map Viewer",
+    "description": "View your current location on an interactive map using Leaflet.js.",
+    "tags": ["map", "location", "geolocation", "api"],
+    "category": "Data & API"
+  },
+  {
+    "id": "country-information-finder",
+    "name": "Country Information Finder",
+    "description": "Look up data about a country (capital, population, flag, etc.) via an API.",
+    "tags": ["country", "data", "api", "geography", "information"],
+    "category": "Data & API"
+  },
+  
+  {
+    "id": "pokedex",
+    "name": "Pokédex",
+    "description": "Search for any Pokémon and get its stats, types, and image.",
+    "tags": ["pokemon", "pokedex", "api", "data", "game"],
+    "category": "Data & API"
+  },
+  {
+    "id": "ip-info-finder",
+    "name": "IP Info / Location Finder",
+    "description": "Get geolocation and ISP information for any IP address.",
+    "tags": ["ip", "location", "geolocation", "network", "api", "utility"],
+    "category": "Data & API"
+  },
+  {
+    "id": "theme-converter",
+    "name": "Theme Converter",
+    "description": "A demonstration of a dark and light mode theme switcher for a component.",
+    "tags": ["theme", "dark mode", "light mode", "ui", "toggle"],
+    "category": "Forms & UI"
+  },
+  {
+    "id": "digital-business-card-generator",
+    "name": "Digital Business Card Generator",
+    "description": "Create a downloadable image of your digital business card.",
+    "tags": ["card", "generator", "image", "contact", "utility"],
+    "category": "Productivity & Organization"
+  },
+  {
+    "id": "interactive-story-builder",
+    "name": "Interactive Story Builder",
+    "description": "Create your own choose-your-own-adventure stories with branching paths.",
+    "tags": ["story", "writing", "creative", "game", "utility"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "emoji-keyboard",
+    "name": "Emoji Keyboard",
+    "description": "Search and copy emojis to your clipboard with this handy keyboard.",
+    "tags": ["emoji", "keyboard", "utility", "fun", "copy"],
+    "category": "Fun & Creative"
+  },
+
+  {
+    "id": "stock-portfolio-tracker",
+    "name": "Stock Portfolio Tracker",
+    "description": "Track your stock portfolio with real-time price data from Finnhub.",
+    "tags": ["stock", "portfolio", "finance", "tracker", "api"],
+    "category": "Finance & Calculators"
+  },
+  {
+    "id": "personal-finance-dashboard",
+    "name": "Personal Finance Dashboard",
+    "description": "A dashboard to track your assets, liabilities, and net worth.",
+    "tags": ["finance", "dashboard", "net worth", "assets", "liabilities"],
+    "category": "Finance & Calculators"
+  },
+  {
+    "id": "virtual-whiteboard",
+    "name": "Virtual Whiteboard",
+    "description": "A simple drawing board to sketch ideas, with color, size, and eraser tools.",
+    "tags": ["drawing", "canvas", "whiteboard", "creative", "utility"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "text-based-adventure-game",
+    "name": "Text-Based Adventure Game",
+    "description": "A classic choose-your-own-adventure game driven by text and choices.",
+    "tags": ["game", "fun", "story", "adventure", "text"],
+    "category": "Games"
+  },
+  {
+    "id": "whac-a-mole",
+    "name": "Whac-A-Mole",
+    "description": "A classic arcade game to test your reaction speed.",
+    "tags": ["game", "fun", "arcade", "reaction"],
+    "category": "Games"
+  },
+  {
+    "id": "minesweeper",
+    "name": "Minesweeper",
+    "description": "The classic logic puzzle game of clearing a board without hitting any mines.",
+    "tags": ["game", "fun", "logic", "puzzle", "classic"],
+    "category": "Games"
+  },
+  {
+    "id": "magic-8-ball",
+    "name": "Magic 8-Ball",
+    "description": "Ask a yes/no question and get a mysterious answer from the classic toy.",
+    "tags": ["fun", "game", "random", "creative"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "drug-recall-finder",
+    "name": "Drug Recall Finder",
+    "description": "Search for drug recall information from the openFDA database.",
+    "tags": ["fda", "drug", "recall", "health", "api", "medical"],
+    "category": "Health & Fitness"
+  },
+  {
+    "id": "dog-generator",
+    "name": "Random Dog Image Generator",
+    "description": "Fetches and displays a random dog picture from an API.",
+    "tags": ["dog", "image", "generator", "api", "fun", "animal"],
+    "category": "Fun & Creative"
+  },
+ 
+  {
+    "id": "lyrics-finder",
+    "name": "Lyrics Finder",
+    "description": "Find the lyrics for any song by artist and title.",
+    "tags": ["lyrics", "music", "api", "finder", "song"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "rick-and-morty-finder",
+    "name": "Rick and Morty Character Finder",
+    "description": "Search for characters from Rick and Morty and view their details.",
+    "tags": ["rick and morty", "api", "finder", "character", "fun"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "tarot-card-reading",
+    "name": "Tarot Card Reading",
+    "description": "A fun, simulated tarot card pull for daily guidance.",
+    "tags": ["fun", "creative", "tarot", "divination", "guidance"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "never-have-i-ever",
+    "name": "Never Have I Ever Generator",
+    "description": "Provides prompts for the popular party game.",
+    "tags": ["fun", "game", "party", "generator", "creative"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "would-you-rather",
+    "name": "Would You Rather",
+    "description": "A simple game that presents you with two difficult choices.",
+    "tags": ["fun", "game", "dilemma", "creative"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "color-palette-generator",
+    "name": "Color Palette Generator",
+    "description": "Pick a color and generate harmonious color palettes, tints, and shades.",
+    "tags": ["color", "palette", "generator", "design", "ui", "hex"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "gif-generator",
+    "name": "GIF Generator",
+    "description": "Search for and discover GIFs using the Tenor API.",
+    "tags": ["gif", "fun", "generator", "api", "tenor"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "music-player",
+    "name": "Music Information Finder",
+    "description": "Search for song, artist, and album information using the MusicBrainz API.",
+    "tags": [
+      "music",
+      "info",
+      "metadata",
+      "fun",
+      "api",
+      "search",
+      "musicbrainz"
+    ],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "white-noise-player",
+    "name": "Ambient & White Noise Player",
+    "description": "Play calming ambient sounds like rain, forest, or white noise to help you focus or relax.",
+    "tags": [
+      "audio",
+      "sound",
+      "music",
+      "focus",
+      "relax",
+      "ambient",
+      "white noise"
+    ],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "loan-calculator",
+    "name": "Loan Calculator",
+    "description": "Calculate monthly payments for a loan based on amount, rate, and term.",
+    "tags": ["finance", "calculator", "loan", "math"],
+    "category": "Finance & Calculators"
+  },
+  {
+    "id": "dice-roller",
+    "name": "Dice Roller",
+    "description": "A simple tool to roll one or more virtual dice.",
+    "tags": ["fun", "game", "random", "utility"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "morse-code-translator",
+    "name": "Morse Code Translator",
+    "description": "Translate text to and from Morse code in real-time.",
+    "tags": ["text", "translator", "morse", "utility"],
+    "category": "Text & Content"
+  },
+  {
+    "id": "text-styler",
+    "name": "Text Styler",
+    "description": "Apply various case styles, reverse text, and see character/word counts.",
+    "tags": ["text", "styler", "formatter", "case", "utility"],
+    "category": "Text & Content"
+  },
+  {
+    "id": "countdown-to-new-year",
+    "name": "Countdown to New Year",
+    "description": "A live countdown timer to the next New Year's Day.",
+    "tags": ["time", "countdown", "event", "fun"],
+    "category": "Productivity & Organization"
+  },
+  {
+    "id": "connect-four",
+    "name": "Connect Four",
+    "description": "The classic two-player game of getting four tokens in a row.",
+    "tags": ["game", "fun", "classic", "strategy", "multiplayer"],
+    "category": "Games"
+  },
+  {
+    "id": "asteroids",
+    "name": "Asteroids Game",
+    "description": "The classic space-shooter arcade game. Destroy asteroids and survive!",
+    "tags": ["game", "fun", "classic", "arcade", "shooter", "space"],
+    "category": "Games"
+  },
+  {
+    "id": "flappy-bird",
+    "name": "Flappy Bird Clone",
+    "description": "The classic and addictive Flappy Bird game. Click or press space to flap.",
+    "tags": ["game", "fun", "classic", "arcade", "flappy"],
+    "category": "Games"
+  },
+  {
+    "id": "space-invaders",
+    "name": "Space Invaders",
+    "description": "Defend against waves of descending aliens in this classic arcade game.",
+    "tags": ["game", "fun", "classic", "arcade", "shooter", "space"],
+    "category": "Games"
+  },
+
+  {
+    "id": "brick-breaker",
+    "name": "Brick Breaker",
+    "description": "The classic arcade game where you control a paddle to bounce a ball and break bricks.",
+    "tags": ["game", "fun", "classic", "arcade", "breakout"],
+    "category": "Games"
+  },
+  {
+    "id": "ascii-art-generator",
+    "name": "ASCII Art Generator",
+    "description": "Converts an image into text-based ASCII art.",
+    "tags": ["ascii", "art", "generator", "image", "text", "creative"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "fake-post-generator",
+    "name": "Fake Post Generator",
+    "description": "Create realistic-looking fake social media posts or news headline images.",
+    "tags": ["fake", "tweet", "news", "generator", "image", "social media"],
+    "category": "Fun & Creative"
+  },
+
+  {
+    "id": "sudoku",
+    "name": "Sudoku",
+    "description": "The classic number puzzle game with a generator and solver.",
+    "tags": ["game", "puzzle", "logic", "sudoku", "numbers"],
+    "category": "Games"
+  },
+  {
+    "id": "dad-joke-generator",
+    "name": "Dad Joke Generator",
+    "description": "Fetches a random, cringeworthy dad joke from an API.",
+    "tags": ["fun", "joke", "generator", "api", "creative"],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "this-or-that-superhero",
+    "name": "This or That: Superhero",
+    "description": "Choose between two superheroes.",
+    "category": "Games",
+    "tags": ["game", "superhero", "this or that", "would you rather"]
+  },
+  {
+    "id": "coin-toss-simulator",
+    "name": "Coin Toss Simulator",
+    "description": "A simple, animated coin toss simulator to make quick decisions.",
+    "category": "Fun & Creative",
+    "tags": ["fun", "game", "random", "utility", "coin"]
+  },
+  {
+    "id": "maze-solver",
+    "name": "Maze Solver",
+    "description": "Navigate a randomly generated maze using your keyboard.",
+    "category": "Games",
+    "tags": ["game", "puzzle", "maze", "logic", "keyboard"]
+  },
+  {
+    "id": "daily-journal",
+    "name": "Daily Journal",
+    "description": "A simple app to write and save daily journal entries using local storage.",
+    "tags": ["journal", "writing", "productivity", "localstorage"],
+    "category": "Productivity & Organization"
+  },
+  {
+    "id": "reminder-tool",
+    "name": "Reminder Tool",
+    "description": "Set reminders that trigger browser notifications at a specified time.",
+    "tags": ["reminder", "notification", "productivity", "utility"],
+    "category": "Productivity & Organization"
+  },
+  {
+    "id": "study-helper",
+    "name": "Study Helper",
+    "description": "A focused study session tool with an integrated Pomodoro timer and a session-specific task list.",
+    "tags": ["study", "pomodoro", "timer", "tasks", "productivity", "focus"],
+    "category": "Productivity & Organization"
+  },
+
+  {
+    "id": "2048-game",
+    "name": "2048 Game",
+    "description": "The classic sliding puzzle game. Use arrow keys to merge tiles and reach 2048.",
+    "category": "Games",
+    "tags": ["game", "puzzle", "logic", "math", "keyboard"]
+  },
+  {
+    "id": "ai-chat-assistant",
+    "name": "AI Chat Assistant",
+    "description": "Chat with a simulated AI assistant to get answers to your questions.",
+    "tags": ["ai", "chat", "assistant", "bot", "gemini"],
+    "category": "AI Tools"
+  },
+  {
+    "id": "ai-text-rewriter",
+    "name": "AI Text Rewriter",
+    "description": "Rewrite your text to be more formal, casual, concise, or expanded using AI.",
+    "tags": ["ai", "text", "content", "writing", "rewriter", "formatter"],
+    "category": "AI Tools"
+  },
+  {
+    "id": "email-writer",
+    "name": "Email Writer / Corrector",
+    "description": "Correct grammar, change the tone of your emails, or generate new emails from a prompt using AI.",
+    "tags": ["ai", "email", "writing", "grammar", "corrector", "productivity"],
+    "category": "AI Tools"
+  },
+  {
+    "id": "image-enhancer",
+    "name": "AI Image Enhancer",
+    "description": "Automatically enhance your images with a single click using a smart filter.",
+    "tags": ["image", "enhancer", "filter", "photo", "editor"],
+    "category": "AI Tools"
+  },
+  {
+    "id": "icon-finder",
+    "name": "Icon Finder",
+    "description": "Search and copy Font Awesome icons to your clipboard.",
+    "tags": ["icon", "finder", "fontawesome", "developer", "ui", "design"],
+    "category": "Developer Tools"
+  },
+  {
+    "id": "ai-image-generator",
+    "name": "AI Image Generator",
+    "description": "A simulation of an AI that generates images from text prompts.",
+    "tags": ["ai", "image", "generator", "creative", "dalle", "simulation"],
+    "category": "AI Tools"
+  },
+  {
+    "id": "thumbnail-generator",
+    "name": "Thumbnail Generator",
+    "description": "Create custom thumbnails for videos or articles with custom text and backgrounds.",
+    "tags": [
+      "thumbnail",
+      "image",
+      "generator",
+      "creative",
+      "youtube",
+      "design"
+    ],
+    "category": "Fun & Creative"
+  },
+  {
+    "id": "image-to-pdf",
+    "name": "Image to PDF Generator",
+    "description": "Convert one or more images (JPEG, PNG) into a single PDF file.",
+    "tags": ["image", "pdf", "converter", "generator", "utility", "file"],
+    "category": "Utilities"
+  },
+
+  {
+    "id": "music-downloader",
+    "name": "Royalty-Free Music Downloader",
+    "description": "Search for and download royalty-free music tracks from the Pixabay API.",
+    "tags": ["music", "downloader", "audio", "royalty-free", "api", "creative"],
+    "category": "Fun & Creative"
+  }
+]

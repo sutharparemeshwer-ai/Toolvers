@@ -1,0 +1,25 @@
+<div class="card p-4 mx-auto" style="max-width: 800px;">
+    <h4 class="mb-4 text-center"><i class="fa-solid fa-paintbrush"></i> Basic Drawing App</h4>
+    
+    <div class="d-flex justify-content-center gap-3 mb-3 p-3 mytool rounded">
+        
+        <label class="d-flex align-items-center gap-2">
+            Color: 
+            <input type="color" id="color-picker" value="#37bca4" class="form-control form-control-color">
+        </label>
+        
+        <label class="d-flex align-items-center gap-2">
+            Size: 
+            <input type="range" id="size-slider" min="1" max="50" value="5" class="form-range" style="width: 100px;">
+        </label>
+        
+        <button class="btn btn-danger" id="clear-btn">Clear Canvas</button>
+    </div>
+
+    <div class="text-center border border-secondary rounded">
+        <canvas id="drawing-canvas" width="750" height="450" style="background-color: white; cursor: crosshair;">
+            Your browser does not support the HTML Canvas element.
+        </canvas>
+    </div>
+    <p class="small text-muted text-center mt-3">Click and drag to draw!</p>
+</div>

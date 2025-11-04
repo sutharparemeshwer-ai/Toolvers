@@ -1,0 +1,26 @@
+<br><br><br><br>
+<div class="card p-4 mytool">
+  <h4 class="mb-4"><i class="fa-solid fa-note-sticky"></i> Local Notes App</h4>
+  
+  <div class="card p-3 mb-4 shadow-sm" style="background-color: #3e3f3f;">
+    <h5>New Note</h5>
+    <form id="note-form">
+      <div class="mb-3">
+        <label for="note-title" class="form-label small">Title</label>
+        <input type="text" class="form-control" id="note-title" required placeholder="My Awesome Note Title">
+      </div>
+      <div class="mb-3">
+        <label for="note-content" class="form-label small">Content</label>
+        <textarea class="form-control" id="note-content" rows="4" required placeholder="Write your note content here..."></textarea>
+      </div>
+      <button type="submit" id="save-note-btn" class="btn btn-light">Save Note</button>
+      <button type="button" id="cancel-edit-btn" class="btn btn-secondary d-none">Cancel Edit</button>
+    </form>
+  </div>
+
+  <h5 class="mt-4">Saved Notes</h5>
+  <div id="notes-list" class="row row-cols-1 row-cols-md-2 g-3">
+    <div class="col"><p class="text-muted">Loading notes...</p></div>
+  </div>
+  
+</div>

@@ -1,0 +1,27 @@
+<!-- tools/this-or-that-superhero.html -->
+<div class="container-fluid mt-4 text-center">
+    <h4 class="mb-4 text-light"><i class="fa-solid fa-bolt me-2"></i> This or That: Superhero Edition</h4>
+
+    <div class="card p-4 mx-auto" style="max-width: 600px;">
+        <!-- Question Area -->
+        <div id="superhero-question-container">
+            <h5 id="superhero-question-title" class="mb-2">Who would you rather have on your team?</h5>
+            <p id="superhero-progress-text" class="text-muted small mb-4">Question 1 of 12</p>
+            <div class="d-grid gap-3">
+                <button id="superhero-option-1" class="btn btn-lg btn-primary">Option 1</button>
+                <button id="superhero-option-2" class="btn btn-lg btn-info">Option 2</button>
+            </div>
+        </div>
+
+        <!-- Final Result Area -->
+        <div id="superhero-result-container" class="d-none">
+            <div id="superhero-result-text" class="mb-4">
+                <!-- Chosen heroes will be injected here as badges -->
+            </div>
+            <div id="superhero-opponent-result-text" class="mb-4">
+                <!-- Opponent heroes will be injected here -->
+            </div>
+            <button id="superhero-play-again-btn" class="btn btn-warning">Play Again <i class="fa-solid fa-redo"></i></button>
+        </div>
+    </div>
+</div>

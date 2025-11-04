@@ -1,0 +1,27 @@
+<!-- tools/public-api-explorer.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center">
+    <i class="fa-solid fa-rocket me-2"></i> Public API Explorer
+  </h4>
+
+  <div class="card p-3 p-md-4 mx-auto" style="max-width: 1000px">
+    <!-- Search/Filter Bar -->
+    <div class="input-group mb-4">
+      <span class="input-group-text"><i class="fa-solid fa-search"></i></span>
+      <input
+        type="text"
+        id="api-search-input"
+        class="form-control"
+        placeholder="Search APIs by name, category, or description..."
+      />
+    </div>
+
+    <!-- API List Container -->
+    <div id="api-list-container" class="row row-cols-1 row-cols-md-2 g-4">
+      <!-- API cards will be injected here -->
+    </div>
+    <p id="no-apis-found" class="text-center text-muted d-none">
+      No APIs found matching your search.
+    </p>
+  </div>
+</div>

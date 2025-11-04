@@ -1,0 +1,41 @@
+<!-- tools/age.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center text-light">
+    <i class="fa-solid fa-cake-candles me-2"></i> Age Calculator
+  </h4>
+
+  <div class="card p-3 p-md-4 mx-auto" style="max-width: 500px">
+    <form id="age-form">
+      <div class="mb-3">
+        <label for="dob" class="form-label">Enter your date of birth:</label>
+        <input type="date" id="dob" class="form-control" />
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Calculate Age</button>
+    </form>
+
+    <!-- New, Improved Result Section -->
+    <div id="age-result-container" class="mt-4 text-center d-none">
+      <div class="row g-2 justify-content-center">
+        <div class="col">
+          <div class="p-3 bg-dark rounded">
+            <div id="age-years" class="display-6 fw-bold">--</div>
+            <small>Years</small>
+          </div>
+        </div>
+        <div class="col">
+          <div class="p-3 bg-dark rounded">
+            <div id="age-months" class="display-6 fw-bold">--</div>
+            <small>Months</small>
+          </div>
+        </div>
+        <div class="col">
+          <div class="p-3 bg-dark rounded">
+            <div id="age-days" class="display-6 fw-bold">--</div>
+            <small>Days</small>
+          </div>
+        </div>
+      </div>
+      <p id="age-error" class="text-danger mt-3 small"></p>
+    </div>
+  </div>
+</div>

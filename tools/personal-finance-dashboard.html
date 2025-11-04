@@ -1,0 +1,88 @@
+<!-- tools/personal-finance-dashboard.html -->
+<div class="container-fluid mt-4">
+    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-wallet me-2"></i> Personal Finance Dashboard</h4>
+
+    <!-- Summary Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card text-center p-3">
+                <p class="mb-1 small">Net Worth</p>
+                <h4 id="net-worth-value" class="fw-bold">$0.00</h4>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center p-3">
+                <p class="mb-1 small">Total Assets</p>
+                <h4 id="total-assets-value" class="fw-bold text-success">$0.00</h4>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center p-3">
+                <p class="mb-1 small">Total Liabilities</p>
+                <h4 id="total-liabilities-value" class="fw-bold text-danger">$0.00</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Left Column: Chart and Accounts -->
+        <div class="col-lg-7">
+            <div class="card p-3 mb-4">
+                <h5 class="mb-3">Asset Allocation</h5>
+                <div style="height: 300px; position: relative;">
+                    <canvas id="allocation-chart"></canvas>
+                </div>
+            </div>
+            <div class="card p-3">
+                <h5 class="mb-3">Accounts & Balances</h5>
+                <div id="accounts-list">
+                    <!-- Accounts will be rendered here by JS -->
+                </div>
+                <p id="no-accounts-message" class="text-center text-muted mt-3">No accounts added yet.</p>
+            </div>
+        </div>
+
+        <!-- Right Column: Add Item Form -->
+        <div class="col-lg-5">
+            <div class="card p-3">
+                <h5 class="mb-3">Add New Item</h5>
+                <form id="finance-item-form">
+                    <div class="mb-3">
+                        <label for="item-name" class="form-label">Item Name</label>
+                        <input type="text" id="item-name" class="form-control" placeholder="e.g., Savings Account, Car Loan" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="item-type" class="form-label">Item Type</label>
+                        <select id="item-type" class="form-select" required>
+                            <option value="asset">Asset</option>
+                            <option value="liability">Liability</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="item-category" class="form-label">Category</label>
+                        <select id="item-category" class="form-select" required>
+                            <option value="Cash">Cash & Equivalents</option>
+                            <option value="Investments">Investments</option>
+                            <option value="Property">Property</option>
+                            <option value="Loan">Loan</option>
+                            <option value="Credit Card">Credit Card Debt</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="item-value" class="form-label">Current Value ($)</label>
+                        <input type="number" id="item-value" class="form-control" step="0.01" placeholder="e.g., 5000.00" required>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Add Item</button>
+                    </div>
+                </form>
+            </div>
+            <div class="text-end mt-3">
+                <button id="clear-all-btn" class="btn btn-sm btn-outline-danger">
+                    Clear All Data
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

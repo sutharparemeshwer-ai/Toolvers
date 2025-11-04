@@ -1,0 +1,45 @@
+<!-- tools/ai-image-generator.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center">
+    <i class="fa-solid fa-palette me-2"></i> AI Image Generator
+  </h4>
+
+  <div class="card p-3">
+    <div class="mb-3">
+      <label for="image-prompt-input" class="form-label"
+        >Enter a prompt to generate an image:</label
+      >
+      <textarea
+        id="image-prompt-input"
+        class="form-control"
+        rows="3"
+        placeholder="e.g., A photorealistic cat wearing a spacesuit on Mars"
+      ></textarea>
+    </div>
+
+    <div class="d-grid mb-3">
+      <button id="generate-image-btn" class="btn btn-primary btn-lg">
+        <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Generate Image
+      </button>
+    </div>
+
+    <div id="image-result-container" class="text-center mt-3 d-none">
+      <div id="image-status" class="mb-3"></div>
+      <img
+        id="generated-image-preview"
+        class="img-fluid rounded border bg-dark"
+        alt="Generated Image"
+        style="max-height: 512px"
+      />
+      <a
+        id="download-image-btn"
+        class="btn btn-success mt-3 d-none"
+        href="#"
+        download="ai-generated-image.png"
+      >
+        <i class="fa-solid fa-download me-2"></i> Download Image
+      </a>
+    </div>
+  
+  </div>
+</div>

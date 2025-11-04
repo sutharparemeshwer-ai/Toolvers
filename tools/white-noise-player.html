@@ -1,0 +1,48 @@
+<!-- tools/white-noise-player.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center text-light">
+    <i class="fa-solid fa-headphones me-2"></i> Ambient & White Noise Player
+  </h4>
+
+  <div class="card p-3 p-md-4 mx-auto text-center" style="max-width: 600px">
+    <h5 id="current-sound-display" class="mb-4">Select a sound to begin</h5>
+
+    <!-- Sound Selection Buttons -->
+    <div
+      id="sound-buttons-container"
+      class="d-flex flex-wrap justify-content-center gap-2 mb-4"
+    >
+      <button class="btn btn-outline-primary sound-btn" data-sound="rain">
+        <i class="fa-solid fa-cloud-showers-heavy me-2"></i> Rain
+      </button>
+      <button class="btn btn-outline-primary sound-btn" data-sound="forest">
+        <i class="fa-solid fa-tree me-2"></i> Forest
+      </button>
+    </div>
+
+    <!-- Playback Controls -->
+    <div
+      class="d-flex align-items-center justify-content-center border-top pt-4"
+    >
+      <button id="play-pause-btn" class="btn btn-lg btn-primary me-4" disabled>
+        <i class="fa-solid fa-play"></i>
+      </button>
+      <div class="flex-grow-1">
+        <label for="volume-slider" class="form-label small text-muted"
+          >Volume</label
+        >
+        <input
+          type="range"
+          id="volume-slider"
+          class="form-range"
+          min="0"
+          max="1"
+          step="0.05"
+          value="0.7"
+        />
+      </div>
+    </div>
+  </div>
+
+  <audio id="audio-player" loop></audio>
+</div>

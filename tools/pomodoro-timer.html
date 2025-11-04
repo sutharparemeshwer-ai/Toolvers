@@ -1,0 +1,20 @@
+<div id="pomodoro-container" class="card p-4 mx-auto" style="max-width: 450px;">
+    <h4 class="mb-4 text-center"><i class="fa-solid fa-hourglass-start"></i> Pomodoro Timer</h4>
+    
+    <div class="d-flex justify-content-center mb-4">
+        <button id="pomodoro-mode-btn" class="btn btn-lg mx-2 active" data-mode="pomodoro">Pomodoro (25m)</button>
+        <button id="break-mode-btn" class="btn btn-lg mx-2" data-mode="break">Break (5m)</button>
+    </div>
+
+    <div class="text-center mb-4">
+        <h1 id="timer-display" class="display-1 fw-bold">25:00</h1>
+        <p id="status-message" class="text-muted">Time to focus!</p>
+    </div>
+
+    <div class="d-flex justify-content-center gap-3">
+        <button id="start-pause-btn" class="btn btn-success btn-lg">START</button>
+        <button id="reset-btn" class="btn btn-outline-secondary btn-lg" disabled>
+            <i class="fa-solid fa-rotate-right"></i>
+        </button>
+    </div>
+</div>

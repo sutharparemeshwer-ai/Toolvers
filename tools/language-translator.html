@@ -1,0 +1,30 @@
+<!-- tools/language-translator.html -->
+<div class="container mt-4">
+    <div class="card p-4 mx-auto" style="max-width: 800px;">
+        <h4 class="mb-4 text-center"><i class="fa-solid fa-language me-2"></i> Language Translator</h4>
+
+        <div class="row">
+            <!-- Source Language -->
+            <div class="col-md-6">
+                <label for="source-text" class="form-label">Text to Translate (English):</label>
+                <textarea id="source-text" class="form-control" rows="8" placeholder="Enter text here..."></textarea>
+            </div>
+
+            <!-- Target Language -->
+            <div class="col-md-6">
+                <label for="target-lang" class="form-label">Translate To:</label>
+                <select id="target-lang" class="form-select mb-2">
+                    <option value="hi">Hindi</option>
+                    <option value="fr">French</option>
+                    <option value="es">Spanish</option>
+                    <option value="de">German</option>
+                    <option value="ja">Japanese</option>
+                </select>
+                <textarea id="translated-text" class="form-control" rows="7" readonly placeholder="Translation will appear here..."></textarea>
+            </div>
+        </div>
+
+        <button id="translate-btn" class="btn btn-primary w-100 mt-3">Translate</button>
+        <div id="translator-status" class="text-center small text-muted mt-2"></div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<!-- tools/weather-app.html -->
+<div class="container mt-4">
+    <div class="card p-4 mx-auto" style="max-width: 450px;">
+        <h4 class="mb-4 text-center"><i class="fa-solid fa-cloud-sun me-2"></i> Weather App</h4>
+
+        <!-- Search Bar -->
+        <div class="input-group mb-3">
+            <input type="text" id="city-input" class="form-control" placeholder="Enter city name..." aria-label="City name">
+            <button class="btn btn-primary" type="button" id="search-btn"><i class="fa-solid fa-search"></i></button>
+        </div>
+        <div class="text-center mb-3">
+            <button class="btn btn-secondary btn-sm" id="location-btn">
+                <i class="fa-solid fa-location-crosshairs me-2"></i>Use My Location
+            </button>
+        </div>
+
+        <!-- Status Messages -->
+        <div id="weather-status" class="text-center my-3">
+            <!-- Loading spinner or error messages will appear here -->
+        </div>
+
+        <!-- Weather Display (Initially Hidden) -->
+        <div id="weather-display" class="d-none">
+            <!-- Main Info -->
+            <div class="text-center text-light">
+                <img id="weather-icon" src="" alt="Weather icon" style="width: 100px; height: 100px;">
+                <h1 id="temperature" class="display-4 fw-bold">--°C</h1>
+                <p id="weather-description" class="lead text-capitalize">--</p>
+                <p id="city-name" class="h5 ">--, --</p>
+            </div>
+
+            <hr class="my-4">
+
+            <!-- Detailed Info -->
+            <div class="row text-center text-light">
+                <div class="col-4">
+                    <i class="fa-solid fa-temperature-half fa-2x mb-2 text-primary"></i>
+                    <p class="mb-0 fw-bold" id="feels-like">--°C</p>
+                    <p class="small text-muted">Feels Like</p>
+                </div>
+                <div class="col-4">
+                    <i class="fa-solid fa-droplet fa-2x mb-2 text-primary"></i>
+                    <p class="mb-0 fw-bold" id="humidity">--%</p>
+                    <p class="small text-muted">Humidity</p>
+                </div>
+                <div class="col-4">
+                    <i class="fa-solid fa-wind fa-2x mb-2 text-primary"></i>
+                    <p class="mb-0 fw-bold" id="wind-speed">-- m/s</p>
+                    <p class="small text-muted">Wind</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

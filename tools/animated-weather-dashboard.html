@@ -1,0 +1,62 @@
+<!-- tools/animated-weather-dashboard.html -->
+<div id="weather-container" class="weather-container">
+  <div class="card weather-card mx-auto p-4">
+    <h4 class="mb-4 text-center">
+      <i class="fa-solid fa-wind me-2"></i> Animated Weather
+    </h4>
+
+    <!-- Search -->
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        id="weather-city-input"
+        class="form-control"
+        placeholder="Enter city name..."
+      />
+      <button class="btn btn-primary" type="button" id="weather-search-btn">
+        <i class="fa-solid fa-search"></i>
+      </button>
+    </div>
+    <div class="text-center mb-3">
+      <button class="btn btn-secondary btn-sm" id="weather-location-btn">
+        <i class="fa-solid fa-location-crosshairs me-2"></i> Use My Location
+      </button>
+    </div>
+
+    <!-- Status -->
+    <div id="weather-status-new" class="text-center my-3"></div>
+
+    <!-- Display -->
+    <div id="weather-display-new" class="d-none text-center">
+      <p id="weather-city" class="h5">--, --</p>
+      <p id="weather-desc" class="lead text-capitalize mb-4">--</p>
+
+      <div
+        class="weather-main-display d-flex justify-content-center align-items-center my-3"
+      >
+        <div id="weather-icon-container" class="me-3">
+          <!-- Animated icon will go here -->
+        </div>
+        <h1 id="weather-temp" class="display-1 fw-bold mb-0">--°</h1>
+      </div>
+
+      <div class="weather-details-grid mt-4">
+        <div class="detail-item">
+          <i class="fa-solid fa-temperature-half"></i>
+          <p id="weather-feels-like">--°</p>
+          <small>Feels Like</small>
+        </div>
+        <div class="detail-item">
+          <i class="fa-solid fa-droplet"></i>
+          <p id="weather-humidity">--%</p>
+          <small>Humidity</small>
+        </div>
+        <div class="detail-item">
+          <i class="fa-solid fa-wind"></i>
+          <p id="weather-wind-speed">-- m/s</p>
+          <small>Wind</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

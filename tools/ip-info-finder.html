@@ -1,0 +1,67 @@
+<!-- tools/ip-info-finder.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center text-light">
+    <i class="fa-solid fa-location-dot me-2"></i> IP Info / Location Finder
+  </h4>
+
+  <div class="card p-3 p-md-4 mx-auto" style="max-width: 700px">
+    <!-- Input -->
+    <div class="mb-3">
+      <label for="ip-input" class="form-label"
+        >Enter IP Address (leave blank for your IP):</label
+      >
+      <div class="input-group">
+        <input
+          type="text"
+          id="ip-input"
+          class="form-control"
+          placeholder="e.g., 8.8.8.8"
+        />
+        <button id="find-ip-btn" class="btn btn-primary">Find Info</button>
+      </div>
+    </div>
+
+    <!-- Status Message -->
+    <p id="ip-status" class="text-center small mt-2"></p>
+
+    <!-- Results -->
+    <div id="ip-results-container" class="d-none">
+      <ul class="list-group">
+        <li
+          class="list-group-item d-flex justify-content-between align-items-center"
+        >
+          IP Address
+          <strong id="result-ip">--</strong>
+        </li>
+        <li
+          class="list-group-item d-flex justify-content-between align-items-center"
+        >
+          Location
+          <strong id="result-location">--</strong>
+        </li>
+        <li
+          class="list-group-item d-flex justify-content-between align-items-center"
+        >
+          ISP
+          <strong id="result-isp">--</strong>
+        </li>
+        <li
+          class="list-group-item d-flex justify-content-between align-items-center"
+        >
+          Organization
+          <strong id="result-org">--</strong>
+        </li>
+      </ul>
+      <div class="text-center mt-3">
+        <a
+          id="map-link"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-secondary btn-sm"
+          >View on Map</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

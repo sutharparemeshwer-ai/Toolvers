@@ -1,0 +1,109 @@
+<!-- tools/meditation-timer.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center text-light">
+    <i class="fa-solid fa-om me-2"></i> Meditation Timer
+  </h4>
+
+  <div class="card p-3 p-md-4 mx-auto text-center" style="max-width: 500px">
+    <!-- Timer Display -->
+    <div id="meditation-timer-display" class="display-1 fw-bold my-4">
+      10:00
+    </div>
+
+    <!-- Controls -->
+    <div class="mb-4">
+      <button
+        id="meditation-start-pause-btn"
+        class="btn btn-primary btn-lg px-5"
+      >
+        Start
+      </button>
+      <button id="meditation-reset-btn" class="btn btn-secondary btn-lg px-4">
+        Reset
+      </button>
+    </div>
+
+    <!-- Settings -->
+    <div class="border-top pt-4">
+      <h5 class="mb-3">Settings</h5>
+
+      <!-- Duration Setting -->
+      <div class="mb-3 mx-auto" style="max-width: 200px">
+        <label for="meditation-duration-input" class="form-label"
+          >Duration (minutes)</label
+        >
+        <input
+          type="number"
+          class="form-control text-center"
+          id="meditation-duration-input"
+          value="10"
+          min="1"
+        />
+      </div>
+
+      <!-- Sound Settings -->
+      <div class="mb-4">
+        <div class="form-check form-switch d-inline-block me-3">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="start-sound-check"
+            checked
+          />
+          <label class="form-check-label" for="start-sound-check"
+            >Start Bell</label
+          >
+        </div>
+        <div class="form-check form-switch d-inline-block">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="end-sound-check"
+            checked
+          />
+          <label class="form-check-label" for="end-sound-check">End Bell</label>
+        </div>
+      </div>
+
+      <!-- Ambient Sound Setting -->
+      <div class="border-top pt-3">
+        <label for="ambient-sound-select" class="form-label"
+          >Ambient Sound</label
+        >
+        <select
+          id="ambient-sound-select"
+          class="form-select mb-3 mx-auto"
+          style="max-width: 250px"
+        >
+          <option value="none">None</option>
+          <option value="rain">Rain</option>
+          <option value="forest">Forest</option>
+          <option value="ocean">Ocean Waves</option>
+        </select>
+        <label for="ambient-volume-slider" class="form-label small"
+          >Volume</label
+        >
+        <input
+          type="range"
+          class="form-range mx-auto"
+          id="ambient-volume-slider"
+          min="0"
+          max="1"
+          step="0.05"
+          value="0.5"
+          style="max-width: 250px"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Elements (hidden) -->
+  <audio id="start-bell-sound" preload="auto">
+    <!-- Assuming you have a bell sound file in your assets -->
+    <source src="assets/audio/bell-start.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="end-bell-sound" preload="auto">
+    <source src="assets/audio/bell-end.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="ambient-sound" loop preload="auto"></audio>
+</div>

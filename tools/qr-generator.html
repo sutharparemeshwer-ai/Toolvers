@@ -1,0 +1,20 @@
+<div class="card p-4">
+  <h4 class="mb-3">QR Code Generator</h4>
+
+  <div class="mb-3">
+    <label for="qr-input" class="form-label">Enter text or URL</label>
+    <input
+      type="text"
+      id="qr-input"
+      class="form-control"
+      placeholder="e.g. https://github.com/yourname"
+    />
+  </div>
+
+  <button id="generate-qr" class="btn btn-primary mb-3">Generate QR Code</button>
+
+  <div id="qr-result" class="text-center">
+    <canvas id="qr-canvas" class="border rounded p-2"></canvas>
+    <p id="qr-download" class="mt-2"></p>
+  </div>
+</div>

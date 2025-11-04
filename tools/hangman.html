@@ -1,0 +1,27 @@
+<div id="hangman-container" class="card p-4 mx-auto" style="max-width: 600px;">
+    <h4 class="mb-4 text-center"><i class="fa-solid fa-person-falling-danger"></i> Hangman Game</h4>
+    
+    <div class="text-center text-light mb-4">
+        <svg id="hangman-drawing" width="150" height="200" viewbox="0 0 150 200" class="text-light">
+            <line x1="20" y1="190" x2="130" y2="190" stroke="#000" stroke-width="6" />
+            <line x1="20" y1="190" x2="20" y2="10" stroke="#000" stroke-width="6" />
+            <line x1="20" y1="10" x2="100" y2="10" stroke="#000" stroke-width="6" />
+            <line x1="100" y1="10" x2="100" y2="30" stroke="#000" stroke-width="4" />
+        </svg>
+
+        <p id="game-message" class="lead mt-3 text-info">Guess a letter!</p>
+    </div>
+
+    <div class="mb-4 text-center">
+        <h2 id="word-display" class="display-4 fw-bold letter-spacing-lg mb-4"></h2>
+        
+        <p class="mb-0 text-danger">Wrong Guesses: <strong id="wrong-guesses-count">0</strong> / 6</p>
+    </div>
+
+    <div id="keyboard-container" class="d-flex flex-wrap justify-content-center">
+        </div>
+
+    <div class="mt-4 text-center">
+        <button id="reset-btn" class="btn btn-outline-primary w-50">New Game</button>
+    </div>
+</div>

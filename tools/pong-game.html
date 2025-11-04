@@ -1,0 +1,33 @@
+<!-- tools/pong-game.html -->
+<div class="container-fluid mt-4">
+    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-table-tennis-paddle-ball me-2"></i> Classic Pong Game</h4>
+
+    <div class="card p-3 text-center">
+        <!-- Score Display -->
+        <div class="d-flex justify-content-around align-items-center mb-3">
+            <div>
+                <p class="mb-0">Player 1 Score</p>
+                <h2 id="player1-score" class="display-4 fw-bold">0</h2>
+            </div>
+            <div>
+                <p class="mb-0">Player 2 Score</p>
+                <h2 id="player2-score" class="display-4 fw-bold">0</h2>
+            </div>
+        </div>
+
+        <!-- Game Canvas -->
+        <div class="pong-canvas-container mx-auto">
+            <canvas id="pong-canvas" width="800" height="400"></canvas>
+        </div>
+
+        <!-- Controls and Status -->
+        <div class="mt-3">
+            <p id="pong-game-status" class="fw-bold">Press Start to Play!</p>
+            <button id="pong-start-btn" class="btn btn-primary btn-lg">Start Game</button>
+            <div class="mt-3 text-muted">
+                <p class="mb-0">Player 1 Controls: 'W' (Up), 'S' (Down)</p>
+                <p class="mb-0">Player 2 Controls: 'ArrowUp' (Up), 'ArrowDown' (Down)</p>
+            </div>
+        </div>
+    </div>
+</div>

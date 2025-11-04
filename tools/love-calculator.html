@@ -1,0 +1,26 @@
+<div class="card p-4 mx-auto text-center" style="max-width: 500px;">
+    <h4 class="text-center"><i class="fa-solid fa-heart"></i> Love Calculator</h4>
+    <p class="small mb-4">Enter two names to calculate your compatibility percentage!</p>
+
+    <form id="love-calculator-form">
+        <div class="mb-3">
+            <input type="text" class="form-control" id="name1" placeholder="Enter Your Name" required>
+        </div>
+
+        <div class="mb-4">
+            <input type="text" class="form-control" id="name2" placeholder="Enter Partner's Name" required>
+        </div>
+
+        <button type="submit" class="btn btn-danger w-100 mb-4">Calculate Love %</button>
+    </form>
+    
+    <div id="results-area" class="d-none alert mytool p-3">
+        <h5 class="mb-1">Compatibility Score:</h5>
+        <div class="display-1 fw-bold mb-3" id="love-percentage"></div>
+        <p class="lead" id="love-message"></p>
+    </div>
+
+    <div id="error-message" class="text-danger mt-3 d-none">
+        Please enter both names.
+    </div>
+</div>

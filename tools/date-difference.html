@@ -1,0 +1,46 @@
+<!-- tools/date-difference.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center text-light">
+    <i class="fa-solid fa-calendar-days me-2"></i> Date Difference Calculator
+  </h4>
+
+  <div class="card p-3 p-md-4 mx-auto" style="max-width: 500px">
+    <form id="date-diff-form">
+      <div class="mb-3">
+        <label for="start-date" class="form-label">Start Date:</label>
+        <input type="date" id="start-date" class="form-control" />
+      </div>
+      <div class="mb-3">
+        <label for="end-date" class="form-label">End Date:</label>
+        <input type="date" id="end-date" class="form-control" />
+      </div>
+      <button type="submit" class="btn btn-primary w-100">
+        Calculate Difference
+      </button>
+    </form>
+
+    <div id="date-diff-result-container" class="mt-4 text-center d-none">
+      <div class="row g-2 justify-content-center">
+        <div class="col">
+          <div class="p-3 bg-dark rounded">
+            <div id="date-diff-years" class="display-6 fw-bold">--</div>
+            <small>Years</small>
+          </div>
+        </div>
+        <div class="col">
+          <div class="p-3 bg-dark rounded">
+            <div id="date-diff-months" class="display-6 fw-bold">--</div>
+            <small>Months</small>
+          </div>
+        </div>
+        <div class="col">
+          <div class="p-3 bg-dark rounded">
+            <div id="date-diff-days" class="display-6 fw-bold">--</div>
+            <small>Days</small>
+          </div>
+        </div>
+      </div>
+      <p id="date-diff-error" class="text-danger mt-3 small"></p>
+    </div>
+  </div>
+</div>

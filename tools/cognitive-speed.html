@@ -1,0 +1,32 @@
+<div class="card p-4 mx-auto text-center" style="max-width: 500px;">
+    <h4 class="text-center"><i class="fa-solid fa-brain"></i> Cognitive Speed Test</h4>
+    <p class="small  mb-4">Solve 10 simple problems as fast as possible.</p>
+
+    <div id="game-area">
+        
+        <div class="d-flex justify-content-between mb-4">
+            <p class="lead mb-0">Time: <strong id="timer-display">0.00s</strong></p>
+            <p class="lead mb-0">Problem: <strong id="problem-counter">0/10</strong></p>
+        </div>
+
+        <div class="alert mytool p-4 mb-4">
+            <h1 id="question-display" class="display-4 fw-bold mb-3">Press Start</h1>
+        </div>
+        
+        <form id="answer-form" class="input-group mb-4 d-none">
+            <input type="number" class="form-control form-control-lg" id="answer-input" placeholder="Your Answer" required autofocus>
+            <button class="btn btn-primary btn-lg" type="submit">Submit</button>
+        </form>
+
+        <p id="feedback" class="text-danger mb-4"></p>
+        
+        <button id="start-button" class="btn btn-success btn-lg w-75">Start Test</button>
+    </div>
+
+    <div id="results-area" class="alert mytool p-5 d-none">
+        <h2 class="mb-3">Test Complete!</h2>
+        <p class="lead">Correct Answers: <strong id="final-correct">0</strong> / 10</p>
+        <p class="lead">Final Time: <strong id="final-time">0.00s</strong></p>
+        <button id="restart-button" class="btn btn-success mt-3">Try Again</button>
+    </div>
+</div>

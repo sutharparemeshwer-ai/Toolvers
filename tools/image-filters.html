@@ -1,0 +1,158 @@
+<div class="card p-4 mx-auto" style="max-width: 1000px">
+  <h4 class="mb-4 text-center">
+    <i class="fa-solid fa-pen-ruler"></i> Image Editor
+  </h4>
+
+  <!-- File Input -->
+  <div class="mb-4">
+    <label for="filter-image-input" class="form-label"
+      >Choose an image to apply filters:</label
+    >
+    <input
+      type="file"
+      class="form-control"
+      id="filter-image-input"
+      accept="image/*"
+    />
+  </div>
+
+  <!-- Main Editor Area -->
+  <div id="filter-editor-area" class="d-none">
+    <div class="row g-4">
+      <!-- Filter Controls -->
+      <div class="col-lg-3">
+        <h5>Presets</h5>
+        <div id="preset-buttons" class="d-grid gap-2 mb-4">
+          <button class="btn btn-primary preset-btn" data-filter="none">
+            Original
+          </button>
+          <button
+            class="btn btn-outline-secondary preset-btn"
+            data-filter="grayscale(100%)"
+          >
+            Grayscale
+          </button>
+          <button
+            class="btn btn-outline-secondary preset-btn"
+            data-filter="sepia(100%)"
+          >
+            Sepia
+          </button>
+          <button
+            class="btn btn-outline-secondary preset-btn"
+            data-filter="invert(100%)"
+          >
+            Invert
+          </button>
+        </div>
+
+        <h5>Transform</h5>
+        <div id="transform-buttons" class="d-grid gap-2 mb-4">
+          <div class="btn-group">
+            <button
+              class="btn btn-outline-secondary transform-btn"
+              data-transform="rotate"
+            >
+              <i class="fa-solid fa-rotate-right"></i>
+            </button>
+            <button
+              class="btn btn-outline-secondary transform-btn"
+              data-transform="flip-h"
+            >
+              <i class="fa-solid fa-right-left"></i>
+            </button>
+            <button
+              class="btn btn-outline-secondary transform-btn"
+              data-transform="flip-v"
+            >
+              <i class="fa-solid fa-down-up"></i>
+            </button>
+          </div>
+        </div>
+
+        <h5>Adjustments</h5>
+        <div id="slider-controls">
+          <div class="mb-3">
+            <label for="brightness-slider" class="form-label"
+              >Brightness: <span id="brightness-value">100</span>%</label
+            >
+            <input
+              type="range"
+              class="form-range filter-slider"
+              id="brightness-slider"
+              data-filter="brightness"
+              min="0"
+              max="200"
+              value="100"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="contrast-slider" class="form-label"
+              >Contrast: <span id="contrast-value">100</span>%</label
+            >
+            <input
+              type="range"
+              class="form-range filter-slider"
+              id="contrast-slider"
+              data-filter="contrast"
+              min="0"
+              max="200"
+              value="100"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="saturate-slider" class="form-label"
+              >Saturation: <span id="saturate-value">100</span>%</label
+            >
+            <input
+              type="range"
+              class="form-range filter-slider"
+              id="saturate-slider"
+              data-filter="saturate"
+              min="0"
+              max="200"
+              value="100"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="blur-slider" class="form-label"
+              >Blur: <span id="blur-value">0</span>px</label
+            >
+            <input
+              type="range"
+              class="form-range filter-slider"
+              id="blur-slider"
+              data-filter="blur"
+              min="0"
+              max="10"
+              value="0"
+            />
+          </div>
+        </div>
+        <hr class="my-3" />
+        <a
+          id="download-filtered-btn"
+          class="btn btn-success w-100"
+          download="filtered-image.png"
+          >Download Image</a
+        >
+      </div>
+
+      <!-- Image Preview -->
+      <div class="col-lg-9">
+        <div
+          class="border rounded p-2"
+          style="background-color: var(--bg-color)"
+        >
+          <img
+            id="image-preview"
+            src="#"
+            alt="Image Preview"
+            class="img-fluid"
+            style="transition: filter 0.3s ease-in-out"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

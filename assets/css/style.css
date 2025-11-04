@@ -1,0 +1,3249 @@
+/* --- Font Imports --- */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;700&display=swap");
+
+:root {
+  --bg-color: #1a1d24;
+  --card-bg-color: #252932;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --primary-accent: #56caad;
+  --primary-accent-glow: rgba(86, 202, 173, 0.2);
+  --text-color: #e0e0e0;
+  --text-muted-color: #8892b0;
+
+  /* Typography */
+  --font-family-sans-serif: "Inter", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-family-headings: "Poppins", var(--font-family-sans-serif);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-family-sans-serif);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* --- Typographic Scale --- */
+h1,
+.h1 {
+  font-size: 2.5rem;
+}
+h2,
+.h2 {
+  font-size: 2rem;
+}
+h3,
+.h3 {
+  font-size: 1.75rem;
+}
+h4,
+.h4 {
+  font-size: 1.5rem;
+}
+.mytool {
+  background-color: var(--card-bg-color);
+}
+.btn {
+  background-color: var(--primary-accent);
+  color: #1a1d24;
+  border: none;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+.btn:hover {
+  background-color: var(--primary-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px var(--primary-accent-glow);
+}
+.card {
+  background-color: var(--card-bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: var(--text-color);
+  font-family: var(--font-family-headings);
+  font-weight: 600;
+  line-height: 1.3;
+}
+p {
+  color: var(--text-muted-color);
+}
+label {
+  color: var(--text-color);
+}
+a {
+  color: var(--primary-accent);
+}
+
+body.light-theme {
+  --bg-color: #f8f9fa; /* Neutral light background for the page */
+  --card-bg-color: #b7e4c7; /* Your specified card background */
+  --border-color: #95d5b2;
+  --primary-accent: #2d6a4f; /* Using navbar color as the main accent */
+  --primary-accent-glow: rgba(45, 106, 79, 0.2);
+  --text-color: #212529;
+  --text-muted-color: #495057;
+}
+
+/* --- Custom Scrollbar --- */
+
+body.light-theme .navbar.fixed-top {
+  background-color: #2d6a4f !important;
+  border-bottom-color: #2d6a4f !important;
+}
+
+body.light-theme .navbar-brand h3 {
+  color: #fff !important; /* White text for brand on dark navbar */
+}
+
+body.light-theme #home-list .category-header {
+  color: #000 !important; /* Black for home page category headers */
+}
+
+body.light-theme .main-footer {
+  background-color: #2d6a4f; /* Match the navbar color */
+  border-top-color: #2d6a4f;
+  color: rgba(255, 255, 255, 0.7); /* Lighter text for readability */
+}
+
+body.light-theme .footer-social-links a {
+  color: rgba(255, 255, 255, 0.7); /* Match footer text color */
+}
+
+body.light-theme .footer-social-links a:hover {
+  color: #fff; /* Brighter on hover */
+}
+
+body.light-theme .navbar .form-control {
+  background-color: #fff;
+  border-color: #ced4da;
+}
+
+body.light-theme .navbar .form-control:focus {
+  background-color: #fff;
+}
+
+body.light-theme .btn:hover {
+  background-color: #74c69d;
+}
+
+/* --- Header/Navbar Styling --- */
+.navbar.fixed-top {
+  border-bottom: 1px solid var(--primary-accent);
+  background-color: var(--bg-color) !important;
+}
+
+.navbar .form-control {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+.navbar .form-control:focus {
+  background-color: var(--card-bg-color);
+  color: var(--text-color);
+  border-color: var(--primary-accent);
+  box-shadow: 0 0 0 0.25rem var(--primary-accent-glow);
+}
+.navbar .form-control::placeholder {
+  color: var(--text-muted-color);
+}
+
+/* --- Search Dropdown Styles --- */
+.search-results-dropdown {
+  position: absolute;
+  top: calc(100% + 5px); /* Add a small gap below the search bar */
+  left: 0;
+  right: 0;
+  z-index: 1055; /* Above navbar content */
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem; /* Rounded corners on all sides */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Softer, larger shadow */
+  max-height: 400px;
+  overflow-y: auto;
+  display: none; /* Hidden by default */
+}
+
+.search-result-item {
+  display: flex; /* Use flexbox for alignment */
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.2s ease;
+}
+
+.search-result-item:first-child {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.search-result-item:hover {
+  background-color: var(--primary-accent-glow);
+}
+
+.search-result-icon {
+  font-size: 1.5rem;
+  color: var(--primary-accent);
+  margin-right: 1rem;
+  width: 24px; /* Fixed width for alignment */
+  text-align: center;
+}
+
+.search-result-name {
+  color: var(--text-color);
+  font-weight: 600;
+  display: block; /* Ensure it takes its own line */
+}
+
+.search-result-desc {
+  color: var(--text-muted-color);
+  font-size: 0.85rem;
+  display: block;
+}
+
+/* --- Page Load Animation --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#main-content {
+  animation: fadeIn 0.5s ease-in-out;
+}
+/* --- New Sidebar/List Styling --- */
+
+/* Base style for all tool list items (both desktop and mobile offcanvas) */
+.list-group-item {
+  background-color: transparent;
+  border: none;
+  border-left: 3px solid transparent;
+  color: var(--text-muted-color);
+  padding-left: 2rem;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Hover/Focus state for the links */
+.list-group-item:hover,
+.list-group-item.active,
+.list-group-item:focus {
+  background-color: var(--primary-accent-glow);
+  color: var(--text-color);
+  border-left-color: var(--primary-accent);
+  font-weight: 500;
+  z-index: 1; /* Ensures hover state is on top */
+}
+
+/* Ensure the desktop sidebar title uses a clear color */
+.col-lg-3 h5 {
+  color: var(--text-color); /* Dark text for clarity */
+}
+.battery {
+  width: 200px;
+  height: 80px;
+  border: 4px solid #fff;
+  border-radius: 10px;
+  margin: 20px auto;
+  position: relative;
+}
+
+.battery::after {
+  content: "";
+  position: absolute;
+  top: 25%;
+  right: -10px;
+  width: 10px;
+  height: 40%;
+  background: #fff;
+  border-radius: 2px;
+}
+
+#battery-level {
+  height: 100%;
+  width: 0%;
+  background: green;
+  border-radius: 6px;
+  transition: width 0.5s, 0.5s;
+}
+
+#battery-status {
+  font-size: 18px;
+  color: #fff;
+}
+
+#battery-percent {
+  font-size: 24px;
+  font-weight: bold;
+}
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-gap: 10px;
+  justify-content: center;
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  background-color: #1e201f;
+  color: #eeebeb;
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cell:hover {
+  background: #44ac92;
+}
+
+.winner {
+  font-size: 1.5em;
+  margin-top: 20px;
+}
+.card img {
+  width: 200px;
+  border-radius: 10px;
+  margin-left: 80px;
+  margin-top: 10px;
+}
+
+.ani {
+  width: 350px;
+  height: 500px;
+  margin-bottom: 20px;
+  justify-self: center;
+}
+
+/* --- Blackjack Game UI Enhancements --- */
+
+.blackjack-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+.game-table {
+  background-color: #006442; /* Felt green */
+  border: 10px solid #5d4037; /* Wood grain border */
+  width: 100%;
+  max-width: 800px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.hand-area {
+  min-height: 150px;
+}
+
+.hand-title {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: bold;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.card-element {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 80px;
+  height: 110px;
+  position: relative;
+  box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.2);
+  font-family: "Georgia", serif;
+  font-size: 1.5rem;
+  display: inline-block;
+  margin: 5px;
+}
+
+.card-value {
+  position: absolute;
+  top: 5px;
+  left: 8px;
+}
+
+.card-suit-top {
+  position: absolute;
+  top: 25px;
+  left: 8px;
+  font-size: 1rem;
+}
+
+.card-suit-bottom {
+  position: absolute;
+  bottom: 5px;
+  right: 8px;
+  transform: rotate(180deg);
+  font-size: 1rem;
+}
+
+.card-back {
+  background: repeating-linear-gradient(
+    45deg,
+    #d32f2f,
+    #d32f2f 10px,
+    #c62828 10px,
+    #c62828 20px
+  );
+}
+
+.game-status-banner {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffeb3b; /* Bright yellow for status */
+  min-height: 2rem;
+}
+/* --- Color Guessing Game (RGB) Styling --- */
+
+/* Container for the 6 color squares */
+.color-boxes {
+  max-width: 400px;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+/* Individual color squares */
+.color-box {
+  aspect-ratio: 1 / 1; /* Makes the div a perfect square */
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.4s, opacity 0.4s; /* Smooth fade-out on wrong guess */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+/* Ensure the JS-applied background color is not overridden by theme styles */
+.color-box {
+  background-color: var(
+    --js-color,
+    #ccc
+  ); /* Use a variable set by JS, with a fallback */
+}
+
+/* Styling for the header text (where the RGB code is displayed) */
+#color-display {
+  background-color: #3f51b5;
+  color: white;
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Styling for the message display text */
+#message {
+  font-weight: bold;
+  color: #4caf50;
+  min-height: 1.2rem;
+}
+/* --- Hangman Drawing Animation --- */
+.hangman-part {
+  stroke-dasharray: 150; /* A value larger than the path length */
+  stroke-dashoffset: 150;
+  opacity: 0;
+  transition: stroke-dashoffset 1s ease-in-out, opacity 0.5s;
+}
+
+.hangman-part.visible {
+  stroke-dashoffset: 0;
+  opacity: 1;
+}
+
+/* Specific adjustments for the head circle */
+#head {
+  stroke-dasharray: 126; /* Approx. circumference (2 * pi * 20) */
+  stroke-dashoffset: 126;
+}
+
+#head.visible {
+  stroke-dashoffset: 0;
+  opacity: 1;
+}
+
+/* --- Dinosaur Game Styling --- */
+
+.game-container {
+  width: 100%;
+  max-width: 500px;
+  height: 150px;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 3px solid #6c757d;
+  background-color: #f7f7f7;
+  margin-bottom: 20px;
+}
+
+/* The running track/ground animation */
+.ground {
+  position: absolute;
+  bottom: -3px;
+  width: 200%;
+  height: 3px;
+  background: repeating-linear-gradient(
+    to right,
+    #6c757d 0,
+    #6c757d 20px,
+    transparent 20px,
+    transparent 40px
+  );
+  animation: moveGround 1s linear infinite;
+  animation-play-state: paused; /* Start paused */
+}
+
+/* The Dinosaur */
+.dino {
+  width: 30px;
+  height: 30px;
+  background-color: #333; /* Black Dino */
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  border-radius: 5px;
+  z-index: 10;
+}
+
+/* Jump animation */
+.dino.jump-animate {
+  animation: jump 0.6s linear;
+}
+
+/* The Obstacle (Cactus) - FIXED */
+.obstacle {
+  width: 20px;
+  height: 30px;
+  background-color: green; /* **GREEN COLOR IS HERE** */
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 5px;
+  animation: slideObstacle 1.5s linear infinite;
+  z-index: 5;
+  /* opacity: 1; <-- We will control visibility entirely via JS from now on */
+}
+
+/* Game Over State */
+.game-over-text {
+  color: red;
+  font-size: 1.2rem;
+}
+
+/* --- Keyframe Animations --- */
+@keyframes jump {
+  0% {
+    bottom: 0;
+  }
+  30% {
+    bottom: 90px;
+  }
+  70% {
+    bottom: 90px;
+  }
+  100% {
+    bottom: 0;
+  }
+}
+
+@keyframes slideObstacle {
+  0% {
+    right: -20px;
+  }
+  100% {
+    right: 540px;
+  }
+}
+
+@keyframes moveGround {
+  0% {
+    background-position-x: 0;
+  }
+  100% {
+    background-position-x: 40px;
+  }
+}
+/* --- Drum Kit Styling --- */
+.drum-pad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid #333; /* Dark border */
+  border-radius: 10px;
+  margin: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  transition: all 0.07s ease; /* Transition for animation */
+  background-color: #f0f0f0;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+.drum-pad kbd {
+  display: block;
+  font-size: 2rem;
+  color: #4caf50; /* Green key letter */
+}
+
+.drum-pad .sound-name {
+  font-size: 0.8rem;
+  margin-top: 5px;
+  color: #ccc;
+}
+
+/* Visual feedback when the key is pressed (the 'playing' class) */
+.drum-pad.playing {
+  transform: scale(1.1); /* Slightly enlarge */
+  border-color: #ffc600; /* Yellow border */
+  box-shadow: 0 0 1rem #ffc600; /* Yellow glow */
+  background-color: #fff;
+}
+/* --- Expense Tracker Styling --- */
+/* Ensure the list items look clean and the delete button is well-placed */
+
+#list .list-group-item {
+  border-left: 5px solid; /* Placeholder for a visual indicator, overridden by JS */
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-bottom: 5px;
+  padding: 10px 15px;
+}
+
+/* Red line for Expense */
+#list .list-group-item div .text-danger + .delete-btn {
+  opacity: 0.5; /* Dim delete button */
+}
+
+/* Green line for Income */
+#list .list-group-item div .text-success + .delete-btn {
+  opacity: 0.5;
+}
+
+/* Hover effect for better usability */
+#list .list-group-item:hover {
+  background-color: #f8f9fa;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Making the delete button more visible on hover */
+#list .list-group-item:hover .delete-btn {
+  opacity: 1 !important;
+}
+/* --- Expand Button / Fullscreen Styling --- */
+
+/* The base style for the target box */
+.expand-target-box {
+  border: 2px solid #ccc;
+  background-color: #91cdaf; /* Light blue background for demo */
+  min-height: 150px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Styles applied when the element is in fullscreen mode */
+/* These pseudo-classes are required to target the element when fullscreen is active */
+#fullscreen-target:fullscreen,
+#fullscreen-target:-webkit-full-screen,
+#fullscreen-target:-moz-full-screen {
+  /* Full height and width of the screen */
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 20px;
+  background-color: #333; /* Dark background in fullscreen */
+  color: #fff; /* White text */
+  /* Ensure content stays centered and easy to read */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: none; /* Remove box shadow in fullscreen */
+  z-index: 99999;
+}
+/* --- Custom Accordion Styling --- */
+
+.accordion-item-custom {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.accordion-header-custom {
+  background-color: #3a3f3e;
+  color: #fff;
+  padding: 15px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s;
+}
+
+.accordion-header-custom:hover {
+  background-color: #4a4f4e;
+}
+
+/* Active state for the header when content is open */
+.accordion-header-custom.active {
+  background-color: #56caad;
+  color: white;
+}
+
+/* Icon styling */
+.accordion-icon-custom {
+  font-size: 1.5rem;
+  transition: transform 0.3s;
+}
+
+.accordion-header-custom.active .accordion-icon-custom {
+  transform: rotate(45deg);
+}
+
+/* Content Area - KEY to the collapse animation */
+.accordion-content-custom {
+  background-color: #2c302f;
+  /* FIX: Keep side padding, but 0 top/bottom so it collapses completely */
+  padding: 0 15px;
+
+  max-height: 0; /* Starts collapsed, JS changes this */
+  overflow: hidden;
+  /* FIX: Only transition max-height */
+  transition: max-height 0.3s ease-out;
+}
+
+.accordion-content-custom p {
+  /* FIX: Apply vertical padding to the inner paragraph, 
+       which will now be part of scrollHeight */
+  padding: 15px 0;
+  margin: 0;
+}
+/* --- Glassmorphism Form Styling --- */
+
+/* 1. Overall Background and Animation Container */
+.glass-container-bg {
+  position: relative;
+  width: 100%;
+  min-height: 450px; /* Ensure enough space for the effect */
+  background: linear-gradient(
+    135deg,
+    #11241d,
+    #579468
+  ); /* Deep Purple/Blue gradient */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  margin: 20px auto;
+}
+
+/* 2. Animated Shapes for Dynamic Background */
+.glass-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px); /* Heavy blur for the background color blocks */
+  opacity: 0.7;
+  animation: moveShapes 15s infinite alternate;
+}
+
+.shape1 {
+  width: 250px;
+  height: 250px;
+  background: #b4d795; /* Magenta */
+  top: 50px;
+  left: 50px;
+}
+
+.shape2 {
+  width: 300px;
+  height: 300px;
+  background: #6feba7; /* Cyan */
+  bottom: 0;
+  right: 0;
+  animation-delay: 5s;
+}
+
+@keyframes moveShapes {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(150px, 100px);
+  }
+}
+
+/* 3. The Glassmorphism Wrapper (The Form Itself) */
+.glassmorphism-wrapper {
+  position: relative;
+  z-index: 10;
+  width: 90%;
+  max-width: 350px;
+
+  /* The Core Glassmorphism Effects */
+  background: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* Slightly transparent white background */
+  backdrop-filter: blur(10px); /* KEY: Blur the background content */
+  -webkit-backdrop-filter: blur(10px);
+
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Thin, light border for 'shine' */
+
+  /* Animation for initial load */
+  animation: fadeInScale 1s ease-out;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 4. Styling the Form Inputs and Button */
+.glass-input {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: white; /* Text color */
+  transition: all 0.3s;
+}
+
+/* Placeholder text color */
+.glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Focus state */
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.glass-button {
+  background: rgba(86, 202, 173, 0.8);
+  color: #fff; /* Dark button text */
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.glass-button:hover {
+  background: #56caad;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.glass-link {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.glass-link:hover {
+  color: #00ffff;
+}
+/* --- Google Search Clone Styling --- */
+
+/* Main Container (ensures content is centered vertically and horizontally) */
+.google-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh; /* Takes most of the viewport height */
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #2c302f; /* White background */
+}
+
+.google-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1; /* Pushes the main content to the center */
+  padding-top: 100px; /* Optional: Adjust vertical position */
+  width: 100%; /* Important for centering */
+  max-width: 600px; /* Limits the width of the central content/results */
+}
+
+/* Logo Styling */
+
+/* Search Box Wrapper */
+.search-box-container {
+  width: 100%;
+  max-width: 584px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 44px;
+  border: 1px solid #dfe1e5;
+  border-radius: 24px;
+  box-shadow: 0 1px 6px rgba(213, 214, 219, 0.759);
+  margin-bottom: 30px;
+  padding: 0 15px;
+  transition: all 0.3s;
+}
+
+.search-input-wrapper:hover {
+  box-shadow: 0 1px 6px rgba(156, 159, 168, 0.919);
+  border-color: #d1d3d6;
+}
+
+.search-input {
+  flex-grow: 1;
+  height: 34px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+.search-icon,
+.mic-icon {
+  color: #9aa0a6;
+  margin: 0 8px;
+  font-size: 16px;
+}
+
+.mic-icon {
+  cursor: pointer;
+}
+
+/* Buttons */
+.search-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.search-btn {
+  background-color: #f8f9fa;
+  border: 1px solid #f8f9fa;
+  border-radius: 4px;
+  color: #3c4043;
+  font-size: 14px;
+  padding: 10px 16px;
+  margin: 11px 4px;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.search-btn:hover {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  background-color: #f0f0f0;
+  border: 1px solid #dadce0;
+}
+
+/* Footer (Simple, Bottom Fixed Style) */
+.google-footer {
+  width: 100%;
+  background-color: #1e201f;
+  padding: 15px 30px;
+  border-top: 1px solid #3a3f3e;
+  font-size: 13px;
+  color: #adb5bd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-links a {
+  color: #94c2ab;
+  text-decoration: none;
+  margin-left: 27px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* Ensure the main tool container doesn't override the background */
+.main-tool-content > div {
+  width: 100%;
+}
+
+/* Main container to keep results neat */
+.results-container {
+  width: 100%;
+  max-width: 600px; /* Standard Google search result width */
+  margin-top: 30px;
+  padding-bottom: 50px;
+}
+
+.search-result-item {
+  margin-bottom: 25px;
+  padding: 5px;
+
+  border: 1px, solid, white;
+}
+
+.result-title {
+  font-size: 20px;
+  color: #efeef4; /* Google Blue */
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.result-title:hover {
+  text-decoration: underline;
+}
+
+.result-url {
+  font-size: 14px;
+  color: #f1f4f2; /* Google Green */
+  margin: 2px 0;
+}
+
+.result-snippet {
+  font-size: 13px;
+  color: #dadbdd;
+  line-height: 1.5;
+}
+
+.no-results,
+.loading-message,
+.alert-error {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+}
+
+.alert-error {
+  color: #d32f2f; /* Red for errors */
+  font-weight: bold;
+  border: 1px dashed #d32f2f;
+  border-radius: 5px;
+}
+.profile-avatar {
+  display: none;
+}
+/* --- Image Finder Tool Styling --- */
+
+/* Image Card Styling */
+.image-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  height: 100%; /* Ensures all cards in the grid are the same height */
+}
+
+.image-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.image-card img {
+  width: 100%;
+  height: 250px; /* Fixed height for a consistent look */
+  object-fit: cover; /* Ensures image covers the area without distortion */
+  display: block;
+}
+
+/* Overlay for Text on Hover */
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 10px;
+  height: 0;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-card:hover .image-overlay {
+  height: 100%;
+  opacity: 1;
+}
+
+.image-photographer,
+.image-link {
+  margin: 2px 0;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.image-link {
+  font-weight: bold;
+  color: #4caf50; /* A contrasting color */
+}
+/* --- Virtual Piano Styling --- */
+
+#piano-keys {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 200px; /* Adjust height as needed */
+  display: flex; /* Use flexbox for the white keys */
+  width: 100%;
+  max-width: 500px; /* Set a max-width for large screens */
+  margin: 0 auto;
+  height: 220px;
+}
+
+.key {
+  border: 1px solid #333;
+  border-radius: 0 0 5px 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 10px;
+  font-family: sans-serif;
+  user-select: none;
+  /* Added transition for the press-down effect */
+  transition: all 0.07s ease;
+}
+
+.key.white {
+  width: 60px;
+  width: 14.28%; /* 100% / 7 white keys */
+  height: 100%;
+  /* Subtle gradient for 3D effect */
+  background: linear-gradient(to bottom, #fff 96%, #eee 100%);
+  color: #333;
+  border-top: none;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2), inset 0 -1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.key.white.active {
+  background: #eee;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), inset 0 -1px 2px rgba(0, 0, 0, 0.2);
+  transform: translateY(2px); /* Press down effect */
+}
+
+.key.black {
+  position: absolute;
+  width: 38px;
+  height: 60%;
+  width: 8%; /* Relative width */
+  height: 55%;
+  /* Subtle gradient for 3D effect */
+  background: linear-gradient(to bottom, #222 96%, #444 100%);
+  color: #fff;
+  z-index: 10;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.4),
+    inset 0 -2px 2px rgba(255, 255, 255, 0.2);
+}
+
+.key.black.active {
+  background: linear-gradient(to bottom, #333 96%, #555 100%);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.2);
+  transform: translateY(1px); /* Press down effect */
+}
+
+/* Positioning for each black key */
+/* Position black keys relative to the white keys */
+.key[data-note="C#"] {
+  left: calc(50% - 210px + 41px);
+  left: calc(14.28% - 4%);
+}
+.key[data-note="D#"] {
+  left: calc(50% - 210px + 101px);
+  left: calc(28.56% - 4%);
+}
+.key[data-note="F#"] {
+  left: calc(50% - 210px + 221px);
+  left: calc(57.12% - 4%);
+}
+.key[data-note="G#"] {
+  left: calc(50% - 210px + 281px);
+  left: calc(71.4% - 4%);
+}
+.key[data-note="A#"] {
+  left: calc(50% - 210px + 341px);
+  left: calc(85.68% - 4%);
+}
+
+.key span {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* css/tools/memory-game-app.css */
+
+/* --- Grid and Board Styling --- */
+.memory-grid {
+  display: grid;
+  /* Create a 4x4 grid. Adjust this for different difficulty levels. */
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+  perspective: 800px; /* Needed for the 3D flip effect */
+}
+
+/* --- Card Base Styling --- */
+.card-container {
+  height: 120px;
+  position: relative;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+/* --- Card Sides --- */
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Hide the back side when facing away */
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Back side (Initially shown) */
+.card-back {
+  background-color: #56caad; /* Blue */
+  transform: rotateY(0deg);
+}
+
+/* Front side (Content) */
+.card-front {
+  background-color: #3a3f3e; /* Pink/Red for contrast */
+  transform: rotateY(180deg); /* Start rotated away from the viewer */
+}
+
+/* --- Flip Effect --- */
+/* The entire container rotates when the 'flipped' class is added */
+.card-container.flipped {
+  transform: rotateY(180deg);
+}
+
+/* --- Matched and Locked States --- */
+/* Matched cards get a different background and are slightly dimmed */
+.card-container.matched .card-front {
+  background-color: #4caf50; /* Green */
+  opacity: 0.8;
+}
+
+/* Locked cards can't be clicked */
+.card-container.locked {
+  pointer-events: none;
+}
+/* ========================================================= */
+/* AI CHATBOT STYLES (ID-Scoped) */
+/* ========================================================= */
+
+/* Timestamp Styling */
+#ai-chatbot-container .timestamp {
+  display: block;
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: 2px;
+  text-align: right;
+}
+
+#ai-chatbot-container .bot-message .timestamp {
+  text-align: left;
+}
+.test-container {
+  max-width: 900px;
+  position: relative;
+  margin: 0 auto;
+}
+.timer {
+  width: 100%;
+  height: 3px;
+  background-color: #55b1fc;
+  top: 0;
+  left: 0;
+  transition: 0.2s;
+}
+.output {
+  font-size: 25px;
+  position: relative;
+  font-weight: bold;
+  color: #fff;
+  width: 100%;
+  margin: 0 auto;
+  height: 58px;
+  overflow: hidden;
+  margin-top: 60px;
+  line-height: 25px;
+  padding: 10px;
+  background-color: #eef2f6;
+}
+.word {
+  margin-bottom: 5px;
+}
+.word,
+.word-letter {
+  position: relative;
+  transition: 0.2s;
+}
+.word-letter-anim::before {
+  position: absolute;
+  content: "";
+  background-color: rgba(208, 214, 219, 0.925);
+  width: 100%;
+  height: 0;
+  left: 0;
+  bottom: 0;
+  animation: grow 0.2s 1;
+}
+@keyframes grow {
+  0% {
+  }
+  100% {
+    height: 100%;
+  }
+}
+.word-input {
+  display: flex;
+  color: #fff;
+  border: 1px solid #edf1f4;
+}
+.refresh {
+  outline: none;
+  border: none;
+  background-color: #55b1fc;
+  font-size: 20px;
+  color: #fff;
+  padding: 5px;
+  cursor: pointer;
+  flex: 1;
+  transition: 0.2s;
+}
+.word-line {
+  padding-bottom: 8px;
+  width: calc(100% - 12px);
+  margin: 0 auto;
+}
+.type-word {
+  flex: 15;
+  width: calc(100% - 70px);
+  border: none;
+  padding: 5px;
+  outline: none;
+  background-color: #e6eaed;
+  font-size: 25px;
+  font-weight: bold;
+  color: #344354;
+}
+.count-down {
+  flex: 1;
+  text-align: center;
+  line-height: 50px;
+  vertical-align: middle;
+  background-color: #f4f6f8;
+  font-size: 25px;
+  color: #fff;
+}
+.result {
+  color: #fff;
+}
+.wrapper {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.wrapper .text-input {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+}
+.text-input .to-text {
+  border-radius: 0px;
+  border-left: 1px solid #ccc;
+}
+.text-input textarea {
+  height: 250px;
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  background: none;
+  font-size: 18px;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+.text-input textarea::placeholder {
+  color: #b7b6b6;
+}
+.controls,
+li,
+.icons,
+.icons i {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.controls {
+  list-style: none;
+  padding: 12px 15px;
+}
+.controls .row .icons {
+  width: 38%;
+}
+.controls .row .icons i {
+  width: 50px;
+  color: #adadad;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  justify-content: center;
+}
+.controls .row.from .icons {
+  padding-right: 15px;
+  border-right: 1px solid #ccc;
+}
+.controls .row.to .icons {
+  padding-left: 15px;
+  border-left: 1px solid #ccc;
+}
+.controls .row select {
+  color: #e1dddd;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  background: none;
+  padding-left: 5px;
+}
+.text-input textarea::-webkit-scrollbar {
+  width: 4px;
+}
+.controls .row select::-webkit-scrollbar {
+  width: 8px;
+}
+.text-input textarea::-webkit-scrollbar-track,
+.controls .row select::-webkit-scrollbar-track {
+  background: #fff;
+}
+.text-input textarea::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 8px;
+}
+.controls .row select::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 8px;
+  border-right: 2px solid #ffffff;
+}
+.controls .exchange {
+  color: #adadad;
+  cursor: pointer;
+  font-size: 16px;
+  transition: transform 0.2s ease;
+}
+.controls i:active {
+  transform: scale(0.9);
+}
+.container button {
+  width: 100%;
+  padding: 14px;
+  outline: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 17px;
+  border-radius: 5px;
+  background: #56caad;
+}
+
+/* --- Animated Weather Dashboard --- */
+.weather-container {
+  padding: 2rem 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 1s ease-in-out;
+  background-color: #4a6b82; /* Default background */
+}
+
+.weather-container .weather-card {
+  background-color: rgba(44, 48, 47, 0.7); /* Semi-transparent card */
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Dynamic Backgrounds */
+.weather-container.clear {
+  background-color: #47a5d1; /* Bright blue for clear sky */
+}
+.weather-container.clouds {
+  background-color: #7c8c9c; /* Gray for cloudy */
+}
+.weather-container.rain {
+  background-color: #465a69; /* Dark blue-gray for rain */
+}
+.weather-container.drizzle {
+  background-color: #5e7a8b;
+}
+.weather-container.snow {
+  background-color: #b0c4de; /* Light steel blue for snow */
+}
+.weather-container.thunderstorm {
+  background-color: #313a48; /* Very dark blue for storms */
+}
+.weather-container.mist,
+.weather-container.smoke,
+.weather-container.haze,
+.weather-container.dust,
+.weather-container.fog,
+.weather-container.sand,
+.weather-container.ash,
+.weather-container.squall,
+.weather-container.tornado {
+  background-color: #9e9e9e; /* Gray for atmospheric conditions */
+}
+
+.weather-container .form-control {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.weather-container .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* --- Animated Weather Dashboard Enhancements --- */
+.weather-main-display #weather-temp {
+  font-size: clamp(4rem, 15vw, 6rem); /* Responsive font size */
+}
+
+.weather-details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-item i {
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.detail-item p {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0.25rem 0 0 0;
+  color: #fff;
+}
+
+.detail-item small {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+/* Animation for when data loads */
+#weather-display-new > * {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+#weather-display-new.loaded > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- AI News Aggregator --- */
+.news-card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.news-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+.news-card .card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* --- Job Application Tracker --- */
+.job-status-applied {
+  background-color: #0d6efd !important; /* Bootstrap Primary */
+}
+.job-status-interviewing {
+  background-color: #ffc107 !important; /* Bootstrap Warning */
+  color: #000 !important;
+}
+.job-status-offer {
+  background-color: #198754 !important; /* Bootstrap Success */
+}
+.job-status-rejected {
+  background-color: #dc3545 !important; /* Bootstrap Danger */
+}
+
+/* --- Pong Game --- */
+.pong-canvas-container {
+  border: 2px solid #56caad;
+  background-color: #000;
+}
+
+/* --- Categorized Sidebar Accordion --- */
+.accordion-item {
+  border: none !important; /* Override Bootstrap border */
+}
+
+.accordion-button {
+  color: white;
+  font-weight: bold;
+  background-color: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.accordion-button::after {
+  /* Style Bootstrap's default chevron icon */
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+.accordion-button:not(.collapsed) {
+  color: #56caad;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+}
+.accordion-button:focus {
+  box-shadow: none; /* Remove the default blue focus ring */
+  border-bottom-color: #56caad;
+}
+
+.accordion-body {
+  padding: 0;
+}
+
+.accordion-collapse .list-group {
+  padding-bottom: 0.5rem;
+}
+
+/* --- Splash Screen --- */
+#splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-color); /* Use theme background color */
+  z-index: 9999; /* Ensure it's on top of all other content */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 0.5s ease-out; /* Smooth fade-out effect */
+  pointer-events: none; /* Allow clicks to pass through after it's hidden */
+}
+
+/* --- Interactive Flashcard App --- */
+.flashcard-scene {
+  width: 100%;
+  max-width: 500px;
+  height: 300px;
+  perspective: 1000px; /* This creates the 3D space */
+}
+
+.flashcard {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d; /* This makes children 3D */
+  transition: transform 0.6s;
+  cursor: pointer;
+}
+
+.flashcard.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.flashcard-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Hides the back of the element */
+}
+
+.flashcard-back {
+  transform: rotateY(180deg);
+}
+
+/* --- Workout Planner --- */
+.workout-day-card .card-header {
+  background-color: #343a40;
+  color: #fff;
+}
+
+.workout-exercise {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding: 0.75rem 1rem;
+}
+
+/* --- Code Editor (CodeMirror) --- */
+.CodeMirror {
+  border: 1px solid #444;
+  height: 500px;
+  font-size: 1rem;
+}
+
+/* --- Kanban Board --- */
+.kanban-column {
+  background-color: #343a40;
+  height: 100%;
+}
+
+.kanban-tasks {
+  min-height: 400px;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.kanban-task {
+  background-color: #495057;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  cursor: grab;
+}
+.kanban-task.dragging {
+  opacity: 0.5;
+}
+.kanban-tasks.drag-over {
+  background-color: rgba(86, 202, 173, 0.2);
+}
+
+/* --- Theme Converter Tool --- */
+.theme-container {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark Mode (Default for this container) */
+.theme-container {
+  background-color: #2c302f;
+  color: #ffffff;
+  border: 1px solid #444;
+}
+.theme-container .form-check-label {
+  color: #ffffff;
+}
+.theme-container h3 {
+  color: #ffffff;
+}
+.theme-container p {
+  color: #e0e0e0;
+}
+.theme-container .btn {
+  background-color: #495057;
+  color: #fff;
+}
+.theme-container a {
+  color: #56caad;
+}
+
+/* Light Mode */
+.theme-container.light-mode {
+  background-color: #f8f9fa;
+  color: #212529;
+  border: 1px solid #dee2e6;
+}
+.theme-container.light-mode .form-check-label {
+  color: #212529;
+}
+.theme-container.light-mode h3 {
+  color: #212529;
+}
+.theme-container.light-mode p {
+  color: #495057;
+}
+.theme-container.light-mode .btn {
+  background-color: #0d6efd;
+  color: #fff;
+}
+.theme-container.light-mode a {
+  color: #0d6efd;
+}
+
+/* --- Interactive Story Builder --- */
+.list-group-item.active {
+  background-color: #56caad;
+  border-color: #56caad;
+}
+
+/* --- Emoji Keyboard --- */
+.emoji-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  gap: 0.5rem;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.emoji-btn {
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+.emoji-btn:hover {
+  background-color: rgba(86, 202, 173, 0.2);
+}
+/* --- Coin Toss Simulator Styles --- */
+#coin {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  transform-style: preserve-3d;
+  transition: transform 1s ease-out;
+}
+
+#coin.flipping {
+  transform: rotateY(1800deg);
+}
+
+#coin .side-a,
+#coin .side-b {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+  font-weight: bold;
+  color: #333;
+  border: 4px solid #666;
+}
+
+#coin .side-a {
+  background-color: #ffd700; /* Gold for Heads */
+}
+
+#coin .side-b {
+  background-color: #c0c0c0; /* Silver for Tails */
+  transform: rotateY(180deg);
+}
+
+/* --- Pong Game Styles --- */
+.pong-canvas-container {
+  width: 100%;
+  max-width: 800px;
+  background-color: #000;
+  padding: 0;
+  margin: 0 auto;
+  line-height: 0;
+}
+
+#pong-canvas {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 576px) {
+  #player1-score,
+  #player2-score {
+    font-size: 2.5rem;
+  }
+
+  #pong-start-btn {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* --- Maze Solver Styles --- */
+.maze-canvas-style {
+  background-color: #f8f9fa; /* Light background for the maze paths */
+  border: 2px solid #495057;
+}
+
+/* --- 2048 Game Styles --- */
+#game-2048-board-container {
+  position: relative;
+  background-color: #bbada0;
+  border-radius: 6px;
+  padding: 15px;
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+}
+
+#game-2048-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 15px;
+  width: 100%;
+  height: 100%;
+}
+
+.tile-2048 {
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: bold;
+  background-color: #cdc1b4;
+  color: #776e65;
+  transition: transform 0.1s ease-in-out;
+}
+
+#game-2048-over-message {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(238, 228, 218, 0.73);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #776e65;
+  z-index: 100;
+}
+
+/* Tile Colors */
+.tile-2048[data-value="2"] {
+  background-color: #eee4da;
+}
+.tile-2048[data-value="4"] {
+  background-color: #ede0c8;
+}
+.tile-2048[data-value="8"] {
+  background-color: #f2b179;
+  color: #f9f6f2;
+}
+.tile-2048[data-value="16"] {
+  background-color: #f59563;
+  color: #f9f6f2;
+}
+.tile-2048[data-value="32"] {
+  background-color: #f67c5f;
+  color: #f9f6f2;
+}
+.tile-2048[data-value="64"] {
+  background-color: #f65e3b;
+  color: #f9f6f2;
+}
+.tile-2048[data-value="128"] {
+  background-color: #edcf72;
+  color: #f9f6f2;
+}
+.tile-2048[data-value="256"] {
+  background-color: #edcc61;
+  color: #f9f6f2;
+}
+.tile-2048[data-value="512"] {
+  background-color: #edc850;
+  color: #f9f6f2;
+}
+.tile-2048[data-value="1024"] {
+  background-color: #edc53f;
+  color: #f9f6f2;
+}
+.tile-2048[data-value="2048"] {
+  background-color: #edc22e;
+  color: #f9f6f2;
+}
+.tile-2048[data-value="4096"] {
+  background-color: #3c3a32;
+  color: #f9f6f2;
+}
+
+/* --- Enhanced Home Page Styles --- */
+.category-header {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.category-header i {
+  color: var(--primary-accent);
+}
+
+/* --- Footer Styles --- */
+.main-footer {
+  background-color: var(--card-bg-color);
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted-color);
+  font-size: 0.85rem;
+}
+
+.footer-copyright {
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 576px) {
+  .footer-copyright {
+    margin-bottom: 0;
+  }
+}
+
+.footer-social-links a {
+  color: var(--text-muted-color);
+  font-size: 1.2rem;
+  margin-left: 1rem;
+  transition: color 0.2s ease-in-out;
+}
+
+.footer-social-links a:hover {
+  color: var(--primary-accent); /* Theme color */
+}
+
+/* --- Simple Calculator UI --- */
+.calculator-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  background-color: var(--card-bg-color);
+  padding: 20px;
+  border-radius: 15px;
+  max-width: 350px;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+}
+
+.calculator-display {
+  grid-column: 1 / -1; /* Span all 4 columns */
+  background-color: rgba(0, 0, 0, 0.2);
+  color: var(--text-color);
+  text-align: right;
+  padding: 20px;
+  font-size: 2.8rem;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+  word-break: break-all;
+  min-height: 90px;
+  font-family: "Poppins", monospace;
+}
+
+.calculator-grid .btn {
+  font-size: 1.5rem;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  box-shadow: none;
+}
+
+.calculator-grid .btn-operator {
+  background-color: var(--primary-accent-glow);
+  color: var(--primary-accent);
+}
+
+.calculator-grid .btn-equal {
+  grid-column: span 2;
+  background-color: var(--primary-accent);
+  color: var(--bg-color);
+}
+
+/* --- Hero Section Styles --- */
+.hero-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 2rem;
+  min-height: 60vh;
+  overflow: hidden;
+  background-color: var(--bg-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  animation: fadeIn 1.5s ease-out;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--text-muted-color);
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+}
+
+.hero-cta-btn {
+  padding: 0.8rem 2.5rem;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  background-color: #fff; /* White background */
+  color: #000; /* Black text */
+  box-shadow: 0 5px 20px var(--primary-accent-glow);
+  transition: all 0.3s ease;
+}
+
+.hero-cta-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px var(--primary-accent-glow);
+}
+
+.hero-background-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-image: radial-gradient(
+      circle at 25% 25%,
+      var(--primary-accent-glow) 0%,
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 75% 75%,
+      var(--primary-accent-glow) 0%,
+      transparent 20%
+    );
+  animation: backgroundPan 20s linear infinite;
+}
+
+@keyframes backgroundPan {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+.tool-name-btn {
+  background-color: var(--card-bg-color);
+  color: var(--text-color);
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 50px; /* Make it a pill shape */
+  padding: 0.6rem 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.tool-name-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--primary-accent-glow); /* Glow effect */
+  background-color: var(--primary-accent); /* Use accent for background */
+  color: var(
+    --bg-color
+  ); /* Use main background color for text for high contrast */
+  border-color: var(--primary-accent); /* Match border to background */
+}
+
+body.light-theme .tool-name-btn {
+  background-color: #d8f3dc; /* Light mint color */
+  color: #000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 0;
+  color: var(--text-muted-color);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.nav-item .nav-link:hover {
+  background-color: var(--primary-accent-glow);
+  color: var(--text-color);
+}
+
+.nav-item .nav-link.active {
+  background-color: var(--primary-accent);
+  color: var(--bg-color);
+  font-weight: 600;
+}
+
+.nav-icon {
+  font-size: 1.1rem;
+  width: 24px;
+  text-align: center;
+  margin-right: 1rem;
+  transition: margin 0.3s ease-in-out;
+}
+
+.nav-text {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.sidebar-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+/* --- Collapsed State --- */
+body.sidebar-collapsed .desktop-sidebar {
+  width: 80px;
+}
+
+body.sidebar-collapsed .sidebar-header {
+  padding: 0 1.5rem 1rem 1.5rem;
+}
+
+body.sidebar-collapsed .sidebar-section {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body.sidebar-collapsed .sidebar-section-title,
+body.sidebar-collapsed .nav-text,
+body.sidebar-collapsed .sidebar-footer {
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  overflow: hidden;
+}
+
+body.sidebar-collapsed .nav-icon {
+  margin-right: 0;
+}
+
+body.sidebar-collapsed .nav-item .nav-link {
+  justify-content: center;
+  padding: 0.75rem;
+}
+
+/* Adjust main content area when sidebar collapses */
+.main-content {
+  margin-left: 0 !important; /* Remove margin now that sidebar is gone */
+  transition: margin-left 0.3s ease-in-out;
+}
+
+body.sidebar-collapsed .main-content {
+  margin-left: 0 !important;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 0;
+  color: var(--text-muted-color);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.nav-item .nav-link:hover {
+  background-color: var(--primary-accent-glow);
+  color: var(--text-color);
+}
+
+.nav-item .nav-link.active {
+  background-color: var(--primary-accent);
+  color: var(--bg-color);
+  font-weight: 600;
+}
+
+.nav-icon {
+  font-size: 1.1rem;
+  width: 24px;
+  text-align: center;
+  margin-right: 1rem;
+  transition: margin 0.3s ease-in-out;
+}
+
+.nav-text {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.sidebar-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+/* --- Collapsed State --- */
+body.sidebar-collapsed .desktop-sidebar {
+  width: 80px;
+}
+
+body.sidebar-collapsed .sidebar-header {
+  padding: 0 1.5rem 1rem 1.5rem;
+}
+
+body.sidebar-collapsed .sidebar-section {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body.sidebar-collapsed .sidebar-section-title,
+body.sidebar-collapsed .nav-text,
+body.sidebar-collapsed .sidebar-footer {
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  overflow: hidden;
+}
+
+body.sidebar-collapsed .nav-icon {
+  margin-right: 0;
+}
+
+body.sidebar-collapsed .nav-item .nav-link {
+  justify-content: center;
+  padding: 0.75rem;
+}
+
+/* Adjust main content area when sidebar collapses */
+.main-content {
+  margin-left: 0 !important; /* Remove margin now that sidebar is gone */
+  transition: margin-left 0.3s ease-in-out;
+}
+
+body.sidebar-collapsed .main-content {
+  margin-left: 0 !important;
+}
+
+.core-tool-card {
+  background-color: var(--bg-color);
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  font-weight: 500;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.core-tool-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  color: var(--primary-accent);
+}
+
+.core-tool-card i {
+  margin-right: 0.5rem;
+  color: var(--primary-accent);
+}
+
+/* This section should not be affected by the dark theme */
+body.light-theme .core-tools-container {
+  background-color: #fff; /* White background */
+}
+body.light-theme .core-tools-container h1 {
+  color: #212529;
+}
+
+body.light-theme .core-tool-card {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #333;
+}
+
+/* --- "All Tools" Page Styles --- */
+.all-tools-page-container {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+}
+
+.all-tools-header {
+  background-color: transparent;
+}
+
+.all-tools-header h1 {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.all-tools-header .lead {
+  color: var(--text-muted-color);
+}
+
+#all-tools-search-input {
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--card-bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+#all-tools-search-input:focus {
+  border-color: var(--primary-accent);
+  box-shadow: 0 0 0 0.25rem var(--primary-accent-glow);
+  background-color: var(--card-bg-color);
+  color: var(--text-color);
+}
+
+#all-tools-search-input::placeholder {
+  color: var(--text-muted-color);
+}
+
+.all-tools-card {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out,
+    border-color 0.2s ease-in-out;
+  text-decoration: none;
+  color: inherit;
+  position: relative; /* Needed for the stretched link to work correctly */
+}
+
+.all-tools-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border-color: var(--primary-accent);
+}
+.all-tools-card .tool-icon {
+  font-size: 2.5rem;
+  color: var(--primary-accent);
+}
+
+.all-tools-card .card-title {
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.all-tools-card .card-text {
+  color: var(--text-muted-color);
+  font-size: 0.9rem;
+}
+
+.tool-category-badge {
+  background-color: var(--primary-accent-glow);
+  color: var(--primary-accent);
+  font-weight: 500;
+}
+
+/* --- Back to Top Button --- */
+#back-to-top-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  display: none; /* Hidden by default, JS will show it */
+  z-index: 1030; /* High z-index to be on top */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  font-size: 1.2rem;
+
+  /* Center the icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensure the light theme hover effect is consistent */
+body.light-theme #back-to-top-btn {
+  color: #fff;
+}
+
+body.light-theme #back-to-top-btn:hover {
+  color: #fff;
+}
+
+/* --- "We deal with" Auto-Scrolling Section --- */
+
+/* 2. The Fluid Container */
+.tool-slider-container-fluid {
+  background-color: var(
+    --card-bg-color
+  ); /* Use theme card color for dark mode */
+  padding: 4rem 0;
+  width: 100%;
+  overflow-x: hidden; /* Hide horizontal overflow */
+  margin-top: 4rem;
+}
+
+.tool-slider-container-fluid h1 {
+  color: var(--text-color); /* Use theme text color */
+  font-weight: 700;
+}
+
+.scrolling-track {
+  display: flex;
+  flex-shrink: 0;
+  /* The animation that moves the track */
+  animation: scroll-left 40s linear infinite;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Move the track by half its width (since content is duplicated) */
+    transform: translateX(-50%);
+  }
+}
+
+/* --- "Our Core Tools" Auto-Scrolling Section --- */
+.core-tools-container {
+  background-color: var(--bg-color);
+  padding: 3rem 0;
+  width: 100%;
+  overflow-x: hidden;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.core-tools-container h1 {
+  color: var(--text-color);
+  font-weight: 700;
+}
+
+/* 4. The Tool Cards */
+.tool-card {
+  background-color: var(
+    --bg-color
+  ); /* Darker background for cards in dark mode */
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  margin: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  font-weight: 500;
+  color: var(--text-color);
+  text-decoration: none; /* Remove underline from link */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.tool-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.tool-card i {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--primary-accent); /* Use theme accent color */
+}
+
+/* --- Light Theme for "We deal with" section --- */
+body.light-theme .tool-slider-container-fluid {
+  background-color: #b7e4c7; /* Light, muted green/teal */
+}
+
+body.light-theme .tool-slider-container-fluid h1 {
+  color: #212529; /* Dark text for readability */
+}
+
+body.light-theme .tool-card {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #333;
+}
+
+body.light-theme .tool-card i {
+  color: #2d6a4f; /* A darker green for the icon */
+}
+
+/* --- Calendar with Events Tool --- */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.calendar-day,
+.weekday-label {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+  position: relative;
+}
+
+.weekday-label {
+  font-weight: bold;
+  cursor: default;
+  color: var(--text-muted-color);
+}
+
+.calendar-day:not(.empty):hover {
+  background-color: var(--primary-accent-glow);
+  transform: scale(1.1);
+}
+
+.calendar-day.today {
+  border: 2px solid var(--primary-accent);
+}
+
+.calendar-day.selected {
+  background-color: var(--primary-accent);
+  color: var(--bg-color);
+  font-weight: bold;
+  transform: scale(1.05);
+}
+
+.calendar-day.has-event::after {
+  content: "";
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--primary-accent);
+}
+
+.calendar-day.selected.has-event::after {
+  background-color: var(--bg-color);
+}
+
+.events-container {
+  height: 100%;
+}
+
+.events-list .list-group-item {
+  background-color: var(--card-bg-color);
+  border-color: var(--border-color);
+  color: var(--text-color);
+}
+
+.delete-event-btn {
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.events-list .list-group-item:hover .delete-event-btn {
+  opacity: 1;
+}
+
+/* --- File Organizer Tool --- */
+.file-item[data-type="file"] {
+  cursor: pointer;
+}
+
+/* --- File Organizer Tool --- */
+.file-item {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.file-item:hover {
+  background-color: var(--primary-accent-glow);
+}
+
+.file-item i {
+  color: var(--primary-accent);
+}
+
+.folder-tree-item {
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.folder-tree-item:hover {
+  background-color: var(--primary-accent-glow);
+}
+
+.breadcrumb.bg-transparent {
+  background-color: transparent !important;
+}
+
+#context-menu {
+  position: absolute;
+  z-index: 1050;
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+}
+
+#context-menu .dropdown-item {
+  color: var(--text-color);
+}
+#context-menu .dropdown-item:hover {
+  background-color: var(--primary-accent-glow);
+}
+
+/* --- Dictionary Tool Styles --- */
+.dict-header {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+}
+
+.dict-phonetic {
+  color: var(--text-muted-color);
+  font-size: 1.2rem;
+}
+
+.dict-meaning-section .part-of-speech {
+  font-style: italic;
+  color: var(--primary-accent);
+  position: relative;
+  display: inline-block;
+  padding-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+.dict-meaning-section .part-of-speech::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--border-color);
+  margin-left: 1rem;
+}
+
+.definitions-list {
+  list-style-type: "✓";
+  padding-left: 1.5rem;
+}
+
+.definitions-list li {
+  padding-left: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.definitions-list li::marker {
+  color: var(--primary-accent);
+}
+
+.definitions-list .example {
+  color: var(--text-muted-color);
+  border-left: 3px solid var(--border-color);
+  padding-left: 1rem;
+  margin-top: 0.5rem;
+}
+
+.related-words-section {
+  margin-top: 1rem;
+}
+
+.synonym-badge {
+  display: inline-block;
+  background-color: var(--primary-accent-glow);
+  color: var(--primary-accent);
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  margin: 0.25rem;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.synonym-badge:hover {
+  background-color: var(--primary-accent);
+  color: var(--bg-color);
+}
+
+/* --- Flappy Bird Game --- */
+.flappy-bird-container {
+  position: relative;
+  width: 288px;
+  height: 512px;
+  background-color: #87ceeb; /* Sky Blue */
+  border: 2px solid var(--border-color);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#flappy-bird-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.flappy-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- Asteroids Game --- */
+.asteroids-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 4 / 3;
+  background-color: #000;
+  border: 2px solid var(--border-color);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#asteroids-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.asteroids-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- Tarot Card Reading --- */
+.tarot-card-container {
+  perspective: 1000px;
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 2.75 / 4.75;
+  margin: 0 auto;
+}
+
+.tarot-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.tarot-card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.tarot-card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+}
+
+.tarot-card-face img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tarot-card-back {
+  background-color: var(--card-bg-color);
+}
+
+.tarot-card-front {
+  transform: rotateY(180deg);
+  background-color: #fff;
+}
+
+.tarot-card-front img.reversed {
+  transform: rotate(180deg);
+}
+
+.tarot-card-info {
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out 1.5s forwards;
+}
+
+.tarot-card-placeholder {
+  border: 2px dashed var(--border-color);
+  border-radius: 10px;
+  aspect-ratio: 2.75 / 4.75;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: var(--text-muted-color);
+  max-width: 220px;
+  margin: 0 auto;
+}
+
+/* --- Sudoku Game --- */
+.sudoku-grid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  width: 100%;
+  max-width: 450px;
+  aspect-ratio: 1 / 1;
+  border: 3px solid var(--text-color);
+  border-radius: 5px;
+  gap: 1px;
+  background-color: var(--border-color);
+}
+
+.sudoku-cell {
+  background-color: var(--card-bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: clamp(1rem, 4vw, 1.5rem);
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.sudoku-cell:nth-child(3n) {
+  border-right: 2px solid var(--text-color);
+}
+.sudoku-cell:nth-child(9n) {
+  border-right: none;
+}
+.sudoku-cell:nth-child(n + 19):nth-child(-n + 27),
+.sudoku-cell:nth-child(n + 46):nth-child(-n + 54) {
+  border-bottom: 2px solid var(--text-color);
+}
+
+.sudoku-cell.pre-filled {
+  color: var(--text-color);
+  cursor: default;
+}
+
+.sudoku-cell:not(.pre-filled) {
+  color: var(--primary-accent);
+}
+
+.sudoku-cell.selected {
+  background-color: var(--primary-accent-glow);
+  outline: 2px solid var(--primary-accent);
+  z-index: 10;
+}
+
+.sudoku-cell.invalid {
+  background-color: rgba(220, 53, 69, 0.3);
+  color: #ffc107;
+}
+
+/* --- Color Palette Generator --- */
+.color-picker-container #base-color-preview {
+  width: 100%;
+  height: 150px;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.color-picker-container #base-color-preview:hover {
+  transform: scale(1.02);
+}
+
+.color-picker-container #base-color-picker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 150%; /* Make it oversized to hide the default UI */
+  height: 150%;
+  transform: translate(-15%, -15%);
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: transparent;
+}
+
+#color-info-display {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  font-size: 0.9rem;
+}
+
+.color-info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.25rem 0;
+}
+
+.color-info-row span {
+  opacity: 0.7;
+}
+
+.palette-title {
+  font-weight: 500;
+  color: var(--text-muted-color);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem;
+}
+
+.palette-row {
+  display: flex;
+  height: 80px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+}
+
+.color-swatch {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0.5rem;
+  cursor: pointer;
+  position: relative;
+  transition: flex 0.3s ease, transform 0.2s ease;
+}
+
+.color-swatch:hover {
+  flex: 1.5; /* Grow on hover */
+  transform: scale(1.05);
+  z-index: 10;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.swatch-hex {
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.color-swatch:hover .swatch-hex {
+  opacity: 0.8;
+}
+
+/* --- Data Visualization Dashboard --- */
+.chart-container-viz {
+  position: relative;
+  min-height: 450px;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+}
+
+/* Refine button group styling */
+#chart-controls .btn {
+  font-weight: 500;
+}
+#chart-controls .btn.btn-secondary {
+  background-color: var(--card-bg-color);
+  border-color: var(--border-color);
+  color: var(--text-muted-color);
+}
+
+/* --- Music Player --- */
+#music-player-container {
+  max-width: 350px;
+  background-color: #2c302f;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.music-cover-art {
+  width: 80%;
+  max-width: 200px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s ease-in-out;
+}
+
+#music-player-container.playing .music-cover-art {
+  transform: rotate(360deg);
+  animation: rotateCover 8s linear infinite;
+}
+
+@keyframes rotateCover {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.music-info h5 {
+  font-weight: 600;
+}
+
+.progress-container {
+  background: #444;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 8px;
+  width: 100%;
+}
+
+.progress-container .progress-bar {
+  background-color: var(--primary-accent);
+  border-radius: 5px;
+  height: 100%;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+.music-controls .btn {
+  border: none;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  transition: transform 0.2s;
+}
+
+.music-controls .btn:hover {
+  transform: scale(1.1);
+}
+
+.music-controls .btn i {
+  color: var(--text-color);
+}
+
+.music-body {
+  min-height: 450px;
+}
+
+#search-results-list {
+  max-height: 450px;
+  overflow-y: auto;
+}
+
+.music-search-item {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+.music-search-item:hover {
+  background-color: var(--primary-accent-glow);
+  color: var(--text-color);
+}
+
+.music-search-item img {
+  border-radius: 4px;
+}
+
+/* --- Footer Styles --- */
+.main-footer {
+  background-color: #1e201f;
+  border-top: 1px solid #3a3f3e;
+  color: var(--text-muted-color);
+  font-size: 0.85rem;
+}
+
+.footer-copyright {
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 576px) {
+  .footer-copyright {
+    margin-bottom: 0;
+  }
+}
+
+.footer-social-links a {
+  color: var(--text-muted-color);
+  font-size: 1.2rem;
+  margin-left: 1rem;
+  transition: color 0.2s ease-in-out;
+}
+
+.footer-social-links a:hover {
+  color: var(--primary-accent); /* Theme color */
+}

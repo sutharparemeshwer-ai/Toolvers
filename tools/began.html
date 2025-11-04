@@ -1,0 +1,53 @@
+  <br><br><br><br>
+  <div class="card p-3 mb-5 text-center mytool mt-5">
+  <h3>Background Generator</h3>
+  <br>
+  
+  <div class="row g-3 justify-content-center">
+    
+    <div class="col-6 col-md-3">
+      <label class="form-label small">Color 1:</label>
+      <input type="color" id="color1" class="form-control form-control-color w-100" value="#ff0000">
+    </div>
+
+    <div class="col-6 col-md-3">
+      <label class="form-label small">Color 2:</label>
+      <input type="color" id="color2" class="form-control form-control-color w-100" value="#0000ff">
+    </div>
+    
+    <div class="col-6 col-md-3">
+      <label class="form-label small">Type:</label>
+      <select id="gradientType" class="form-select">
+        <option value="linear">Linear</option>
+        <option value="radial">Radial</option>
+      </select>
+    </div>
+
+    <div class="col-6 col-md-3" id="gradientDirectionWrapper">
+      <label class="form-label small">Direction:</label>
+      <select id="gradientDirection" class="form-select">
+        <option value="to right">To Right</option>
+        <option value="to left">To Left</option>
+        <option value="to top">To Top</option>
+        <option value="to bottom">To Bottom</option>
+        <option value="45deg">45 Degrees</option>
+      </select>
+    </div>
+
+  </div>
+
+  <br>
+  
+  <div class="mt-4 mb-4" style="border: 2px solid #9a8c98; min-height: 200px; border-radius: 8px;">
+      <div id="preview" style="height: 200px;"></div>
+  </div>
+
+  <p class="small text-muted">Copy CSS Code:</p>
+  <div class="input-group mb-3">
+    <textarea id="cssCode" class="form-control" rows="3" readonly></textarea>
+    <button id="copyCSS" class="btn btn-light" type="button">Copy CSS</button>
+  </div>
+</div>
+
+  
+

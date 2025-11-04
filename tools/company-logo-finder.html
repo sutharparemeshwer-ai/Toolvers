@@ -1,0 +1,55 @@
+<!-- tools/company-logo-finder.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center text-light">
+    <i class="fa-solid fa-gem me-2"></i> Company Logo Finder
+  </h4>
+
+  <div class="card p-3 p-md-4 mx-auto" style="max-width: 600px">
+    <!-- Input -->
+    <div class="mb-3">
+      <label for="domain-input" class="form-label">Enter Company Domain:</label>
+      <div class="input-group">
+        <input
+          type="text"
+          id="domain-input"
+          class="form-control"
+          placeholder="e.g., google.com"
+        />
+        <button id="find-logo-btn" class="btn btn-primary">Find Logo</button>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div
+      id="logo-result-container"
+      class="text-center mt-4 p-4 border rounded bg-light"
+      style="
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <p id="logo-status" class="text-muted">
+        Enter a domain to find its logo.
+      </p>
+      <img
+        id="logo-preview"
+        class="img-fluid"
+        style="display: none; max-height: 150px"
+        alt="Company Logo"
+      />
+    </div>
+
+    <!-- Download Button -->
+    <div class="text-center mt-3">
+      <a
+        id="download-logo-btn"
+        class="btn btn-success d-none"
+        download="logo.png"
+      >
+        <i class="fa-solid fa-download me-2"></i>Download Logo
+      </a>
+    </div>
+  </div>
+</div>

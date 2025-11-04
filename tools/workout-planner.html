@@ -1,0 +1,67 @@
+<!-- tools/workout-planner.html -->
+<div class="container-fluid mt-4">
+    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-dumbbell me-2"></i> Weekly Workout Planner</h4>
+
+    <!-- Action Buttons -->
+    <div class="card p-3 mb-4">
+        <div class="d-flex justify-content-end gap-2">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exercise-form-modal">
+                <i class="fa-solid fa-plus me-2"></i> Add Exercise
+            </button>
+            <button id="clear-plan-btn" class="btn btn-danger">
+                <i class="fa-solid fa-trash-alt me-2"></i> Clear Entire Plan
+            </button>
+        </div>
+    </div>
+
+    <!-- Weekly Planner Grid -->
+    <div id="workout-plan-grid" class="row g-3">
+        <!-- Day cards will be injected here by JS -->
+    </div>
+
+    <!-- Add/Edit Exercise Modal -->
+    <div class="modal fade" id="exercise-form-modal" tabindex="-1" aria-labelledby="exerciseFormModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content mytool">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="exerciseFormModalLabel">Add New Exercise</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="exercise-form">
+                        <div class="mb-3">
+                            <label for="exercise-day" class="form-label">Day of the Week</label>
+                            <select id="exercise-day" class="form-select" required>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                                <option value="Sunday">Sunday</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exercise-name" class="form-label">Exercise Name</label>
+                            <input type="text" class="form-control" id="exercise-name" placeholder="e.g., Bench Press" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label for="exercise-sets" class="form-label">Sets</label>
+                                <input type="number" class="form-control" id="exercise-sets" placeholder="e.g., 3" min="1">
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="exercise-reps" class="form-label">Reps</label>
+                                <input type="text" class="form-control" id="exercise-reps" placeholder="e.g., 8-12">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" form="exercise-form" class="btn btn-primary">Save Exercise</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

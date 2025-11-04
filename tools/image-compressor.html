@@ -1,0 +1,54 @@
+<div class="card p-4 mx-auto" style="max-width: 900px;">
+    <h4 class="mb-4 text-center"><i class="fa-solid fa-file-image"></i> Image Compressor & Resizer</h4>
+
+    <!-- File Input -->
+    <div class="mb-4">
+        <label for="image-upload-input" class="form-label">Choose an image to process:</label>
+        <input type="file" class="form-control" id="image-upload-input" accept="image/jpeg, image/png, image/webp">
+    </div>
+
+    <!-- Controls and Previews -->
+    <div id="controls-and-previews" class="d-none">
+        <div class="row g-4">
+            <!-- Controls Column -->
+            <div class="col-lg-4">
+                <h5>Settings</h5>
+                <div class="mb-3">
+                    <label for="resize-width" class="form-label">Max Width (px)</label>
+                    <input type="number" id="resize-width" class="form-control" placeholder="e.g., 1920">
+                </div>
+                <div class="mb-3">
+                    <label for="resize-height" class="form-label">Max Height (px)</label>
+                    <input type="number" id="resize-height" class="form-control" placeholder="e.g., 1080">
+                </div>
+                <div class="mb-3">
+                    <label for="quality-slider" class="form-label">JPEG/WebP Quality: <span id="quality-value">0.7</span></label>
+                    <input type="range" class="form-range" id="quality-slider" min="0" max="1" step="0.05" value="0.7">
+                </div>
+                <button id="process-btn" class="btn btn-primary w-100">Process Image</button>
+            </div>
+
+            <!-- Previews Column -->
+            <div class="col-lg-8">
+                <div class="row">
+                    <!-- Original Image -->
+                    <div class="col-md-6">
+                        <h6>Original</h6>
+                        <img id="original-preview" src="#" alt="Original Preview" class="img-fluid rounded border">
+                        <p id="original-info" class="small mt-2"></p>
+                    </div>
+                    <!-- Compressed Image -->
+                    <div class="col-md-6">
+                        <h6>Compressed</h6>
+                        <div id="compressed-preview-container" class="text-center text-muted pt-5" style="min-height: 150px;">
+                            <img id="compressed-preview" src="#" alt="Compressed Preview" class="img-fluid rounded border d-none">
+                            <span>Processed image will appear here.</span>
+                        </div>
+                        <p id="compressed-info" class="small mt-2"></p>
+                        <a id="download-btn" class="btn btn-success d-none mt-2" download="compressed-image.jpg">Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

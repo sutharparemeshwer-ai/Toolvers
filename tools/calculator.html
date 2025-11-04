@@ -1,0 +1,33 @@
+<div class="card p-4 text-center">
+    <h4><i class="fa-solid fa-calculator"></i> Simple Calculator</h4>
+    <br>
+    
+    <div class="mb-3 align-items-center d-flex justify-content-center">
+        <input type="text" id="display" class="form-control text-end" value="0" readonly style="font-size: 2em; background-color: #d8f7e5; border: 1px solid #69dddf; width: 300px; justify-self: center;">
+    </div>
+    
+    <div id="calculator-body" class="d-grid gap-2 mx-auto" style="grid-template-columns: repeat(4, 1fr); max-width: 400px;">
+        <button class="btn btn-danger btn-lg" data-action="clear" style="grid-column: span 2;">C</button>
+        <button class="btn btn-secondary btn-lg" data-action="operator" data-value="/" >/</button>
+        <button class="btn btn-secondary btn-lg" data-action="operator" data-value="*" >x</button>
+
+        <button class="btn btn-light btn-lg" data-action="number" data-value="7" >7</button>
+        <button class="btn btn-light  btn-lg" data-action="number" data-value="8" >8</button>
+        <button class="btn btn-light btn-lg" data-action="number" data-value="9" >9</button>
+        <button class="btn btn-secondary btn-lg" data-action="operator" data-value="-" >-</button>
+        
+        <button class="btn btn-light  btn-lg" data-action="number" data-value="4" >4</button>
+        <button class="btn btn-light  btn-lg" data-action="number" data-value="5" >5</button>
+        <button class="btn btn-light  btn-lg" data-action="number" data-value="6" >6</button>
+        <button class="btn btn-secondary btn-lg" data-action="operator" data-value="+" >+</button>
+        
+        <button class="btn btn-light  btn-lg" data-action="number" data-value="1" >1</button>
+        <button class="btn btn-light  btn-lg" data-action="number" data-value="2" >2</button>
+        <button class="btn btn-light  btn-lg" data-action="number" data-value="3" >3</button>
+        <button class="btn btn-success btn-lg" data-action="calculate" style="grid-row: span 2;">=</button>
+
+        <button class="btn btn-light  btn-lg" data-action="number" data-value="0" style="grid-column: span 2;">0</button>
+        <button class="btn btn-light  btn-lg" data-action="decimal" data-value="." >.</button>
+    </div>
+    
+</div>

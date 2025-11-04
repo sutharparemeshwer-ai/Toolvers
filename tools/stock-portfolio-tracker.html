@@ -1,0 +1,87 @@
+<!-- tools/stock-portfolio-tracker.html -->
+<div class="container-fluid mt-4">
+    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-chart-pie me-2"></i> Stock Portfolio Tracker</h4>
+
+    <!-- Portfolio Summary -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card text-center p-3">
+                <p class="mb-1 small ">Total Value</p>
+                <h4 id="portfolio-total-value" class="fw-bold">$0.00</h4>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center p-3">
+                <p class="mb-1 small ">Total Gain / Loss</p>
+                <h4 id="portfolio-total-gain" class="fw-bold">$0.00</h4>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center p-3">
+                <p class="mb-1 small ">Day's Gain / Loss</p>
+                <h4 id="portfolio-day-gain" class="fw-bold">$0.00</h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions & Table -->
+    <div class="card p-3">
+        <div class="d-flex justify-content-end mb-3">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#stock-form-modal">
+                <i class="fa-solid fa-plus me-2"></i> Add Stock
+            </button>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Shares</th>
+                        <th>Avg. Cost</th>
+                        <th>Current Price</th>
+                        <th>Day's Change</th>
+                        <th>Total Value</th>
+                        <th>Total Gain/Loss</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="portfolio-tbody">
+                    <!-- Stock rows will be injected here -->
+                </tbody>
+            </table>
+            <p id="empty-portfolio-message" class="text-center text-muted mt-3 d-none">Your portfolio is empty. Add a stock to begin.</p>
+        </div>
+    </div>
+
+    <!-- Add Stock Modal -->
+    <div class="modal fade" id="stock-form-modal" tabindex="-1" aria-labelledby="stockFormModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content mytool">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="stockFormModalLabel">Add New Stock</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="stock-form">
+                        <div class="mb-3">
+                            <label for="stock-symbol" class="form-label">Stock Symbol (e.g., AAPL, MSFT)</label>
+                            <input type="text" class="form-control" id="stock-symbol" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="stock-shares" class="form-label">Number of Shares</label>
+                            <input type="number" class="form-control" id="stock-shares" step="any" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="stock-purchase-price" class="form-label">Average Purchase Price ($)</label>
+                            <input type="number" class="form-control" id="stock-purchase-price" step="any" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" form="stock-form" class="btn btn-primary">Add to Portfolio</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

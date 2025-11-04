@@ -1,0 +1,28 @@
+<div id="speech-to-text-container" class="card p-4 mx-auto" style="max-width: 600px;">
+    <h4 class="mb-4 text-center"><i class="fa-solid fa-microphone"></i> Speech-to-Text Converter</h4>
+    
+    <div class="mb-3 text-center">
+        <p id="status-message" class="text-muted">Click the button and start speaking.</p>
+        <span id="api-support-alert" class="badge bg-danger d-none">
+            <i class="fa-solid fa-triangle-exclamation"></i> Speech Recognition not supported in this browser.
+        </span>
+    </div>
+
+    <div class="text-center mb-4">
+        <button id="start-btn" class="btn btn-primary btn-lg">
+            <i class="fa-solid fa-microphone"></i> Start Listening
+        </button>
+        <button id="stop-btn" class="btn btn-warning btn-lg d-none">
+            <i class="fa-solid fa-stop"></i> Stop Listening
+        </button>
+    </div>
+
+    <div class="p-3 border rounded bg-light">
+        <h6 class="text-primary mb-2">Transcript:</h6>
+        <textarea id="transcript-output" class="form-control" rows="8" placeholder="Your speech will appear here..." readonly></textarea>
+    </div>
+    
+    <div class="mt-3 d-flex justify-content-end">
+        <button id="clear-btn" class="btn btn-sm btn-outline-secondary">Clear Transcript</button>
+    </div>
+</div>

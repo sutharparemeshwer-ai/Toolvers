@@ -1,0 +1,26 @@
+<!-- tools/brainstorm-board.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center">
+    <i class="fa-solid fa-project-diagram me-2"></i> Mind Map
+  </h4>
+
+  <div class="card p-3 mb-4 mx-auto" style="max-width: 600px">
+    <form id="new-idea-form" class="d-flex gap-2">
+      <input
+        type="text"
+        id="new-idea-input"
+        class="form-control"
+        placeholder="Enter a central idea..."
+        required
+      />
+      <button type="submit" class="btn btn-primary">Add Central Idea</button>
+    </form>
+  </div>
+
+  <div id="brainstorm-board-container" class="brainstorm-board">
+    <!-- SVG layer for connector lines -->
+    <svg id="mind-map-svg-layer" class="mind-map-svg"></svg>
+    <!-- Node container -->
+    <div id="mind-map-nodes-container"></div>
+  </div>
+</div>

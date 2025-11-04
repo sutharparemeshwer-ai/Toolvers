@@ -1,0 +1,31 @@
+<div class="row g-4">
+    <!-- Compressor Card -->
+    <div class="col-lg-6 d-flex">
+        <div class="card p-4 w-100">
+            <h5 class="mb-3"><i class="fa-solid fa-file-zipper"></i> Create a ZIP Archive</h5>
+            <div class="mb-3">
+                <label for="compress-files-input" class="form-label">Select files to compress:</label>
+                <input type="file" id="compress-files-input" class="form-control" multiple>
+            </div>
+            <button id="compress-btn" class="btn btn-primary mb-3" disabled>Compress Files</button>
+            <div id="compress-status" class="mt-2"></div>
+            <a id="download-zip-btn" class="btn btn-success d-none" download="archive.zip">Download ZIP</a>
+        </div>
+    </div>
+
+    <!-- Decompressor Card -->
+    <div class="col-lg-6 d-flex">
+        <div class="card p-4 w-100">
+            <h5 class="mb-3"><i class="fa-solid fa-file-export"></i> Extract a ZIP Archive</h5>
+            <div class="mb-3">
+                <label for="decompress-file-input" class="form-label">Select a .zip file to extract:</label>
+                <input type="file" id="decompress-file-input" class="form-control" accept=".zip">
+            </div>
+            <div id="decompress-status" class="mt-2 mb-3"></div>
+            <h6>Extracted Files:</h6>
+            <div id="extracted-files-list" class="list-group">
+                <p class="text-muted">Files will appear here after extraction.</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<!-- tools/asteroids.html -->
+<div class="container mt-4 text-center">
+  <h4 class="mb-4"><i class="fa-solid fa-meteor me-2"></i> Asteroids</h4>
+  <div id="asteroids-container" class="asteroids-container mx-auto">
+    <canvas id="asteroids-canvas" width="800" height="600"></canvas>
+    <div id="asteroids-start-screen" class="asteroids-overlay">
+      <h5 class="mb-3">Asteroids</h5>
+      <p class="mb-3">
+        <i class="fa-solid fa-arrow-up"></i> Thrust |
+        <i class="fa-solid fa-arrow-left"></i
+        ><i class="fa-solid fa-arrow-right"></i> Rotate |
+        <i class="fa-solid fa-keyboard"></i> Space to Shoot
+      </p>
+      <button id="asteroids-start-btn" class="btn btn-primary">
+        Start Game
+      </button>
+    </div>
+    <div id="asteroids-game-over-screen" class="asteroids-overlay d-none">
+      <h5 class="mb-2">Game Over</h5>
+      <p>Final Score: <span id="asteroids-final-score">0</span></p>
+      <button id="asteroids-restart-btn" class="btn btn-primary">
+        Play Again
+      </button>
+    </div>
+  </div>
+  <div
+    class="d-flex justify-content-between mx-auto mt-2 text-light"
+    style="max-width: 800px"
+  >
+    <p>Score: <span id="asteroids-score">0</span></p>
+    <p>Lives: <span id="asteroids-lives">3</span></p>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="card p-4 mx-auto" style="max-width: 650px;">
+    <h4 class="mb-4 text-center"><i class="fa-solid fa-brain"></i> Memory Card Game</h4>
+    
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <span class="badge bg-secondary">Moves: <span id="moves-count">0</span></span>
+        <button id="reset-btn" class="btn btn-sm btn-outline-primary">
+            <i class="fa-solid fa-rotate-right"></i> Reset Game
+        </button>
+    </div>
+
+    <div id="game-board" class="memory-grid mb-4">
+        </div>
+
+    <div id="win-message" class="alert alert-success text-center d-none" role="alert">
+        🎉 **Congratulations!** You matched all cards in <span id="final-moves">0</span> moves!
+    </div>
+</div>

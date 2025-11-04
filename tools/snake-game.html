@@ -1,0 +1,29 @@
+<div id="snake-game-container" class="card p-4 mx-auto" style="max-width: 500px;">
+    <h4 class="mb-4 text-center"><i class="fa-solid fa-snake"></i> The Snake Game</h4>
+    
+    <div class="d-flex justify-content-between align-items-center mb-3 p-2 bg-light rounded">
+        <span class="badge bg-success">Score: <span id="score-display">0</span></span>
+        <span id="game-status" class="badge bg-info">Press Start</span>
+        <button id="start-btn" class="btn btn-sm btn-outline-primary">Start Game</button>
+    </div>
+
+    <canvas id="game-canvas" width="400" height="400" class="border border-dark"></canvas>
+
+    <div class="mt-3 small text-muted text-center">
+        Use **Arrow Keys** to move the snake and eat the red food!
+    </div>
+
+    <!-- Mobile Controls (visible on small screens, hidden on large) -->
+    <div id="mobile-controls" class="d-lg-none mt-4 mx-auto" style="width: 150px;">
+        <div class="text-center">
+            <button id="btn-up" class="btn btn-secondary"><i class="fa-solid fa-arrow-up"></i></button>
+        </div>
+        <div class="d-flex justify-content-between my-2">
+            <button id="btn-left" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i></button>
+            <button id="btn-right" class="btn btn-secondary"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+        <div class="text-center">
+            <button id="btn-down" class="btn btn-secondary"><i class="fa-solid fa-arrow-down"></i></button>
+        </div>
+    </div>
+</div>

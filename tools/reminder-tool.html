@@ -1,0 +1,29 @@
+<div class="card p-4 mx-auto" style="max-width: 600px;">
+    <h4 class="mb-4 text-center"><i class="fa-solid fa-bell"></i> Reminder Tool</h4>
+
+    <!-- Notification Permission Request -->
+    <div id="permission-alert" class="alert alert-info d-none">
+        This tool requires notification permissions.
+        <button id="permission-btn" class="btn btn-sm btn-primary">Enable Notifications</button>
+    </div>
+
+    <!-- Reminder Form -->
+    <form id="reminder-form" class="mb-4">
+        <div class="mb-3">
+            <label for="reminder-text" class="form-label">Remind me to:</label>
+            <input type="text" id="reminder-text" class="form-control" placeholder="e.g., Take a break" required>
+        </div>
+        <div class="mb-3">
+            <label for="reminder-time" class="form-label">At this time:</label>
+            <input type="datetime-local" id="reminder-time" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Set Reminder</button>
+    </form>
+
+    <!-- Pending Reminders -->
+    <hr>
+    <h5 class="mt-3 mb-3">Pending Reminders</h5>
+    <div id="reminders-list" class="list-group">
+        <p class="text-muted text-center" id="no-reminders-message">You have no pending reminders.</p>
+    </div>
+</div>

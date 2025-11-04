@@ -1,0 +1,29 @@
+<div class="card p-4 mx-auto" style="max-width: 800px;">
+    <h4 class="mb-4 text-center"><i class="fa-solid fa-book"></i> Daily Journal</h4>
+
+    <!-- Journal Entry Form -->
+    <form id="journal-form" class="mb-4">
+        <input type="hidden" id="entry-id-input">
+        <div class="mb-3">
+            <label for="entry-title-input" class="form-label">Entry Title</label>
+            <input type="text" class="form-control" id="entry-title-input" placeholder="e.g., A Productive Day" required>
+        </div>
+        <div class="mb-3">
+            <label for="entry-content-input" class="form-label">Today's Thoughts</label>
+            <textarea class="form-control" id="entry-content-input" rows="6" placeholder="Write about your day..." required></textarea>
+        </div>
+        <div class="d-flex justify-content-end gap-2">
+            <button type="button" id="clear-form-btn" class="btn btn-secondary">Clear</button>
+            <button type="submit" class="btn btn-success">Save Entry</button>
+        </div>
+    </form>
+
+    <!-- Saved Entries Section -->
+    <hr>
+    <h5 class="mt-3 mb-3">Saved Entries</h5>
+    <div id="saved-entries-list" class="list-group">
+        <p class="text-muted text-center" id="no-entries-message">
+            No journal entries yet. Write your first entry above!
+        </p>
+    </div>
+</div>

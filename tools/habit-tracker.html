@@ -1,0 +1,29 @@
+<div class="card p-4 mx-auto" style="max-width: 700px;">
+    <h4 class="mb-4 text-center"><i class="fa-solid fa-square-check"></i> Habit Tracker</h4>
+    
+    <div class="input-group mb-4">
+        <input 
+            type="text" 
+            class="form-control" 
+            id="new-habit-input" 
+            placeholder="Enter a new habit (e.g., Read 10 pages)..."
+        >
+        <button class="btn btn-primary" type="button" id="add-habit-btn">Track It</button>
+    </div>
+
+    <div id="habits-list">
+        <div class="d-flex justify-content-end mb-2 small text-muted">
+            <span class="me-3" style="width: 30%;">Habit</span>
+            <div class="d-flex" id="day-labels-container">
+                </div>
+        </div>
+        
+        <p class="text-muted text-center" id="empty-message">No habits tracked yet. Start tracking a new habit!</p>
+    </div>
+
+    <div class="pt-3 border-top mt-4 text-end">
+        <button id="clear-all-btn" class="btn btn-sm btn-outline-danger">
+            Clear All Habits
+        </button>
+    </div>
+</div>

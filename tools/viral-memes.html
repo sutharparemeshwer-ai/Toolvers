@@ -1,0 +1,27 @@
+<!-- tools/viral-memes.html -->
+<div class="container-fluid mt-4">
+    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-face-grin-squint-tears me-2"></i> Viral & Dark Memes</h4>
+
+    <div class="card p-3 mb-4">
+        <!-- Category Filters -->
+        <div id="meme-category-filters" class="d-flex justify-content-center flex-wrap gap-2 mb-3">
+            <button class="btn btn-primary" data-subreddit="dankmemes">😂 Dank Memes</button>
+            <button class="btn btn-secondary" data-subreddit="memes">🌐 General</button>
+        </div>
+
+        <!-- Meme Display -->
+        <div id="meme-display-area" class="text-center">
+            <div id="meme-status" class="my-4"></div>
+            <div id="meme-content" class="d-none">
+                <h3 id="meme-title" class="mb-3"></h3>
+                <img id="meme-image" src="" alt="Meme" class="img-fluid rounded shadow-sm" style="max-height: 90vh;">
+                <p class="text-muted mt-2">From: <a id="meme-source-link" href="#" target="_blank">r/subreddit</a></p>
+            </div>
+        </div>
+
+        <!-- Action Button -->
+        <div class="text-center mt-3">
+            <button id="next-meme-btn" class="btn btn-lg btn-success">Next Meme <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </div>
+</div>

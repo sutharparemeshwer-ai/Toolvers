@@ -1,0 +1,57 @@
+<!-- tools/ai-text-rewriter.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center">
+    <i class="fa-solid fa-pen-nib me-2"></i> AI Text Rewriter
+  </h4>
+
+  <div class="card p-3">
+    <div class="row g-4">
+      <!-- Input Text -->
+      <div class="col-lg-6">
+        <h5>Original Text</h5>
+        <textarea
+          id="rewriter-original-text"
+          class="form-control"
+          rows="12"
+          placeholder="Paste or type your text here..."
+        ></textarea>
+      </div>
+
+      <!-- Rewritten Text -->
+      <div class="col-lg-6">
+        <h5>Rewritten Text</h5>
+        <textarea
+          id="rewriter-rewritten-text"
+          class="form-control"
+          rows="12"
+          placeholder="The rewritten text will appear here..."
+          readonly
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="row g-3 align-items-center mt-3">
+      <div class="col-md-6">
+        <label for="rewriter-tone-select" class="form-label"
+          >Choose a Tone:</label
+        >
+        <select id="rewriter-tone-select" class="form-select">
+          <option value="formal">Make More Formal</option>
+          <option value="casual">Make More Casual</option>
+          <option value="concise">Make More Concise</option>
+          <option value="expanded">Expand On It</option>
+          <option value="simpler">Simplify the Language</option>
+        </select>
+      </div>
+      <div class="col-md-6 d-grid">
+        <button id="rewriter-submit-btn" class="btn btn-primary btn-lg mt-md-4">
+          <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Rewrite
+        </button>
+      </div>
+    </div>
+
+    <!-- Status -->
+    <div id="rewriter-status" class="text-center small text-muted mt-3"></div>
+  </div>
+</div>

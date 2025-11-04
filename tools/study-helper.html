@@ -1,0 +1,47 @@
+<div class="card p-4 mx-auto" style="max-width: 900px;">
+    <h4 class="mb-4 text-center"><i class="fa-solid fa-book-reader"></i> Study Helper</h4>
+    <div class="row g-4">
+        <!-- Timer Section -->
+        <div class="col-lg-6">
+            <div class="text-center p-3 border rounded">
+                <div class="btn-group mb-3" role="group">
+                    <button type="button" class="btn btn-primary mode-btn active" data-mode="pomodoro">Focus (25m)</button>
+                    <button type="button" class="btn btn-secondary mode-btn" data-mode="shortBreak">Short Break (5m)</button>
+                    <button type="button" class="btn btn-secondary mode-btn" data-mode="longBreak">Long Break (15m)</button>
+                </div>
+
+                <h1 id="study-timer-display" class="display-1 fw-bold my-4">25:00</h1>
+
+                <div class="d-flex justify-content-center gap-2">
+                    <button id="study-start-pause-btn" class="btn btn-success btn-lg">Start</button>
+                    <button id="study-reset-btn" class="btn btn-outline-secondary btn-lg" disabled>Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Task List Section -->
+        <div class="col-lg-6">
+            <div class="p-3 border rounded h-100 d-flex flex-column">
+                <h5 class="mb-3">Session Goals</h5>
+                
+                <!-- Task Input Form -->
+                <form id="study-task-form" class="mb-3">
+                    <div class="input-group">
+                        <input type="text" id="study-task-input" class="form-control" placeholder="Add a task for this session...">
+                        <button class="btn btn-primary" type="submit">Add</button>
+                    </div>
+                </form>
+
+                <!-- Task List -->
+                <div id="study-task-list" class="list-group flex-grow-1" style="overflow-y: auto;">
+                    <p id="study-empty-tasks-msg" class="text-muted text-center small mt-3">
+                        No tasks for this session yet.
+                    </p>
+                </div>
+
+                <!-- Clear Button -->
+                <button id="study-clear-tasks-btn" class="btn btn-sm btn-outline-danger mt-3">Clear All Tasks</button>
+            </div>
+        </div>
+    </div>
+</div>

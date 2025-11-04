@@ -1,0 +1,42 @@
+<!-- tools/lyrics-finder.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center">
+    <i class="fa-solid fa-music me-2"></i> Lyrics Finder
+  </h4>
+
+  <div class="card p-3 p-md-4 mx-auto" style="max-width: 800px">
+    <!-- Search Form -->
+    <form id="lyrics-search-form">
+      <div class="row g-2 mb-3">
+        <div class="col-md">
+          <div class="position-relative">
+            <input type="text" id="artist-input" class="form-control" placeholder="Artist Name (e.g., Queen)" required autocomplete="off" />
+            <div id="artist-suggestions" class="suggestions-dropdown list-group"></div>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="position-relative">
+            <input type="text" id="song-title-input" class="form-control" placeholder="Song Title (e.g., Bohemian Rhapsody)" required autocomplete="off" />
+            <div id="song-suggestions" class="suggestions-dropdown list-group"></div>
+          </div>
+        </div>
+        <div class="col-md-auto">
+          <button type="submit" class="btn btn-primary w-100">Search</button>
+
+        </div>
+      </div>
+    </form>
+
+    <!-- Results Area -->
+    <div id="lyrics-status" class="text-center my-3">
+      Enter an artist and song to find lyrics.
+    </div>
+    <div id="lyrics-result-container" class="p-3 bg-dark rounded d-none">
+      <pre
+        id="lyrics-output"
+        class="text-light"
+        style="white-space: pre-wrap; word-wrap: break-word"
+      ></pre>
+    </div>
+  </div>
+</div>

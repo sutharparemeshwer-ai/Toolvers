@@ -1,0 +1,38 @@
+<!-- tools/code-editor.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center">
+    <i class="fa-solid fa-code me-2"></i> Live Code Editor
+  </h4>
+
+  <div class="row g-3">
+    <!-- Editor Column -->
+    <div class="col-lg-6">
+      <div class="card p-3 h-100">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <label for="language-select" class="form-label mb-0">Language:</label>
+          <select
+            id="language-select"
+            class="form-select form-select-sm"
+            style="max-width: 150px"
+          >
+            <option value="htmlmixed" selected>HTML</option>
+            <option value="css">CSS</option>
+            <option value="javascript">JavaScript</option>
+          </select>
+        </div>
+        <textarea id="code-editor-textarea"></textarea>
+      </div>
+    </div>
+
+    <!-- Preview Column -->
+    <div class="col-lg-6">
+      <div class="card p-3 h-100">
+        <h5 class="mb-2">Live Preview</h5>
+        <iframe
+          id="live-preview-iframe"
+          class="w-100 h-100 border rounded bg-white"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</div>

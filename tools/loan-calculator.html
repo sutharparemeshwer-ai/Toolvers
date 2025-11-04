@@ -1,0 +1,75 @@
+<!-- tools/loan-calculator.html -->
+<div class="container-fluid mt-4">
+    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-hand-holding-dollar me-2"></i> Loan Calculator</h4>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card p-3 mb-4 text-light">
+                <form id="loan-form">
+                    <div class="mb-3">
+                        <label for="loan-amount" class="form-label">Loan Amount ($)</label>
+                        <input type="number" id="loan-amount" class="form-control" value="10000" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="interest-rate" class="form-label">Annual Interest Rate (%)</label>
+                        <input type="number" id="interest-rate" class="form-control" step="0.01" value="5" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="loan-term" class="form-label">Loan Term (Years)</label>
+                        <input type="number" id="loan-term" class="form-control" value="5" required>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Calculate</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card p-3 text-light">
+                <h5 class="text-center mb-3">Results</h5>
+                <div class="row text-center g-3">
+                    <div class="col-12">
+                        <p class="mb-1 small text-white-50">Monthly Payment</p>
+                        <h4 id="monthly-payment" class="fw-bold">$0.00</h4>
+                    </div>
+                    <hr>
+                    <div class="col-6">
+                        <p class="mb-1 small text-white-50">Total Principal</p>
+                        <h5 id="total-principal" class="fw-bold">$0.00</h5>
+                    </div>
+                    <div class="col-6">
+                        <p class="mb-1 small text-white-50">Total Interest</p>
+                        <h5 id="total-interest" class="fw-bold text-danger">$0.00</h5>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <p class="mb-1 small text-white-50">Total Payment</p>
+                        <h4 id="total-payment" class="fw-bold text-success">$0.00</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Amortization Schedule -->
+    <div class="row justify-content-center mt-4">
+        <div class="col-lg-12">
+            <div class="card p-3 text-light">
+                <h5 class="mb-3">Amortization Schedule</h5>
+                <div class="table-responsive" style="max-height: 400px;">
+                    <table class="table table-dark table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Payment</th>
+                                <th>Principal</th>
+                                <th>Interest</th>
+                                <th>Remaining Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody id="amortization-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

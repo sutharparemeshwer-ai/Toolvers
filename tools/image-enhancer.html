@@ -1,0 +1,55 @@
+<!-- tools/image-enhancer.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center">
+    <i class="fa-solid fa-wand-magic-sparkles me-2"></i> AI Image Enhancer
+  </h4>
+
+  <div class="card p-3">
+    <div class="mb-3">
+      <label for="enhancer-image-input" class="form-label"
+        >Upload an image to enhance:</label
+      >
+      <input
+        type="file"
+        id="enhancer-image-input"
+        class="form-control"
+        accept="image/*"
+      />
+    </div>
+
+    <div id="enhancer-previews" class="d-none">
+      <div class="row g-3">
+        <div class="col-md-6 text-center">
+          <h5>Original</h5>
+          <img
+            id="enhancer-original-preview"
+            class="img-fluid rounded border"
+            alt="Original Image"
+          />
+        </div>
+        <div class="col-md-6 text-center">
+          <h5>Enhanced</h5>
+          <img
+            id="enhancer-enhanced-preview"
+            class="img-fluid rounded border"
+            alt="Enhanced Image"
+          />
+        </div>
+      </div>
+      <div class="text-center mt-3">
+        <p class="small text-muted">
+          This tool applies a smart filter to improve brightness, contrast, and
+          saturation.
+        </p>
+        <a
+          id="enhancer-download-btn"
+          class="btn btn-success"
+          href="#"
+          download="enhanced-image.png"
+        >
+          <i class="fa-solid fa-download me-2"></i> Download Enhanced Image
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

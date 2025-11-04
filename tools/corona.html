@@ -1,0 +1,41 @@
+<div class="card p-4 text-center">
+    <h4><i class="fa-solid fa-viruses"></i> Global COVID-19 Tracker</h4>
+    <p class="small ">Latest statistics on confirmed cases, deaths, and recoveries worldwide.</p>
+    
+    <div id="tracker-loading" class="alert alert-info mt-3">
+        Loading global data...
+    </div>
+
+    <div id="tracker-data" class="row g-3 mt-2" style="display: none;">
+        
+        <div class="col-md-4">
+            <div class="card bg-primary text-white p-3 h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Confirmed Cases</h5>
+                    <p id="confirmed-cases" class="display-5 fw-bold">--</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-danger text-white p-3 h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Total Deaths</h5>
+                    <p id="total-deaths" class="display-5 fw-bold">--</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-success text-white p-3 h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Total Recovered</h5>
+                    <p id="total-recovered" class="display-5 fw-bold">--</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <p id="tracker-update-time" class="small text-muted mt-3">Last Updated: --</p>
+</div>

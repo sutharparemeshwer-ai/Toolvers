@@ -1,0 +1,147 @@
+<!-- tools/thumbnail-generator.html -->
+<!-- Link to Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@700&family=Oswald:wght@700&family=Roboto:wght@700&display=swap"
+  rel="stylesheet"
+/>
+
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center">
+    <i class="fa-solid fa-image me-2"></i> Thumbnail Generator
+  </h4>
+
+  <div class="row g-4">
+    <!-- Controls Panel -->
+    <div class="col-lg-4">
+      <div class="card p-3">
+        <h5>Controls</h5>
+        <hr />
+        <!-- Background Image -->
+        <div class="mb-3">
+          <label for="thumb-bg-image" class="form-label"
+            >Background Image</label
+          >
+          <input
+            type="file"
+            id="thumb-bg-image"
+            class="form-control"
+            accept="image/*"
+          />
+        </div>
+        <!-- Font Family -->
+        <div class="mb-3">
+          <label for="thumb-font-family" class="form-label">Font Family</label>
+          <select id="thumb-font-family" class="form-select">
+            <option value="'Roboto', sans-serif" selected>Roboto</option>
+            <option value="'Oswald', sans-serif">Oswald</option>
+            <option value="'Montserrat', sans-serif">Montserrat</option>
+            <option value="'Lobster', cursive">Lobster</option>
+          </select>
+        </div>
+        <!-- Main Text -->
+        <div class="mb-3">
+          <label for="thumb-main-text" class="form-label">Main Text</label>
+          <input
+            type="text"
+            id="thumb-main-text"
+            class="form-control"
+            value="Your Catchy Title"
+          />
+        </div>
+        <!-- Subtitle Text -->
+        <div class="mb-3">
+          <label for="thumb-subtitle-text" class="form-label"
+            >Subtitle Text</label
+          >
+          <input
+            type="text"
+            id="thumb-subtitle-text"
+            class="form-control"
+            value="A great subtitle"
+          />
+        </div>
+        <!-- Font Size -->
+        <div class="mb-3">
+          <label for="thumb-font-size" class="form-label"
+            >Font Size: <span id="thumb-font-size-value">72</span>px</label
+          >
+          <input
+            type="range"
+            id="thumb-font-size"
+            class="form-range"
+            min="24"
+            max="120"
+            value="72"
+          />
+        </div>
+        <!-- Text Color -->
+        <div class="mb-3">
+          <label for="thumb-text-color" class="form-label">Text Color</label>
+          <input
+            type="color"
+            id="thumb-text-color"
+            class="form-control form-control-color"
+            value="#FFFFFF"
+          />
+        </div>
+        <!-- Subtitle Controls -->
+        <div class="row g-2 mb-3">
+          <div class="col-6">
+            <label for="thumb-subtitle-size" class="form-label"
+              >Subtitle Size:
+              <span id="thumb-subtitle-size-value">36</span>px</label
+            >
+            <input
+              type="range"
+              id="thumb-subtitle-size"
+              class="form-range"
+              min="12"
+              max="80"
+              value="36"
+            />
+          </div>
+          <div class="col-6">
+            <label for="thumb-subtitle-color" class="form-label"
+              >Subtitle Color</label
+            >
+            <input
+              type="color"
+              id="thumb-subtitle-color"
+              class="form-control form-control-color"
+              value="#FFD700"
+            />
+          </div>
+        </div>
+        <!-- Text Shadow -->
+        <div class="form-check form-switch mb-3">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="thumb-text-shadow"
+            checked
+          />
+          <label class="form-check-label" for="thumb-text-shadow"
+            >Enable Text Shadow</label
+          >
+        </div>
+        <hr />
+        <button id="thumb-download-btn" class="btn btn-success">
+          <i class="fa-solid fa-download me-2"></i> Download Thumbnail
+        </button>
+      </div>
+    </div>
+
+    <!-- Preview Panel -->
+    <div class="col-lg-8">
+      <h5>Preview (1280x720)</h5>
+      <div id="thumbnail-preview-area" class="thumbnail-preview-area">
+        <div class="thumbnail-text-container">
+          <div id="thumbnail-preview-text">Your Catchy Title</div>
+          <div id="thumbnail-preview-subtitle">A great subtitle</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

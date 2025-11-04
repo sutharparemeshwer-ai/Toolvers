@@ -1,0 +1,27 @@
+<br><br><br><br>
+<div class="card p-3 text-center mytool">
+  <h4><i class="fa-solid fa-database"></i> BMI Calculator</h4>
+  <br>
+  <form id="bmi-form" class="row gy-2 gx-2 align-items-end">
+    <div class="col-12 col-md-4">
+      <label class="form-label small">Weight (kg)</label>
+      <input id="weight" class="form-control" type="number" step="any" required />
+    </div>
+    <div class="col-12 col-md-4">
+      <label class="form-label small">Height (m)</label>
+      <input id="height" class="form-control" type="number" step="any" required />
+    </div>
+    <div class="col-12 col-md-4">
+      <button class="btn btn-light w-100" type="submit">Calculate</button>
+    </div>
+  </form>
+
+  <div class="mt-4">
+    <strong>Your BMI:</strong>
+    <h3 id="bmi-result" class="mb-0 mt-1">—</h3>
+  </div>
+
+  <div id="bmi-status" class="alert mt-3" style="min-height: 40px;">
+    Enter your details to calculate your status.
+  </div>
+</div>

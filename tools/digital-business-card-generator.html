@@ -1,0 +1,61 @@
+<!-- tools/digital-business-card-generator.html -->
+<div class="container-fluid mt-4">
+    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-id-card me-2"></i> Digital Business Card Generator</h4>
+
+    <div class="row g-4">
+        <!-- Input Form Column -->
+        <div class="col-lg-5">
+            <div class="card p-3">
+                <h5>Card Details</h5>
+                <form id="db-card-form">
+                    <div class="mb-2">
+                        <label for="db-card-name" class="form-label small">Full Name</label>
+                        <input type="text" class="form-control" id="db-card-name" placeholder="Jane Doe" value="Jane Doe">
+                    </div>
+                    <div class="mb-2">
+                        <label for="db-card-title" class="form-label small">Title</label>
+                        <input type="text" class="form-control" id="db-card-title" placeholder="Software Engineer" value="Software Engineer">
+                    </div>
+                    <div class="mb-2">
+                        <label for="db-card-company" class="form-label small">Company</label>
+                        <input type="text" class="form-control" id="db-card-company" placeholder="Tech Solutions Inc." value="Tech Solutions Inc.">
+                    </div>
+                    <hr>
+                    <div class="mb-2">
+                        <label for="db-card-email" class="form-label small">Email</label>
+                        <input type="email" class="form-control" id="db-card-email" placeholder="jane.doe@example.com" value="jane.doe@example.com">
+                    </div>
+                    <div class="mb-2">
+                        <label for="db-card-phone" class="form-label small">Phone</label>
+                        <input type="tel" class="form-control" id="db-card-phone" placeholder="+1-202-555-0149" value="+1-202-555-0149">
+                    </div>
+                    <div class="mb-2">
+                        <label for="db-card-website" class="form-label small">Website</label>
+                        <input type="text" class="form-control" id="db-card-website" placeholder="www.example.com" value="www.example.com">
+                    </div>
+                    <hr>
+                    <div class="mb-3">
+                        <label for="db-card-bg-color" class="form-label small">Background Color</label>
+                        <input type="color" class="form-control form-control-color" id="db-card-bg-color" value="#1e201f">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Card Preview Column -->
+        <div class="col-lg-7">
+            <div class="card p-3">
+                <h5>Preview</h5>
+                <div class="text-center">
+                    <canvas id="business-card-canvas" width="500" height="300" class="border rounded"></canvas>
+                </div>
+                <div class="mt-3 d-grid">
+                    <a id="download-card-link" class="btn btn-success" download="business-card.png">
+                        <i class="fa-solid fa-download me-2"></i> Generate & Download Card
+                    </a>
+                </div>
+                <p class="text-center small text-muted mt-2">Card updates automatically as you type.</p>
+            </div>
+        </div>
+    </div>
+</div>

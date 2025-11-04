@@ -1,0 +1,74 @@
+<!-- tools/interactive-story-builder.html -->
+<div class="container-fluid mt-4">
+    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-book-open me-2"></i> Interactive Story Builder</h4>
+
+    <div class="row g-4">
+        <!-- Story Management Column -->
+        <div class="col-lg-4">
+            <div class="card p-3 sticky-lg-top" style="top: 20px;">
+                <h5 class="mb-3"><i class="fa-solid fa-sitemap me-2"></i>Story Map</h5>
+                <div id="story-parts-list" class="list-group mb-3">
+                    <!-- Story parts will be injected here -->
+                </div>
+                <div class="d-grid gap-2">
+                    <button id="add-new-part-btn" class="btn btn-primary">Add New Part</button>
+                    <button id="play-story-btn" class="btn btn-success">Play Story</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editor Column -->
+        <div class="col-lg-8">
+            <div id="editor-panel" class="card p-3 d-none">
+                <h5 class="mb-3"><i class="fa-solid fa-pen-ruler me-2"></i>Part Editor</h5>
+                <form id="story-part-form">
+                    <input type="hidden" id="part-id-input">
+                    <div class="mb-3">
+                        <label for="part-title-input" class="form-label">Part Title</label>
+                        <input type="text" id="part-title-input" class="form-control" placeholder="e.g., The Crossroads" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="part-text-input" class="form-label">Story Text</label>
+                        <textarea id="part-text-input" class="form-control" rows="6" placeholder="The story text for this part..."></textarea>
+                    </div>
+
+                    <h6 class="mt-4">Choices</h6>
+                    <div id="choices-container">
+                        <!-- Dynamic choice inputs will be injected here -->
+                    </div>
+                    <button type="button" id="add-choice-btn" class="btn btn-sm btn-secondary mt-2">Add Choice</button>
+
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <button type="button" id="delete-part-btn" class="btn btn-danger">Delete Part</button>
+                        <button type="submit" class="btn btn-primary">Save Part</button>
+                    </div>
+                </form>
+            </div>
+            <div id="editor-placeholder" class="card p-5 text-center text-muted">
+                <p>Select a story part on the left to edit it, or add a new one to begin.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Story Player Modal -->
+    <div class="modal fade" id="story-player-modal" tabindex="-1" aria-labelledby="storyPlayerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content mytool">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="storyPlayerModalLabel">Story Player</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="player-content" class="p-3">
+                        <p id="player-scene-text" class="lead"></p>
+                        <hr>
+                        <div id="player-choices-container" class="d-grid gap-2">
+                            <!-- Player choices will be injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

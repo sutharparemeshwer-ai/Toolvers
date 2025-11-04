@@ -1,0 +1,40 @@
+<!-- tools/blog-comment-system.html -->
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Fake Blog Post -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">The Art of Building Web Components</h2>
+                    <p class="card-text text-muted">Posted on January 1, 2024 by Dev Master</p>
+                    <p class="card-text">This is a demonstration of a front-end blog comment system. It uses local storage to save your comments, so they will persist even after you refresh the page. You can post top-level comments or reply to existing ones to create nested threads.</p>
+                    <p>Try leaving a comment below!</p>
+                </div>
+            </div>
+
+            <!-- Comment Section -->
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="mb-4">Comments</h4>
+
+                    <!-- New Comment Form -->
+                    <div class="mb-4">
+                        <h5 class="small">Leave a Comment</h5>
+                        <form id="comment-form">
+                            <div class="mb-2">
+                                <input type="text" id="comment-author" class="form-control" placeholder="Your Name" required>
+                            </div>
+                            <div class="mb-2">
+                                <textarea id="comment-text" class="form-control" rows="3" placeholder="Write your comment..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Post Comment</button>
+                        </form>
+                    </div>
+
+                    <!-- Comments List -->
+                    <div id="comments-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+<!-- tools/interactive-flashcard-app.html -->
+<div class="container-fluid mt-4">
+    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-layer-group me-2"></i> Interactive Flashcards</h4>
+
+    <!-- Flashcard Viewer -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="flashcard-scene mx-auto">
+                <div id="flashcard" class="flashcard">
+                    <div class="card flashcard-face flashcard-front">
+                        <div class="card-body d-flex justify-content-center align-items-center">
+                            <p id="flashcard-question" class="h4 text-center"></p>
+                        </div>
+                    </div>
+                    <div class="card flashcard-face flashcard-back">
+                        <div class="card-body d-flex justify-content-center align-items-center">
+                            <p id="flashcard-answer" class="h4 text-center"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="d-flex justify-content-center align-items-center gap-3 mt-4">
+                <button id="prev-card-btn" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Prev</button>
+                <button id="flip-card-btn" class="btn btn-primary btn-lg">Flip Card</button>
+                <button id="next-card-btn" class="btn btn-secondary">Next <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+            <p id="card-counter" class="text-center text-muted small mt-2">Card 0 / 0</p>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <!-- Card Management -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5>My Flashcards</h5>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#flashcard-form-modal">
+                    <i class="fa-solid fa-plus me-2"></i> Add New Card
+                </button>
+            </div>
+            <div id="flashcards-list" class="list-group">
+                <p id="empty-cards-message" class="text-center text-muted">No flashcards yet. Add one to get started!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Card Modal -->
+    <div class="modal fade" id="flashcard-form-modal" tabindex="-1" aria-labelledby="flashcardFormModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content mytool">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="flashcardFormModalLabel">Add New Flashcard</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="flashcard-form">
+                        <div class="mb-3">
+                            <label for="card-question" class="form-label">Question / Front</label>
+                            <textarea class="form-control" id="card-question-input" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="card-answer" class="form-label">Answer / Back</label>
+                            <textarea class="form-control" id="card-answer-input" rows="3" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" form="flashcard-form" class="btn btn-primary">Save Card</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

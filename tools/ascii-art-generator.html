@@ -1,0 +1,78 @@
+<!-- tools/ascii-art-generator.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center">
+    <i class="fa-solid fa-font me-2"></i> ASCII Art Generator
+  </h4>
+
+  <div class="card p-3 p-md-4 mx-auto" style="max-width: 800px">
+    <!-- Input Section -->
+    <div class="row g-3 align-items-end">
+      <div class="col-md-6">
+        <label for="ascii-image-upload" class="form-label"
+          >1. Upload an Image:</label
+        >
+        <input
+          class="form-control"
+          type="file"
+          id="ascii-image-upload"
+          accept="image/*"
+        />
+      </div>
+      <div class="col-md-6">
+        <label for="ascii-density" class="form-label">2. Adjust Detail:</label>
+        <input
+          type="range"
+          class="form-range"
+          id="ascii-density"
+          min="40"
+          max="200"
+          value="120"
+          step="10"
+        />
+        <small class="form-text text-muted">Higher value = more detail.</small>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="ascii-invert-colors"
+        />
+        <label class="form-check-label" for="ascii-invert-colors"
+          >Invert Colors</label
+        >
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Output Section -->
+    <div id="ascii-output-container" class="d-none">
+      <h5 class="mb-2">Generated ASCII Art:</h5>
+      <div class="position-relative">
+        <pre
+          id="ascii-output"
+          class="p-3 rounded bg-dark text-light"
+          style="
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 8px;
+            line-height: 6px;
+            overflow-x: auto;
+            white-space: pre;
+          "
+        ></pre>
+        <button
+          id="copy-ascii-btn"
+          class="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2"
+        >
+          <i class="fa-solid fa-copy me-1"></i> Copy
+        </button>
+      </div>
+    </div>
+    <div id="ascii-message" class="text-center text-muted mt-3">
+      Upload an image to get started.
+    </div>
+  </div>
+</div>

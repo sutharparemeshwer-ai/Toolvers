@@ -1,0 +1,25 @@
+<div class="card p-4 text-center">
+    <h4><i class="fa-solid fa-stopwatch"></i> Countdown Timer</h4>
+    <p class="small ">Set the time and start the countdown.</p>
+    
+    <div class="row justify-content-center g-2 mb-4">
+        <div class="col-6 col-md-3">
+            <label for="minutes" class="form-label">Minutes</label>
+            <input type="number" class="form-control text-center" id="minutes" value="5" min="0" max="59">
+        </div>
+        <div class="col-6 col-md-3">
+            <label for="seconds" class="form-label">Seconds</label>
+            <input type="number" class="form-control text-center" id="seconds" value="0" min="0" max="59">
+        </div>
+    </div>
+
+    <h1 id="timer-display" class="display-3 my-4 text-light">05:00</h1>
+    
+    <div class="d-flex justify-content-center gap-3">
+        <button id="start-btn" class="btn btn-primary"><i class="fa-solid fa-play"></i> Start</button>
+        <button id="pause-btn" class="btn btn-warning" disabled><i class="fa-solid fa-pause"></i> Pause</button>
+        <button id="reset-btn" class="btn btn-danger"><i class="fa-solid fa-rotate-right"></i> Reset</button>
+    </div>
+
+    <p id="timer-status" class="mt-3 text-success fw-bold"></p>
+</div>

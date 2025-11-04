@@ -1,0 +1,56 @@
+<!-- tools/Currency-Converter.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center text-light">
+    <i class="fa-solid fa-coins me-2"></i> Currency Converter
+  </h4>
+
+  <div class="card p-3 p-md-4 mx-auto" style="max-width: 700px">
+    <div class="row align-items-center g-3">
+      <!-- From Currency -->
+      <div class="col-md-5">
+        <label for="from-currency" class="form-label">From</label>
+        <div class="input-group">
+          <select id="from-currency" class="form-select"></select>
+          <input
+            type="number"
+            id="amount-input"
+            class="form-control"
+            value="1"
+            min="0"
+          />
+        </div>
+      </div>
+
+      <!-- Swap Button -->
+      <div class="col-md-2 text-center">
+        <button
+          id="swap-btn"
+          class="btn btn-secondary mt-md-4"
+          title="Swap currencies"
+        >
+          <i class="fa-solid fa-exchange-alt"></i>
+        </button>
+      </div>
+
+      <!-- To Currency -->
+      <div class="col-md-5">
+        <label for="to-currency" class="form-label">To</label>
+        <div class="input-group">
+          <select id="to-currency" class="form-select"></select>
+          <input
+            type="text"
+            id="result-output"
+            class="form-control"
+            readonly
+            placeholder="Result..."
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Conversion Rate Display -->
+    <div id="rate-display" class="text-center small mt-4">
+      Enter an amount to see the conversion rate.
+    </div>
+  </div>
+</div>

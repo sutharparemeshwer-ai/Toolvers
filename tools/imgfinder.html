@@ -1,0 +1,16 @@
+<div class="card p-4 mx-auto" style="max-width: 900px;">
+    <h4 class="text-center"><i class="fa-solid fa-image"></i> Image Finder (Pexels)</h4>
+    <p class="small  text-center mb-4">Search high-quality stock photos using the Pexels API.</p>
+
+    <form id="image-search-form" class="input-group mb-4">
+        <input type="text" class="form-control" id="search-query-input" placeholder="Enter search term (e.g., nature, coding, coffee)" required>
+        <button class="btn btn-primary" type="submit" id="search-image-btn">Search Images</button>
+    </form>
+    
+    <div id="image-message-area" class="alert alert-info text-center d-none" role="alert">
+        Loading images...
+    </div>
+
+    <div id="image-results-container" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mt-3">
+        </div>
+</div>

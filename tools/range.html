@@ -1,0 +1,21 @@
+<div class="card p-4 text-center">
+    <h4><i class="fa-solid fa-sliders"></i> Custom Range Slider</h4>
+    <p class="small ">Drag the slider or type a value between 0 and 100.</p>
+    
+    <div class="mt-4 mb-4">
+        <h1 id="slider-value-display" class="display-3 fw-bold text-primary">50</h1>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-center gap-3">
+        <span class="small text-muted">Min: 0</span>
+        
+        <input type="range" class="form-range w-50" id="custom-range" min="0" max="100" value="50">
+        
+        <span class="small text-muted">Max: 100</span>
+    </div>
+
+    <div class="mt-4 mx-auto" style="max-width: 200px;">
+        <label for="number-input" class="form-label">Enter Value Directly</label>
+        <input type="number" class="form-control text-center" id="number-input" min="0" max="100" value="50">
+    </div>
+</div>

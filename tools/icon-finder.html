@@ -1,0 +1,29 @@
+<!-- tools/icon-finder.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center">
+    <i class="fa-solid fa-magnifying-glass me-2"></i> Icon Finder
+  </h4>
+
+  <div class="card p-3">
+    <div class="input-group mb-3">
+      <span class="input-group-text"><i class="fa-solid fa-search"></i></span>
+      <input
+        type="text"
+        id="icon-search-input"
+        class="form-control"
+        placeholder="Search for icons (e.g., 'user', 'arrow', 'code')..."
+      />
+    </div>
+
+    <div id="icon-results-count" class="text-muted small mb-3"></div>
+
+    <div id="icon-results-grid" class="row g-2 text-center">
+      <!-- Icons will be dynamically inserted here -->
+    </div>
+
+    <div id="no-icons-found" class="text-center p-5 d-none">
+      <h5>No icons found</h5>
+      <p class="text-muted">Try a different search term.</p>
+    </div>
+  </div>
+</div>

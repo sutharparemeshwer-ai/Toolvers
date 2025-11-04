@@ -1,0 +1,28 @@
+<div class="card p-4 mx-auto" style="max-width: 800px;">
+    <h4 class="mb-4 text-center"><i class="fa-solid fa-utensils"></i> Recipe Finder</h4>
+    
+    <div class="input-group mb-4">
+        <input type="text" class="form-control" id="search-input" placeholder="Search by meal name or main ingredient (e.g., Chicken, Pasta)...">
+        <button class="btn btn-primary" type="button" id="search-btn">Search</button>
+    </div>
+
+    <div id="results-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <p class="text-center text-muted w-100" id="initial-message">Enter a search term above to find delicious recipes!</p>
+        </div>
+    
+    <div class="modal fade" id="recipeModal" tabindex="-1" aria-labelledby="recipeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="recipeModalLabel">Recipe Details</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="recipe-details-content">
+                    </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

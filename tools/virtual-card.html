@@ -1,0 +1,50 @@
+<!-- tools/virtual-card.html -->
+<div class="container mt-4">
+    <div class="row">
+        <!-- Input Form Column -->
+        <div class="col-md-5">
+            <h3>Card Details</h3>
+            <p class="text-muted small">Enter your information to generate the business card.</p>
+            <form id="vcard-form">
+                <div class="mb-3">
+                    <label for="vcard-name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="vcard-name" placeholder="e.g., Jane Doe">
+                </div>
+                <div class="mb-3">
+                    <label for="vcard-title" class="form-label">Title / Position</label>
+                    <input type="text" class="form-control" id="vcard-title" placeholder="e.g., Software Engineer">
+                </div>
+                <div class="mb-3">
+                    <label for="vcard-company" class="form-label">Company</label>
+                    <input type="text" class="form-control" id="vcard-company" placeholder="e.g., Tech Solutions Inc.">
+                </div>
+                <div class="mb-3">
+                    <label for="vcard-email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="vcard-email" placeholder="e.g., jane.doe@example.com">
+                </div>
+                <div class="mb-3">
+                    <label for="vcard-phone" class="form-label">Phone</label>
+                    <input type="tel" class="form-control" id="vcard-phone" placeholder="e.g., +1-202-555-0149">
+                </div>
+            </form>
+        </div>
+
+        <!-- Card Preview Column -->
+        <div class="col-md-7">
+            <h3>Preview</h3>
+            <div id="vcard-preview" class="card shadow-sm">
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <i class="fa-solid fa-user-circle fa-4x text-secondary"></i>
+                    </div>
+                    <h4 id="preview-name" class="card-title text-center">Your Name</h4>
+                    <p id="preview-title-company" class="card-text text-center ">Your Title at Company</p>
+                    <hr>
+                    <p class="card-text"><i class="fa-solid fa-envelope me-2"></i><span id="preview-email">your.email@example.com</span></p>
+                    <p class="card-text"><i class="fa-solid fa-phone me-2"></i><span id="preview-phone">+1-000-000-0000</span></p>
+                </div>
+            </div>
+            <p class="text-center small text-muted mt-3">Your card updates automatically as you type.</p>
+        </div>
+    </div>
+</div>

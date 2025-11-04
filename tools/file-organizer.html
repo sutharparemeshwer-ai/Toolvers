@@ -1,0 +1,131 @@
+<div class="card p-0" style="max-width: 1200px; margin: auto; overflow: hidden;">
+    <div class="row g-0">
+        <!-- Folder Tree Sidebar -->
+        <div class="col-lg-3 border-end p-3" style="background-color: var(--bg-color);">
+            <h5 class="mb-3"><i class="fa-solid fa-folder-tree"></i> Folders</h5>
+            <div id="folder-tree">
+                <!-- Tree will be rendered by JS -->
+            </div>
+        </div>
+
+        <!-- Main File View -->
+        <div class="col-lg-9 p-3">
+            <!-- Breadcrumbs and Actions -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <nav id="breadcrumb-nav" aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0 bg-transparent p-0">
+                        <!-- Breadcrumbs will be rendered by JS -->
+                    </ol>
+                </nav>
+                <div>
+                    <button id="new-folder-btn" class="btn btn-sm btn-primary" title="New Folder">
+                        <i class="fa-solid fa-folder-plus"></i>
+                    </button>
+                    <button id="new-file-btn" class="btn btn-sm btn-success" title="New File">
+                        <i class="fa-solid fa-file-circle-plus"></i>
+                    </button>
+                    <button id="upload-file-btn" class="btn btn-sm btn-info" title="Upload Text File">
+                        <i class="fa-solid fa-file-arrow-up"></i>
+                    </button>
+                    <input type="file" id="file-upload-input" class="d-none" accept=".txt,.md,.js,.css,.html,.json">
+                </div>
+            </div>
+
+            <!-- File Grid -->
+            <div id="file-grid" class="row g-2">
+                <!-- Items will be injected here -->
+            </div>
+            <p id="empty-folder-msg" class="text-muted text-center mt-5 d-none">This folder is empty.</p>
+        </div>
+    </div>
+</div>
+
+<!-- File Content Modal -->
+<div class="modal fade" id="file-content-modal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="file-content-form">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="file-content-title">File Content</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="file-content-textarea" class="form-control" rows="15" style="font-family: monospace;"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Context Menu (hidden by default) -->
+<div id="context-menu" class="dropdown-menu">
+    <a class="dropdown-item" id="ctx-rename" href="#"><i class="fa-solid fa-i-cursor me-2"></i>Rename</a>
+    <a class="dropdown-item text-danger" id="ctx-delete" href="#"><i class="fa-solid fa-trash me-2"></i>Delete</a>
+</div>
+
+<!-- New Folder Modal -->
+<div class="modal fade" id="new-folder-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="new-folder-form">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Folder</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="new-folder-name" class="form-control" placeholder="Folder name" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- New File Modal -->
+<div class="modal fade" id="new-file-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="new-file-form">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New File</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="new-file-name" class="form-control" placeholder="File name (e.g., notes.txt)" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Rename Modal -->
+<div class="modal fade" id="rename-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="rename-form">
+                <div class="modal-header">
+                    <h5 class="modal-title">Rename Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="rename-name" class="form-control" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Rename</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+<!-- tools/job-application-tracker.html -->
+<div class="container-fluid mt-4">
+    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-briefcase me-2"></i> Job Application Tracker</h4>
+
+    <!-- Summary & Actions -->
+    <div class="card p-3 mb-4">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div id="job-summary-stats" class="d-flex flex-wrap gap-3">
+                <!-- Stats will be injected here by JS -->
+            </div>
+            <button id="add-job-modal-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#job-form-modal">
+                <i class="fa-solid fa-plus me-2"></i> Add Application
+            </button>
+        </div>
+    </div>
+
+    <!-- Applications Table -->
+    <div class="table-responsive">
+        <table class="table table-dark table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Position</th>
+                    <th>Date Applied</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="job-applications-tbody">
+                <!-- Job entries will be injected here -->
+            </tbody>
+        </table>
+        <p id="empty-jobs-message" class="text-center text-muted mt-4 d-none">No applications tracked yet. Click 'Add Application' to start.</p>
+    </div>
+
+    <!-- Add/Edit Job Modal -->
+    <div class="modal fade" id="job-form-modal" tabindex="-1" aria-labelledby="jobFormModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content mytool">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="jobFormModalLabel">Add New Application</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="job-application-form">
+                        <input type="hidden" id="job-id">
+                        <div class="mb-3">
+                            <label for="company-name" class="form-label">Company Name</label>
+                            <input type="text" class="form-control" id="company-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="position-title" class="form-label">Position Title</label>
+                            <input type="text" class="form-control" id="position-title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="date-applied" class="form-label">Date Applied</label>
+                            <input type="date" class="form-control" id="date-applied" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="application-status" class="form-label">Status</label>
+                            <select id="application-status" class="form-select">
+                                <option value="Applied">Applied</option>
+                                <option value="Interviewing">Interviewing</option>
+                                <option value="Offer">Offer</option>
+                                <option value="Rejected">Rejected</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" form="job-application-form" class="btn btn-primary">Save Application</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

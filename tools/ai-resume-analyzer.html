@@ -1,0 +1,41 @@
+<!-- tools/ai-resume-analyzer.html -->
+<div class="container-fluid mt-4">
+    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-robot me-2"></i> AI Resume Analyzer</h4>
+
+    <div class="row g-4">
+        <!-- Inputs -->
+        <div class="col-lg-6">
+            <div class="card p-3 h-100">
+                <h5><i class="fa-solid fa-file-alt me-2"></i> Paste Resume Text</h5>
+                <textarea id="resume-text-input" class="form-control" rows="15" placeholder="Paste the full text of your resume here..."></textarea>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card p-3 h-100">
+                <h5><i class="fa-solid fa-clipboard-list me-2"></i> Paste Job Description</h5>
+                <textarea id="job-desc-input" class="form-control" rows="15" placeholder="Paste the full job description here..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center my-4">
+        <button id="analyze-resume-btn" class="btn btn-primary btn-lg">
+            <i class="fa-solid fa-magnifying-glass-chart me-2"></i> Analyze Now
+        </button>
+    </div>
+
+    <!-- Results -->
+    <div id="analysis-results" class="d-none">
+        <div class="card p-4">
+            <h4 class="text-center mb-4">Analysis Report</h4>
+            <div class="text-center mb-4">
+                <h5>Match Score</h5>
+                <p id="match-score" class="display-3 fw-bold text-primary">0%</p>
+            </div>
+            <hr>
+            <h5>Keyword Analysis</h5>
+            <p id="matched-keywords" class="mb-3"><strong>Matched Keywords:</strong> </p>
+            <p id="missing-keywords" class="mb-0"><strong>Missing Keywords:</strong> </p>
+        </div>
+    </div>
+</div>

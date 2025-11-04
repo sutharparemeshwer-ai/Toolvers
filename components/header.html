@@ -1,0 +1,33 @@
+<!-- This script runs immediately to prevent a "flash" of the wrong theme -->
+<script>
+  (function() {
+    const theme = localStorage.getItem('theme');
+    if (theme === 'light') {
+      document.body.classList.add('light-theme');
+    }
+  })();
+</script>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container-fluid">
+    
+    <div class="nav-brand"><h1><i class="fa-brands fa-suse text-light"></i></h1></div>
+    <a class="navbar-brand text-light" href="#"> <h3>Toolverse</h3></a>
+
+    <div class="collapse navbar-collapse" id="navCollapse">
+      
+      <form class="d-flex ms-auto" role="search" id="tool-search-form">
+        <input id="tool-search" class="form-control me-2" type="search" placeholder="Search tools..." aria-label="Search">
+      </form>
+
+      <!-- Theme Toggle Button -->
+      <button id="theme-toggle-btn" class="btn btn-outline-secondary ms-2 d-none d-lg-block">
+        <i class="fa-solid fa-sun"></i>
+      </button>
+    </div>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navCollapse" aria-controls="navCollapse" aria-expanded="false" aria-label="Toggle search">
+      <span class="navbar-toggler-icon text-light"></span>
+    </button>
+  </div>
+</nav>
+<br><br>

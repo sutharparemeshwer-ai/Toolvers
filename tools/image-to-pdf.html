@@ -1,0 +1,40 @@
+<!-- tools/image-to-pdf.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center">
+    <i class="fa-solid fa-file-pdf me-2"></i> Image to PDF Generator
+  </h4>
+
+  <div class="card p-3">
+    <div class="mb-3">
+      <label for="img-to-pdf-input" class="form-label"
+        >1. Select one or more images (JPEG, PNG):</label
+      >
+      <input
+        type="file"
+        id="img-to-pdf-input"
+        class="form-control"
+        accept="image/jpeg, image/png"
+        multiple
+      />
+    </div>
+
+    <div
+      id="image-previews-container"
+      class="row g-2 mb-3 border p-2 rounded"
+      style="min-height: 100px"
+    >
+      <p id="no-images-selected" class="text-muted text-center m-auto">
+        No images selected.
+      </p>
+      <!-- Image previews will be injected here -->
+    </div>
+
+    <div class="d-grid">
+      <button id="generate-pdf-btn" class="btn btn-primary btn-lg" disabled>
+        <i class="fa-solid fa-cogs me-2"></i> Generate PDF
+      </button>
+    </div>
+
+    <div id="pdf-status" class="text-center small text-muted mt-3"></div>
+  </div>
+</div>

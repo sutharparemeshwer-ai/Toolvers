@@ -1,0 +1,141 @@
+<!-- tools/fake-post-generator.html -->
+<div class="container mt-4">
+  <div class="card p-4 mx-auto" style="max-width: 1000px">
+    <h4 class="mb-4 text-center">
+      <i class="fa-solid fa-image me-2"></i> Fake Post Generator
+    </h4>
+
+    <div class="row">
+      <!-- Controls Column -->
+      <div class="col-lg-5">
+        <div class="card p-3 shadow-sm" style="background-color: #3e3f3f">
+          <h5 class="mb-3">
+            <i class="fa-solid fa-sliders me-2"></i>Customize Post
+          </h5>
+          <form id="fake-post-form">
+            <!-- Post Type -->
+            <div class="mb-3">
+              <label for="post-type" class="form-label small">Post Type</label>
+              <select id="post-type" class="form-select">
+                <option value="tweet" selected>Tweet (X)</option>
+                <option value="news">News Headline</option>
+              </select>
+            </div>
+
+            <!-- Tweet Specific Fields -->
+            <div id="tweet-fields">
+              <div class="mb-2">
+                <label for="tweet-name" class="form-label small"
+                  >Display Name</label
+                >
+                <input
+                  type="text"
+                  id="tweet-name"
+                  class="form-control"
+                  value="Gemini Code Assist"
+                />
+              </div>
+              <div class="mb-2">
+                <label for="tweet-handle" class="form-label small"
+                  >Username (@handle)</label
+                >
+                <input
+                  type="text"
+                  id="tweet-handle"
+                  class="form-control"
+                  value="@gemini"
+                />
+              </div>
+              <div class="mb-2">
+                <label for="tweet-pfp" class="form-label small"
+                  >Profile Picture URL</label
+                >
+                <input
+                  type="text"
+                  id="tweet-pfp"
+                  class="form-control"
+                  placeholder="https://via.placeholder.com/48"
+                />
+              </div>
+              <div class="form-check mb-3">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="tweet-verified"
+                  checked
+                />
+                <label class="form-check-label small" for="tweet-verified">
+                  Verified Account
+                </label>
+              </div>
+            </div>
+
+            <!-- News Specific Fields -->
+            <div id="news-fields" class="d-none">
+              <div class="mb-2">
+                <label for="news-source" class="form-label small"
+                  >News Source</label
+                >
+                <input
+                  type="text"
+                  id="news-source"
+                  class="form-control"
+                  value="GNews"
+                />
+              </div>
+              <div class="mb-2">
+                <label for="news-date" class="form-label small">Date</label>
+                <input
+                  type="text"
+                  id="news-date"
+                  class="form-control"
+                  value="October 26, 2023"
+                />
+              </div>
+            </div>
+
+            <!-- Common Fields -->
+            <div class="mb-3">
+              <label for="post-content" class="form-label small"
+                >Content / Headline</label
+              >
+              <textarea
+                id="post-content"
+                class="form-control"
+                rows="5"
+                required
+              >
+Hello world! I can now generate fake tweet images. This is a great way to demonstrate the power of the HTML Canvas API for creating dynamic graphics on the client-side.</textarea
+              >
+            </div>
+
+            <button
+              type="button"
+              id="generate-btn"
+              class="btn btn-primary w-100"
+            >
+              <i class="fa-solid fa-sync-alt me-2"></i>Update Preview
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Preview Column -->
+      <div class="col-lg-7 mt-4 mt-lg-0">
+        <h5 class="text-center mb-3">Preview</h5>
+        <div
+          id="preview-container"
+          class="d-flex justify-content-center align-items-center p-3 rounded"
+          style="background-color: #2c302f; min-height: 300px"
+        >
+          <canvas id="post-canvas"></canvas>
+        </div>
+        <div class="text-center mt-3">
+          <a id="download-btn" class="btn btn-success" download="fake-post.png">
+            <i class="fa-solid fa-download me-2"></i>Download Image
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

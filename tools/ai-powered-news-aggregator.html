@@ -1,0 +1,29 @@
+<!-- tools/ai-powered-news-aggregator.html -->
+<div class="container-fluid mt-4">
+    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-newspaper me-2"></i> AI Powered News Aggregator</h4>
+
+    <!-- Search and Filters -->
+    <div class="card p-3 mb-4">
+        <div class="row g-2 align-items-center">
+            <div class="col-lg-6">
+                <form id="news-search-form">
+                    <div class="input-group">
+                        <input type="text" id="news-search-input" class="form-control" placeholder="Search for news (e.g., 'Tesla')...">
+                        <button class="btn btn-primary" type="submit"><i class="fa-solid fa-search"></i></button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-6">
+                <div id="news-category-filters" class="d-flex justify-content-center justify-content-lg-end flex-wrap gap-2">
+                    <!-- Category buttons will be injected by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Messages & News Articles Grid -->
+    <div id="news-status-message" class="text-center my-4 d-none"></div>
+    <div id="news-articles-container" class="row g-4">
+        <!-- News cards will be injected here -->
+    </div>
+</div>

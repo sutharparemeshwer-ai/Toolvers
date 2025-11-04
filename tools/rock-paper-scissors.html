@@ -1,0 +1,27 @@
+<div class="card p-4 mx-auto text-center" style="max-width: 600px;">
+    <h4 class="mb-4"><i class="fa-solid fa-hand-fist"></i> Rock, Paper, Scissors</h4>
+    
+    <div class="d-flex justify-content-center gap-3 mb-4">
+        <button class="btn btn-lg btn-secondary choice-btn" data-choice="rock">✊ Rock</button>
+        <button class="btn btn-lg btn-secondary choice-btn" data-choice="paper">✋ Paper</button>
+        <button class="btn btn-lg btn-secondary choice-btn" data-choice="scissors">✌️ Scissors</button>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col">
+            <h5 class="text-warning">You Chose:</h5>
+            <h1 id="player-choice-display">?</h1>
+        </div>
+        <div class="col">
+            <h5 class="text-info">Computer Chose:</h5>
+            <h1 id="computer-choice-display">?</h1>
+        </div>
+    </div>
+
+    <h2 id="result-message" class="mb-4">Make your move!</h2>
+
+    <div class="d-flex justify-content-around p-3 mytool rounded">
+        <h5>Your Score: <span id="player-score">0</span></h5>
+        <h5>Computer Score: <span id="computer-score">0</span></h5>
+    </div>
+</div>

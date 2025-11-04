@@ -1,0 +1,43 @@
+<style>
+    .mood-btn {
+        font-size: 2rem;
+        transition: transform 0.2s, box-shadow 0.2s;
+        border: 2px solid transparent;
+    }
+    .mood-btn:hover {
+        transform: scale(1.1);
+    }
+    .mood-btn.selected {
+        border-color: var(--bs-primary);
+        box-shadow: 0 0 10px var(--bs-primary);
+        transform: scale(1.1);
+    }
+</style>
+
+<div class="card p-4 mx-auto" style="max-width: 700px;">
+    <h4 class="mb-4 text-center"><i class="fa-solid fa-face-smile"></i> Mood Tracker</h4>
+
+    <!-- Mood Selection Form -->
+    <form id="mood-form" class="mb-4">
+        <div class="mb-3">
+            <label class="form-label d-block text-center">How are you feeling today?</label>
+            <div id="mood-selection" class="d-flex justify-content-around my-3">
+                <button type="button" class="btn mood-btn" data-mood="happy" title="Happy">😊</button>
+                <button type="button" class="btn mood-btn" data-mood="good" title="Good">🙂</button>
+                <button type="button" class="btn mood-btn" data-mood="neutral" title="Neutral">😐</button>
+                <button type="button" class="btn mood-btn" data-mood="bad" title="Bad">😕</button>
+                <button type="button" class="btn mood-btn" data-mood="awful" title="Awful">😠</button>
+            </div>
+            <input type="hidden" id="selected-mood-input" required>
+        </div>
+
+        <div class="mb-3">
+            <textarea id="mood-notes-input" class="form-control" rows="3" placeholder="Add a note about your day (optional)"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Save Today's Mood</button>
+    </form>
+
+    <hr>
+    <h5 class="mt-3 mb-3">Mood History</h5>
+    <div id="mood-history-list" class="list-group"></div>
+</div>

@@ -1,0 +1,96 @@
+<!-- tools/interactive-resume-builder.html -->
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Input Form Column -->
+        <div class="col-lg-5">
+            <h3><i class="fa-solid fa-file-lines me-2"></i>Resume Details</h3>
+            <p class="small">Fill in your details and see the resume update live.</p>
+            <form id="resume-form">
+                <!-- Personal Details -->
+                <div class="mb-3 p-3 border rounded text-light">
+                    <h5>Personal Details</h5>
+                    <div class="mb-2">
+                        <label for="resume-name" class="form-label small">Full Name</label>
+                        <input type="text" class="form-control" id="resume-name" placeholder="Jane Doe">
+                    </div>
+                    <div class="mb-2">
+                        <label for="resume-job-title" class="form-label small">Current Job Title</label>
+                        <input type="text" class="form-control" id="resume-job-title" placeholder="Senior Web Developer">
+                    </div>
+                    <div class="mb-2">
+                        <label for="resume-email" class="form-label small">Email</label>
+                        <input type="email" class="form-control" id="resume-email" placeholder="jane.doe@email.com">
+                    </div>
+                    <div class="mb-2">
+                        <label for="resume-phone" class="form-label small">Phone</label>
+                        <input type="tel" class="form-control" id="resume-phone" placeholder="+1 234 567 890">
+                    </div>
+                </div>
+
+                <!-- Professional Summary -->
+                <div class="mb-3 p-3 border rounded text-light">
+                    <h5>Professional Summary</h5>
+                    <textarea id="resume-summary" class="form-control" rows="4" placeholder="A brief summary of your skills and experience..."></textarea>
+                </div>
+
+                <!-- Experience -->
+                <div class="mb-3 p-3 border rounded text-light">
+                    <h5>Work Experience (Latest)</h5>
+                    <div class="mb-2">
+                        <label for="exp-title" class="form-label small">Job Title</label>
+                        <input type="text" class="form-control" id="exp-title" placeholder="Software Engineer">
+                    </div>
+                    <div class="mb-2">
+                        <label for="exp-company" class="form-label small">Company & Dates</label>
+                        <input type="text" class="form-control" id="exp-company" placeholder="Tech Corp | Jan 2020 - Present">
+                    </div>
+                    <textarea id="exp-desc" class="form-control" rows="3" placeholder="Describe your responsibilities and achievements..."></textarea>
+                </div>
+
+                <!-- Education -->
+                <div class="mb-3 p-3 border rounded text-light">
+                    <h5>Education</h5>
+                    <div class="mb-2">
+                        <label for="edu-degree" class="form-label small">Degree / Certificate</label>
+                        <input type="text" class="form-control" id="edu-degree" placeholder="B.S. in Computer Science">
+                    </div>
+                    <input type="text" class="form-control" id="edu-school" placeholder="University of Technology | 2016 - 2020">
+                </div>
+
+                <!-- Skills -->
+                <div class="mb-3 p-3 border rounded text-light">
+                    <h5>Skills</h5>
+                    <input type="text" class="form-control" id="resume-skills" placeholder="e.g., JavaScript, React, Node.js, CSS, HTML">
+                </div>
+            </form>
+        </div>
+
+        <!-- Resume Preview Column -->
+        <div class="col-lg-7 text-light">
+            <h3>Preview</h3>
+            <div id="resume-preview" class="card shadow-sm p-4 text-light" style="min-height: 80vh;">
+                <!-- Header -->
+                <div class="text-center border-bottom pb-3 mb-3">
+                    <h2 id="preview-name" class="mb-0">Jane Doe</h2>
+                    <p id="preview-job-title" class="lead text-primary">Senior Web Developer</p>
+                    <p id="preview-contact" class="small">jane.doe@email.com | +1 234 567 890</p>
+                </div>
+                <!-- Summary -->
+                <h5 class="text-primary">Summary</h5>
+                <p id="preview-summary" class="small">A brief summary of your skills and experience...</p>
+                <!-- Experience -->
+                <h5 class="text-primary mt-3">Work Experience</h5>
+                <h6 id="preview-exp-title" class="mb-0">Software Engineer</h6>
+                <p id="preview-exp-company" class="text-muted small">Tech Corp | Jan 2020 - Present</p>
+                <p id="preview-exp-desc" class="small">Describe your responsibilities and achievements...</p>
+                <!-- Education -->
+                <h5 class="text-primary mt-3">Education</h5>
+                <h6 id="preview-edu-degree" class="mb-0">B.S. in Computer Science</h6>
+                <p id="preview-edu-school" class="text-muted small">University of Technology | 2016 - 2020</p>
+                <!-- Skills -->
+                <h5 class="text-primary mt-3">Skills</h5>
+                <p id="preview-skills" class="small">JavaScript, React, Node.js, CSS, HTML</p>
+            </div>
+        </div>
+    </div>
+</div>

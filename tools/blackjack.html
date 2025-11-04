@@ -1,0 +1,53 @@
+<div class="blackjack-container">
+  <div class="game-table p-4 rounded">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="text-white mb-0">
+        <i class="fa-solid fa-diamond"></i> Blackjack
+      </h4>
+      <div class="player-info text-white text-end">
+        <strong>Chips: <span id="player-chips">100</span></strong>
+      </div>
+    </div>
+
+    <!-- Dealer's Hand -->
+    <div class="hand-area mb-4">
+      <h5 class="hand-title">
+        Dealer's Hand (<span id="dealer-score">0</span>)
+      </h5>
+      <div id="dealer-cards" class="cards-container"></div>
+    </div>
+
+    <!-- Player's Hand -->
+    <div class="hand-area mb-4">
+      <h5 class="hand-title">Your Hand (<span id="player-score">0</span>)</h5>
+      <div id="player-cards" class="cards-container"></div>
+    </div>
+
+    <!-- Game Status, Betting, and Controls -->
+    <div class="text-center">
+      <div id="game-result" class="game-status-banner my-3"></div>
+
+      <!-- Betting Area -->
+      <div id="betting-area" class="controls-area">
+        <div class="input-group mx-auto" style="max-width: 300px">
+          <span class="input-group-text">$</span>
+          <input
+            type="number"
+            id="bet-amount"
+            class="form-control"
+            placeholder="Bet Amount"
+            value="10"
+            min="1"
+          />
+          <button id="bet-btn" class="btn btn-lg btn-success">Place Bet</button>
+        </div>
+      </div>
+
+      <!-- Action Area -->
+      <div id="action-area" class="controls-area d-none">
+        <button id="hit-btn" class="btn btn-lg btn-primary me-2">Hit</button>
+        <button id="stand-btn" class="btn btn-lg btn-warning">Stand</button>
+      </div>
+    </div>
+  </div>
+</div>

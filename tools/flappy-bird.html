@@ -1,0 +1,17 @@
+<!-- tools/flappy-bird.html -->
+<div class="container mt-4 text-center">
+  <h4 class="mb-4"><i class="fa-solid fa-dove me-2"></i> Flappy Bird Clone</h4>
+  <div id="flappy-bird-container" class="flappy-bird-container mx-auto">
+    <canvas id="flappy-bird-canvas" width="288" height="512"></canvas>
+    <div id="flappy-start-screen" class="flappy-overlay">
+      <h5 class="mb-3">Flappy Bird</h5>
+      <button id="flappy-start-btn" class="btn btn-primary">Start Game</button>
+    </div>
+    <div id="flappy-game-over-screen" class="flappy-overlay d-none">
+      <h5 class="mb-2">Game Over</h5>
+      <p>Your Score: <span id="flappy-final-score">0</span></p>
+      <button id="flappy-restart-btn" class="btn btn-primary">Restart</button>
+    </div>
+  </div>
+  <p class="mt-3 text-muted">Press Space or Click to Flap</p>
+</div>

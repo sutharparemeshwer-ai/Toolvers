@@ -1,0 +1,54 @@
+<!-- tools/never-have-i-ever.html -->
+<div class="container mt-4 text-center">
+  <h4 class="mb-4 text-light">
+    <i class="fa-solid fa-hands-praying me-2"></i> Never Have I Ever
+  </h4>
+
+  <div class="card p-4 mx-auto" style="max-width: 600px">
+    <div
+      id="nhie-prompt-container"
+      class="mb-4 d-flex align-items-center justify-content-center"
+      style="min-height: 120px"
+    >
+      <p id="nhie-prompt-text" class="fs-4">
+        Click the button to get a prompt!
+      </p>
+    </div>
+
+    <div
+      class="d-flex flex-wrap justify-content-center align-items-center gap-2"
+    >
+      <div class="btn-group">
+        <button
+          type="button"
+          class="btn btn-secondary dropdown-toggle"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Category: <span id="nhie-category-label">Clean</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a
+              class="dropdown-item nhie-category-btn"
+              href="#"
+              data-category="clean"
+              >Clean</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item nhie-category-btn"
+              href="#"
+              data-category="party"
+              >Party</a
+            >
+          </li>
+        </ul>
+      </div>
+      <button id="new-nhie-prompt-btn" class="btn btn-primary">
+        New Prompt
+      </button>
+    </div>
+  </div>
+</div>

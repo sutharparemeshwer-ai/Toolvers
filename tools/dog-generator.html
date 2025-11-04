@@ -1,0 +1,42 @@
+<!-- tools/dog-generator.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center">
+    <i class="fa-solid fa-dog me-2"></i> Random Dog Image Generator
+  </h4>
+
+  <div class="card p-3 p-md-4 mx-auto text-center" style="max-width: 600px">
+    <!-- Breed Selector -->
+    <div class="mb-3">
+      <label for="dog-breed-select" class="form-label"
+        >Select a Breed (Optional)</label
+      >
+      <select id="dog-breed-select" class="form-select">
+        <option value="">-- Random Breed --</option>
+        <!-- Breeds will be populated by JS -->
+      </select>
+    </div>
+    <div
+      id="dog-image-container"
+      class="mb-3 bg-dark rounded"
+      style="
+        min-height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <!-- Image will be loaded here -->
+      <img
+        id="dog-image"
+        src=""
+        alt="A random dog"
+        class="img-fluid rounded d-none"
+        style="max-height: 400px"
+      />
+      <div id="dog-status">
+        <!-- Loading spinner or message -->
+      </div>
+    </div>
+    <button id="new-dog-btn" class="btn btn-primary w-100">Get New Dog</button>
+  </div>
+</div>

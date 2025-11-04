@@ -1,0 +1,19 @@
+<div class="card p-4 text-center">
+    <h4><i class="fa-solid fa-gamepad"></i> Dinosaur Game</h4>
+    <p class="small text-muted">Press SPACE to jump and avoid the cacti! (Use the button if on mobile).</p>
+    
+    <div id="game-container" class="game-container mx-auto mt-4 mb-4">
+        <div id="dino" class="dino"></div>
+        <div id="obstacle" class="obstacle"></div>
+        <div id="ground" class="ground"></div>
+    </div>
+    
+    <div class="d-flex justify-content-between mx-auto w-50" style="max-width: 300px;">
+        <p>Score: <span id="score-display" class="fw-bold">0</span></p>
+        <p id="game-status" class="fw-bold text-success">Ready</p>
+    </div>
+
+    <button id="jump-btn" class="btn btn-primary w-50 mx-auto mt-3 d-md-none">
+        <i class="fa-solid fa-up-long"></i> JUMP
+    </button>
+</div>

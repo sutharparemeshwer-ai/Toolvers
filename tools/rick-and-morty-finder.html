@@ -1,0 +1,45 @@
+<!-- tools/rick-and-morty-finder.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center">
+    <i class="fa-solid fa-flask-vial me-2"></i> Rick and Morty Character Finder
+  </h4>
+
+  <div class="card p-3 p-md-4 mx-auto" style="max-width: 1200px">
+    <!-- Search Form -->
+    <form id="rm-search-form" class="input-group mb-4">
+      <input
+        type="text"
+        id="rm-search-input"
+        class="form-control"
+        placeholder="Search for characters (e.g., Rick, Morty, Summer)"
+      />
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <!-- Status/Message Area -->
+    <div id="rm-status" class="text-center">
+      Search for a character or browse the pages.
+    </div>
+
+    <!-- Results Container -->
+    <div
+      id="rm-results-container"
+      class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4"
+    ></div>
+
+    <!-- Pagination -->
+    <nav id="rm-pagination-nav" class="mt-4 d-none">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" id="rm-prev-li">
+          <a class="page-link" href="#" id="rm-prev-btn">Previous</a>
+        </li>
+        <li class="page-item disabled">
+          <span class="page-link" id="rm-page-info">Page 1</span>
+        </li>
+        <li class="page-item" id="rm-next-li">
+          <a class="page-link" href="#" id="rm-next-btn">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

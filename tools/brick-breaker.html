@@ -1,0 +1,37 @@
+<!-- tools/brick-breaker.html -->
+<div class="container mt-4 text-center">
+  <h4 class="mb-4">
+    <i class="fa-solid fa-tablet-screen-button me-2"></i> Brick Breaker
+  </h4>
+  <div id="brick-breaker-container" class="brick-breaker-container mx-auto">
+    <canvas id="brick-breaker-canvas" width="800" height="600"></canvas>
+    <div id="brick-breaker-start-screen" class="brick-breaker-overlay">
+      <h5 class="mb-3">Brick Breaker</h5>
+      <p>Use Left/Right arrow keys or your mouse to move the paddle.</p>
+      <button id="brick-breaker-start-btn" class="btn btn-primary">
+        Start Game
+      </button>
+    </div>
+    <div
+      id="brick-breaker-game-over-screen"
+      class="brick-breaker-overlay d-none"
+    >
+      <h5 class="mb-2">Game Over</h5>
+      <p>Your Score: <span id="brick-breaker-final-score">0</span></p>
+      <button id="brick-breaker-restart-btn" class="btn btn-primary">
+        Play Again
+      </button>
+    </div>
+    <div id="brick-breaker-win-screen" class="brick-breaker-overlay d-none">
+      <h5 class="mb-2">You Win!</h5>
+      <p>Your Score: <span id="brick-breaker-win-score">0</span></p>
+      <button id="brick-breaker-play-again-btn" class="btn btn-primary">
+        Play Again
+      </button>
+    </div>
+  </div>
+  <p class="mt-3 text-muted">
+    Score: <span id="brick-breaker-score">0</span> | Lives:
+    <span id="brick-breaker-lives">3</span>
+  </p>
+</div>

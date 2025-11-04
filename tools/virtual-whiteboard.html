@@ -1,0 +1,51 @@
+<!-- tools/virtual-whiteboard.html -->
+<div class="container-fluid mt-4">
+    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-chalkboard-user me-2"></i> Virtual Whiteboard</h4>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Toolbar -->
+            <div class="card p-2 mb-3">
+                <div class="d-flex flex-wrap align-items-center justify-content-center gap-3">
+                    <!-- Color Picker -->
+                    <div class="d-flex align-items-center">
+                        <label for="color-picker" class="form-label me-2 mb-0">Color:</label>
+                        <input type="color" id="color-picker" class="form-control form-control-color" value="#FFFFFF">
+                    </div>
+
+                    <!-- Brush Size -->
+                    <div class="d-flex align-items-center">
+                        <label for="brush-size" class="form-label me-2 mb-0">Size:</label>
+                        <input type="range" id="brush-size" class="form-range" min="1" max="50" value="5" style="width: 100px;">
+                        <span id="brush-size-value" class="ms-2" style="width: 25px;">5</span>
+                    </div>
+
+                    <!-- Tools -->
+                    <div class="btn-group" role="group">
+                        <button id="brush-btn" class="btn btn-primary active" title="Brush">
+                            <i class="fa-solid fa-paint-brush"></i>
+                        </button>
+                        <button id="eraser-btn" class="btn btn-outline-secondary" title="Eraser">
+                            <i class="fa-solid fa-eraser"></i>
+                        </button>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="btn-group" role="group">
+                        <button id="clear-btn" class="btn btn-danger" title="Clear Whiteboard">
+                            <i class="fa-solid fa-trash-alt me-1"></i> Clear
+                        </button>
+                        <button id="download-btn" class="btn btn-success" title="Download as PNG">
+                            <i class="fa-solid fa-download me-1"></i> Download
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Whiteboard Canvas -->
+            <div class="card p-0 overflow-hidden" style="border: 2px solid #555;">
+                <canvas id="whiteboard-canvas"></canvas>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<!-- tools/social-media-post-scheduler.html -->
+<div class="container mt-4">
+    <div class="card p-4 mx-auto" style="max-width: 800px;">
+        <h4 class="mb-4 text-center"><i class="fa-solid fa-calendar-alt me-2"></i> Social Media Post Scheduler</h4>
+
+        <!-- New Post Form -->
+        <div class="card p-3 mb-4 shadow-sm" style="background-color: #3e3f3f;">
+            <h5><i class="fa-solid fa-plus-circle me-2"></i>Create New Post</h5>
+            <form id="post-form">
+                <div class="mb-3">
+                    <label for="post-content" class="form-label small">Post Content</label>
+                    <textarea id="post-content" class="form-control" rows="4" placeholder="What's on your mind?" required></textarea>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="platform-select" class="form-label small">Platform</label>
+                        <select id="platform-select" class="form-select">
+                            <option value="twitter">Twitter / X</option>
+                            <option value="facebook">Facebook</option>
+                            <option value="linkedin">LinkedIn</option>
+                            <option value="instagram">Instagram</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="schedule-time" class="form-label small">Schedule Time</label>
+                        <input type="datetime-local" id="schedule-time" class="form-control" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Schedule Post</button>
+            </form>
+        </div>
+
+        <!-- Scheduled Posts List -->
+        <h5 class="mt-4 border-bottom pb-2">Scheduled Posts</h5>
+        <div id="posts-list" class="list-group mt-3">
+            <p id="empty-posts-message" class="text-muted text-center">No posts scheduled yet. Use the form above to add one!</p>
+        </div>
+
+        <div class="pt-3 border-top mt-4 text-end">
+            <button id="clear-all-posts-btn" class="btn btn-sm btn-outline-danger">
+                Clear All Scheduled Posts
+            </button>
+        </div>
+    </div>
+</div>

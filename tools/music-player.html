@@ -1,0 +1,29 @@
+<!-- tools/music-player.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center text-light">
+    <i class="fa-solid fa-compact-disc me-2"></i> Music Information Finder
+  </h4>
+
+  <div id="music-player-container" class="card p-3 p-md-4 mx-auto">
+    <!-- Search Bar -->
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        id="music-search-input"
+        class="form-control"
+        placeholder="Search for a song or artist..."
+      />
+      <button id="music-search-btn" class="btn btn-primary">
+        <i class="fa-solid fa-magnifying-glass"></i> Search
+      </button>
+    </div>
+
+    <!-- Search Results -->
+    <div class="music-body">
+      <p id="search-message" class="text-center mt-4">
+        Search for music information to begin.
+      </p>
+      <div id="search-results-list" class="list-group"></div>
+    </div>
+  </div>
+</div>

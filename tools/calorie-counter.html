@@ -1,0 +1,44 @@
+<div class="card p-4 mx-auto" style="max-width: 700px;">
+    <h4 class="mb-4 text-center"><i class="fa-solid fa-utensils"></i> Daily Calorie Counter</h4>
+
+    <!-- Goal and Progress Section -->
+    <div class="mb-4">
+        <div class="input-group mb-3">
+            <span class="input-group-text">Daily Goal:</span>
+            <input type="number" id="calorie-goal-input" class="form-control" value="2000" min="0">
+            <span class="input-group-text">kcal</span>
+        </div>
+        <div class="progress" style="height: 25px;">
+            <div id="calorie-progress-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0 kcal</div>
+        </div>
+    </div>
+
+    <!-- Add Food Form -->
+    <form id="add-food-form" class="mb-4">
+        <div class="row g-2">
+            <div class="col-md-6">
+                <input type="text" id="food-name-input" class="form-control" placeholder="e.g., Apple" required>
+            </div>
+            <div class="col-md-4">
+                <input type="number" id="food-calories-input" class="form-control" placeholder="Calories (kcal)" required min="0">
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Add</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Logged Foods List -->
+    <hr>
+    <h5 class="mt-3 mb-3">Today's Log</h5>
+    <div id="food-log-list" class="list-group">
+        <p id="empty-log-message" class="text-muted text-center">No food logged yet for today.</p>
+    </div>
+
+    <!-- Weekly Chart Section -->
+    <hr class="mt-4">
+    <h5 class="mt-3 mb-3">Weekly Summary</h5>
+    <div style="height: 250px;">
+        <canvas id="calorie-chart"></canvas>
+    </div>
+</div>

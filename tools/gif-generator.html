@@ -1,0 +1,29 @@
+<!-- tools/gif-generator.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center text-light">
+    <i class="fa-solid fa-film me-2"></i> GIF Generator
+  </h4>
+
+  <div class="card p-3 p-md-4 mx-auto" style="max-width: 900px">
+    <!-- Search Bar -->
+    <div class="mb-4">
+      <div class="input-group">
+        <input
+          type="text"
+          id="gif-search-input"
+          class="form-control"
+          placeholder="Search for GIFs (e.g., cats, funny, reaction)"
+        />
+        <button id="gif-search-btn" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+
+    <!-- GIF Display Area -->
+    <div id="gif-results-container" class="row g-2">
+      <!-- GIFs will be loaded here -->
+      <div id="gif-message" class="text-center text-muted col-12">
+        <p>Trending GIFs are loading...</p>
+      </div>
+    </div>
+  </div>
+</div>

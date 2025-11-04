@@ -1,0 +1,38 @@
+<div class="card p-4 mx-auto" style="max-width: 800px;">
+    <h4 class="text-center"><i class="fa-solid fa-code"></i> Custom Accordion </h4>
+    <p class="small text-center mb-4">Vanilla JS & CSS implementation of a collapsible FAQ.</p>
+
+    <div class="custom-accordion-container" id="customAccordion">
+
+        <div class="accordion-item-custom">
+            <div class="accordion-header-custom" data-target="content-1">
+                How does this custom accordion work?
+                <span class="accordion-icon-custom">+</span>
+            </div>
+            <div class="accordion-content-custom" id="content-1">
+                <p>It works by using JavaScript to toggle a CSS class (like <code>.active</code>) on the header when clicked. The CSS handles the smooth transition of the content's height, making it appear to expand or collapse gracefully.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item-custom">
+            <div class="accordion-header-custom" data-target="content-2">
+                Why use Vanilla JavaScript instead of a library?
+                <span class="accordion-icon-custom">+</span>
+            </div>
+            <div class="accordion-content-custom" id="content-2">
+                <p>Building components from scratch helps reduce the overall size of the project (less external code) and demonstrates a deeper understanding of fundamental web technologies. It gives you full control over the component's behavior and styling.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item-custom">
+            <div class="accordion-header-custom" data-target="content-3">
+                Can I have multiple accordion items open at once?
+                <span class="accordion-icon-custom">+</span>
+            </div>
+            <div class="accordion-content-custom" id="content-3">
+                <p>Yes! Unlike some library implementations, this Vanilla JS code is designed to allow multiple items to be open simultaneously. You can easily modify the JavaScript logic if you prefer to close other items when a new one is opened (known as "single-open" mode).</p>
+            </div>
+        </div>
+        
+    </div>
+</div>

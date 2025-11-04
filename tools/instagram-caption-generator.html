@@ -1,0 +1,71 @@
+<!-- tools/instagram-caption-generator.html -->
+<div class="container mt-4">
+  <div class="card p-4 mx-auto" style="max-width: 700px">
+    <h4 class="mb-4 text-center">
+      <i class="fa-brands fa-instagram me-2"></i> Instagram Caption &amp;
+      Hashtag Generator
+    </h4>
+
+    <div class="mb-3">
+      <label for="post-description" class="form-label"
+        >Describe your post:</label
+      >
+      <textarea
+        id="post-description"
+        class="form-control"
+        rows="4"
+        placeholder="e.g., A photo of a golden retriever puppy playing in a field of flowers at sunset."
+      ></textarea>
+    </div>
+
+    <button id="generate-caption-btn" class="btn btn-primary w-100 mb-3">
+      <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Generate with AI
+    </button>
+
+    <div
+      id="ai-status"
+      class="text-center small text-muted mb-3"
+      style="min-height: 20px"
+    ></div>
+
+    <div id="results-container" class="d-none">
+      <div class="mb-3">
+        <label class="form-label">Generated Caption:</label>
+        <div class="position-relative">
+          <textarea
+            id="generated-caption"
+            class="form-control"
+            rows="5"
+            readonly
+          ></textarea>
+          <button
+            class="btn btn-sm btn-outline-secondary copy-btn"
+            data-target="generated-caption"
+            title="Copy Caption"
+          >
+            <i class="fa-solid fa-copy"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Suggested Hashtags:</label>
+        <div class="position-relative">
+          <textarea
+            id="generated-hashtags"
+            class="form-control"
+            rows="3"
+            readonly
+          ></textarea>
+          <button
+            class="btn btn-sm btn-outline-secondary copy-btn"
+            data-target="generated-hashtags"
+            title="Copy Hashtags"
+          >
+            <i class="fa-solid fa-copy"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

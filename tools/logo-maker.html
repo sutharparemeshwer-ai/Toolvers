@@ -1,0 +1,154 @@
+<!-- tools/logo-maker.html -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto&family=Pacifico&family=Poppins:wght@700&family=Montserrat:wght@500&display=swap"
+  rel="stylesheet"
+/>
+
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center text-light">
+    <i class="fa-solid fa-drafting-compass me-2"></i> Logo Maker
+  </h4>
+
+  <div class="row g-4">
+    <!-- Controls Column -->
+    <div class="col-lg-4">
+      <div class="card p-3">
+        <h5 class="mb-3">Customize Your Logo</h5>
+
+        <!-- Text Input -->
+        <div class="mb-3">
+          <label for="logo-text-input" class="form-label">Logo Text</label>
+          <input
+            type="text"
+            id="logo-text-input"
+            class="form-control"
+            value="MyLogo"
+          />
+        </div>
+
+        <!-- Icon Picker -->
+        <div class="mb-3">
+          <label for="logo-icon-select" class="form-label"
+            >Choose an Icon</label
+          >
+          <select id="logo-icon-select" class="form-select"></select>
+        </div>
+
+        <!-- Font Family -->
+        <div class="mb-3">
+          <label for="logo-font-select" class="form-label">Font</label>
+          <select id="logo-font-select" class="form-select">
+            <option value="Roboto, sans-serif">Roboto</option>
+            <option value="'Poppins', sans-serif">Poppins</option>
+            <option value="'Montserrat', sans-serif">Montserrat</option>
+            <option value="'Lobster', cursive">Lobster</option>
+            <option value="'Pacifico', cursive">Pacifico</option>
+          </select>
+        </div>
+
+        <!-- Colors -->
+        <div class="row mb-3">
+          <div class="col-6">
+            <label for="logo-text-color" class="form-label">Text Color</label>
+            <input
+              type="color"
+              id="logo-text-color"
+              class="form-control form-control-color w-100"
+              value="#343a40"
+            />
+          </div>
+          <div class="col-6">
+            <label for="logo-icon-color" class="form-label">Icon Color</label>
+            <input
+              type="color"
+              id="logo-icon-color"
+              class="form-control form-control-color w-100"
+              value="#0d6efd"
+            />
+          </div>
+        </div>
+
+        <!-- Font Size -->
+        <div class="mb-3">
+          <label for="logo-font-size-slider" class="form-label"
+            >Font Size: <span id="logo-font-size-value">48</span>px</label
+          >
+          <input
+            type="range"
+            id="logo-font-size-slider"
+            class="form-range"
+            min="16"
+            max="120"
+            value="48"
+          />
+        </div>
+
+        <!-- Layout -->
+        <div class="mb-3">
+          <label class="form-label">Layout</label>
+          <div id="logo-layout-options" class="btn-group w-100">
+            <button
+              class="btn btn-outline-secondary active"
+              data-layout="top"
+              title="Icon on Top"
+            >
+              <i class="fa-solid fa-arrow-up"></i>
+            </button>
+            <button
+              class="btn btn-outline-secondary"
+              data-layout="left"
+              title="Icon on Left"
+            >
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <button
+              class="btn btn-outline-secondary"
+              data-layout="right"
+              title="Icon on Right"
+            >
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+            <button
+              class="btn btn-outline-secondary"
+              data-layout="bottom"
+              title="Icon on Bottom"
+            >
+              <i class="fa-solid fa-arrow-down"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preview & Download Column -->
+    <div class="col-lg-8">
+      <div class="card p-3">
+        <h5 class="mb-3">Preview</h5>
+        <div
+          id="logo-preview-area"
+          class="d-flex align-items-center justify-content-center bg-light border rounded"
+          style="min-height: 400px; overflow: hidden"
+        >
+          <div
+            id="logo-preview"
+            class="d-flex flex-column align-items-center p-4"
+          >
+            <i
+              id="logo-preview-icon"
+              class="fa-solid fa-star"
+              style="font-size: 60px"
+            ></i>
+            <span id="logo-preview-text" class="mt-2">MyLogo</span>
+          </div>
+        </div>
+        <div class="text-center mt-3">
+          <button id="download-logo-btn" class="btn btn-success">
+            <i class="fa-solid fa-download me-2"></i>Download as PNG
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

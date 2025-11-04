@@ -1,0 +1,78 @@
+<!-- tools/data-visualization-dashboard.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center text-light">
+    <i class="fa-solid fa-chart-line me-2"></i> Data Viz Dashboard
+  </h4>
+
+  <div class="row g-4">
+    <!-- Controls Column -->
+    <div class="col-lg-4">
+      <div class="card p-3">
+        <h5 class="mb-3">Chart Controls</h5>
+
+        <!-- Chart Type -->
+        <div class="mb-3">
+          <label class="form-label">Chart Type</label>
+          <div id="chart-controls" class="btn-group w-100" role="group">
+            <button class="btn btn-sm btn-primary" data-chart-type="bar">
+              Bar
+            </button>
+            <button class="btn btn-sm btn-secondary" data-chart-type="line">
+              Line
+            </button>
+            <button class="btn btn-sm btn-secondary" data-chart-type="pie">
+              Pie
+            </button>
+            <button class="btn btn-sm btn-secondary" data-chart-type="radar">
+              Radar
+            </button>
+          </div>
+        </div>
+
+        <!-- Data Input -->
+        <div class="mb-3">
+          <label for="chart-labels-input" class="form-label"
+            >Labels (comma-separated)</label
+          >
+          <textarea
+            id="chart-labels-input"
+            class="form-control"
+            rows="2"
+            placeholder="e.g., January, February, March"
+          ></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="chart-data-input" class="form-label"
+            >Data Values (comma-separated)</label
+          >
+          <textarea
+            id="chart-data-input"
+            class="form-control"
+            rows="2"
+            placeholder="e.g., 10, 25, 15"
+          ></textarea>
+        </div>
+
+        <!-- Update Button -->
+        <div class="d-grid">
+          <small
+            id="data-error-msg"
+            class="text-danger text-center mb-2"
+          ></small>
+          <button id="update-data-btn" class="btn btn-success">
+            Update Chart
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart Display Column -->
+    <div class="col-lg-8">
+      <div class="card p-3">
+        <div class="chart-container-viz">
+          <canvas id="data-vis-chart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<!-- tools/blog-with-ai-content-generator.html -->
+<div class="container-fluid mt-4">
+    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-magic-sparkles me-2"></i> Blog with AI Content Generator</h4>
+
+    <div class="row g-4">
+        <!-- AI Assistant Column -->
+        <div class="col-lg-4">
+            <div class="card p-3 sticky-lg-top" style="top: 20px;">
+                <h5 class="mb-3"><i class="fa-solid fa-robot me-2"></i>AI Assistant</h5>
+                <div class="mb-3">
+                    <label for="ai-topic-select" class="form-label">Choose a Topic</label>
+                    <select id="ai-topic-select" class="form-select">
+                        <option value="tech">The Future of Technology</option>
+                        <option value="health">5 Tips for Healthy Living</option>
+                        <option value="travel">A Guide to Solo Travel</option>
+                        <option value="finance">Beginner's Guide to Investing</option>
+                        <option value="creativity">How to Overcome Creative Block</option>
+                    </select>
+                </div>
+                <button id="generate-content-btn" class="btn btn-primary w-100">
+                    Generate Content
+                </button>
+                <div id="ai-status" class="text-center small text-muted mt-2"></div>
+            </div>
+        </div>
+
+        <!-- Blog Editor and Posts Column -->
+        <div class="col-lg-8">
+            <!-- Editor -->
+            <div class="card p-3 mb-4">
+                <h5 class="mb-3"><i class="fa-solid fa-pen-to-square me-2"></i>Blog Post Editor</h5>
+                <form id="blog-post-form">
+                    <input type="hidden" id="post-id-input">
+                    <div class="mb-3">
+                        <label for="post-title-input" class="form-label">Title</label>
+                        <input type="text" id="post-title-input" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="post-content-input" class="form-label">Content</label>
+                        <textarea id="post-content-input" class="form-control" rows="10" required></textarea>
+                    </div>
+                    <div class="d-flex justify-content-end gap-2">
+                        <button type="button" id="clear-form-btn" class="btn btn-secondary">New Post</button>
+                        <button type="submit" class="btn btn-success">Save Post</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Saved Posts -->
+            <div class="card p-3">
+                <h5 class="mb-3"><i class="fa-solid fa-list-alt me-2"></i>My Saved Posts</h5>
+                <div id="saved-posts-list" class="list-group">
+                    <p id="no-posts-message" class="text-center text-muted">No posts saved yet.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

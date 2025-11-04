@@ -1,0 +1,66 @@
+<!-- tools/ai-code-explainer.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center text-light">
+    <i class="fa-solid fa-microchip me-2"></i> AI Code Explainer
+  </h4>
+
+  <div class="card p-3 p-md-4 mx-auto" style="max-width: 900px">
+    <div class="row g-4">
+      <!-- Input Column -->
+      <div class="col-lg-6">
+        <h5>1. Paste Your Code</h5>
+        <div class="mb-3">
+          <select id="code-language-select" class="form-select">
+            <option value="JavaScript" selected>JavaScript</option>
+            <option value="Python">Python</option>
+            <option value="Java">Java</option>
+            <option value="HTML">HTML</option>
+            <option value="CSS">CSS</option>
+            <option value="SQL">SQL</option>
+          </select>
+        </div>
+        <textarea
+          id="code-input-textarea"
+          class="form-control font-monospace"
+          rows="15"
+          placeholder="function hello() {&#10;  console.log('Hello, World!');&#10;}"
+        ></textarea>
+        <button id="explain-code-btn" class="btn btn-primary w-100 mt-3">
+          <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Explain Code
+        </button>
+      </div>
+
+      <!-- Output Column -->
+      <div class="col-lg-6">
+        <h5>2. AI Explanation</h5>
+        <div
+          id="explanation-output-container"
+          class="border rounded p-3 bg-dark position-relative"
+          style="min-height: 300px"
+        >
+          <button
+            id="copy-explanation-btn"
+            class="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2 d-none"
+          >
+            <i class="fa-solid fa-copy me-1"></i> Copy
+          </button>
+          <div id="explanation-status" class="text-muted text-center pt-5">
+            The explanation will appear here.
+          </div>
+          <div id="explanation-text" class="text-light"></div>
+        </div>
+
+        <!-- Optimization Suggestions -->
+        <div id="optimization-container" class="mt-4 d-none">
+          <h5>3. Optimization Suggestions</h5>
+          <div
+            id="optimization-output-container"
+            class="border rounded p-3 bg-dark"
+          >
+            <div id="optimization-text" class="text-light"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
