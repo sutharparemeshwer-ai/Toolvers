@@ -2457,13 +2457,14 @@ body.light-theme .category-pill:hover {
 }
 
 body.light-theme .tool-name-btn {
-  background-color: #e9f5e9; /* A lighter, more subtle mint color */
-  color: #000;
+  background-color: #f1f3f5; /* A very light gray, distinct from the page background */
+  color: var(--text-color);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 body.light-theme .tool-name-btn:hover {
-  color: #fff; /* Ensure text becomes white on hover in light mode too */
+  background-color: var(--primary-accent); /* Use the primary blue on hover */
+  color: #fff; /* White text for contrast on the blue background */
 }
 
 .nav-list {
