@@ -3734,6 +3734,16 @@ body.light-theme .tool-card i {
   justify-content: flex-end;
 }
 
+/* --- Themed Utility Classes --- */
+
+/* A background that's slightly different from the card background for contrast */
+.themed-bg-alt {
+  background-color: var(--bg-color);
+}
+body.light-theme .themed-bg-alt {
+  background-color: #f1f3f5; /* A very light, clean gray for light mode */
+}
+
 /* --- BMI Calculator --- */
 .bmi-calculator-container {
   padding-bottom: 3rem;
