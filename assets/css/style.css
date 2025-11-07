@@ -111,6 +111,11 @@ body.light-theme .navbar-brand h3 {
   color: #212529 !important; /* Dark text for brand on light navbar */
 }
 
+/* Ensure the brand logo text is dark in light mode */
+body.light-theme .navbar-brand {
+  color: var(--text-color) !important;
+}
+
 body.light-theme .category-header {
   color: var(
     --text-color
