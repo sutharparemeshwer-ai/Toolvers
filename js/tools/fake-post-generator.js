@@ -168,8 +168,6 @@ export async function init() {
     // Attach event listeners
     postTypeSelect.addEventListener("change", handlePostTypeChange);
     generateBtn.addEventListener("click", renderPreview);
-    // Use 'input' for live updates as the user types
-    form.addEventListener("input", renderPreview);
 
     // Initial render
     handlePostTypeChange();
@@ -184,6 +182,5 @@ export function cleanup() {
   if (form) {
     postTypeSelect.removeEventListener("change", handlePostTypeChange);
     generateBtn.removeEventListener("click", renderPreview);
-    form.removeEventListener("input", renderPreview);
   }
 }

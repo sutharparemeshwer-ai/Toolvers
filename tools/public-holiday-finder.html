@@ -1,0 +1,38 @@
+<div class="tool-container text-center">
+  <h2 class="tool-title">Public Holiday Finder</h2>
+  <p class="text-center">
+    Find public holidays for any country and year 
+  .
+  </p>
+
+  <div class="card mt-4">
+    <div class="card-body">
+      <form id="holiday-finder-form" class="row g-3 align-items-end">
+        <div class="col-md-5">
+          <label for="holiday-country" class="form-label">Country</label>
+          <select id="holiday-country" class="form-select" required>
+            <option value="">Loading countries...</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="holiday-year" class="form-label">Year</label>
+          <input
+            type="number"
+            id="holiday-year"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="col-md-3">
+          <button type="submit" class="btn btn-primary w-100">
+            Find Holidays
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="holiday-status" class="text-center mt-4"></div>
+
+  <div id="holiday-results-container" class="list-group mt-4"></div>
+</div>

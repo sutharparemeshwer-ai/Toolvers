@@ -46,7 +46,7 @@ function pickWinningColor() {
  */
 function changeColors(color) {
   squares.forEach((square) => {
-    square.style.opacity = "1"; // Make sure it's visible
+    square.style.opacity = "1"; // Make all squares visible
     square.style.backgroundColor = color;
   });
 }
@@ -66,9 +66,8 @@ function resetGame() {
 
   for (let i = 0; i < numSquares; i++) {
     const square = document.createElement("div");
-    square.className = "color-box";
-    // Use a CSS variable to ensure the color is applied correctly, overriding theme styles.
-    square.style.setProperty("--js-color", colors[i]);
+    square.className = "color-boxes";
+    square.style.backgroundColor = colors[i];
     square.addEventListener("click", handleSquareClick);
     container.appendChild(square);
   }
@@ -80,8 +79,7 @@ function resetGame() {
  * Handles the logic when a user clicks on a color square.
  */
 function handleSquareClick() {
-  // Read the color from the CSS variable
-  const clickedColor = this.style.getPropertyValue("--js-color");
+  const clickedColor = this.style.backgroundColor;
 
   if (clickedColor === pickedColor) {
     messageDisplay.textContent = "Correct!";

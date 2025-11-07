@@ -2,7 +2,7 @@
 
 // --- Configuration ---
 // 🚨 IMPORTANT: Get your free API key from Stability AI (https://platform.stability.ai/account/keys) and replace 'YOUR_API_KEY'
-const STABILITY_API_KEY = "sk-VdHMBOT83Kt7dEdvcVqDJiolmW7Mfv1Gu7ECHWtFQbabq5gY";
+const STABILITY_API_KEY = "sk-4PMtsVc4hRf2nAxWPFsL8zXjdVQlDV6KXId8WjNCEGvLp44C";
 
 // --- DOM Elements ---
 let promptInput,

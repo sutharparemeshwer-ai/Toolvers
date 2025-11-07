@@ -60,7 +60,7 @@ function renderHeadlines(articles) {
             <p class="mb-1">${
               article.description || "No description available."
             }</p>
-            <small class="text-muted">Source: ${article.source.name}</small>
+            <small class="">Source: ${article.source.name}</small>
         `;
     headlinesList.appendChild(listItem);
   });

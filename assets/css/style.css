@@ -49,7 +49,7 @@ h4,
   background-color: var(--primary-accent);
   color: #1a1d24;
   border: none;
-  font-weight: 600;
+  font-weight: 300;
   transition: all 0.2s ease-in-out;
 }
 .btn:hover {
@@ -82,45 +82,57 @@ a {
   color: var(--primary-accent);
 }
 
+/* --- Light Theme Overrides --- */
 body.light-theme {
-  --bg-color: #f8f9fa; /* Neutral light background for the page */
-  --card-bg-color: #b7e4c7; /* Your specified card background */
-  --border-color: #95d5b2;
-  --primary-accent: #2d6a4f; /* Using navbar color as the main accent */
-  --primary-accent-glow: rgba(45, 106, 79, 0.2);
+  --bg-color: #f8f9fa; /* A standard, clean light gray */
+  --card-bg-color: #ffffff; /* Pure white for cards */
+  --border-color: #dee2e6; /* A standard, subtle border color */
+  --primary-accent: #3478f6; /* A modern, professional blue */
+  --primary-accent-glow: rgba(52, 120, 246, 0.15);
   --text-color: #212529;
   --text-muted-color: #495057;
 }
 
 /* --- Custom Scrollbar --- */
 
+/* Light Theme: Navbar */
 body.light-theme .navbar.fixed-top {
-  background-color: #2d6a4f !important;
-  border-bottom-color: #2d6a4f !important;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.85
+  ) !important; /* Slightly transparent for a modern effect */
+  border-bottom-color: #e9ecef !important; /* Subtle bottom border */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Add a subtle shadow */
 }
 
 body.light-theme .navbar-brand h3 {
-  color: #fff !important; /* White text for brand on dark navbar */
+  color: #212529 !important; /* Dark text for brand on light navbar */
 }
 
-body.light-theme #home-list .category-header {
-  color: #000 !important; /* Black for home page category headers */
+body.light-theme .category-header {
+  color: var(
+    --text-color
+  ) !important; /* Use the main text color for consistency */
 }
 
+/* Light Theme: Footer */
 body.light-theme .main-footer {
-  background-color: #2d6a4f; /* Match the navbar color */
-  border-top-color: #2d6a4f;
-  color: rgba(255, 255, 255, 0.7); /* Lighter text for readability */
+  background-color: #e9ecef; /* A light gray that complements the theme */
+  border-top-color: #dee2e6;
+  color: #495057; /* Muted text color for readability */
 }
 
 body.light-theme .footer-social-links a {
-  color: rgba(255, 255, 255, 0.7); /* Match footer text color */
+  color: #495057; /* Match footer text color */
 }
 
 body.light-theme .footer-social-links a:hover {
-  color: #fff; /* Brighter on hover */
+  color: var(--primary-accent); /* Use the primary accent color on hover */
 }
 
+/* Light Theme: General Elements */
 body.light-theme .navbar .form-control {
   background-color: #fff;
   border-color: #ced4da;
@@ -130,42 +142,53 @@ body.light-theme .navbar .form-control:focus {
   background-color: #fff;
 }
 
+body.light-theme .btn {
+  background-color: var(--primary-accent);
+  color: #fff;
+}
+
 body.light-theme .btn:hover {
-  background-color: #74c69d;
+  background-color: #1a62d6; /* A darker shade of the new accent blue */
 }
 
-/* --- Header/Navbar Styling --- */
-.navbar.fixed-top {
-  border-bottom: 1px solid var(--primary-accent);
-  background-color: var(--bg-color) !important;
+/* --- Homepage Search Bar --- */
+.homepage-search-container {
+  margin-top: 2rem; /* Add space below the hero section */
+  position: relative;
+  z-index: 10;
+  margin-bottom: 4rem;
 }
 
-.navbar .form-control {
+.search-form-home .form-control {
+  border-radius: 50px;
+  padding: 0.9rem 1.75rem;
   background-color: var(--card-bg-color);
+  color: var(--text-color);
   border: 1px solid var(--border-color);
-  color: var(--text-color);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
-.navbar .form-control:focus {
-  background-color: var(--card-bg-color);
-  color: var(--text-color);
+
+.search-form-home .form-control:focus {
   border-color: var(--primary-accent);
-  box-shadow: 0 0 0 0.25rem var(--primary-accent-glow);
+  box-shadow: 0 0 0 0.25rem var(--primary-accent-glow),
+    0 10px 30px rgba(0, 0, 0, 0.2);
 }
-.navbar .form-control::placeholder {
+
+.search-form-home .form-control::placeholder {
   color: var(--text-muted-color);
 }
 
 /* --- Search Dropdown Styles --- */
 .search-results-dropdown {
   position: absolute;
-  top: calc(100% + 5px); /* Add a small gap below the search bar */
+  top: calc(100% + 10px); /* Add a small gap below the search bar */
   left: 0;
   right: 0;
-  z-index: 1055; /* Above navbar content */
+  z-index: 1055; /* Above other content */
   background-color: var(--card-bg-color);
   border: 1px solid var(--border-color);
-  border-radius: 0.5rem; /* Rounded corners on all sides */
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Softer, larger shadow */
+  border-radius: 0.75rem; /* Rounded corners */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Softer, larger shadow */
   max-height: 400px;
   overflow-y: auto;
   display: none; /* Hidden by default */
@@ -174,21 +197,21 @@ body.light-theme .btn:hover {
 .search-result-item {
   display: flex; /* Use flexbox for alignment */
   align-items: center;
-  padding: 0.75rem 1.25rem;
+  padding: 0.85rem 1.25rem;
   text-decoration: none;
   border-bottom: 1px solid var(--border-color);
   transition: background-color 0.2s ease;
 }
 
 .search-result-item:first-child {
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
 }
 
 .search-result-item:last-child {
   border-bottom: none;
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
 }
 
 .search-result-item:hover {
@@ -213,6 +236,29 @@ body.light-theme .btn:hover {
   color: var(--text-muted-color);
   font-size: 0.85rem;
   display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* --- Header/Navbar Styling --- */
+.navbar.fixed-top {
+  border-bottom: 1px solid var(--primary-accent);
+  background-color: var(--bg-color) !important;
+}
+
+.navbar .form-control {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+.navbar .form-control:focus {
+  background-color: var(--card-bg-color);
+  color: var(--text-color);
+  border-color: var(--primary-accent);
+  box-shadow: 0 0 0 0.25rem var(--primary-accent-glow);
+}
+.navbar .form-control::placeholder {
+  color: var(--text-muted-color);
 }
 
 /* --- Page Load Animation --- */
@@ -258,6 +304,11 @@ body.light-theme .btn:hover {
   color: var(--text-color); /* Dark text for clarity */
 }
 .battery {
+  /* Ensure battery icon is visible in light mode */
+  border-color: var(--text-color);
+}
+
+.battery::after {
   width: 200px;
   height: 80px;
   border: 4px solid #fff;
@@ -265,7 +316,6 @@ body.light-theme .btn:hover {
   margin: 20px auto;
   position: relative;
 }
-
 .battery::after {
   content: "";
   position: absolute;
@@ -273,7 +323,7 @@ body.light-theme .btn:hover {
   right: -10px;
   width: 10px;
   height: 40%;
-  background: #fff;
+  background: var(--text-color);
   border-radius: 2px;
 }
 
@@ -287,7 +337,7 @@ body.light-theme .btn:hover {
 
 #battery-status {
   font-size: 18px;
-  color: #fff;
+  color: var(--text-color);
 }
 
 #battery-percent {
@@ -304,8 +354,8 @@ body.light-theme .btn:hover {
 .cell {
   width: 100px;
   height: 100px;
-  background-color: #1e201f;
-  color: #eeebeb;
+  background-color: var(--card-bg-color);
+  color: var(--text-color);
   font-size: 2em;
   display: flex;
   justify-content: center;
@@ -316,7 +366,8 @@ body.light-theme .btn:hover {
 }
 
 .cell:hover {
-  background: #44ac92;
+  background: var(--primary-accent-glow);
+  border: 1px solid var(--primary-accent);
 }
 
 .winner {
@@ -326,7 +377,7 @@ body.light-theme .btn:hover {
 .card img {
   width: 200px;
   border-radius: 10px;
-  margin-left: 80px;
+  margin-left: 10px;
   margin-top: 10px;
 }
 
@@ -424,27 +475,23 @@ body.light-theme .btn:hover {
 
 /* Container for the 6 color squares */
 .color-boxes {
-  max-width: 400px;
-  margin: 20px auto;
+  width: 60px;
+  margin: 0px auto;
   display: grid;
+  height: 60px;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
 
 /* Individual color squares */
-.color-box {
+.color-boxes {
   aspect-ratio: 1 / 1; /* Makes the div a perfect square */
-  border-radius: 15px;
+  border-radius: 50%;
   cursor: pointer;
   transition: background-color 0.4s, opacity 0.4s; /* Smooth fade-out on wrong guess */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-/* Ensure the JS-applied background color is not overridden by theme styles */
-.color-box {
-  background-color: var(
-    --js-color,
-    #ccc
-  ); /* Use a variable set by JS, with a fallback */
+  transform: translateY(-50px);
+  transform: translateX(-40px);
 }
 
 /* Styling for the header text (where the RGB code is displayed) */
@@ -889,11 +936,10 @@ body.light-theme .btn:hover {
   flex-direction: column;
   min-height: 80vh; /* Takes most of the viewport height */
   justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  background-color: #2c302f; /* White background */
+  background-color: var(--bg-color);
 }
 
+/* This class is for the main content area, not the full page container */
 .google-main {
   display: flex;
   flex-direction: column;
@@ -905,6 +951,13 @@ body.light-theme .btn:hover {
 }
 
 /* Logo Styling */
+.google-logo {
+  font-family: "Poppins", sans-serif;
+  font-size: 4rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 2rem;
+}
 
 /* Search Box Wrapper */
 .search-box-container {
@@ -920,17 +973,19 @@ body.light-theme .btn:hover {
   align-items: center;
   width: 100%;
   height: 44px;
-  border: 1px solid #dfe1e5;
+  border: 1px solid var(--border-color);
   border-radius: 24px;
-  box-shadow: 0 1px 6px rgba(213, 214, 219, 0.759);
+  background-color: var(--card-bg-color);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
   margin-bottom: 30px;
   padding: 0 15px;
   transition: all 0.3s;
 }
 
 .search-input-wrapper:hover {
-  box-shadow: 0 1px 6px rgba(156, 159, 168, 0.919);
-  border-color: #d1d3d6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  background-color: var(--card-bg-color);
+  border-color: var(--border-color);
 }
 
 .search-input {
@@ -939,11 +994,13 @@ body.light-theme .btn:hover {
   border: none;
   outline: none;
   font-size: 16px;
+  background-color: transparent;
+  color: var(--text-color);
 }
 
 .search-icon,
 .mic-icon {
-  color: #9aa0a6;
+  color: var(--text-muted-color);
   margin: 0 8px;
   font-size: 16px;
 }
@@ -959,10 +1016,10 @@ body.light-theme .btn:hover {
 }
 
 .search-btn {
-  background-color: #f8f9fa;
-  border: 1px solid #f8f9fa;
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--card-bg-color);
   border-radius: 4px;
-  color: #3c4043;
+  color: var(--text-color);
   font-size: 14px;
   padding: 10px 16px;
   margin: 11px 4px;
@@ -973,9 +1030,9 @@ body.light-theme .btn:hover {
 }
 
 .search-btn:hover {
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  background-color: #f0f0f0;
-  border: 1px solid #dadce0;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
 }
 
 /* Footer (Simple, Bottom Fixed Style) */
@@ -1016,14 +1073,12 @@ body.light-theme .btn:hover {
 
 .search-result-item {
   margin-bottom: 25px;
-  padding: 5px;
-
-  border: 1px, solid, white;
+  padding: 5px 0;
 }
 
 .result-title {
   font-size: 20px;
-  color: #efeef4; /* Google Blue */
+  color: #8ab4f8; /* Google Blue */
   text-decoration: none;
   font-weight: 400;
 }
@@ -1034,13 +1089,13 @@ body.light-theme .btn:hover {
 
 .result-url {
   font-size: 14px;
-  color: #f1f4f2; /* Google Green */
+  color: var(--text-color);
   margin: 2px 0;
 }
 
 .result-snippet {
   font-size: 13px;
-  color: #dadbdd;
+  color: var(--text-muted-color);
   line-height: 1.5;
 }
 
@@ -1281,19 +1336,121 @@ body.light-theme .btn:hover {
 /* ========================================================= */
 /* AI CHATBOT STYLES (ID-Scoped) */
 /* ========================================================= */
+#ai-chatbot-container .chat-card {
+  max-width: 700px;
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+}
 
-/* Timestamp Styling */
+#ai-chatbot-container .chat-window {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+#ai-chatbot-container .message-wrapper {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 1rem;
+  max-width: 85%;
+}
+
+#ai-chatbot-container .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+#ai-chatbot-container .message-bubble {
+  padding: 0.75rem 1rem;
+  border-radius: 18px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+/* AI (Bot) Messages */
+#ai-chatbot-container .ai-message {
+  justify-content: flex-start;
+}
+#ai-chatbot-container .ai-message .avatar {
+  background-color: var(--primary-accent);
+  color: var(--bg-color);
+  margin-right: 10px;
+}
+#ai-chatbot-container .ai-message .message-bubble {
+  background-color: var(--card-bg-color);
+  border-top-left-radius: 4px;
+}
+
+/* User Messages */
+#ai-chatbot-container .user-message {
+  flex-direction: row-reverse;
+  margin-left: auto;
+}
+#ai-chatbot-container .user-message .avatar {
+  background-color: #495057;
+  color: #fff;
+  margin-left: 10px;
+}
+#ai-chatbot-container .user-message .message-bubble {
+  background-color: var(--primary-accent);
+  color: var(--bg-color);
+  border-top-right-radius: 4px;
+}
+
+/* Timestamp */
 #ai-chatbot-container .timestamp {
-  display: block;
-  font-size: 0.75rem;
-  opacity: 0.7;
-  margin-top: 2px;
-  text-align: right;
+  font-size: 0.7rem;
+  color: var(--text-muted-color);
+  margin: 0 8px;
 }
 
-#ai-chatbot-container .bot-message .timestamp {
-  text-align: left;
+/* Chat Input Footer */
+#ai-chatbot-container .chat-footer {
+  padding: 1rem;
+  background-color: var(--bg-color);
+  border-top: 1px solid var(--border-color);
 }
+.chat-input-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+  display: flex;
+  padding: 5px 10px;
+}
+.typing-indicator span {
+  height: 8px;
+  width: 8px;
+  background-color: var(--text-muted-color);
+  border-radius: 50%;
+  margin: 0 2px;
+  animation: typing-fade 1s infinite alternate;
+}
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing-fade {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .test-container {
   max-width: 900px;
   position: relative;
@@ -1483,7 +1640,7 @@ li,
 .controls i:active {
   transform: scale(0.9);
 }
-.container button {
+#translate-btn {
   width: 100%;
   padding: 14px;
   outline: none;
@@ -1601,17 +1758,61 @@ li,
 }
 
 /* --- AI News Aggregator --- */
+.news-aggregator-container {
+  background-color: var(--bg-color);
+}
+
+/* Category Filter Pills */
+.category-pill {
+  color: var(--text-muted-color);
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  border-radius: 50px;
+  margin: 0 0.25rem;
+  transition: all 0.3s ease;
+}
+
+.category-pill.active,
+.category-pill:hover {
+  background-color: var(--primary-accent) !important;
+  color: var(--bg-color) !important;
+  box-shadow: 0 4px 15px var(--primary-accent-glow);
+}
+
+body.light-theme .category-pill.active,
+body.light-theme .category-pill:hover {
+  color: #fff !important;
+}
+
+/* Enhanced News Card Styles */
 .news-card {
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border-radius: 1rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--border-color);
 }
 
 .news-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 .news-card .card-img-top {
   height: 200px;
   object-fit: cover;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+.news-card .card-title {
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.read-more-btn {
+  font-weight: 600;
+}
+.read-more-btn i {
+  transition: transform 0.2s ease-in-out;
 }
 
 /* --- Job Application Tracker --- */
@@ -2055,6 +2256,53 @@ li,
   color: var(--primary-accent); /* Theme color */
 }
 
+/* --- Book Finder Card Enhancements --- */
+.book-card-img-container {
+  height: 270px; /* Set a fixed height for the image container */
+  display: flex;
+  align-items: center; /* Vertically center the image */
+  justify-content: center; /* Horizontally center the image */
+  overflow: hidden; /* Hide any part of the image that might overflow */
+  background-color: #343a40; /* A dark fallback background */
+}
+
+.book-card-img-container .card-img-top {
+  width: auto; /* Allow image to scale based on its aspect ratio */
+  height: 100%; /* Make the image fill the container's height */
+  object-fit: cover; /* Cover the area without distortion */
+}
+
+/* --- Tower Defense Game --- */
+.tower-defense-canvas-container {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 0; /* Remove extra space below canvas */
+}
+#tower-defense-canvas {
+  width: 100%;
+  height: auto;
+  background-color: #2c302f;
+  border: 2px solid var(--border-color);
+}
+
+/* --- TV Show Finder Card Enhancements --- */
+.tv-show-card-img-container {
+  height: 320px; /* Set a fixed height for the image container */
+  display: flex;
+  align-items: center; /* Vertically center the image */
+  justify-content: center; /* Horizontally center the image */
+  overflow: hidden; /* Hide any part of the image that might overflow */
+  background-color: #343a40; /* A dark fallback background */
+}
+
+.tv-show-card-img-container .card-img-top {
+  width: auto; /* Allow image to scale based on its aspect ratio */
+  height: 100%; /* Make the image fill the container's height */
+  object-fit: cover; /* Cover the area without distortion */
+  flex-shrink: 0; /* Prevent image from shrinking if container is too small */
+}
+
 /* --- Simple Calculator UI --- */
 .calculator-grid {
   display: grid;
@@ -2084,7 +2332,7 @@ li,
   font-family: "Poppins", monospace;
 }
 
-.calculator-grid .btn {
+#calculator-body .btn {
   font-size: 1.5rem;
   padding: 20px;
   border-radius: 10px;
@@ -2094,12 +2342,12 @@ li,
   box-shadow: none;
 }
 
-.calculator-grid .btn-operator {
+#calculator-body .btn-operator {
   background-color: var(--primary-accent-glow);
   color: var(--primary-accent);
 }
 
-.calculator-grid .btn-equal {
+#calculator-body .btn-equal {
   grid-column: span 2;
   background-color: var(--primary-accent);
   color: var(--bg-color);
@@ -2199,16 +2447,18 @@ li,
   transform: translateY(-2px);
   box-shadow: 0 6px 20px var(--primary-accent-glow); /* Glow effect */
   background-color: var(--primary-accent); /* Use accent for background */
-  color: var(
-    --bg-color
-  ); /* Use main background color for text for high contrast */
+  color: #fff; /* Use white text for high contrast */
   border-color: var(--primary-accent); /* Match border to background */
 }
 
 body.light-theme .tool-name-btn {
-  background-color: #d8f3dc; /* Light mint color */
+  background-color: #e9f5e9; /* A lighter, more subtle mint color */
   color: #000;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .tool-name-btn:hover {
+  color: #fff; /* Ensure text becomes white on hover in light mode too */
 }
 
 .nav-list {
@@ -2619,7 +2869,7 @@ body.light-theme #back-to-top-btn:hover {
 
 /* --- Light Theme for "We deal with" section --- */
 body.light-theme .tool-slider-container-fluid {
-  background-color: #b7e4c7; /* Light, muted green/teal */
+  background-color: #e9ecef; /* Use the light theme's subtle gray background */
 }
 
 body.light-theme .tool-slider-container-fluid h1 {
@@ -2627,12 +2877,12 @@ body.light-theme .tool-slider-container-fluid h1 {
 }
 
 body.light-theme .tool-card {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: #ffffff; /* Use pure white for the cards */
   color: #333;
 }
 
 body.light-theme .tool-card i {
-  color: #2d6a4f; /* A darker green for the icon */
+  color: var(--primary-accent); /* Use the primary blue accent for the icon */
 }
 
 /* --- Calendar with Events Tool --- */
@@ -3010,6 +3260,687 @@ body.light-theme .tool-card i {
 .sudoku-cell.invalid {
   background-color: rgba(220, 53, 69, 0.3);
   color: #ffc107;
+}
+
+/* --- Digital Business Card Generator --- */
+#business-card-canvas {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Image to PDF Tool --- */
+.img-preview-card {
+  cursor: grab;
+}
+.img-preview-card .remove-img-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 10;
+  border-radius: 50%;
+  line-height: 1;
+}
+
+/* --- AI Code Explainer --- */
+.code-explainer-container {
+  padding-bottom: 3rem;
+}
+
+.code-input-area {
+  font-family: "Courier New", Courier, monospace;
+  background-color: #1c1e22 !important;
+  color: #d4d4d4 !important;
+  border-color: var(--border-color) !important;
+}
+
+.explanation-content ul {
+  padding-left: 1.2rem;
+}
+
+.explanation-content li {
+  margin-bottom: 0.75rem;
+}
+
+.explanation-content code {
+  background-color: var(--primary-accent-glow);
+  color: var(--primary-accent);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+.optimization-header {
+  color: var(--primary-accent);
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+}
+
+/* --- GPA Calculator --- */
+.gpa-calculator-container {
+  padding-bottom: 3rem;
+}
+
+.gpa-summary-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+.gpa-main-value {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--border-color);
+  padding-right: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.gpa-main-value span {
+  font-size: clamp(3rem, 10vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--primary-accent);
+}
+
+.gpa-main-value small {
+  font-weight: 500;
+  color: var(--text-muted-color);
+}
+
+.gpa-sub-values {
+  display: flex;
+  gap: 2rem;
+  text-align: center;
+}
+
+.gpa-sub-values span {
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: block;
+}
+
+.gpa-sub-values small {
+  color: var(--text-muted-color);
+}
+
+.gpa-course-item .badge {
+  font-size: 0.9rem;
+  min-width: 35px;
+  text-align: center;
+}
+
+.gpa-course-item .course-credits {
+  font-size: 0.85rem;
+  color: var(--text-muted-color);
+}
+
+/* --- Temperature Converter --- */
+.temp-converter-container {
+  padding-bottom: 3rem;
+}
+
+.converter-ui {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.temp-input-group {
+  text-align: center;
+}
+
+.temp-label {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text-muted-color);
+  margin-bottom: 0.5rem;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.temp-input {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  text-align: center;
+  font-size: clamp(2rem, 8vw, 3.5rem) !important;
+  font-weight: 700;
+  padding: 1rem 3rem 1rem 1rem;
+  border-radius: 1rem;
+}
+
+.temp-input:focus {
+  background-color: var(--card-bg-color);
+  color: var(--text-color);
+  border-color: var(--primary-accent);
+  box-shadow: 0 0 0 0.25rem var(--primary-accent-glow);
+}
+
+.unit-symbol {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-muted-color);
+}
+
+.converter-separator {
+  font-size: 2rem;
+  color: var(--text-muted-color);
+}
+
+/* --- Unit Converter --- */
+.unit-converter-container {
+  padding-bottom: 3rem;
+}
+
+.unit-input-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.unit-input {
+  font-size: 2rem !important;
+  font-weight: 600;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-radius: 0.5rem !important;
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.unit-input:focus {
+  border-color: var(--primary-accent) !important;
+  box-shadow: 0 0 0 0.25rem var(--primary-accent-glow) !important;
+}
+
+.unit-select {
+  background-color: var(--card-bg-color) !important;
+  color: var(--text-muted-color) !important;
+  border-color: var(--border-color) !important;
+}
+
+.unit-select:focus {
+  border-color: var(--primary-accent) !important;
+}
+
+/* --- Anime Info Tool --- */
+.anime-info-container {
+  padding-bottom: 3rem;
+}
+
+.anime-card {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.anime-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.anime-card-img {
+  height: 320px;
+  object-fit: cover;
+}
+
+.anime-card .card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.anime-card .card-title {
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.anime-card .card-text {
+  font-size: 0.9rem;
+  flex-grow: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Limit synopsis to 4 lines */
+  -webkit-box-orient: vertical;
+}
+
+.anime-score {
+  font-weight: bold;
+  color: #ffc107; /* Yellow for score */
+}
+
+.anime-score i {
+  margin-right: 0.25rem;
+}
+
+/* --- Film Finder Tool --- */
+.film-card {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.film-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.film-card-img {
+  height: 400px;
+  object-fit: cover;
+}
+
+.film-card .card-body {
+  flex-grow: 1;
+}
+
+.film-card .card-title {
+  font-weight: 600;
+}
+
+/* --- Interest Calculator --- */
+.interest-calculator-container {
+  padding-bottom: 3rem;
+}
+
+.interest-summary-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 1rem;
+  min-height: 300px;
+}
+
+.interest-main-value {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.interest-main-value small {
+  font-size: 1.2rem;
+  color: var(--text-muted-color);
+  font-weight: 500;
+}
+
+.interest-main-value span {
+  display: block;
+  font-size: clamp(3rem, 10vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--primary-accent);
+}
+
+.interest-sub-values {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.interest-sub-values span {
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: block;
+}
+
+/* --- Currency Converter --- */
+.currency-converter-container {
+  padding-bottom: 3rem;
+}
+
+.currency-input-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.currency-input-group .form-label {
+  font-weight: 500;
+  color: var(--text-muted-color);
+}
+
+.currency-amount-input {
+  font-size: 2rem !important;
+  font-weight: 600;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-radius: 0.5rem !important;
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.currency-amount-input:focus {
+  border-color: var(--primary-accent) !important;
+  box-shadow: 0 0 0 0.25rem var(--primary-accent-glow) !important;
+}
+
+.currency-select {
+  background-color: var(--card-bg-color) !important;
+  color: var(--text-muted-color) !important;
+  border-color: var(--border-color) !important;
+}
+
+.currency-select:focus {
+  border-color: var(--primary-accent) !important;
+}
+
+/* --- Crypto Price Tracker --- */
+.crypto-tracker-container {
+  padding-bottom: 3rem;
+}
+
+.crypto-table-header {
+  display: flex;
+  padding: 0 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted-color);
+  font-weight: 500;
+}
+
+.crypto-row {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  margin-bottom: 0.75rem;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.crypto-row:hover {
+  background-color: var(--primary-accent-glow);
+  transform: translateY(-2px);
+}
+
+.crypto-header-item,
+.crypto-item {
+  display: flex;
+  align-items: center;
+}
+
+.crypto-item.rank,
+.crypto-header-item.rank {
+  flex: 0 0 5%;
+  justify-content: center;
+  color: var(--text-muted-color);
+}
+
+.crypto-item.name,
+.crypto-header-item.name {
+  flex: 1 1 30%;
+  font-weight: 600;
+}
+
+.crypto-item .coin-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 1rem;
+}
+
+.crypto-item .coin-symbol {
+  text-transform: uppercase;
+  color: var(--text-muted-color);
+  font-size: 0.85rem;
+  margin-left: 0.5rem;
+}
+
+.crypto-item.price,
+.crypto-header-item.price {
+  flex: 1 1 20%;
+  font-weight: 600;
+}
+.crypto-item.change,
+.crypto-header-item.change {
+  flex: 1 1 20%;
+}
+.crypto-item.market-cap,
+.crypto-header-item.market-cap {
+  flex: 1 1 25%;
+  justify-content: flex-end;
+}
+
+/* --- BMI Calculator --- */
+.bmi-calculator-container {
+  padding-bottom: 3rem;
+}
+
+.bmi-gauge {
+  width: 200px;
+  height: 200px;
+  position: relative;
+}
+
+.bmi-gauge-body {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: conic-gradient(
+    #3498db 0deg 90deg,
+    /* Underweight */ #2ecc71 90deg 180deg,
+    /* Normal */ #f1c40f 180deg 225deg,
+    /* Overweight */ #e67e22 225deg 270deg,
+    /* Obesity I */ #c0392b 270deg 360deg /* Obesity II/III */
+  );
+  border-radius: 50%;
+  mask-image: radial-gradient(circle at center, transparent 65%, black 65%);
+  -webkit-mask-image: radial-gradient(
+    circle at center,
+    transparent 65%,
+    black 65%
+  );
+}
+
+.bmi-gauge-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-accent);
+  border-radius: 50%;
+  clip-path: polygon(50% 0, 50% 50%, 100% 50%, 100% 0); /* Top-right quadrant */
+  transform: rotate(0deg);
+  transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.bmi-gauge-cover {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bmi-gauge-cover span {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-color);
+}
+
+.bmi-gauge-cover small {
+  font-weight: 500;
+  color: var(--text-muted-color);
+}
+
+#bmi-category.underweight {
+  color: #3498db;
+}
+#bmi-category.normal {
+  color: #2ecc71;
+}
+#bmi-category.overweight {
+  color: #f1c40f;
+}
+#bmi-category.obese1 {
+  color: #e67e22;
+}
+#bmi-category.obese2 {
+  color: #c0392b;
+}
+
+/* Fallback for the old alert-based status */
+#bmi-status.alert-info {
+  background-color: #3498db;
+  color: white;
+}
+#bmi-status.alert-success {
+  background-color: #2ecc71;
+  color: white;
+}
+#bmi-status.alert-warning {
+  background-color: #f1c40f;
+  color: black;
+}
+#bmi-status.alert-danger {
+  background-color: #e67e22;
+  color: white;
+}
+#bmi-status.alert-danger.obese2 {
+  background-color: #c0392b;
+  color: white;
+}
+
+/* --- Internet Speed Checker --- */
+.speed-test-container {
+  padding-bottom: 3rem;
+}
+
+.speed-gauge {
+  width: 300px;
+  height: 150px; /* Half circle */
+  position: relative;
+  overflow: hidden;
+}
+
+.gauge-body {
+  width: 100%;
+  height: 100%;
+  background: conic-gradient(
+    from -90deg at 50% 100%,
+    var(--primary-accent) 0%,
+    #ffc107 50%,
+    #dc3545 100%
+  );
+  border-radius: 150px 150px 0 0; /* Half circle shape */
+  mask-image: radial-gradient(circle at 50% 100%, transparent 60%, black 60%);
+  -webkit-mask-image: radial-gradient(
+    circle at 50% 100%,
+    transparent 60%,
+    black 60%
+  );
+}
+
+.gauge-needle {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  height: 120px;
+  background-color: var(--text-color);
+  transform-origin: bottom center;
+  transform: translateX(-50%) rotate(-90deg); /* Start at 0 */
+  transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.gauge-center-display {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 80px;
+  background-color: var(--bg-color);
+  border-radius: 80px 80px 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.gauge-center-display #speed-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.gauge-center-display #speed-unit {
+  font-weight: 500;
+  color: var(--text-muted-color);
+}
+
+.speed-results-grid .result-box {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.speed-results-grid .result-box i {
+  color: var(--primary-accent);
+  margin-right: 0.5rem;
+}
+
+/* --- Video Downloader --- */
+.video-downloader-container {
+  padding-bottom: 3rem;
+}
+
+#videoContainer {
+  transition: opacity 0.5s ease-in-out, height 0.5s ease-in-out;
+}
+
+#videoContainer.hidden {
+  opacity: 0;
+  pointer-events: none;
+  height: 0;
+  overflow: hidden;
+}
+
+#videoContainer video {
+  max-height: 500px;
+  background-color: #000;
 }
 
 /* --- Color Palette Generator --- */

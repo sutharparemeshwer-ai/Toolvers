@@ -57,7 +57,7 @@ function renderCharacters(characters) {
                         ${getStatusIndicator(char.status)}
                         <span class="ms-1">${char.species}</span>
                     </p>
-                    <p class="card-text small text-muted">
+                    <p class="card-text small">
                         Last seen on:<br>
                         <strong>${char.location.name}</strong>
                     </p>

@@ -171,8 +171,8 @@
     "id": "drum-kit",
     "name": "Drum Kit",
     "description": "Play drums using the keyboard or mouse clicks.",
-    "tags": ["fun", "audio", "music", "game"],
-    "category": "Fun & Creative"
+    "tags": ["fun", "audio", "music", "game", "creative"],
+    "category": "Creative"
   },
   {
     "id": "expense",
@@ -227,29 +227,29 @@
     "id": "color-change",
     "name": "JS Color Changer",
     "description": "A simple tool to change the background color using JavaScript.",
-    "tags": ["javascript", "dom", "utility"],
-    "category": "Fun & Creative"
+    "tags": ["javascript", "dom", "utility", "fun"],
+    "category": "Fun"
   },
   {
     "id": "tip-calculator",
     "name": "Tip Calculator",
     "description": "Calculate tips and total bill amount easily.",
-    "tags": ["javascript", "math", "form"],
+    "tags": ["javascript", "math", "form", "finance"],
     "category": "Calculators"
   },
   {
     "id": "love-calculator",
     "name": "Love Calculator",
     "description": "Calculate the compatibility percentage between two names.",
-    "tags": ["javascript", "string", "fun"],
-    "category": "Fun & Creative"
+    "tags": ["javascript", "string", "fun", "game"],
+    "category": "Fun"
   },
   {
     "id": "meme-generator",
     "name": "Meme Generator",
     "description": "Create custom memes with text and downloadable images.",
-    "tags": ["javascript", "canvas", "image", "api", "dom"],
-    "category": "Fun & Creative"
+    "tags": ["javascript", "canvas", "image", "api", "dom", "creative"],
+    "category": "Creative"
   },
   {
     "id": "quiz-tool",
@@ -283,8 +283,8 @@
     "id": "virtual-piano",
     "name": "Virtual Piano",
     "description": "A simple keyboard that plays notes using the Audio API.",
-    "tags": ["javascript", "audio", "dom", "game"],
-    "category": "Fun & Creative"
+    "tags": ["javascript", "audio", "dom", "game", "music", "creative"],
+    "category": "Creative"
   },
   {
     "id": "quote-generator",
@@ -325,8 +325,8 @@
     "id": "drawing-app",
     "name": "Drawing App",
     "description": "A basic drawing board using the HTML Canvas API.",
-    "tags": ["javascript", "canvas", "graphics", "dom"],
-    "category": "Fun & Creative"
+    "tags": ["javascript", "canvas", "graphics", "dom", "creative"],
+    "category": "Creative"
   },
   {
     "id": "todo-list",
@@ -444,8 +444,8 @@
     "id": "image-cropper",
     "name": "Image Cropper",
     "description": "Crop, zoom, and download images easily",
-    "tags": ["image", "editor", "utility"],
-    "category": "Fun & Creative"
+    "tags": ["image", "editor", "utility", "creative"],
+    "category": "Creative"
   },
   {
     "id": "video-dow",
@@ -507,15 +507,30 @@
     "id": "image-compressor",
     "name": "Image Compressor / Resizer",
     "description": "Compress and resize images directly in your browser to reduce file size.",
-    "tags": ["image", "compressor", "resizer", "optimizer", "utility"],
-    "category": "Fun & Creative"
+    "tags": [
+      "image",
+      "compressor",
+      "resizer",
+      "optimizer",
+      "utility",
+      "creative"
+    ],
+    "category": "Creative"
   },
   {
     "id": "image-filters",
     "name": "Image Editor",
     "description": "Apply filters, adjustments, rotation, and flips to your images and download the result.",
-    "tags": ["image", "editor", "filters", "rotate", "flip", "photo"],
-    "category": "Fun & Creative"
+    "tags": [
+      "image",
+      "editor",
+      "filters",
+      "rotate",
+      "flip",
+      "photo",
+      "creative"
+    ],
+    "category": "Creative"
   },
 
   {
@@ -632,8 +647,8 @@
     "id": "viral-memes",
     "name": "Viral & Dark Memes",
     "description": "Browse the latest viral and dark memes from Reddit.",
-    "tags": ["meme", "fun", "api", "generator", "reddit"],
-    "category": "Fun & Creative"
+    "tags": ["meme", "fun", "api", "generator", "reddit", "entertainment"],
+    "category": "Fun"
   },
   {
     "id": "job-application-tracker",
@@ -789,6 +804,13 @@
     ],
     "category": "Productivity & Organization"
   },
+  {
+    "id": "advice-finder",
+    "name": "Advice Finder",
+    "description": "Search for advice on different topics or get a random tip.",
+    "tags": ["advice", "api", "fun", "generator", "search"],
+    "category": "Fun & Creative"
+  },
 
   {
     "id": "map-viewer",
@@ -804,12 +826,40 @@
     "tags": ["country", "data", "api", "geography", "information"],
     "category": "Data & API"
   },
-  
+
   {
     "id": "pokedex",
     "name": "Pokédex",
     "description": "Search for any Pokémon and get its stats, types, and image.",
     "tags": ["pokemon", "pokedex", "api", "data", "game"],
+    "category": "Data & API"
+  },
+  {
+    "id": "public-holiday-finder",
+    "name": "Public Holiday Finder",
+    "description": "Find public holidays for any country and year.",
+    "category": "Data & API",
+    "tags": ["holiday", "date", "api", "nager"]
+  },
+  {
+    "id": "tower-defense",
+    "name": "Simple Tower Defense",
+    "description": "Place towers to defend against waves of enemies in this classic strategy game.",
+    "tags": ["game", "strategy", "tower defense", "canvas"],
+    "category": "Games"
+  },
+  {
+    "id": "book-finder",
+    "name": "Book Finder",
+    "description": "Search for books and view their details using the Open Library API.",
+    "tags": ["book", "library", "search", "api", "data"],
+    "category": "Data & API"
+  },
+  {
+    "id": "tv-show-finder",
+    "name": "TV Show Finder",
+    "description": "Search for TV shows and view their details, including summary, rating, and genres.",
+    "tags": ["tv", "show", "finder", "api", "entertainment", "tvmaze"],
     "category": "Data & API"
   },
   {
@@ -837,15 +887,15 @@
     "id": "interactive-story-builder",
     "name": "Interactive Story Builder",
     "description": "Create your own choose-your-own-adventure stories with branching paths.",
-    "tags": ["story", "writing", "creative", "game", "utility"],
-    "category": "Fun & Creative"
+    "tags": ["story", "writing", "creative", "game", "utility", "text"],
+    "category": "Creative"
   },
   {
     "id": "emoji-keyboard",
     "name": "Emoji Keyboard",
     "description": "Search and copy emojis to your clipboard with this handy keyboard.",
-    "tags": ["emoji", "keyboard", "utility", "fun", "copy"],
-    "category": "Fun & Creative"
+    "tags": ["emoji", "keyboard", "utility", "fun", "copy", "text"],
+    "category": "Fun"
   },
 
   {
@@ -866,8 +916,15 @@
     "id": "virtual-whiteboard",
     "name": "Virtual Whiteboard",
     "description": "A simple drawing board to sketch ideas, with color, size, and eraser tools.",
-    "tags": ["drawing", "canvas", "whiteboard", "creative", "utility"],
-    "category": "Fun & Creative"
+    "tags": [
+      "drawing",
+      "canvas",
+      "whiteboard",
+      "creative",
+      "utility",
+      "productivity"
+    ],
+    "category": "Creative"
   },
   {
     "id": "text-based-adventure-game",
@@ -894,8 +951,8 @@
     "id": "magic-8-ball",
     "name": "Magic 8-Ball",
     "description": "Ask a yes/no question and get a mysterious answer from the classic toy.",
-    "tags": ["fun", "game", "random", "creative"],
-    "category": "Fun & Creative"
+    "tags": ["fun", "game", "random", "generator"],
+    "category": "Fun"
   },
   {
     "id": "drug-recall-finder",
@@ -908,58 +965,73 @@
     "id": "dog-generator",
     "name": "Random Dog Image Generator",
     "description": "Fetches and displays a random dog picture from an API.",
-    "tags": ["dog", "image", "generator", "api", "fun", "animal"],
-    "category": "Fun & Creative"
+    "tags": ["dog", "image", "generator", "api", "fun", "animal", "random"],
+    "category": "Fun"
   },
- 
+
   {
     "id": "lyrics-finder",
     "name": "Lyrics Finder",
     "description": "Find the lyrics for any song by artist and title.",
-    "tags": ["lyrics", "music", "api", "finder", "song"],
-    "category": "Fun & Creative"
+    "tags": ["lyrics", "music", "api", "finder", "song", "fun"],
+    "category": "Fun"
   },
   {
     "id": "rick-and-morty-finder",
     "name": "Rick and Morty Character Finder",
     "description": "Search for characters from Rick and Morty and view their details.",
-    "tags": ["rick and morty", "api", "finder", "character", "fun"],
-    "category": "Fun & Creative"
+    "tags": [
+      "rick and morty",
+      "api",
+      "finder",
+      "character",
+      "fun",
+      "entertainment"
+    ],
+    "category": "Fun"
   },
   {
     "id": "tarot-card-reading",
     "name": "Tarot Card Reading",
     "description": "A fun, simulated tarot card pull for daily guidance.",
-    "tags": ["fun", "creative", "tarot", "divination", "guidance"],
-    "category": "Fun & Creative"
+    "tags": ["fun", "game", "tarot", "divination", "guidance"],
+    "category": "Fun"
   },
   {
     "id": "never-have-i-ever",
     "name": "Never Have I Ever Generator",
     "description": "Provides prompts for the popular party game.",
-    "tags": ["fun", "game", "party", "generator", "creative"],
-    "category": "Fun & Creative"
+    "tags": ["fun", "game", "party", "generator"],
+    "category": "Fun"
   },
   {
     "id": "would-you-rather",
     "name": "Would You Rather",
     "description": "A simple game that presents you with two difficult choices.",
-    "tags": ["fun", "game", "dilemma", "creative"],
-    "category": "Fun & Creative"
+    "tags": ["fun", "game", "dilemma", "party"],
+    "category": "Fun"
   },
   {
     "id": "color-palette-generator",
     "name": "Color Palette Generator",
     "description": "Pick a color and generate harmonious color palettes, tints, and shades.",
-    "tags": ["color", "palette", "generator", "design", "ui", "hex"],
-    "category": "Fun & Creative"
+    "tags": [
+      "color",
+      "palette",
+      "generator",
+      "design",
+      "ui",
+      "hex",
+      "creative"
+    ],
+    "category": "Creative"
   },
   {
     "id": "gif-generator",
     "name": "GIF Generator",
     "description": "Search for and discover GIFs using the Tenor API.",
-    "tags": ["gif", "fun", "generator", "api", "tenor"],
-    "category": "Fun & Creative"
+    "tags": ["gif", "fun", "generator", "api", "tenor", "search"],
+    "category": "Fun"
   },
   {
     "id": "music-player",
@@ -974,7 +1046,7 @@
       "search",
       "musicbrainz"
     ],
-    "category": "Fun & Creative"
+    "category": "Data & API"
   },
   {
     "id": "white-noise-player",
@@ -989,7 +1061,7 @@
       "ambient",
       "white noise"
     ],
-    "category": "Fun & Creative"
+    "category": "Health & Fitness"
   },
   {
     "id": "loan-calculator",
@@ -1002,8 +1074,8 @@
     "id": "dice-roller",
     "name": "Dice Roller",
     "description": "A simple tool to roll one or more virtual dice.",
-    "tags": ["fun", "game", "random", "utility"],
-    "category": "Fun & Creative"
+    "tags": ["fun", "game", "random", "utility", "dice"],
+    "category": "Fun"
   },
   {
     "id": "morse-code-translator",
@@ -1066,15 +1138,23 @@
     "id": "ascii-art-generator",
     "name": "ASCII Art Generator",
     "description": "Converts an image into text-based ASCII art.",
-    "tags": ["ascii", "art", "generator", "image", "text", "creative"],
-    "category": "Fun & Creative"
+    "tags": ["ascii", "art", "generator", "image", "text", "creative", "fun"],
+    "category": "Creative"
   },
   {
     "id": "fake-post-generator",
     "name": "Fake Post Generator",
     "description": "Create realistic-looking fake social media posts or news headline images.",
-    "tags": ["fake", "tweet", "news", "generator", "image", "social media"],
-    "category": "Fun & Creative"
+    "tags": [
+      "fake",
+      "tweet",
+      "news",
+      "generator",
+      "image",
+      "social media",
+      "fun"
+    ],
+    "category": "Creative"
   },
 
   {
@@ -1088,8 +1168,8 @@
     "id": "dad-joke-generator",
     "name": "Dad Joke Generator",
     "description": "Fetches a random, cringeworthy dad joke from an API.",
-    "tags": ["fun", "joke", "generator", "api", "creative"],
-    "category": "Fun & Creative"
+    "tags": ["fun", "joke", "generator", "api", "random"],
+    "category": "Fun"
   },
   {
     "id": "this-or-that-superhero",
@@ -1102,8 +1182,8 @@
     "id": "coin-toss-simulator",
     "name": "Coin Toss Simulator",
     "description": "A simple, animated coin toss simulator to make quick decisions.",
-    "category": "Fun & Creative",
-    "tags": ["fun", "game", "random", "utility", "coin"]
+    "category": "Fun",
+    "tags": ["fun", "game", "random", "utility", "coin", "decision"]
   },
   {
     "id": "maze-solver",
@@ -1195,7 +1275,7 @@
       "youtube",
       "design"
     ],
-    "category": "Fun & Creative"
+    "category": "Creative"
   },
   {
     "id": "image-to-pdf",
@@ -1209,7 +1289,15 @@
     "id": "music-downloader",
     "name": "Royalty-Free Music Downloader",
     "description": "Search for and download royalty-free music tracks from the Pixabay API.",
-    "tags": ["music", "downloader", "audio", "royalty-free", "api", "creative"],
-    "category": "Fun & Creative"
+    "tags": [
+      "music",
+      "downloader",
+      "audio",
+      "royalty-free",
+      "api",
+      "creative",
+      "sound"
+    ],
+    "category": "Creative"
   }
 ]

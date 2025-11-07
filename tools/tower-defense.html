@@ -1,0 +1,67 @@
+<!-- tools/tower-defense.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center">
+    <i class="fa-solid fa-chess-rook me-2"></i> Simple Tower Defense
+  </h4>
+
+  <div class="row justify-content-center">
+    <!-- Game Canvas -->
+    <div class="col-lg-8 col-md-12">
+      <div class="tower-defense-canvas-container">
+        <canvas id="tower-defense-canvas" width="640" height="480"></canvas>
+      </div>
+    </div>
+
+    <!-- UI Panel -->
+    <div class="col-lg-4 col-md-12 mt-3 mt-lg-0">
+      <div class="card p-3">
+        <h5>Game Info</h5>
+        <div class="d-flex justify-content-between">
+          <span>💰 Money:</span>
+          <strong id="td-money">100</strong>
+        </div>
+        <div class="d-flex justify-content-between">
+          <span>❤️ Health:</span>
+          <strong id="td-health">20</strong>
+        </div>
+        <div class="d-flex justify-content-between">
+          <span>🌊 Wave:</span>
+          <strong id="td-wave">0</strong>
+        </div>
+        <hr />
+        <h5>Build Towers</h5>
+        <div id="tower-selection" class="d-grid gap-2">
+          <button
+            class="btn btn-outline-primary text-start"
+            data-tower-type="gatling"
+          >
+            <strong>Gatling Tower ($50)</strong>
+            <small class="d-block text-muted">Fast-firing, low damage.</small>
+          </button>
+          <button
+            class="btn btn-outline-primary text-start"
+            data-tower-type="cannon"
+          >
+            <strong>Cannon Tower ($100)</strong>
+            <small class="d-block text-muted">Slow-firing, high damage.</small>
+          </button>
+        </div>
+        <button
+          id="cancel-placement-btn"
+          class="btn btn-secondary w-100 mt-2 d-none"
+        >
+          Cancel Placement
+        </button>
+
+        <button id="start-wave-btn" class="btn btn-success w-100 mt-3">
+          Start Game
+        </button>
+        <div
+          id="game-over-message"
+          class="alert alert-danger mt-3 d-none"
+          role="alert"
+        ></div>
+      </div>
+    </div>
+  </div>
+</div>

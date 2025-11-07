@@ -1,13 +1,31 @@
- <div class="card text-center">
-    <h1>🎥 Direct Video Downloader</h1>
-    <p>Enter a direct link to a video file (e.g., ending in .mp4, .webm). This tool does not support streaming sites like YouTube or Vimeo.</p>
-<br>
-    <input type="text" id="videoUrl" placeholder="Enter direct video URL..." />
-    <br>
-    <button id="loadBtn" class="btn btn-light " >Load Video</button>
- <br>
-    <div id="videoContainer" class="hidden">
-      <video id="preview" controls></video>
-      <a id="downloadBtn" class="btn btn-success mt-2" href="#" download>⬇️ Download Video</a>
+<div class="video-downloader-container">
+  <div class="text-center pt-4 pb-5">
+    <h1 class="display-5 fw-bold">Direct Video Downloader</h1>
+    <p class="lead">
+      Enter a direct link to a video file to preview and download.
+    </p>
+    <small class="text-warning"
+      >Note: This tool does not support streaming sites like YouTube or
+      Vimeo.</small
+    >
+  </div>
+
+  <!-- Input Form -->
+  <div class="row justify-content-center mb-4">
+    <div class="col-lg-8">
+      <div class="input-group input-group-lg">
+        <input type="text" id="videoUrl" class="form-control" placeholder="Enter direct video URL (e.g., .../video.mp4)" />
+        <button id="loadBtn" class="btn btn-primary">Load Video</button>
+      </div>
     </div>
   </div>
+  <!-- Video Preview and Download -->
+  <div id="videoContainer" class="hidden row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card p-3">
+        <video id="preview" class="w-100 rounded" controls></video>
+        <a id="downloadBtn" class="btn btn-success w-100 mt-3" href="#" download><i class="fa-solid fa-download me-2"></i>Download Video</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -33,7 +33,7 @@ async function fetchAndRenderCrypto() {
                 <div class="d-flex align-items-center">
                     <img src="${coin.image}" alt="${coin.name}" style="width: 30px; height: 30px;" class="me-3">
                     <div>
-                        <h5 class="mb-0">${coin.name} <span class="text-muted small text-uppercase">${coin.symbol}</span></h5>
+                        <h5 class="mb-0">${coin.name} <span class=" small text-uppercase">${coin.symbol}</span></h5>
                     </div>
                 </div>
                 <div class="text-end">

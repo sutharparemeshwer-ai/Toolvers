@@ -15,11 +15,37 @@ let chatWindow, chatForm, chatInput, sendBtn, typingIndicator;
  * @param {string} sender 'user' or 'ai'.
  */
 function appendMessage(text, sender) {
+  const messageWrapper = document.createElement("div");
+  messageWrapper.className = `message-wrapper ${sender}-message`;
+
+  const avatar = document.createElement("div");
+  avatar.className = "avatar";
+  avatar.innerHTML =
+    sender === "ai"
+      ? '<i class="fa-solid fa-robot"></i>'
+      : '<i class="fa-solid fa-user"></i>';
+
   const messageBubble = document.createElement("div");
-  messageBubble.className = `message-bubble ${sender}`;
-  messageBubble.textContent = text;
-  chatWindow.appendChild(messageBubble);
-  chatWindow.scrollTop = chatWindow.scrollHeight; // Scroll to the bottom
+  messageBubble.className = "message-bubble";
+
+  if (sender === "ai" && window.marked) {
+    // Use marked.js to parse Markdown for AI responses
+    messageBubble.innerHTML = marked.parse(text);
+  } else {
+    // For user messages or if marked.js is not available, just set text content
+    messageBubble.textContent = text;
+  }
+
+  const timestamp = document.createElement("div");
+  timestamp.className = "timestamp";
+  timestamp.textContent = new Date().toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  messageWrapper.append(avatar, messageBubble, timestamp);
+  chatWindow.appendChild(messageWrapper);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
 }
 
 /**
@@ -83,8 +109,8 @@ async function handleFormSubmit(event) {
 
   appendMessage(userInput, "user");
   chatInput.value = "";
-  sendBtn.disabled = true;
-  typingIndicator.style.display = "block";
+  sendBtn.disabled = true; // Disable send button
+  typingIndicator.classList.remove("d-none"); // Show typing indicator
 
   try {
     const aiResponse = await getAIResponse(userInput);
@@ -93,8 +119,8 @@ async function handleFormSubmit(event) {
     console.error("AI response error:", error);
     appendMessage(`Sorry, an error occurred: ${error.message}`, "ai");
   } finally {
-    sendBtn.disabled = false;
-    typingIndicator.style.display = "none";
+    sendBtn.disabled = false; // Re-enable send button
+    typingIndicator.classList.add("d-none"); // Hide typing indicator
     chatInput.focus();
   }
 }
@@ -109,10 +135,17 @@ export function init() {
   sendBtn = document.getElementById("chat-send-btn");
   typingIndicator = document.getElementById("ai-typing-indicator");
 
-  // Update initial message if API key is missing
+  // Add initial welcome message
   if (API_KEY === "YOUR_API_KEY") {
-    document.querySelector(".message-bubble.ai").textContent =
-      "Welcome! To enable the AI, please get a free API key from Google AI Studio and add it to the `ai-chat-assistant.js` file.";
+    appendMessage(
+      "Welcome! To enable the AI, please get a free API key from Google AI Studio and add it to the `ai-chat-assistant.js` file.",
+      "ai"
+    );
+  } else {
+    appendMessage(
+      "Hello! I'm an AI assistant. How can I help you today?",
+      "ai"
+    );
   }
 
   // Attach event listeners

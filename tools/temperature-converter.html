@@ -1,31 +1,48 @@
-<div class="card p-4 mx-auto" style="max-width: 500px;">
-    <h4 class="mb-4 text-center"><i class="fa-solid fa-temperature-three-quarters"></i> Temperature Converter</h4>
-    
-    <div class="input-group mb-4">
-        <span class="input-group-text"><i class="fa-solid fa-c"></i> Celsius (°C)</span>
-        <input 
-            type="number" 
-            class="form-control" 
-            id="celsius-input" 
-            placeholder="Enter value in Celsius"
-        >
+<div class="temp-converter-container">
+  <div class="text-center pt-4 pb-5">
+    <h1 class="display-5 fw-bold">Temperature Converter</h1>
+    <p class="lead ">
+      Instantly convert between Celsius, Fahrenheit, and Kelvin.
+    </p>
+  </div>
+
+  <div class="converter-ui">
+    <!-- Celsius Input -->
+    <div class="temp-input-group">
+      <label for="celsius-input" class="temp-label">Celsius</label>
+      <div class="input-wrapper">
+        <input
+          type="number"
+          id="celsius-input"
+          class="form-control form-control-lg temp-input"
+          placeholder="0"
+        />
+        <span class="unit-symbol">°C</span>
+      </div>
     </div>
 
-    <div class="input-group mb-4">
-        <span class="input-group-text"><i class="fa-solid fa-f"></i> Fahrenheit (°F)</span>
-        <input 
-            type="number" 
-            class="form-control" 
-            id="fahrenheit-input" 
-            placeholder="Enter value in Fahrenheit"
-        >
+    <!-- Separator -->
+    <div class="converter-separator">
+      <i class="fa-solid fa-equals"></i>
     </div>
 
-    <div class="mt-2">
-        <button id="clear-btn" class="btn btn-outline-secondary w-100">
-            <i class="fa-solid fa-broom"></i> Clear Fields
-        </button>
+    <!-- Fahrenheit Input -->
+    <div class="temp-input-group">
+      <label for="fahrenheit-input" class="temp-label">Fahrenheit</label>
+      <div class="input-wrapper">
+        <input
+          type="number"
+          id="fahrenheit-input"
+          class="form-control form-control-lg temp-input"
+          placeholder="32"
+        />
+        <span class="unit-symbol">°F</span>
+      </div>
     </div>
 
-   
+    <!-- Separator -->
+    <div class="converter-separator">
+      <i class="fa-solid fa-equals"></i>
+    </div>
+  </div>
 </div>

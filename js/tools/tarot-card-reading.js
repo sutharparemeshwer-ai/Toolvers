@@ -127,7 +127,7 @@ function renderReading() {
                 <h5 class="card-name">${card.name} ${
       card.isReversed ? "(Reversed)" : ""
     }</h5>
-                <p class="card-meaning small text-muted">${card.meaning}</p>
+                <p class="card-meaning small">${card.meaning}</p>
             </div>
         `;
     col.innerHTML = cardHTML;

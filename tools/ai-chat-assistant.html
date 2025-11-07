@@ -1,19 +1,20 @@
 <!-- tools/ai-chat-assistant.html -->
-<div class="container-fluid mt-4">
-  <h4 class="mb-4 text-center">
-    <i class="fa-solid fa-robot me-2"></i> AI Chat Assistant
-  </h4>
-
-  <div class="card">
-    <div class="card-body">
-      <div id="chat-window" class="chat-window mb-3">
-        <!-- Messages will be appended here -->
-        <div class="message-bubble ai">
-          Hello! I'm an AI assistant powered by Google Gemini. How can I help
-          you today?
-        </div>
+<div id="ai-chatbot-container" class="container-fluid mt-4">
+  <div class="card chat-card mx-auto">
+    <div class="card-header text-center">
+      <h5 class="mb-0">
+        <i class="fa-solid fa-robot me-2"></i> AI Chat Assistant
+      </h5>
+      <small class="text-muted">Powered by Google Gemini</small>
+    </div>
+    <div id="chat-window" class="card-body chat-window">
+      <!-- Initial message will be added by JS -->
+    </div>
+    <div class="card-footer chat-footer">
+      <div id="ai-typing-indicator" class="typing-indicator d-none">
+        <span></span><span></span><span></span>
       </div>
-      <form id="chat-form" class="d-flex gap-2">
+      <form id="chat-form" class="chat-input-form">
         <input
           type="text"
           id="chat-input"
@@ -26,13 +27,13 @@
           <i class="fa-solid fa-paper-plane"></i>
         </button>
       </form>
-      <div
-        id="ai-typing-indicator"
-        class="text-muted small mt-2"
-        style="display: none"
-      >
-        <i class="fa-solid fa-ellipsis fa-beat-fade"></i> AI is typing...
-      </div>
     </div>
   </div>
 </div>
+<script type="module">
+  import { init, cleanup } from "./ai-chat-assistant.js";
+
+  // Simple router logic for initialization/cleanup (if needed for your setup)
+  document.addEventListener("DOMContentLoaded", init);
+  // window.addEventListener('beforeunload', cleanup);
+</script>

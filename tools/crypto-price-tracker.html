@@ -1,18 +1,40 @@
 <!-- tools/crypto-price-tracker.html -->
-<div class="container mt-4">
-    <h4 class="mb-4 text-center text-light"><i class="fa-brands fa-bitcoin me-2"></i> Crypto Price Tracker</h4>
+<div class="crypto-tracker-container">
+  <div class="text-center pt-4 pb-5">
+    <h1 class="display-5 fw-bold">Crypto Price Tracker</h1>
+    <p class="lead ">Live prices for the top cryptocurrencies.</p>
+  </div>
 
-    <div id="crypto-list" class="list-group mx-auto" style="max-width: 900px;">
-        <!-- Loading message -->
-        <div id="crypto-loading" class="list-group-item text-center">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <p class="mt-2">Fetching latest crypto prices...</p>
-        </div>
+  <div class="crypto-table-container mx-auto" style="max-width: 900px">
+    <!-- Table Header -->
+    <div class="crypto-table-header">
+      <div class="crypto-header-item rank">#</div>
+      <div class="crypto-header-item name">Coin</div>
+      <div class="crypto-header-item price">Price</div>
+      <div class="crypto-header-item change">24h Change</div>
+      <div class="crypto-header-item market-cap">Market Cap</div>
     </div>
 
-    <p class="text-center small text-muted mt-3">
-        Data provided by <a href="https://www.coingecko.com/" target="_blank">CoinGecko</a>. Prices update automatically.
-    </p>
+    <!-- Crypto List -->
+    <div id="crypto-list">
+      <!-- Loading message -->
+      <div id="crypto-loading" class="text-center py-5">
+        <div
+          class="spinner-border text-primary"
+          style="width: 3rem; height: 3rem"
+          role="status"
+        >
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3 text-muted">Fetching latest crypto prices...</p>
+      </div>
+      <!-- Crypto items will be injected here by JS -->
+    </div>
+  </div>
+
+  <p class="text-center small text-muted mt-4">
+    Data provided by
+    <a href="https://www.coingecko.com/" target="_blank">CoinGecko</a>. Prices
+    update automatically.
+  </p>
 </div>

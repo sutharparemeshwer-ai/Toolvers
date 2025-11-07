@@ -1,27 +1,53 @@
 <!-- tools/unit-converter.html -->
-<div class="container-fluid mt-4">
-    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-ruler-combined me-2"></i> Unit Converter</h4>
+<div class="unit-converter-container">
+  <div class="text-center pt-4 pb-5">
+    <h1 class="display-5 fw-bold">Unit Converter</h1>
+    <p class="lead text-muted">
+      Select a category and convert between units instantly.
+    </p>
+  </div>
 
-    <div class="card p-4 mx-auto" style="max-width: 600px;">
-        <div class="mb-3">
-            <label for="unit-category" class="form-label">Category</label>
-            <select id="unit-category" class="form-select"></select>
-        </div>
-
-        <div class="row g-3 align-items-center">
-            <div class="col">
-                <input type="number" id="input-value" class="form-control" value="1">
-                <select id="from-unit" class="form-select mt-2"></select>
-            </div>
-            <div class="col-auto">
-                <i class="fa-solid fa-equals fa-2x"></i>
-            </div>
-            <div class="col">
-                <input type="text" id="output-value" class="form-control" readonly>
-                <select id="to-unit" class="form-select mt-2"></select>
-            </div>
-        </div>
-
-        <p id="conversion-formula" class="text-center text-muted small mt-3"></p>
+  <div class="converter-main-card card p-4 mx-auto" style="max-width: 800px">
+    <div class="mb-4">
+      <label for="unit-category" class="form-label fs-5">Category</label>
+      <select id="unit-category" class="form-select form-select-lg"></select>
     </div>
+
+    <div class="row g-3 align-items-center">
+      <!-- From Unit -->
+      <div class="col-md-5">
+        <div class="unit-input-group">
+          <input
+            type="number"
+            id="input-value"
+            class="form-control unit-input"
+            value="1"
+          />
+          <select id="from-unit" class="form-select unit-select"></select>
+        </div>
+      </div>
+
+      <!-- Swap Button -->
+      <div class="col-md-2 text-center">
+        <button id="swap-units-btn" class="btn btn-outline-secondary btn-lg">
+          <i class="fa-solid fa-exchange-alt"></i>
+        </button>
+      </div>
+
+      <!-- To Unit -->
+      <div class="col-md-5">
+        <div class="unit-input-group">
+          <input
+            type="text"
+            id="output-value"
+            class="form-control unit-input"
+            readonly
+          />
+          <select id="to-unit" class="form-select unit-select"></select>
+        </div>
+      </div>
+    </div>
+
+    <p id="conversion-formula" class="text-center small mt-4"></p>
+  </div>
 </div>

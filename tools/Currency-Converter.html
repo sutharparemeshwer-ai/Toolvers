@@ -1,23 +1,29 @@
 <!-- tools/Currency-Converter.html -->
-<div class="container-fluid mt-4">
-  <h4 class="mb-4 text-center text-light">
-    <i class="fa-solid fa-coins me-2"></i> Currency Converter
-  </h4>
+<div class="currency-converter-container">
+  <div class="text-center pt-4 pb-5">
+    <h1 class="display-5 fw-bold">Currency Converter</h1>
+    <p class="lead ">
+      Real-time exchange rates for over 150 currencies.
+    </p>
+  </div>
 
-  <div class="card p-3 p-md-4 mx-auto" style="max-width: 700px">
-    <div class="row align-items-center g-3">
+  <div class="converter-main-card card p-4 mx-auto" style="max-width: 800px">
+    <div class="row g-3 align-items-center">
       <!-- From Currency -->
       <div class="col-md-5">
-        <label for="from-currency" class="form-label">From</label>
-        <div class="input-group">
-          <select id="from-currency" class="form-select"></select>
+        <div class="currency-input-group">
+          <label for="from-currency" class="form-label">From</label>
           <input
             type="number"
             id="amount-input"
-            class="form-control"
+            class="form-control currency-amount-input"
             value="1"
             min="0"
           />
+          <select
+            id="from-currency"
+            class="form-select currency-select"
+          ></select>
         </div>
       </div>
 
@@ -25,7 +31,7 @@
       <div class="col-md-2 text-center">
         <button
           id="swap-btn"
-          class="btn btn-secondary mt-md-4"
+          class="btn btn-outline-secondary btn-lg mt-md-4"
           title="Swap currencies"
         >
           <i class="fa-solid fa-exchange-alt"></i>
@@ -34,22 +40,22 @@
 
       <!-- To Currency -->
       <div class="col-md-5">
-        <label for="to-currency" class="form-label">To</label>
-        <div class="input-group">
-          <select id="to-currency" class="form-select"></select>
+        <div class="currency-input-group">
+          <label for="to-currency" class="form-label">To</label>
           <input
             type="text"
             id="result-output"
-            class="form-control"
+            class="form-control currency-amount-input"
             readonly
             placeholder="Result..."
           />
+          <select id="to-currency" class="form-select currency-select"></select>
         </div>
       </div>
     </div>
 
     <!-- Conversion Rate Display -->
-    <div id="rate-display" class="text-center small mt-4">
+    <div id="rate-display" class="text-center small text-muted mt-4">
       Enter an amount to see the conversion rate.
     </div>
   </div>

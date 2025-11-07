@@ -1,0 +1,33 @@
+<!-- tools/advice-finder.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center">
+    <i class="fa-solid fa-lightbulb me-2"></i> Advice Finder
+  </h4>
+
+  <div class="card p-3 p-md-4 mx-auto" style="max-width: 800px">
+    <!-- Search Form -->
+    <form id="advice-search-form" class="input-group mb-3">
+      <input
+        type="text"
+        id="advice-search-input"
+        class="form-control"
+        placeholder="Search for advice (e.g., life, work, friends)"
+      />
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <div class="text-center mb-4">
+      <button id="random-advice-btn" class="btn btn-secondary">
+        Get Random Advice
+      </button>
+    </div>
+
+    <!-- Status/Message Area -->
+    <div id="advice-status" class="text-center">
+      Search for advice or get a random tip.
+    </div>
+
+    <!-- Results Container -->
+    <div id="advice-results-container" class="list-group"></div>
+  </div>
+</div>

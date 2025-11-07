@@ -125,11 +125,11 @@ function generatePalettes(baseHex) {
   // Display color info
   baseColorPreview.style.backgroundColor = baseHex;
   colorInfoDisplay.innerHTML = `
-        <div class="color-info-row"><span>HEX</span> <strong>${baseHex.toUpperCase()}</strong></div>
-        <div class="color-info-row"><span>RGB</span> <strong>${rgb.r}, ${
+        <div class="color-info-row text-light"><span>HEX</span> <strong>${baseHex.toUpperCase()}</strong></div>
+        <div class="color-info-row text-light "><span>RGB</span> <strong>${rgb.r}, ${
     rgb.g
   }, ${rgb.b}</strong></div>
-        <div class="color-info-row"><span>HSL</span> <strong>${Math.round(
+        <div class="color-info-row text-light"><span>HSL</span> <strong>${Math.round(
           hsl.h
         )}, ${Math.round(hsl.s)}%, ${Math.round(hsl.l)}%</strong></div>
     `;

@@ -1,63 +1,69 @@
 <!-- tools/ai-code-explainer.html -->
-<div class="container-fluid mt-4">
-  <h4 class="mb-4 text-center text-light">
-    <i class="fa-solid fa-microchip me-2"></i> AI Code Explainer
-  </h4>
+<div class="code-explainer-container">
+  <div class="text-center pt-4 pb-5">
+    <h1 class="display-5 fw-bold">AI Code Explainer</h1>
+    <p class="lead">
+      Paste your code, choose the language, and get a clear explanation.
+    </p>
+  </div>
 
-  <div class="card p-3 p-md-4 mx-auto" style="max-width: 900px">
-    <div class="row g-4">
-      <!-- Input Column -->
-      <div class="col-lg-6">
-        <h5>1. Paste Your Code</h5>
-        <div class="mb-3">
-          <select id="code-language-select" class="form-select">
-            <option value="JavaScript" selected>JavaScript</option>
-            <option value="Python">Python</option>
-            <option value="Java">Java</option>
-            <option value="HTML">HTML</option>
-            <option value="CSS">CSS</option>
-            <option value="SQL">SQL</option>
-          </select>
+  <div class="row g-4">
+    <!-- Left Column: Input -->
+    <div class="col-lg-6">
+      <div class="card h-100 shadow-sm">
+        <div class="card-header">
+          <i class="fa-solid fa-code me-2"></i>Your Code
         </div>
-        <textarea
-          id="code-input-textarea"
-          class="form-control font-monospace"
-          rows="15"
-          placeholder="function hello() {&#10;  console.log('Hello, World!');&#10;}"
-        ></textarea>
-        <button id="explain-code-btn" class="btn btn-primary w-100 mt-3">
-          <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Explain Code
-        </button>
+        <div class="card-body">
+          <textarea
+            id="code-input-textarea"
+            class="form-control code-input-area"
+            rows="15"
+            placeholder="function hello() {&#10;  console.log('Hello, World!');&#10;}"
+          ></textarea>
+          <div class="d-flex mt-3 gap-2">
+            <select id="code-language-select" class="form-select w-50">
+              <option value="JavaScript">JavaScript</option>
+              <option value="Python">Python</option>
+              <option value="Java">Java</option>
+              <option value="C++">C++</option>
+              <option value="SQL">SQL</option>
+              <option value="HTML">HTML</option>
+            </select>
+            <button id="explain-code-btn" class="btn btn-primary w-50">
+              <i class="fa-solid fa-wand-magic-sparkles me-2"></i>Explain Code
+            </button>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <!-- Output Column -->
-      <div class="col-lg-6">
-        <h5>2. AI Explanation</h5>
+    <!-- Right Column: Output -->
+    <div class="col-lg-6">
+      <div class="card h-100 shadow-sm">
         <div
-          id="explanation-output-container"
-          class="border rounded p-3 bg-dark position-relative"
-          style="min-height: 300px"
+          class="card-header d-flex justify-content-between align-items-center"
         >
+          <span
+            ><i class="fa-solid fa-comment-dots me-2"></i>AI Explanation</span
+          >
           <button
             id="copy-explanation-btn"
-            class="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2 d-none"
+            class="btn btn-sm btn-outline-secondary d-none"
           >
             <i class="fa-solid fa-copy me-1"></i> Copy
           </button>
-          <div id="explanation-status" class="text-muted text-center pt-5">
+        </div>
+        <div id="explanation-output-container" class="card-body">
+          <div id="explanation-status" class="text-center text-muted pt-5">
             The explanation will appear here.
           </div>
-          <div id="explanation-text" class="text-light"></div>
-        </div>
-
-        <!-- Optimization Suggestions -->
-        <div id="optimization-container" class="mt-4 d-none">
-          <h5>3. Optimization Suggestions</h5>
-          <div
-            id="optimization-output-container"
-            class="border rounded p-3 bg-dark"
-          >
-            <div id="optimization-text" class="text-light"></div>
+          <div id="explanation-text" class="explanation-content"></div>
+          <div id="optimization-container" class="mt-4 d-none">
+            <h6 class="optimization-header">
+              <i class="fa-solid fa-rocket me-2"></i>Optimization Suggestions
+            </h6>
+            <div id="optimization-text" class="explanation-content"></div>
           </div>
         </div>
       </div>

@@ -1,26 +1,33 @@
 <div class="google-container">
-    <div class="google-main">
-        <h1 class="google-logo text-light">
-            poogle
-        </h1>
-        
-        <form id="google-search-form" class="search-box-container">
-            <div class="search-input-wrapper">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="search-input" class="search-input" title="Search" value="" maxlength="2048" name="q" autocomplete="off" role="combobox" placeholder="Search with poogle">
-                <i class="fa-solid fa-microphone mic-icon"></i>
-            </div>
-            
-            <div class="search-buttons">
-                <button type="submit" class="search-btn">poogle Search</button>
-              
-            </div>
-        </form>
+  <div class="google-main">
+    <h1 class="google-logo">poogle</h1>
 
-        <div id="search-results-container" class="results-container">
-            </div>
+    <form id="google-search-form" class="search-box-container">
+      <div class="search-input-wrapper">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input
+          type="text"
+          id="search-input"
+          class="search-input"
+          title="Search"
+          value=""
+          maxlength="2048"
+          name="q"
+          autocomplete="off"
+          role="combobox"
+          placeholder="Search with poogle"
+        />
+        <i class="fa-solid fa-microphone mic-icon" title="Search by voice"></i>
+      </div>
 
+      <div class="search-buttons">
+        <button type="submit" class="search-btn">poogle Search</button>
+        <button type="button" class="search-btn">I'm Feeling Lucky</button>
+      </div>
+    </form>
+
+    <div id="search-results-container" class="results-container">
+      <!-- Search results will be injected here -->
     </div>
-    
-    
+  </div>
 </div>

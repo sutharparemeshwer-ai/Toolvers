@@ -1,19 +1,31 @@
-<br><br><br><br>
-<div class="card">
-    <div class="row">
-        <div class="col text-center">
-            <br><br>
-<h1>Anime Info Tool</h1>
-<p>Search any anime and find it.</p>
-<br>
-   <form class="d-flex" role="search">
-        <input id="searchInput" class="form-control ml-2 m-5" type="search" placeholder="Enter anime title" aria-label="Search">
+<div class="anime-info-container">
+  <div class="text-center pt-4 pb-5">
+    <h1 class="display-5 fw-bold">Anime Info Finder</h1>
+    <p class="lead ">
+      Search for any anime and get detailed information.
+    </p>
+  </div>
+
+  <!-- Search Form -->
+  <div class="row justify-content-center mb-5">
+    <div class="col-lg-8">
+      <form id="anime-search-form" class="d-flex gap-2">
+        <input
+          id="searchInput"
+          class="form-control form-control-lg"
+          type="search"
+          placeholder="e.g., Attack on Titan, Naruto, One Piece..."
+          aria-label="Search"
+        />
+        <button id="searchBtn" type="submit" class="btn btn-primary">
+          Search
+        </button>
       </form>
-  <br><br>
-  <button id="searchBtn" class="btn btn-light">Search</button>
-  <br><br>
     </div>
+  </div>
+
+  <!-- Results Grid -->
+  <div id="results" class="row g-4">
+    <!-- Anime cards will be injected here by JS -->
+  </div>
 </div>
-</div>
-<br>
-  <div id="results"></div>

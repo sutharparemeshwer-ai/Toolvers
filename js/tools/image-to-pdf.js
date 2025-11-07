@@ -6,6 +6,8 @@ let imageInput, previewsContainer, noImagesMsg, generateBtn, statusEl;
 // --- Library URL ---
 const JSPDF_URL =
   "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
+const SORTABLE_URL =
+  "https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js";
 
 // --- State ---
 let selectedFiles = [];
@@ -15,7 +17,10 @@ let selectedFiles = [];
  */
 function loadScript(url) {
   return new Promise((resolve, reject) => {
-    if (window.jspdf) return resolve();
+    // A simple check to see if the library's main object exists
+    if (url === JSPDF_URL && window.jspdf) return resolve();
+    if (url === SORTABLE_URL && window.Sortable) return resolve();
+
     const script = document.createElement("script");
     script.src = url;
     script.onload = () => resolve();
@@ -35,7 +40,7 @@ function renderPreviews() {
   selectedFiles.forEach((file, index) => {
     const reader = new FileReader();
     reader.onload = (e) => {
-      const col = document.createElement("div");
+      const col = document.createElement("div"); // This will be the draggable item
       col.className = "col-6 col-md-4 col-lg-3";
       col.innerHTML = `
                 <div class="img-preview-card position-relative">
@@ -45,6 +50,7 @@ function renderPreviews() {
                     <button class="btn btn-sm btn-danger remove-img-btn" data-index="${index}" title="Remove">&times;</button>
                 </div>
             `;
+      col.dataset.originalIndex = index; // Store original index for reordering
       previewsContainer.appendChild(col);
     };
     reader.readAsDataURL(file);
@@ -134,9 +140,31 @@ async function handleGeneratePdf() {
   }
 }
 
+/**
+ * Initializes the SortableJS library for drag-and-drop reordering.
+ */
+function initSortable() {
+  if (window.Sortable) {
+    new Sortable(previewsContainer, {
+      animation: 150,
+      ghostClass: "bg-primary",
+      onEnd: (evt) => {
+        // Reorder the selectedFiles array based on the new DOM order
+        const newOrder = Array.from(evt.to.children).map((el) =>
+          parseInt(el.dataset.originalIndex, 10)
+        );
+        const reorderedFiles = newOrder.map((i) => selectedFiles[i]);
+        selectedFiles = reorderedFiles;
+        // Re-render to update indices and data attributes
+        renderPreviews();
+      },
+    });
+  }
+}
+
 // --- Router Hooks ---
 
-export function init() {
+export async function init() {
   imageInput = document.getElementById("img-to-pdf-input");
   previewsContainer = document.getElementById("image-previews-container");
   noImagesMsg = document.getElementById("no-images-selected");
@@ -146,6 +174,14 @@ export function init() {
   imageInput.addEventListener("change", handleFileSelect);
   previewsContainer.addEventListener("click", handleRemoveImage);
   generateBtn.addEventListener("click", handleGeneratePdf);
+
+  // Load SortableJS and initialize it
+  try {
+    await loadScript(SORTABLE_URL);
+    initSortable();
+  } catch (error) {
+    console.warn("Could not load SortableJS. Drag-and-drop will be disabled.");
+  }
 }
 
 export function cleanup() {

@@ -1,0 +1,29 @@
+<!-- tools/tv-show-finder.html -->
+<div class="container-fluid mt-4">
+  <h4 class="mb-4 text-center">
+    <i class="fa-solid fa-tv me-2"></i> TV Show Finder
+  </h4>
+
+  <div class="card p-3 p-md-4 mx-auto" style="max-width: 1000px">
+    <!-- Search Form -->
+    <form id="tv-search-form" class="input-group mb-4">
+      <input
+        type="text"
+        id="tv-search-input"
+        class="form-control"
+        placeholder="Search for a TV show (e.g., The Office, Breaking Bad)"
+        required
+      />
+      <button type="submit" class="btn btn-primary">Search Shows</button>
+    </form>
+
+    <!-- Status/Message Area -->
+    <div id="tv-status" class="text-center">Enter a show name to begin.</div>
+
+    <!-- Results Container -->
+    <div
+      id="tv-results-container"
+      class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4"
+    ></div>
+  </div>
+</div>

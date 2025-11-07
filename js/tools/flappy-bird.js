@@ -2,19 +2,27 @@
 
 // --- DOM Elements ---
 let canvas, ctx;
-let startScreen, gameOverScreen, startBtn, restartBtn, finalScoreEl;
+let startScreen,
+  gameOverScreen,
+  startBtn,
+  restartBtn,
+  finalScoreEl,
+  highScoreEl;
 
 // --- Game State & Constants ---
 let gameState = "ready"; // 'ready', 'playing', 'over'
 let score = 0;
+let highScore = 0;
+const HIGH_SCORE_KEY = "flappyBirdHighScore";
+
 let frame = 0;
 let animationFrameId;
 
-const GRAVITY = 0.15;
-const FLAP_STRENGTH = -4.6;
-const PIPE_SPEED = 2;
-const PIPE_GAP = 120;
-const PIPE_INTERVAL = 90; // Frames between new pipes
+const GRAVITY = 0.08;
+const FLAP_STRENGTH = -3.2;
+const PIPE_SPEED = 1;
+const PIPE_GAP = 150;
+const PIPE_INTERVAL = 150; // Frames between new pipes
 
 // --- Game Objects ---
 const bird = {
@@ -165,6 +173,14 @@ function startGame() {
 function setGameOver() {
   gameState = "over";
   finalScoreEl.textContent = score;
+
+  // Check for and update high score
+  if (score > highScore) {
+    highScore = score;
+    localStorage.setItem(HIGH_SCORE_KEY, highScore);
+  }
+  highScoreEl.textContent = highScore;
+
   gameOverScreen.classList.remove("d-none");
 }
 
@@ -191,10 +207,15 @@ export function init() {
   startBtn = document.getElementById("flappy-start-btn");
   restartBtn = document.getElementById("flappy-restart-btn");
   finalScoreEl = document.getElementById("flappy-final-score");
+  highScoreEl = document.getElementById("flappy-high-score");
 
   // Set initial background
   ctx.fillStyle = "#87CEEB"; // Sky blue
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Load high score from local storage
+  highScore = parseInt(localStorage.getItem(HIGH_SCORE_KEY) || "0", 10);
+  highScoreEl.textContent = highScore;
 
   // Attach event listeners
   startBtn.addEventListener("click", startGame);

@@ -1,44 +1,94 @@
-<div class="card p-4 text-center">
-    <h4><i class="fa-solid fa-calculator"></i> Compound Interest Calculator</h4>
-    <p class="small ">Calculate the future value of your investment.</p>
-    
-    <form id="interest-form" class="row g-3 text-start">
-        <div class="col-md-6">
-            <label for="principal" class="form-label">Principal Amount (P)</label>
-            <input type="number" class="form-control" id="principal" value="10000" min="0" step="any" required>
-        </div>
+<div class="interest-calculator-container">
+  <div class="text-center pt-4 pb-5">
+    <h1 class="display-5 fw-bold">Compound Interest Calculator</h1>
+    <p class="lead ">
+      Calculate the future value of your investment over time.
+    </p>
+  </div>
 
-        <div class="col-md-6">
-            <label for="rate" class="form-label">Annual Interest Rate (r, %)</label>
-            <input type="number" class="form-control" id="rate" value="5" min="0" step="any" required>
+  <div class="row g-4">
+    <!-- Left Column: Results Display -->
+    <div class="col-lg-7">
+      <div class="interest-summary-display card mb-4">
+        <div class="interest-main-value">
+          <small>Future Value (A)</small>
+          <span id="future-value">$0.00</span>
         </div>
-
-        <div class="col-md-6">
-            <label for="time" class="form-label">Time in Years (t)</label>
-            <input type="number" class="form-control" id="time" value="10" min="1" step="any" required>
+        <div class="interest-sub-values">
+          <div>
+            <small>Principal</small>
+            <span id="summary-principal">$0.00</span>
+          </div>
+          <div>
+            <small>Total Interest</small>
+            <span id="total-interest">$0.00</span>
+          </div>
         </div>
-
-        <div class="col-md-6">
-            <label for="compounding-frequency" class="form-label">Compounding Frequency (n)</label>
-            <select class="form-select" id="compounding-frequency">
-                <option value="1">Annually (1)</option>
-                <option value="2">Semi-Annually (2)</option>
-                <option value="4">Quarterly (4)</option>
-                <option value="12" selected>Monthly (12)</option>
-                <option value="365">Daily (365)</option>
-            </select>
-        </div>
-
-        <div class="col-12 text-center mt-4">
-            <button type="submit" class="btn btn-primary w-50">Calculate Interest</button>
-        </div>
-    </form>
-
-    <div class="mt-4 p-3 bg-light rounded text-dark text-center">
-        <strong>Future Value (A):</strong> 
-        <h5 id="future-value" class="mt-1">--</h5>
-        
-        <strong>Total Interest Earned:</strong>
-        <p id="total-interest" class="mb-0">--</p>
+      </div>
     </div>
+
+    <!-- Right Column: Input Form -->
+    <div class="col-lg-5">
+      <div class="card p-3 sticky-lg-top" style="top: 20px">
+        <h5 class="mb-3">Investment Details</h5>
+        <form id="interest-form">
+          <div class="mb-3">
+            <label for="principal" class="form-label"
+              >Principal Amount ($)</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="principal"
+              value="10000"
+              min="0"
+              step="any"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="rate" class="form-label"
+              >Annual Interest Rate (%)</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="rate"
+              value="5"
+              min="0"
+              step="any"
+              required
+            />
+          </div>
+          <div class="row g-2">
+            <div class="col-sm-6 mb-3">
+              <label for="time" class="form-label">Time (Years)</label>
+              <input
+                type="number"
+                class="form-control"
+                id="time"
+                value="10"
+                min="1"
+                step="any"
+                required
+              />
+            </div>
+            <div class="col-sm-6 mb-3">
+              <label for="compounding-frequency" class="form-label"
+                >Compounding</label
+              >
+              <select class="form-select" id="compounding-frequency">
+                <option value="1">Annually</option>
+                <option value="2">Semi-Annually</option>
+                <option value="4">Quarterly</option>
+                <option value="12" selected>Monthly</option>
+                <option value="365">Daily</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Calculate</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

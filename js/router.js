@@ -45,7 +45,8 @@ const CATEGORY_ICONS = {
   "Productivity & Organization": "fa-solid fa-list-check",
   "Finance & Calculators": "fa-solid fa-sack-dollar",
   "Text & Content": "fa-solid fa-file-alt",
-  "Fun & Creative": "fa-solid fa-lightbulb",
+  Fun: "fa-solid fa-face-laugh-beam",
+  Creative: "fa-solid fa-palette",
   "Developer Tools": "fa-solid fa-code",
   Utilities: "fa-solid fa-screwdriver-wrench",
   Uncategorized: "fa-solid fa-shapes",
@@ -268,6 +269,18 @@ async function loadTool(name) {
         <div class="hero-background-animation"></div>
       </div>
 
+      <!-- Homepage Search Bar -->
+      <div class="homepage-search-container container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <!-- The form needs a position-relative class for the dropdown -->
+            <form class="search-form-home position-relative" role="search">
+              <input id="homepage-tool-search" class="form-control form-control-lg" type="search" placeholder="🔍 Search for a tool by name, tag, or description..." aria-label="Search">
+            </form>
+          </div>
+        </div>
+      </div>
+
       <!-- "Our Core Tools" Section -->
       <div class="core-tools-container" id="explore-tools-section">
         <div class="container">
@@ -326,6 +339,7 @@ async function loadTool(name) {
     setupFeaturedToolsGridLinks();
     buildRecentlyAddedGrid();
     setupHeroButton();
+    setupSearch(); // Call the search setup for the homepage
     return;
   }
 
@@ -373,8 +387,8 @@ async function loadTool(name) {
 
 /* search helper: simple text match on name + description + tags */
 function setupSearch() {
-  const input = document.getElementById("tool-search");
-  const form = input ? input.closest("form") : null;
+  const input = document.getElementById("homepage-tool-search"); // Use the specific ID for the homepage search
+  const form = input ? input.closest("form") : null; // Find the parent form
   if (!input || !form) return;
 
   // Create and inject the dropdown element
