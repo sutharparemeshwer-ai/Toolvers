@@ -84,8 +84,8 @@ a {
 
 /* --- Light Theme Overrides --- */
 body.light-theme {
-  --bg-color: #f8f9fa; /* A standard, clean light gray */
-  --card-bg-color: #ffffff; /* Pure white for cards */
+  --bg-color: #ffffff; /* A standard, clean light gray */
+  --card-bg-color: #f8f9fa; /* Pure white for cards */
   --border-color: #dee2e6; /* A standard, subtle border color */
   --primary-accent: #3478f6; /* A modern, professional blue */
   --primary-accent-glow: rgba(52, 120, 246, 0.15);
