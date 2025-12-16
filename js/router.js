@@ -240,6 +240,7 @@ function setupHeroButton() {
 /* build nav and home/sidebar */
 function buildNavAndHome() {
   buildCategorizedView(toolsList, "home-list"); // Only build the home page list
+  buildCategorizedView(toolsList, "tools-sidebar-list"); // Build the sidebar list
 }
 
 /* load tool html + optional module */

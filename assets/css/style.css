@@ -4194,3 +4194,217 @@ body.light-theme .themed-bg-alt {
 .footer-social-links a:hover {
   color: var(--primary-accent); /* Theme color */
 }
+
+/* --- Sidebar Accordion Styling (Generated via JS) --- */
+.sidebar-section {
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-section:last-child {
+    border-bottom: none;
+}
+
+.sidebar-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    cursor: pointer;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+    border-radius: 0.5rem;
+}
+
+.sidebar-section-header:hover {
+    background-color: var(--primary-accent-glow);
+}
+
+.sidebar-section-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.category-chevron {
+    transition: transform 0.3s ease;
+    font-size: 0.8rem;
+    color: var(--text-muted-color);
+}
+
+/* Rotate chevron when collapsed is OPEN */
+.sidebar-section-header[aria-expanded="true"] .category-chevron {
+    transform: rotate(180deg);
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.nav-list .nav-item .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem 0.75rem 1.5rem;
+    color: var(--text-muted-color);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+}
+
+.nav-list .nav-item .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+    border-left-color: var(--primary-accent);
+}
+
+.nav-list .nav-item .nav-link .nav-icon {
+    margin-right: 0.75rem;
+    font-size: 0.9rem;
+    width: 20px;
+    text-align: center;
+}
+
+/* --- Offcanvas (Sidebar) Theme Styling --- */
+.offcanvas {
+    background-color: var(--bg-color); /* Matches theme background */
+    color: var(--text-color);
+}
+
+.offcanvas-header .btn-close {
+    /* Bootstrap's btn-close uses a background SVG. We need to invert it for dark mode if we aren't using btn-close-white explicitly toggled by JS. 
+       However, the HTML has 'btn-close-white' hardcoded. This is bad for Light Mode. 
+       We should fix the HTML or override CSS. */
+}
+
+/* Hard override for dark theme to ensure close button is visible */
+body:not(.light-theme) .offcanvas .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Hard override for light theme */
+body.light-theme .offcanvas .btn-close {
+    filter: none;
+}
+
+.offcanvas-title {
+    color: var(--text-color);
+}
+
+/* --- Professional Sidebar Overrides --- */
+
+/* 1. Sidebar Container Background */
+.offcanvas {
+    background-color: var(--card-bg-color) !important; /* Lighter dark for sidebar */
+    box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5); /* Stronger shadow for depth */
+}
+
+.offcanvas-header {
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.5rem 1.5rem;
+}
+
+.offcanvas-body {
+    padding: 1.5rem;
+}
+
+/* 2. Accordion Items (Sidebar Sections) */
+.sidebar-section {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 1rem; /* More space between categories */
+    overflow: hidden; /* rounded corners clip content */
+    transition: border-color 0.2s;
+}
+
+.sidebar-section:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-section-header {
+    background-color: rgba(255, 255, 255, 0.03); /* Subtle surface color */
+    padding: 1rem 1.25rem;
+    border-radius: 0; /* Let the container handle radius */
+}
+
+.sidebar-section-header:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-section-title {
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+/* 3. Dropdown List */
+.nav-list {
+    background-color: rgba(0, 0, 0, 0.15); /* Slightly darker inner recess */
+    border-top: 1px solid var(--border-color);
+}
+
+.nav-list .nav-item .nav-link {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+    border-left: 3px solid transparent;
+    color: var(--text-muted-color);
+}
+
+.nav-list .nav-item .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: white;
+    padding-left: 1.5rem; /* Slight slide effect on hover */
+    border-left-color: var(--primary-accent);
+}
+
+.nav-list .nav-item .nav-link .nav-icon {
+    color: var(--text-muted-color);
+    opacity: 0.7;
+    margin-right: 10px;
+}
+
+.nav-list .nav-item .nav-link:hover .nav-icon {
+    color: var(--primary-accent);
+    opacity: 1;
+}
+
+/* 4. Active State (when a tool is clicked/active - requires JS but we style it just in case) */
+.nav-link.active {
+    background-color: var(--primary-accent-glow);
+    color: var(--primary-accent);
+    font-weight: 600;
+    border-left-color: var(--primary-accent);
+}
+
+/* Light Theme Adjustments for Sidebar */
+body.light-theme .offcanvas {
+    background-color: #ffffff !important;
+    border-right: 1px solid #e9ecef;
+}
+
+body.light-theme .sidebar-section {
+    border-color: #e9ecef;
+    background-color: #f8f9fa;
+}
+
+body.light-theme .sidebar-section-header {
+    background-color: #ffffff;
+}
+body.light-theme .sidebar-section-header:hover {
+    background-color: #e9ecef;
+}
+
+body.light-theme .nav-list {
+    background-color: #ffffff;
+    border-top: 1px solid #e9ecef;
+}
+
+body.light-theme .sidebar-section-title {
+    color: #495057;
+}
