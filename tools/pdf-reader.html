@@ -1,0 +1,64 @@
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4"><i class="fa-solid fa-file-pdf me-2 text-danger"></i>PDF Reader</h2>
+                <p class="text-center text-muted mb-4">Upload a PDF file to view it directly in your browser.</p>
+
+                <!-- Toolbar -->
+                <div id="pdf-toolbar" class="d-none d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2 p-2 bg-light rounded border">
+                    <div class="btn-group">
+                        <button id="prev-page" class="btn btn-outline-secondary btn-sm" title="Previous Page">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button id="next-page" class="btn btn-outline-secondary btn-sm" title="Next Page">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <span class="me-2 text-dark small">Page:</span>
+                        <span id="page-num" class="fw-bold text-primary">1</span>
+                        <span class="mx-1 text-muted">/</span>
+                        <span id="page-count" class="fw-bold">--</span>
+                    </div>
+
+                    <div class="btn-group">
+                        <button id="zoom-out" class="btn btn-outline-secondary btn-sm" title="Zoom Out">
+                            <i class="fa-solid fa-magnifying-glass-minus"></i>
+                        </button>
+                        <button id="zoom-in" class="btn btn-outline-secondary btn-sm" title="Zoom In">
+                            <i class="fa-solid fa-magnifying-glass-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Upload Area -->
+                <div id="upload-container" class="text-center p-5 border border-2 border-dashed rounded mb-3" style="border-color: var(--border-color) !important;">
+                    <i class="fa-solid fa-cloud-arrow-up fa-3x mb-3 text-muted"></i>
+                    <h5>Drag & Drop PDF here</h5>
+                    <p class="text-muted small">or click to browse</p>
+                    <input type="file" id="pdf-upload" accept="application/pdf" class="d-none">
+                    <button id="browse-btn" class="btn btn-primary mt-2">Browse File</button>
+                </div>
+
+                <!-- Viewer Container -->
+                <div id="pdf-viewer-container" class="text-center overflow-auto position-relative bg-dark rounded d-none" style="min-height: 500px; max-height: 80vh;">
+                    <canvas id="the-canvas" class="d-block mx-auto my-3 shadow"></canvas>
+                    <div id="pdf-loader" class="position-absolute top-50 start-50 translate-middle text-light d-none">
+                        <div class="spinner-border" role="status"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PDF.js Library (Loaded dynamically via JS module logic, but we can hint it here or load via script tag if easier. 
+     For consistency with other tools, we'll let the JS module handle the CDN loading or assume it's available.) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+    // Set the worker source immediately
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+</script>

@@ -378,7 +378,7 @@ async function loadTool(name) {
 
   // try dynamic import for tool logic module (js/tools/{name}.js)
   try {
-    const module = await import(`${TOOLS_MODULE_PATH}/${name}.js`);
+    const module = await import(`${TOOLS_MODULE_PATH}/${name}.js?v=${Date.now()}`);
     currentToolModule = module;
     if (module.init) await module.init();
   } catch (err) {

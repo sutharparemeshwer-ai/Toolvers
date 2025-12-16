@@ -1286,6 +1286,13 @@
   },
 
   {
+    "id": "pdf-reader",
+    "name": "PDF Reader",
+    "description": "View PDF files directly in your browser with zoom and navigation controls.",
+    "tags": ["pdf", "reader", "viewer", "utility", "file"],
+    "category": "Utilities"
+  },
+  {
     "id": "music-downloader",
     "name": "Royalty-Free Music Downloader",
     "description": "Search for and download royalty-free music tracks from the Pixabay API.",
