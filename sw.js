@@ -1,4 +1,4 @@
-const CACHE_NAME = 'toolverse-v1';
+const CACHE_NAME = 'toolverse-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -36,19 +36,29 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
-      return response || fetch(event.request).then((fetchResponse) => {
-        return caches.open(CACHE_NAME).then((cache) => {
-          // Cache the new resource for future use
-          // We only cache valid responses
-          if (fetchResponse.status === 200 && fetchResponse.type === 'basic') {
-             cache.put(event.request, fetchResponse.clone());
-          }
+      if (response) {
+        return response;
+      }
+      return fetch(event.request).then((fetchResponse) => {
+        // Check if we received a valid response
+        if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic') {
           return fetchResponse;
+        }
+
+        // Clone the response
+        const responseToCache = fetchResponse.clone();
+
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, responseToCache);
         });
+
+        return fetchResponse;
       });
     }).catch(() => {
-        // Fallback for offline if not in cache (e.g. custom offline page)
-        // For now, we just let it fail if not in cache and network is down
+        // If both cache and network fail, show a generic fallback:
+        if (event.request.mode === 'navigate') {
+            return caches.match('./index.html');
+        }
     })
   );
 });
