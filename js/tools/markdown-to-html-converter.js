@@ -1,69 +1,71 @@
 // js/tools/markdown-to-html-converter.js
 
-// DOM Elements
-let markdownInput, htmlOutput, htmlPreview;
-
-// Showdown.js library URL
 const SHOWDOWN_URL = 'https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js';
 let converter;
+let input, preview, copyBtn, downloadBtn;
 
-/**
- * Dynamically loads the showdown.js script.
- */
-function loadShowdown() {
+async function loadShowdown() {
+    if (window.showdown) return;
     return new Promise((resolve, reject) => {
-        if (window.showdown) {
-            resolve();
-            return;
-        }
         const script = document.createElement('script');
         script.src = SHOWDOWN_URL;
-        script.onload = () => {
-            // Initialize the converter once the script is loaded
-            converter = new window.showdown.Converter();
-            resolve();
-        };
+        script.onload = resolve;
         script.onerror = reject;
         document.head.appendChild(script);
     });
 }
 
-/**
- * Converts the markdown input to HTML and updates the output and preview panes.
- */
-function convertMarkdown() {
+function render() {
     if (!converter) return;
-
-    const markdownText = markdownInput.value;
-    const htmlText = converter.makeHtml(markdownText);
-
-    // Display the raw HTML code
-    htmlOutput.textContent = htmlText;
-
-    // Display the rendered HTML preview
-    htmlPreview.innerHTML = htmlText;
+    const text = input.value;
+    const html = converter.makeHtml(text);
+    preview.innerHTML = html;
 }
 
-// --- Router Hooks ---
+function handleCopy() {
+    const html = converter.makeHtml(input.value);
+    navigator.clipboard.writeText(html).then(() => {
+        const originalText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied';
+        setTimeout(() => copyBtn.innerHTML = originalText, 2000);
+    });
+}
+
+function handleDownload() {
+    const html = converter.makeHtml(input.value);
+    const blob = new Blob([html], {type: 'text/html'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'document.html';
+    a.click();
+}
 
 export async function init() {
-    // Get DOM elements
-    markdownInput = document.getElementById('markdown-input');
-    htmlOutput = document.getElementById('html-output');
-    htmlPreview = document.getElementById('html-preview');
+    input = document.getElementById('markdown-input');
+    preview = document.getElementById('html-preview');
+    copyBtn = document.getElementById('copy-html-btn');
+    downloadBtn = document.getElementById('download-html-btn');
 
-    // Load the library and then set up the tool
     try {
         await loadShowdown();
-        markdownInput.addEventListener('input', convertMarkdown);
-        // Perform an initial conversion for the placeholder text
-        convertMarkdown();
-    } catch (error) {
-        console.error("Failed to load Showdown.js", error);
-        markdownInput.value = "Error: Could not load the Markdown converter.";
+        converter = new window.showdown.Converter();
+        converter.setOption('tables', true);
+        converter.setOption('tasklists', true);
+        
+        // Default text
+        input.value = `# Welcome to Markdown\n\nEdit this text to see the **magic** happen!\n\n- [x] Task 1\n- [ ] Task 2\n\n> \"Code is poetry.\"
+`;
+        render();
+
+        input.addEventListener('input', render);
+        copyBtn.addEventListener('click', handleCopy);
+        downloadBtn.addEventListener('click', handleDownload);
+    } catch (e) {
+        input.value = "Error loading converter library.";
     }
 }
 
 export function cleanup() {
-    markdownInput.removeEventListener('input', convertMarkdown);
+    // Cleanup
 }

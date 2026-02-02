@@ -1,278 +1,120 @@
-// js/tools/snake-game-app.js
+// js/tools/snake-game.js
 
-// DOM Elements
-let canvasEl, scoreDisplayEl, gameStatusEl, startBtnEl;
-let ctx;
+let canvas, ctx, scoreEl, statusEl, startBtn;
+const TILE = 20;
+let GRID_W, GRID_H;
+let snake = [], food = {}, dx = 0, dy = 0, score = 0, loop = null;
 
-// Game Constants
-const TILE_SIZE = 20; // Size of each tile in pixels (20x20)
-const GRID_SIZE = 20; // 400px canvas / 20px tile = 20 tiles wide/high
-const GAME_SPEED = 150; // Game loop interval in milliseconds (e.g., 150ms)
-
-// Game State
-let snake = [];
-let food = {};
-let dx = TILE_SIZE; // Change in x direction (starts right)
-let dy = 0;        // Change in y direction
-let score = 0;
-let gameLoopInterval = null;
-let isGameRunning = false;
-let changingDirection = false; // Flag to prevent rapid direction changes
-
-// --- Drawing Functions ---
-
-/**
- * Draws a single tile on the canvas.
- */
-function drawTile(x, y, color) {
-    ctx.fillStyle = color;
-    ctx.fillRect(x, y, TILE_SIZE, TILE_SIZE);
-    ctx.strokeStyle = '#222';
-    ctx.strokeRect(x, y, TILE_SIZE, TILE_SIZE);
+function initGame() {
+    GRID_W = canvas.width / TILE;
+    GRID_H = canvas.height / TILE;
+    snake = [{x: 10, y: 10}, {x: 9, y: 10}, {x: 8, y: 10}];
+    dx = 1; dy = 0;
+    score = 0;
+    scoreEl.textContent = 0;
+    statusEl.textContent = 'PLAYING';
+    placeFood();
+    
+    if (loop) clearInterval(loop);
+    loop = setInterval(update, 100);
+    startBtn.disabled = true;
+    startBtn.textContent = 'RUNNING...';
 }
 
-/**
- * Renders the entire game state (snake and food).
- */
-function drawGame() {
-    // 1. Clear the entire canvas
-    ctx.fillStyle = '#eee';
-    ctx.fillRect(0, 0, canvasEl.width, canvasEl.height);
+function placeFood() {
+    food = {
+        x: Math.floor(Math.random() * GRID_W),
+        y: Math.floor(Math.random() * GRID_H)
+    };
+    // Don't spawn on snake
+    if(snake.some(s => s.x === food.x && s.y === food.y)) placeFood();
+}
 
-    // 2. Draw Food
-    drawTile(food.x, food.y, 'red');
+function update() {
+    const head = {x: snake[0].x + dx, y: snake[0].y + dy};
 
-    // 3. Draw Snake
-    snake.forEach((segment, index) => {
-        // Head is a different color
-        const color = index === 0 ? 'darkgreen' : 'lime';
-        drawTile(segment.x, segment.y, color);
+    // Wall Collision
+    if (head.x < 0 || head.x >= GRID_W || head.y < 0 || head.y >= GRID_H || 
+        snake.some(s => s.x === head.x && s.y === head.y)) {
+        return gameOver();
+    }
+
+    snake.unshift(head);
+
+    // Eat Food
+    if (head.x === food.x && head.y === food.y) {
+        score += 10;
+        scoreEl.textContent = score;
+        placeFood();
+    } else {
+        snake.pop();
+    }
+
+    draw();
+}
+
+function draw() {
+    // Clear
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Food
+    ctx.fillStyle = '#ff0055';
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = '#ff0055';
+    ctx.fillRect(food.x * TILE + 1, food.y * TILE + 1, TILE - 2, TILE - 2);
+    ctx.shadowBlur = 0;
+
+    // Snake
+    ctx.fillStyle = '#00ff00';
+    snake.forEach(s => {
+        ctx.fillRect(s.x * TILE + 1, s.y * TILE + 1, TILE - 2, TILE - 2);
     });
 }
 
-// --- Game Logic ---
-
-/**
- * Generates random coordinates for food, ensuring it doesn't spawn on the snake.
- */
-function generateFood() {
-    let newFood;
-    do {
-        // Generate coordinates aligned to the grid
-        const x = Math.floor(Math.random() * GRID_SIZE) * TILE_SIZE;
-        const y = Math.floor(Math.random() * GRID_SIZE) * TILE_SIZE;
-        newFood = { x, y };
-    } while (snake.some(segment => segment.x === newFood.x && segment.y === newFood.y));
+function gameOver() {
+    clearInterval(loop);
+    statusEl.textContent = 'GAME OVER';
+    statusEl.classList.add('text-danger');
+    startBtn.disabled = false;
+    startBtn.textContent = 'RESTART';
     
-    food = newFood;
+    // Flash effect
+    canvas.style.opacity = 0.5;
+    setTimeout(() => canvas.style.opacity = 1, 100);
 }
 
-/**
- * Moves the snake, checks for collisions, and handles eating food.
- */
-function moveSnake() {
-    changingDirection = false;
-    
-    // 1. Create the new head position
-    const head = { x: snake[0].x + dx, y: snake[0].y + dy };
-
-    // 2. Add the new head to the beginning of the snake array
-    snake.unshift(head);
-
-    // 3. Check for Game Over conditions
-    if (checkCollision()) {
-        endGame(false);
-        return;
-    }
-
-    // 4. Check if food was eaten
-    if (head.x === food.x && head.y === food.y) {
-        // Food eaten: increase score and generate new food. DO NOT remove tail.
-        score++;
-        scoreDisplayEl.textContent = score;
-        generateFood();
-    } else {
-        // Food not eaten: remove the tail segment (snake moves normally)
-        snake.pop();
-    }
+function handleKey(e) {
+    // Prevent reverse
+    const k = e.key;
+    if (k === 'ArrowUp' && dy !== 1) { dx=0; dy=-1; }
+    if (k === 'ArrowDown' && dy !== -1) { dx=0; dy=1; }
+    if (k === 'ArrowLeft' && dx !== 1) { dx=-1; dy=0; }
+    if (k === 'ArrowRight' && dx !== -1) { dx=1; dy=0; }
 }
-
-/**
- * Checks for collision with walls or self.
- */
-function checkCollision() {
-    const head = snake[0];
-    
-    // Check collision with walls
-    const hitWall = head.x < 0 || head.x >= canvasEl.width || 
-                    head.y < 0 || head.y >= canvasEl.height;
-
-    // Check collision with self (start check from the 4th segment)
-    const hitSelf = snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y);
-
-    return hitWall || hitSelf;
-}
-
-// --- Game Control ---
-
-/**
- * The main game loop function.
- */
-function gameLoop() {
-    if (!isGameRunning) return;
-
-    moveSnake();
-    drawGame();
-}
-
-/**
- * Starts the game.
- */
-function startGame() {
-    if (isGameRunning) return;
-    
-    // 1. Reset State
-    isGameRunning = true;
-    score = 0;
-    scoreDisplayEl.textContent = 0;
-    dx = TILE_SIZE;
-    dy = 0;
-    snake = [
-        { x: 6 * TILE_SIZE, y: 10 * TILE_SIZE },
-        { x: 5 * TILE_SIZE, y: 10 * TILE_SIZE },
-        { x: 4 * TILE_SIZE, y: 10 * TILE_SIZE }
-    ];
-    
-    // 2. Setup UI
-    gameStatusEl.textContent = 'Playing...';
-    gameStatusEl.classList.remove('bg-danger', 'bg-success');
-    gameStatusEl.classList.add('bg-info');
-    startBtnEl.disabled = true;
-
-    // 3. Setup Food and Start Loop
-    generateFood();
-    drawGame(); // Initial draw
-    
-    gameLoopInterval = setInterval(gameLoop, GAME_SPEED);
-}
-
-/**
- * Ends the game.
- */
-function endGame(win) {
-    clearInterval(gameLoopInterval);
-    isGameRunning = false;
-    startBtnEl.disabled = false;
-    
-    if (win) {
-        gameStatusEl.textContent = `You Win! Score: ${score}`;
-        gameStatusEl.classList.remove('bg-info');
-        gameStatusEl.classList.add('bg-success');
-    } else {
-        gameStatusEl.textContent = `Game Over! Score: ${score}`;
-        gameStatusEl.classList.remove('bg-info');
-        gameStatusEl.classList.add('bg-danger');
-    }
-}
-
-// --- Event Handlers ---
-
-/**
- * Changes the snake's direction based on keyboard input.
- */
-function changeDirection(event) {
-    if (!isGameRunning || changingDirection) return;
-
-    const key = event.key;
-    const goingUp = dy === -TILE_SIZE;
-    const goingDown = dy === TILE_SIZE;
-    const goingRight = dx === TILE_SIZE;
-    const goingLeft = dx === -TILE_SIZE;
-
-    // Set flag to true to prevent next direction change until after the snake moves
-    changingDirection = true; 
-
-    // Use event.key for modern key detection
-    if ((key === 'ArrowLeft' || key === 'a' || key === 'A') && !goingRight) {
-        dx = -TILE_SIZE;
-        dy = 0;
-    } else if ((key === 'ArrowUp' || key === 'w' || key === 'W') && !goingDown) {
-        dx = 0;
-        dy = -TILE_SIZE;
-    } else if ((key === 'ArrowRight' || key === 'd' || key === 'D') && !goingLeft) {
-        dx = TILE_SIZE;
-        dy = 0;
-    } else if ((key === 'ArrowDown' || key === 's' || key === 'S') && !goingUp) {
-        dx = 0;
-        dy = TILE_SIZE;
-    }
-}
-
-/**
- * Handles clicks from the on-screen mobile controls.
- */
-function handleMobileControls(event) {
-    const direction = event.currentTarget.dataset.direction;
-    if (direction) {
-        changeDirection({ key: direction }); // Simulate a keyboard event
-    }
-}
-
-// --- Router Hooks ---
 
 export function init() {
-    // 1. Get DOM elements and context
-    canvasEl = document.getElementById('game-canvas');
-    ctx = canvasEl.getContext('2d');
-    scoreDisplayEl = document.getElementById('score-display');
-    gameStatusEl = document.getElementById('game-status');
-    startBtnEl = document.getElementById('start-btn');
-    
-    // 2. Attach listeners
-    if (startBtnEl) {
-        startBtnEl.addEventListener('click', startGame);
-    }
-    // Listen for keyboard input on the entire document
-    document.addEventListener('keydown', changeDirection);
+    canvas = document.getElementById('game-canvas');
+    ctx = canvas.getContext('2d');
+    scoreEl = document.getElementById('score-display');
+    statusEl = document.getElementById('game-status');
+    startBtn = document.getElementById('start-btn');
 
-    // Attach listeners for mobile controls
-    const btnUp = document.getElementById('btn-up');
-    const btnDown = document.getElementById('btn-down');
-    const btnLeft = document.getElementById('btn-left');
-    const btnRight = document.getElementById('btn-right');
-    if (btnUp) btnUp.addEventListener('click', () => changeDirection({ key: 'ArrowUp' }));
-    if (btnDown) btnDown.addEventListener('click', () => changeDirection({ key: 'ArrowDown' }));
-    if (btnLeft) btnLeft.addEventListener('click', () => changeDirection({ key: 'ArrowLeft' }));
-    if (btnRight) btnRight.addEventListener('click', () => changeDirection({ key: 'ArrowRight' }));
-    
-    // 3. Initial setup (Draw the empty grid and food placeholder)
-    generateFood();
-    drawGame();
+    startBtn.addEventListener('click', initGame);
+    document.addEventListener('keydown', handleKey);
+
+    // Mobile
+    document.getElementById('btn-up').onclick = () => handleKey({key: 'ArrowUp'});
+    document.getElementById('btn-down').onclick = () => handleKey({key: 'ArrowDown'});
+    document.getElementById('btn-left').onclick = () => handleKey({key: 'ArrowLeft'});
+    document.getElementById('btn-right').onclick = () => handleKey({key: 'ArrowRight'});
+
+    // Initial Draw
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 export function cleanup() {
-    // Stop the game loop if it's running
-    if (gameLoopInterval) {
-        clearInterval(gameLoopInterval);
-    }
-    
-    // Remove listeners
-    if (startBtnEl) {
-        startBtnEl.removeEventListener('click', startGame);
-    }
-    document.removeEventListener('keydown', changeDirection);
-
-    // Remove mobile control listeners
-    const btnUp = document.getElementById('btn-up');
-    const btnDown = document.getElementById('btn-down');
-    const btnLeft = document.getElementById('btn-left');
-    const btnRight = document.getElementById('btn-right');
-    if (btnUp) btnUp.removeEventListener('click', () => changeDirection({ key: 'ArrowUp' }));
-    if (btnDown) btnDown.removeEventListener('click', () => changeDirection({ key: 'ArrowDown' }));
-    if (btnLeft) btnLeft.removeEventListener('click', () => changeDirection({ key: 'ArrowLeft' }));
-    if (btnRight) btnRight.removeEventListener('click', () => changeDirection({ key: 'ArrowRight' }));
-    
-    // Reset state for a clean reload
-    isGameRunning = false;
-    snake = [];
+    if (loop) clearInterval(loop);
+    document.removeEventListener('keydown', handleKey);
 }

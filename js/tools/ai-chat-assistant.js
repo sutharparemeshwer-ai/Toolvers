@@ -1,162 +1,139 @@
 // js/tools/ai-chat-assistant.js
 
-// --- Configuration ---
-// 🚨 IMPORTANT: Get your free API key from Google AI Studio (https://aistudio.google.com/app/apikey) and replace 'YOUR_API_KEY'
-const API_KEY = "AIzaSyAEIGOglo-ydWtyl-o-gtEyqh_URIVCGFQ"; // This was the line with the error. It is now fixed.
-// The model name to use. "gemini-pro" is the standard model.
+const API_KEY = "AIzaSyAEIGOglo-ydWtyl-o-gtEyqh_URIVCGFQ"; 
 const MODEL_NAME = "gemini-2.5-flash";
 
-// --- DOM Elements ---
-let chatWindow, chatForm, chatInput, sendBtn, typingIndicator;
+let chatWindow, chatInput, sendBtn;
 
-/**
- * Appends a message to the chat window.
- * @param {string} text The message content.
- * @param {string} sender 'user' or 'ai'.
- */
-function appendMessage(text, sender) {
-  const messageWrapper = document.createElement("div");
-  messageWrapper.className = `message-wrapper ${sender}-message`;
-
-  const avatar = document.createElement("div");
-  avatar.className = "avatar";
-  avatar.innerHTML =
-    sender === "ai"
-      ? '<i class="fa-solid fa-robot"></i>'
-      : '<i class="fa-solid fa-user"></i>';
-
-  const messageBubble = document.createElement("div");
-  messageBubble.className = "message-bubble";
-
-  if (sender === "ai" && window.marked) {
-    // Use marked.js to parse Markdown for AI responses
-    messageBubble.innerHTML = marked.parse(text);
-  } else {
-    // For user messages or if marked.js is not available, just set text content
-    messageBubble.textContent = text;
-  }
-
-  const timestamp = document.createElement("div");
-  timestamp.className = "timestamp";
-  timestamp.textContent = new Date().toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-
-  messageWrapper.append(avatar, messageBubble, timestamp);
-  chatWindow.appendChild(messageWrapper);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
+// Auto-resize textarea
+function autoResize() {
+    this.style.height = 'auto';
+    this.style.height = this.scrollHeight + 'px';
 }
 
-/**
- * Makes an API call to the Google Gemini API to get a response.
- * @param {string} userInput The user's message.
- * @returns {Promise<string>} A promise that resolves with the AI's response.
- */
+function appendMessage(text, sender, isStreaming = false) {
+    const wrapper = document.createElement("div");
+    wrapper.className = `message-wrapper ${sender}-message fade-in`;
+
+    const avatar = document.createElement("div");
+    avatar.className = `message-avatar ${sender}-avatar`;
+    avatar.innerHTML = sender === 'ai' ? '<i class="fa-solid fa-robot"></i>' : '<i class="fa-solid fa-user"></i>';
+
+    const bubble = document.createElement("div");
+    bubble.className = "message-bubble";
+    
+    // Structure: Avatar -> Bubble (AI) OR Bubble -> Avatar (User)
+    if (sender === 'ai') {
+        wrapper.appendChild(avatar);
+        wrapper.appendChild(bubble);
+    } else {
+        wrapper.appendChild(bubble);
+        wrapper.appendChild(avatar);
+    }
+
+    chatWindow.appendChild(wrapper);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+
+    if (sender === 'user') {
+        bubble.textContent = text;
+        return null; // No formatting needed for user
+    }
+
+    if (sender === 'ai') {
+        if (isStreaming) {
+            // Streaming Effect
+            let index = 0;
+            bubble.innerHTML = ''; // Start empty
+            
+            const interval = setInterval(() => {
+                if (index < text.length) {
+                    bubble.innerHTML = marked.parse(text.substring(0, index + 1)); // Parse markdown progressively
+                    index++;
+                    chatWindow.scrollTop = chatWindow.scrollHeight;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 10); // Speed of typing
+            return bubble;
+        } else {
+             bubble.innerHTML = marked.parse(text);
+        }
+    }
+}
+
 async function getAIResponse(userInput) {
-  if (API_KEY === "YOUR_API_KEY") {
-    return Promise.reject(
-      "Please add your Google Gemini API key to 'js/tools/ai-chat-assistant.js' to use this tool."
-    );
-  }
+    if (!API_KEY || API_KEY.includes("YOUR_API")) {
+        throw new Error("API Key missing. Please update js/tools/ai-chat-assistant.js");
+    }
 
-  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${API_KEY}`;
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${API_KEY}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contents: [{ parts: [{ text: userInput }] }] })
+    });
 
-  const requestBody = {
-    contents: [
-      {
-        parts: [
-          {
-            text: userInput,
-          },
-        ],
-      },
-    ],
-  };
-
-  const response = await fetch(API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(requestBody),
-  });
-
-  if (!response.ok) {
-    const errorData = await response.json();
-    console.error("API Error:", errorData);
-    throw new Error(
-      errorData.error?.message || "The AI service failed to respond."
-    );
-  }
-
-  const data = await response.json();
-
-  // Extract the text from the response
-  try {
-    const text = data.candidates[0].content.parts[0].text;
-    return text.trim();
-  } catch (e) {
-    console.error("Error parsing AI response:", data);
-    throw new Error("Could not understand the AI's response format.");
-  }
+    if (!response.ok) throw new Error("AI Service Unavailable");
+    const data = await response.json();
+    return data.candidates[0].content.parts[0].text;
 }
 
-async function handleFormSubmit(event) {
-  event.preventDefault();
-  const userInput = chatInput.value.trim();
-  if (!userInput) return;
+async function handleSend() {
+    const text = chatInput.value.trim();
+    if (!text) return;
 
-  appendMessage(userInput, "user");
-  chatInput.value = "";
-  sendBtn.disabled = true; // Disable send button
-  typingIndicator.classList.remove("d-none"); // Show typing indicator
+    // Reset input
+    chatInput.value = '';
+    chatInput.style.height = 'auto';
+    sendBtn.disabled = true;
 
-  try {
-    const aiResponse = await getAIResponse(userInput);
-    appendMessage(aiResponse, "ai");
-  } catch (error) {
-    console.error("AI response error:", error);
-    appendMessage(`Sorry, an error occurred: ${error.message}`, "ai");
-  } finally {
-    sendBtn.disabled = false; // Re-enable send button
-    typingIndicator.classList.add("d-none"); // Hide typing indicator
-    chatInput.focus();
-  }
+    // User Message
+    appendMessage(text, 'user');
+
+    // AI Loading State (Temporary Bubble)
+    const loadingWrapper = document.createElement("div");
+    loadingWrapper.className = `message-wrapper ai-message`;
+    loadingWrapper.innerHTML = `
+        <div class="message-avatar ai-avatar"><i class="fa-solid fa-robot"></i></div>
+        <div class="message-bubble text-secondary fst-italic">
+            <i class="fa-solid fa-circle-notch fa-spin me-2"></i> Thinking...
+        </div>
+    `;
+    chatWindow.appendChild(loadingWrapper);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+
+    try {
+        const response = await getAIResponse(text);
+        chatWindow.removeChild(loadingWrapper); // Remove loading
+        appendMessage(response, 'ai', true); // Add with streaming
+    } catch (err) {
+        chatWindow.removeChild(loadingWrapper);
+        appendMessage("Error: " + err.message, 'ai');
+    } finally {
+        sendBtn.disabled = false;
+        chatInput.focus();
+    }
 }
-
-// --- Router Hooks ---
 
 export function init() {
-  // Get DOM elements
-  chatWindow = document.getElementById("chat-window");
-  chatForm = document.getElementById("chat-form");
-  chatInput = document.getElementById("chat-input");
-  sendBtn = document.getElementById("chat-send-btn");
-  typingIndicator = document.getElementById("ai-typing-indicator");
+    chatWindow = document.getElementById("chat-window");
+    chatInput = document.getElementById("chat-input");
+    sendBtn = document.getElementById("chat-send-btn");
 
-  // Add initial welcome message
-  if (API_KEY === "YOUR_API_KEY") {
-    appendMessage(
-      "Welcome! To enable the AI, please get a free API key from Google AI Studio and add it to the `ai-chat-assistant.js` file.",
-      "ai"
-    );
-  } else {
-    appendMessage(
-      "Hello! I'm an AI assistant. How can I help you today?",
-      "ai"
-    );
-  }
+    chatInput.addEventListener('input', autoResize);
+    chatInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSend();
+        }
+    });
+    sendBtn.addEventListener('click', handleSend);
 
-  // Attach event listeners
-  if (chatForm) {
-    chatForm.addEventListener("submit", handleFormSubmit);
-  }
+    // Intro Message
+    if (chatWindow.children.length === 0) {
+        setTimeout(() => appendMessage("Hello! I am Gemini. How can I assist you today?", 'ai', true), 500);
+    }
 }
 
 export function cleanup() {
-  // Remove event listeners
-  if (chatForm) {
-    chatForm.removeEventListener("submit", handleFormSubmit);
-  }
+    // Cleanup listeners if needed
 }

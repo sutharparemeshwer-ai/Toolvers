@@ -1,186 +1,248 @@
-// js/tools/dino-game.js
+// js/tools/dino.js
 
-let dinoEl, obstacleEl, scoreDisplay, statusDisplay, jumpBtn, groundEl;
-let gameInterval, scoreInterval, obstacleTimeout;
+let canvas, ctx;
+let gameLoop;
+let isPlaying = false;
 let score = 0;
-let isJumping = false;
-let isGameOver = false;
+let speed = 6;
+let frames = 0;
+let highScore = localStorage.getItem('dino_highscore') || 0;
+let nextSpawnDistance = 0; // Tracks when the next obstacle should spawn
 
-const JUMP_DURATION = 600; 
-const OBSTACLE_INTERVAL_MIN = 1500;
-const OBSTACLE_INTERVAL_MAX = 3000;
+const config = {
+    gravity: 0.6,
+    jumpPower: -12,
+    groundY: 210,
+    dinoX: 50,
+    startSpeed: 6,
+    maxSpeed: 15
+};
 
-// --- Core Game Functions ---
+const dino = {
+    x: config.dinoX,
+    y: config.groundY,
+    w: 44,
+    h: 47,
+    dy: 0,
+    grounded: true,
+    legFrame: 0
+};
 
-function jump() {
-    if (isJumping || isGameOver) return;
+let obstacles = [];
+let clouds = [];
+
+function drawDino() {
+    ctx.fillStyle = '#535353';
+    ctx.fillRect(dino.x, dino.y, dino.w, dino.h);
+    ctx.fillRect(dino.x + 20, dino.y - 15, 30, 25);
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(dino.x + 40, dino.y - 10, 4, 4);
     
-    isJumping = true;
-    dinoEl.classList.add('jump-animate');
-
-    setTimeout(() => {
-        dinoEl.classList.remove('jump-animate');
-        isJumping = false;
-    }, JUMP_DURATION);
+    ctx.fillStyle = '#535353';
+    if (!dino.grounded) {
+        ctx.fillRect(dino.x + 5, dino.y + dino.h, 10, 10);
+        ctx.fillRect(dino.x + 25, dino.y + dino.h, 10, 10);
+    } else {
+        const legY = dino.y + dino.h;
+        if (dino.legFrame < 5) {
+            ctx.fillRect(dino.x + 5, legY, 10, 10);
+        } else {
+            ctx.fillRect(dino.x + 25, legY, 10, 10);
+        }
+    }
 }
 
-function updateScore() {
-    score++;
-    scoreDisplay.textContent = score;
+function drawObstacles() {
+    ctx.fillStyle = '#535353';
+    obstacles.forEach(obs => {
+        // Draw main body
+        ctx.fillRect(obs.x, obs.y, obs.w, obs.h);
+        
+        // Draw arms for "cactus" look if it's tall enough
+        if (obs.h > 30) {
+            ctx.fillRect(obs.x - 5, obs.y + 10, 5, 15); 
+            ctx.fillRect(obs.x + obs.w, obs.y + 5, 5, 20);
+        }
+        
+        obs.x -= speed;
+    });
+    
+    if (obstacles.length && obstacles[0].x < -100) obstacles.shift();
+}
+
+function drawEnvironment() {
+    ctx.strokeStyle = '#535353';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(0, config.groundY + dino.h + 10);
+    ctx.lineTo(canvas.width, config.groundY + dino.h + 10);
+    ctx.stroke();
+
+    ctx.fillStyle = '#d3d3d3';
+    clouds.forEach(c => {
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, 15, 0, Math.PI * 2);
+        ctx.arc(c.x + 15, c.y - 10, 20, 0, Math.PI * 2);
+        ctx.arc(c.x + 35, c.y, 15, 0, Math.PI * 2);
+        ctx.fill();
+        c.x -= speed * 0.2;
+    });
+    
+    if (clouds.length && clouds[0].x < -100) clouds.shift();
+    if (frames % 100 === 0) clouds.push({ x: canvas.width + 50, y: 40 + Math.random() * 60 });
+}
+
+function update() {
+    if (!isPlaying) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    const isNight = Math.floor(score / 500) % 2 === 1;
+    document.getElementById('dino-game-wrapper').style.background = isNight ? '#202124' : '#fff';
+    ctx.filter = isNight ? 'invert(100%)' : 'none';
+
+    drawEnvironment();
+
+    dino.dy += config.gravity;
+    dino.y += dino.dy;
+
+    if (dino.y > config.groundY) {
+        dino.y = config.groundY;
+        dino.dy = 0;
+        dino.grounded = true;
+    }
+
+    dino.legFrame = (dino.legFrame + 1) % 10;
+
+    drawDino();
+    
+    // --- Advanced Spawning Logic ---
+    frames++;
+    
+    // Calculate distance from the last obstacle
+    let distanceToLast = 0;
+    if (obstacles.length > 0) {
+        distanceToLast = canvas.width - (obstacles[obstacles.length - 1].x + obstacles[obstacles.length - 1].w);
+    } else {
+        distanceToLast = canvas.width; // Treat start as far away
+    }
+
+    // Spawn if we exceeded the random gap
+    if (distanceToLast > nextSpawnDistance) {
+        spawnObstacle();
+        // Set next random gap (between 250px and 600px, scaling with speed)
+        nextSpawnDistance = Math.floor(Math.random() * 350) + 250 + (speed * 10);
+    }
+
+    drawObstacles();
+
+    if (frames % 5 === 0) {
+        score++;
+        document.getElementById('curr-score').textContent = String(score).padStart(5, '0');
+        if (score % 100 === 0 && speed < config.maxSpeed) speed += 0.5;
+    }
+
+    checkCollision();
+    gameLoop = requestAnimationFrame(update);
+}
+
+function spawnObstacle() {
+    const type = Math.random();
+    let width, height, yPos;
+
+    if (type < 0.33) {
+        // Small Single
+        width = 20; height = 35;
+    } else if (type < 0.66) {
+        // Large Single
+        width = 25; height = 50;
+    } else {
+        // Cluster (Wide)
+        width = 45; height = 35;
+    }
+    
+    // Align bottom to ground
+    yPos = (config.groundY + dino.h) - height + 10; 
+
+    obstacles.push({
+        x: canvas.width,
+        y: yPos,
+        w: width,
+        h: height
+    });
 }
 
 function checkCollision() {
-    const dinoRect = dinoEl.getBoundingClientRect();
-    const obstacleRect = obstacleEl.getBoundingClientRect();
+    const hitBoxPadding = 8;
+    obstacles.forEach(obs => {
+        if (dino.x + hitBoxPadding < obs.x + obs.w &&
+            dino.x + dino.w - hitBoxPadding > obs.x &&
+            dino.y + hitBoxPadding < obs.y + obs.h &&
+            dino.y + dino.h - hitBoxPadding > obs.y) {
+            gameOver();
+        }
+    });
+}
 
-    // Check collision only if the obstacle is currently visible (display !== 'none')
-    if (obstacleEl.style.display !== 'none' && 
-        dinoRect.right > obstacleRect.left &&
-        dinoRect.left < obstacleRect.right &&
-        dinoRect.bottom > obstacleRect.top
-    ) {
-        gameOver();
+function jump() {
+    if (dino.grounded && isPlaying) {
+        dino.dy = config.jumpPower;
+        dino.grounded = false;
     }
 }
 
-function startGame() {
+function start() {
+    isPlaying = true;
     score = 0;
-    scoreDisplay.textContent = '0';
-    isGameOver = false;
-    
-    // Reset visual state and start animations
-    groundEl.style.animationPlayState = 'running';
-    obstacleEl.style.animation = 'slideObstacle 1.5s linear infinite';
-    obstacleEl.style.display = 'none'; // Keep hidden until first schedule
-
-    statusDisplay.textContent = 'Running...';
-    statusDisplay.classList.remove('game-over-text', 'text-danger');
-    statusDisplay.classList.add('text-success');
-
-    // Update mobile button text
-    if (jumpBtn) {
-        jumpBtn.innerHTML = '<i class="fa-solid fa-up-long"></i> JUMP';
-    }
-
-    // Clear previous intervals if any
-    clearInterval(scoreInterval);
-    clearInterval(gameInterval);
-    clearTimeout(obstacleTimeout);
-    
-    scoreInterval = setInterval(updateScore, 100); 
-    gameInterval = setInterval(checkCollision, 50);
-    
-    scheduleNewObstacle();
-}
-
-function scheduleNewObstacle() {
-    
-    const randomTime = Math.random() * (OBSTACLE_INTERVAL_MAX - OBSTACLE_INTERVAL_MIN) + OBSTACLE_INTERVAL_MIN;
-
-    obstacleTimeout = setTimeout(() => {
-        if (isGameOver) return;
-
-        // Force restart of CSS animation and ensure visibility
-        obstacleEl.style.display = 'block'; // **Make it visible**
-        
-        // This forces the CSS animation to restart by toggling the name
-        obstacleEl.style.animation = 'none';
-        void obstacleEl.offsetWidth; // Trigger reflow
-        obstacleEl.style.animation = 'slideObstacle 1.5s linear infinite'; 
-        
-        // Schedule the next one after the animation completes (1.5s)
-        setTimeout(() => {
-            if (!isGameOver) scheduleNewObstacle();
-        }, 1500); 
-
-    }, randomTime);
+    speed = config.startSpeed;
+    obstacles = [];
+    clouds = [];
+    frames = 0;
+    nextSpawnDistance = 0; // Reset spawn timer
+    document.getElementById('start-overlay').classList.add('d-none');
+    document.getElementById('game-over-overlay').classList.add('d-none');
+    document.getElementById('hi-score').textContent = String(highScore).padStart(5, '0');
+    update();
 }
 
 function gameOver() {
-    isGameOver = true;
-    clearInterval(gameInterval);
-    clearInterval(scoreInterval);
-    clearTimeout(obstacleTimeout);
-    
-    // Stop all movement
-    obstacleEl.style.animationPlayState = 'paused';
-    groundEl.style.animationPlayState = 'paused';
-    obstacleEl.style.display = 'none'; // Hide the obstacle that caused Game Over
-
-    statusDisplay.textContent = `GAME OVER! Press ENTER to restart. Final Score: ${score}`;
-    statusDisplay.classList.remove('text-success');
-    statusDisplay.classList.add('game-over-text', 'text-danger');
-
-    // Update mobile button text
-    if (jumpBtn) {
-        jumpBtn.textContent = 'Restart Game';
+    isPlaying = false;
+    cancelAnimationFrame(gameLoop);
+    if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('dino_highscore', highScore);
     }
+    document.getElementById('game-over-overlay').classList.remove('d-none');
 }
 
-// --- Event Handlers ---
-
-function handleKeydown(e) {
-    // Only block default space/enter actions within the tool
-    if (e.code === 'Enter' || e.code === 'Space') {
-        e.preventDefault(); 
-    }
-    
-    if (e.code === 'Enter') {
-        if (isGameOver) {
-            startGame(); // START on Enter
-        }
-    } else if (e.code === 'Space') {
-        jump(); // JUMP on Space
+function handleInput(e) {
+    if (e.code === 'Space' || e.code === 'ArrowUp') {
+        e.preventDefault();
+        if (isPlaying) jump();
+        else start();
     }
 }
-
-function handleJumpClick() {
-    if (isGameOver) {
-        startGame();
-    } else {
-        jump();
-    }
-}
-
-
-// --- Router Hooks ---
 
 export function init() {
-    // 1. Get DOM elements
-    dinoEl = document.getElementById('dino');
-    obstacleEl = document.getElementById('obstacle');
-    scoreDisplay = document.getElementById('score-display');
-    statusDisplay = document.getElementById('game-status');
-    jumpBtn = document.getElementById('jump-btn');
-    groundEl = document.getElementById('ground');
-
-    // 2. Attach Listeners
-    document.addEventListener('keydown', handleKeydown);
-    if (jumpBtn) jumpBtn.addEventListener('click', handleJumpClick);
+    canvas = document.getElementById('dino-canvas');
+    ctx = canvas.getContext('2d');
     
-    // 3. Initialize state
-    isGameOver = true; 
-    statusDisplay.textContent = 'Press ENTER to Start! SPACE to Jump.';
-    groundEl.style.animationPlayState = 'paused'; 
-    if (jumpBtn) {
-        jumpBtn.textContent = 'Start Game';
-    }
-    obstacleEl.style.display = 'none'; // Initial state hidden
+    document.getElementById('start-btn').onclick = start;
+    document.getElementById('restart-btn').onclick = start;
+    document.addEventListener('keydown', handleInput);
+    
+    canvas.onclick = () => {
+        if (isPlaying) jump();
+        else if (document.getElementById('start-overlay').classList.contains('d-none') === false || 
+                 document.getElementById('game-over-overlay').classList.contains('d-none') === false) {
+            start();
+        }
+    };
+
+    document.getElementById('hi-score').textContent = String(highScore).padStart(5, '0');
 }
 
 export function cleanup() {
-    clearInterval(gameInterval);
-    clearInterval(scoreInterval);
-    clearTimeout(obstacleTimeout);
-    isJumping = false;
-    isGameOver = false;
-    score = 0;
-    
-    document.removeEventListener('keydown', handleKeydown);
-    if (jumpBtn) jumpBtn.removeEventListener('click', handleJumpClick);
-    
-    if(scoreDisplay) scoreDisplay.textContent = '0';
-    if(statusDisplay) statusDisplay.textContent = 'Ready';
-    if(obstacleEl) obstacleEl.style.display = 'none'; // Hide on cleanup
-    if(groundEl) groundEl.style.animationPlayState = 'paused';
+    cancelAnimationFrame(gameLoop);
+    document.removeEventListener('keydown', handleInput);
 }

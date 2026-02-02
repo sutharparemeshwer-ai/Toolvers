@@ -1,101 +1,44 @@
-// js/tools/temperature-converter-app.js
+// js/tools/temperature-converter.js
 
-// DOM Elements
-let celsiusInputEl, fahrenheitInputEl, clearBtnEl;
+let cIn, cRange, fIn, fRange;
 
-// --- Conversion Formulas ---
-
-/**
- * Converts Celsius to Fahrenheit.
- */
-function toFahrenheit(celsius) {
-    return (celsius * 9/5) + 32;
-}
-
-/**
- * Converts Fahrenheit to Celsius.
- */
-function toCelsius(fahrenheit) {
-    return (fahrenheit - 32) * 5/9;
-}
-
-// --- Event Handlers ---
-
-/**
- * Handles input change in the Celsius field and updates Fahrenheit.
- */
-function handleCelsiusChange() {
-    const celsiusValue = parseFloat(celsiusInputEl.value);
+function updateC(val) {
+    const c = parseFloat(val);
+    const f = (c * 9/5) + 32;
     
-    if (isNaN(celsiusValue)) {
-        fahrenheitInputEl.value = ''; // Clear other field if input is not a number
-    } else {
-        const fahrenheitValue = toFahrenheit(celsiusValue);
-        // Display result rounded to 2 decimal places
-        fahrenheitInputEl.value = fahrenheitValue.toFixed(2);
-    }
+    cIn.value = c;
+    cRange.value = c;
+    document.getElementById('c-val').textContent = Math.round(c) + '°C';
+    
+    fIn.value = f.toFixed(1);
+    fRange.value = f;
+    document.getElementById('f-val').textContent = Math.round(f) + '°F';
 }
 
-/**
- * Handles input change in the Fahrenheit field and updates Celsius.
- */
-function handleFahrenheitChange() {
-    const fahrenheitValue = parseFloat(fahrenheitInputEl.value);
-
-    if (isNaN(fahrenheitValue)) {
-        celsiusInputEl.value = ''; // Clear other field if input is not a number
-    } else {
-        const celsiusValue = toCelsius(fahrenheitValue);
-        // Display result rounded to 2 decimal places
-        celsiusInputEl.value = celsiusValue.toFixed(2);
-    }
+function updateF(val) {
+    const f = parseFloat(val);
+    const c = (f - 32) * 5/9;
+    
+    fIn.value = f;
+    fRange.value = f;
+    document.getElementById('f-val').textContent = Math.round(f) + '°F';
+    
+    cIn.value = c.toFixed(1);
+    cRange.value = c;
+    document.getElementById('c-val').textContent = Math.round(c) + '°C';
 }
-
-/**
- * Clears both input fields.
- */
-function handleClear() {
-    celsiusInputEl.value = '';
-    fahrenheitInputEl.value = '';
-    celsiusInputEl.focus(); // Set focus back to Celsius field
-}
-
-// --- Router Hooks ---
 
 export function init() {
-    // 1. Get DOM elements
-    celsiusInputEl = document.getElementById('celsius-input');
-    fahrenheitInputEl = document.getElementById('fahrenheit-input');
-    clearBtnEl = document.getElementById('clear-btn');
-    
-    // 2. Attach listeners
-    if (celsiusInputEl) {
-        // 'input' event fires on every change (typing)
-        celsiusInputEl.addEventListener('input', handleCelsiusChange);
-    }
-    
-    if (fahrenheitInputEl) {
-        fahrenheitInputEl.addEventListener('input', handleFahrenheitChange);
-    }
+    cIn = document.getElementById('c-input');
+    cRange = document.getElementById('c-range');
+    fIn = document.getElementById('f-input');
+    fRange = document.getElementById('f-range');
 
-    if (clearBtnEl) {
-        clearBtnEl.addEventListener('click', handleClear);
-    }
+    cIn.addEventListener('input', e => updateC(e.target.value));
+    cRange.addEventListener('input', e => updateC(e.target.value));
+    
+    fIn.addEventListener('input', e => updateF(e.target.value));
+    fRange.addEventListener('input', e => updateF(e.target.value));
 }
 
-export function cleanup() {
-    // 1. Remove listeners
-    if (celsiusInputEl) {
-        celsiusInputEl.removeEventListener('input', handleCelsiusChange);
-    }
-    if (fahrenheitInputEl) {
-        fahrenheitInputEl.removeEventListener('input', handleFahrenheitChange);
-    }
-    if (clearBtnEl) {
-        clearBtnEl.removeEventListener('click', handleClear);
-    }
-    
-    // 2. Reset fields
-    if (celsiusInputEl) celsiusInputEl.value = '';
-    if (fahrenheitInputEl) fahrenheitInputEl.value = '';
-}
+export function cleanup() {}

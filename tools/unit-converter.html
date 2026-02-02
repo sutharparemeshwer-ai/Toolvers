@@ -1,53 +1,27 @@
-<!-- tools/unit-converter.html -->
-<div class="unit-converter-container">
-  <div class="text-center pt-4 pb-5">
-    <h1 class="display-5 fw-bold">Unit Converter</h1>
-    <p class="lead text-muted">
-      Select a category and convert between units instantly.
-    </p>
-  </div>
-
-  <div class="converter-main-card card p-4 mx-auto" style="max-width: 800px">
-    <div class="mb-4">
-      <label for="unit-category" class="form-label fs-5">Category</label>
-      <select id="unit-category" class="form-select form-select-lg"></select>
-    </div>
-
-    <div class="row g-3 align-items-center">
-      <!-- From Unit -->
-      <div class="col-md-5">
-        <div class="unit-input-group">
-          <input
-            type="number"
-            id="input-value"
-            class="form-control unit-input"
-            value="1"
-          />
-          <select id="from-unit" class="form-select unit-select"></select>
+<div class="container py-5">
+    <div class="glass-panel p-5 mx-auto" style="max-width: 700px;">
+        <h3 class="text-center text-white fw-bold mb-4"><i class="fa-solid fa-arrow-right-arrow-left me-2 text-info"></i> Unit Converter</h3>
+        
+        <div class="mb-4">
+            <select id="unit-category" class="form-select form-select-lg bg-dark border-white-10 text-white text-center fw-bold"></select>
         </div>
-      </div>
 
-      <!-- Swap Button -->
-      <div class="col-md-2 text-center">
-        <button id="swap-units-btn" class="btn btn-outline-secondary btn-lg">
-          <i class="fa-solid fa-exchange-alt"></i>
-        </button>
-      </div>
+        <div class="row g-0 align-items-center bg-dark border border-white-10 rounded-3 overflow-hidden">
+            <div class="col-md-5 p-4 border-end border-white-10">
+                <input type="number" id="input-value" class="form-control bg-transparent border-0 text-white display-6 fw-bold p-0 mb-2" value="1">
+                <select id="from-unit" class="form-select form-select-sm bg-white-5 border-0 text-secondary"></select>
+            </div>
+            
+            <div class="col-md-2 text-center py-2">
+                <i class="fa-solid fa-arrow-right text-info fs-4"></i>
+            </div>
 
-      <!-- To Unit -->
-      <div class="col-md-5">
-        <div class="unit-input-group">
-          <input
-            type="text"
-            id="output-value"
-            class="form-control unit-input"
-            readonly
-          />
-          <select id="to-unit" class="form-select unit-select"></select>
+            <div class="col-md-5 p-4 border-start border-white-10 bg-white-5">
+                <div id="output-value" class="display-6 fw-bold text-white mb-2 text-truncate">--</div>
+                <select id="to-unit" class="form-select form-select-sm bg-transparent border-0 text-secondary"></select>
+            </div>
         </div>
-      </div>
+        
+        <p id="formula-text" class="text-center text-secondary small mt-3 opacity-50"></p>
     </div>
-
-    <p id="conversion-formula" class="text-center small mt-4"></p>
-  </div>
 </div>

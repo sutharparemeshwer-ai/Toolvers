@@ -1,96 +1,158 @@
-<!-- tools/interactive-resume-builder.html -->
-<div class="container-fluid mt-4">
-    <div class="row">
-        <!-- Input Form Column -->
-        <div class="col-lg-5">
-            <h3><i class="fa-solid fa-file-lines me-2"></i>Resume Details</h3>
-            <p class="small">Fill in your details and see the resume update live.</p>
-            <form id="resume-form">
-                <!-- Personal Details -->
-                <div class="mb-3 p-3 border rounded text-light">
-                    <h5>Personal Details</h5>
-                    <div class="mb-2">
-                        <label for="resume-name" class="form-label small">Full Name</label>
-                        <input type="text" class="form-control" id="resume-name" placeholder="Jane Doe">
+<div class="container-fluid py-4 h-100">
+    <div class="row h-100 g-4">
+        <!-- Left: Editor Panel -->
+        <div class="col-lg-5 col-md-6 d-flex flex-column h-100">
+            <div class="glass-panel p-4 flex-grow-1 overflow-auto custom-scrollbar" style="max-height: 85vh;">
+                <h4 class="mb-4 d-flex align-items-center text-white">
+                    <i class="fa-solid fa-pen-to-square me-2 text-primary"></i> Editor
+                </h4>
+                
+                <form id="resume-form">
+                    <!-- Personal Info -->
+                    <h6 class="text-secondary text-uppercase small fw-bold mb-3 border-bottom border-white-10 pb-2">Personal Details</h6>
+                    <div class="mb-3">
+                        <label class="form-label small text-white-50">Full Name</label>
+                        <input type="text" id="resume-name" class="form-control bg-dark border-white-10 text-white" placeholder="John Doe">
                     </div>
-                    <div class="mb-2">
-                        <label for="resume-job-title" class="form-label small">Current Job Title</label>
-                        <input type="text" class="form-control" id="resume-job-title" placeholder="Senior Web Developer">
+                    <div class="mb-3">
+                        <label class="form-label small text-white-50">Job Title</label>
+                        <input type="text" id="resume-title" class="form-control bg-dark border-white-10 text-white" placeholder="Software Engineer">
                     </div>
-                    <div class="mb-2">
-                        <label for="resume-email" class="form-label small">Email</label>
-                        <input type="email" class="form-control" id="resume-email" placeholder="jane.doe@email.com">
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                             <label class="form-label small text-white-50">Email</label>
+                             <input type="email" id="resume-email" class="form-control bg-dark border-white-10 text-white" placeholder="john@example.com">
+                        </div>
+                        <div class="col-6">
+                             <label class="form-label small text-white-50">Phone</label>
+                             <input type="text" id="resume-phone" class="form-control bg-dark border-white-10 text-white" placeholder="+1 234 567 890">
+                        </div>
                     </div>
-                    <div class="mb-2">
-                        <label for="resume-phone" class="form-label small">Phone</label>
-                        <input type="tel" class="form-control" id="resume-phone" placeholder="+1 234 567 890">
+                    <div class="mb-4">
+                        <label class="form-label small text-white-50">Summary</label>
+                        <textarea id="resume-summary" class="form-control bg-dark border-white-10 text-white" rows="3" placeholder="Brief professional summary..."></textarea>
                     </div>
-                </div>
 
-                <!-- Professional Summary -->
-                <div class="mb-3 p-3 border rounded text-light">
-                    <h5>Professional Summary</h5>
-                    <textarea id="resume-summary" class="form-control" rows="4" placeholder="A brief summary of your skills and experience..."></textarea>
-                </div>
-
-                <!-- Experience -->
-                <div class="mb-3 p-3 border rounded text-light">
-                    <h5>Work Experience (Latest)</h5>
-                    <div class="mb-2">
-                        <label for="exp-title" class="form-label small">Job Title</label>
-                        <input type="text" class="form-control" id="exp-title" placeholder="Software Engineer">
+                    <!-- Experience -->
+                    <h6 class="text-secondary text-uppercase small fw-bold mb-3 border-bottom border-white-10 pb-2">Experience</h6>
+                    <div id="experience-list">
+                        <!-- Dynamic Experience Items -->
                     </div>
-                    <div class="mb-2">
-                        <label for="exp-company" class="form-label small">Company & Dates</label>
-                        <input type="text" class="form-control" id="exp-company" placeholder="Tech Corp | Jan 2020 - Present">
-                    </div>
-                    <textarea id="exp-desc" class="form-control" rows="3" placeholder="Describe your responsibilities and achievements..."></textarea>
-                </div>
+                    <button type="button" id="add-exp-btn" class="btn btn-outline-primary btn-sm w-100 mb-4 dashed-border">
+                        <i class="fa-solid fa-plus"></i> Add Experience
+                    </button>
 
-                <!-- Education -->
-                <div class="mb-3 p-3 border rounded text-light">
-                    <h5>Education</h5>
-                    <div class="mb-2">
-                        <label for="edu-degree" class="form-label small">Degree / Certificate</label>
-                        <input type="text" class="form-control" id="edu-degree" placeholder="B.S. in Computer Science">
+                    <!-- Education -->
+                    <h6 class="text-secondary text-uppercase small fw-bold mb-3 border-bottom border-white-10 pb-2">Education</h6>
+                    <div id="education-list">
+                        <!-- Dynamic Education Items -->
                     </div>
-                    <input type="text" class="form-control" id="edu-school" placeholder="University of Technology | 2016 - 2020">
-                </div>
+                    <button type="button" id="add-edu-btn" class="btn btn-outline-primary btn-sm w-100 mb-4 dashed-border">
+                        <i class="fa-solid fa-plus"></i> Add Education
+                    </button>
 
-                <!-- Skills -->
-                <div class="mb-3 p-3 border rounded text-light">
-                    <h5>Skills</h5>
-                    <input type="text" class="form-control" id="resume-skills" placeholder="e.g., JavaScript, React, Node.js, CSS, HTML">
-                </div>
-            </form>
+                    <!-- Skills -->
+                    <h6 class="text-secondary text-uppercase small fw-bold mb-3 border-bottom border-white-10 pb-2">Skills</h6>
+                    <div class="mb-4">
+                        <input type="text" id="resume-skills" class="form-control bg-dark border-white-10 text-white" placeholder="Java, Python, Leadership (comma separated)">
+                    </div>
+                </form>
+            </div>
+            
+            <div class="mt-3 d-flex gap-2">
+                <button id="print-btn" class="btn btn-success flex-grow-1"><i class="fa-solid fa-print me-2"></i> Print / Save PDF</button>
+                <button id="reset-btn" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+            </div>
         </div>
 
-        <!-- Resume Preview Column -->
-        <div class="col-lg-7 text-light">
-            <h3>Preview</h3>
-            <div id="resume-preview" class="card shadow-sm p-4 text-light" style="min-height: 80vh;">
-                <!-- Header -->
-                <div class="text-center border-bottom pb-3 mb-3">
-                    <h2 id="preview-name" class="mb-0">Jane Doe</h2>
-                    <p id="preview-job-title" class="lead text-primary">Senior Web Developer</p>
-                    <p id="preview-contact" class="small">jane.doe@email.com | +1 234 567 890</p>
+        <!-- Right: Live Preview -->
+        <div class="col-lg-7 col-md-6">
+            <div class="preview-container-wrapper h-100 d-flex justify-content-center align-items-start bg-dark p-4 rounded-3 custom-scrollbar" style="overflow-y: auto; max-height: 85vh;">
+                <!-- A4 Page Ratio Wrapper -->
+                <div id="resume-preview" class="resume-page bg-white text-dark shadow-lg">
+                    <!-- Header -->
+                    <div class="resume-header mb-4 border-bottom pb-3">
+                        <h1 class="fw-bold mb-0 text-uppercase" id="preview-name">Your Name</h1>
+                        <p class="lead text-primary mb-2 fw-medium" id="preview-title">Job Title</p>
+                        <div class="small text-muted d-flex gap-3">
+                            <span id="preview-email"><i class="fa-solid fa-envelope me-1"></i> email@example.com</span>
+                            <span id="preview-phone"><i class="fa-solid fa-phone me-1"></i> +1 234 567 8900</span>
+                        </div>
+                    </div>
+
+                    <!-- Summary -->
+                    <div class="mb-4">
+                        <h5 class="fw-bold text-uppercase border-bottom border-2 border-dark pb-1 mb-2 fs-6">Profile</h5>
+                        <p class="small" id="preview-summary">Detailed professional summary goes here...</p>
+                    </div>
+
+                    <!-- Experience -->
+                    <div class="mb-4">
+                        <h5 class="fw-bold text-uppercase border-bottom border-2 border-dark pb-1 mb-2 fs-6">Experience</h5>
+                        <div id="preview-experience-list">
+                            <!-- Items go here -->
+                        </div>
+                    </div>
+
+                    <!-- Education -->
+                    <div class="mb-4">
+                        <h5 class="fw-bold text-uppercase border-bottom border-2 border-dark pb-1 mb-2 fs-6">Education</h5>
+                        <div id="preview-education-list">
+                            <!-- Items go here -->
+                        </div>
+                    </div>
+
+                    <!-- Skills -->
+                    <div>
+                        <h5 class="fw-bold text-uppercase border-bottom border-2 border-dark pb-1 mb-2 fs-6">Skills</h5>
+                        <div id="preview-skills-list" class="d-flex flex-wrap gap-1">
+                            <!-- Skills tags -->
+                        </div>
+                    </div>
                 </div>
-                <!-- Summary -->
-                <h5 class="text-primary">Summary</h5>
-                <p id="preview-summary" class="small">A brief summary of your skills and experience...</p>
-                <!-- Experience -->
-                <h5 class="text-primary mt-3">Work Experience</h5>
-                <h6 id="preview-exp-title" class="mb-0">Software Engineer</h6>
-                <p id="preview-exp-company" class="text-muted small">Tech Corp | Jan 2020 - Present</p>
-                <p id="preview-exp-desc" class="small">Describe your responsibilities and achievements...</p>
-                <!-- Education -->
-                <h5 class="text-primary mt-3">Education</h5>
-                <h6 id="preview-edu-degree" class="mb-0">B.S. in Computer Science</h6>
-                <p id="preview-edu-school" class="text-muted small">University of Technology | 2016 - 2020</p>
-                <!-- Skills -->
-                <h5 class="text-primary mt-3">Skills</h5>
-                <p id="preview-skills" class="small">JavaScript, React, Node.js, CSS, HTML</p>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+/* Editor Styles */
+.border-white-10 { border-color: rgba(255,255,255,0.1) !important; }
+.dashed-border { border-style: dashed; }
+.form-control:focus { background: #1f2937; border-color: var(--primary-color); color: white; box-shadow: none; }
+
+/* A4 Preview Styles */
+.resume-page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm;
+    background: white;
+    font-family: 'Georgia', serif; /* Professional Serif for print */
+    font-size: 14px; /* Scaled for screen */
+    transform-origin: top center;
+}
+
+@media screen and (max-width: 992px) {
+    .resume-page {
+        width: 100%;
+        min-height: auto;
+        padding: 1rem;
+    }
+}
+
+/* Print Overrides */
+@media print {
+    body * { visibility: hidden; }
+    #resume-preview, #resume-preview * { visibility: visible; }
+    #resume-preview {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+    }
+    .preview-container-wrapper { background: white !important; overflow: visible !important; }
+}
+</style>

@@ -1,39 +1,38 @@
-<div class="card p-4 mx-auto" style="max-width: 600px;">
-    <h4 class="mb-4 text-center"><i class="fa-solid fa-calculator"></i> Word Counter</h4>
-    
-    <div class="mb-4">
-        <textarea 
-            id="text-input" 
-            class="form-control" 
-            rows="8" 
-            placeholder="Start typing or paste your text here..."
-        ></textarea>
-    </div>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="glass-panel p-0 overflow-hidden">
+                <!-- Toolbar -->
+                <div class="bg-dark p-3 border-bottom border-white-10 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 text-white"><i class="fa-solid fa-paragraph me-2 text-info"></i> Zen Writer</h5>
+                    <button id="clear-btn" class="btn btn-sm btn-outline-danger">Clear</button>
+                </div>
 
-    <div class="row text-center">
-        <div class="col-4">
-            <div class="bg-light p-3 rounded shadow-sm">
-                <h5 class="mb-0 text-primary" id="word-count">0</h5>
-                <small class="text-muted">Words</small>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="bg-light p-3 rounded shadow-sm">
-                <h5 class="mb-0 text-success" id="char-count">0</h5>
-                <small class="text-muted">Characters</small>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="bg-light p-3 rounded shadow-sm">
-                <h5 class="mb-0 text-danger" id="sentence-count">0</h5>
-                <small class="text-muted">Sentences</small>
-            </div>
-        </div>
-    </div>
+                <!-- Editor -->
+                <textarea id="zen-input" class="w-100 bg-black text-white p-5 border-0 custom-scrollbar" style="height: 60vh; resize: none; font-size: 1.2rem; line-height: 1.8; outline: none;" placeholder="Start writing..."></textarea>
 
-    <div class="mt-4">
-        <button id="clear-btn" class="btn btn-outline-secondary w-100">
-            <i class="fa-solid fa-broom"></i> Clear Text
-        </button>
+                <!-- Status Bar -->
+                <div class="bg-dark p-3 border-top border-white-10">
+                    <div class="row text-center text-white-50">
+                        <div class="col-md-3 border-end border-white-10">
+                            <span class="d-block fw-bold text-white fs-4" id="count-words">0</span>
+                            <small class="text-uppercase" style="font-size: 0.7rem;">Words</small>
+                        </div>
+                        <div class="col-md-3 border-end border-white-10">
+                            <span class="d-block fw-bold text-white fs-4" id="count-chars">0</span>
+                            <small class="text-uppercase" style="font-size: 0.7rem;">Characters</small>
+                        </div>
+                        <div class="col-md-3 border-end border-white-10">
+                            <span class="d-block fw-bold text-white fs-4" id="count-sentences">0</span>
+                            <small class="text-uppercase" style="font-size: 0.7rem;">Sentences</small>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="d-block fw-bold text-white fs-4" id="read-time">0m</span>
+                            <small class="text-uppercase" style="font-size: 0.7rem;">Read Time</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

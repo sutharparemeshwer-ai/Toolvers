@@ -1,78 +1,71 @@
 // js/tools/crypto-price-tracker.js
 
-// DOM Elements
-let cryptoListEl, loadingEl;
+let listBody, loadingEl, errorEl;
+const API_URL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false';
 
-// API Configuration
-const API_URL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=15&page=1&sparkline=false';
-let updateInterval;
-
-/**
- * Fetches crypto data and renders it.
- */
-async function fetchAndRenderCrypto() {
+async function fetchData() {
     try {
-        const response = await fetch(API_URL);
-        if (!response.ok) {
-            throw new Error(`API Error: ${response.statusText}`);
-        }
-        const coins = await response.json();
+        loadingEl.classList.remove('d-none');
+        errorEl.classList.add('d-none');
+        listBody.innerHTML = '';
 
-        // Clear the list (but keep the loading element template)
-        cryptoListEl.innerHTML = '';
+        const res = await fetch(API_URL);
+        if(!res.ok) throw new Error('API Error');
+        const data = await res.json();
+        
+        render(data);
         loadingEl.classList.add('d-none');
+    } catch (e) {
+        console.error(e);
+        loadingEl.classList.add('d-none');
+        errorEl.classList.remove('d-none');
+    }
+}
 
-        coins.forEach(coin => {
-            const priceChange = coin.price_change_percentage_24h;
-            const changeClass = priceChange >= 0 ? 'text-success' : 'text-danger';
-            const changeIcon = priceChange >= 0 ? 'fa-caret-up' : 'fa-caret-down';
-
-            const coinEl = document.createElement('div');
-            coinEl.className = 'list-group-item d-flex justify-content-between align-items-center';
-            coinEl.innerHTML = `
+function render(coins) {
+    listBody.innerHTML = coins.map(coin => {
+        const isUp = coin.price_change_percentage_24h >= 0;
+        const changeColor = isUp ? 'text-success' : 'text-danger';
+        const changeIcon = isUp ? 'fa-caret-up' : 'fa-caret-down';
+        
+        return `
+        <tr class="align-middle">
+            <td class="ps-4">
                 <div class="d-flex align-items-center">
-                    <img src="${coin.image}" alt="${coin.name}" style="width: 30px; height: 30px;" class="me-3">
+                    <span class="text-secondary me-3 small" style="width: 20px;">${coin.market_cap_rank}</span>
+                    <img src="${coin.image}" class="coin-icon me-3" alt="${coin.symbol}">
                     <div>
-                        <h5 class="mb-0">${coin.name} <span class=" small text-uppercase">${coin.symbol}</span></h5>
+                        <div class="fw-bold text-white">${coin.name}</div>
+                        <div class="small text-secondary text-uppercase">${coin.symbol}</div>
                     </div>
                 </div>
-                <div class="text-end">
-                    <h5 class="mb-0">$${coin.current_price.toLocaleString()}</h5>
-                    <small class="${changeClass}">
-                        <i class="fa-solid ${changeIcon}"></i> ${priceChange.toFixed(2)}%
-                    </small>
-                </div>
-            `;
-            cryptoListEl.appendChild(coinEl);
-        });
-
-    } catch (error) {
-        console.error('Crypto Fetch Error:', error);
-        cryptoListEl.innerHTML = ''; // Clear list
-        loadingEl.classList.remove('d-none');
-        loadingEl.innerHTML = `<p class="text-danger text-center">Failed to load crypto data. ${error.message}</p>`;
-    }
+            </td>
+            <td class="text-end fw-bold text-white">
+                $${coin.current_price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+            </td>
+            <td class="text-end">
+                <span class="badge bg-opacity-10 ${isUp ? 'bg-success text-success' : 'bg-danger text-danger'} rounded-pill px-2">
+                    <i class="fa-solid ${changeIcon} me-1"></i>
+                    ${Math.abs(coin.price_change_percentage_24h).toFixed(2)}%
+                </span>
+            </td>
+            <td class="text-end text-white">
+                $${coin.high_24h.toLocaleString()}
+            </td>
+            <td class="text-end pe-4 text-secondary">
+                $${(coin.market_cap / 1e9).toFixed(2)}B
+            </td>
+        </tr>
+        `;
+    }).join('');
 }
-
-// --- Router Hooks ---
 
 export function init() {
-    cryptoListEl = document.getElementById('crypto-list');
+    listBody = document.getElementById('crypto-list-body');
     loadingEl = document.getElementById('crypto-loading');
-
-    // Show loading indicator immediately
-    loadingEl.classList.remove('d-none');
-    cryptoListEl.innerHTML = '';
-    cryptoListEl.appendChild(loadingEl);
-
-    // Fetch data immediately, then set an interval to update every 60 seconds
-    fetchAndRenderCrypto();
-    updateInterval = setInterval(fetchAndRenderCrypto, 60000);
+    errorEl = document.getElementById('crypto-error');
+    
+    fetchData();
 }
 
-export function cleanup() {
-    // Clear the interval when the user navigates away to prevent background requests
-    if (updateInterval) {
-        clearInterval(updateInterval);
-    }
-}
+export function cleanup() {}

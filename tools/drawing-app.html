@@ -1,25 +1,32 @@
-<div class="card p-4 mx-auto" style="max-width: 800px;">
-    <h4 class="mb-4 text-center"><i class="fa-solid fa-paintbrush"></i> Basic Drawing App</h4>
-    
-    <div class="d-flex justify-content-center gap-3 mb-3 p-3 mytool rounded">
+<div class="container-fluid h-100 p-0 d-flex flex-column" style="min-height: 85vh;">
+    <!-- Toolbar -->
+    <div class="bg-dark border-bottom border-white-10 p-2 d-flex align-items-center gap-3 overflow-x-auto custom-scrollbar">
+        <div class="d-flex align-items-center gap-2 px-3 border-end border-white-10">
+            <input type="color" id="color-picker" class="form-control form-control-color bg-transparent border-0 p-0" value="#3b82f6" title="Color">
+            <input type="range" id="size-slider" class="form-range" style="width: 80px;" min="1" max="50" value="5">
+        </div>
         
-        <label class="d-flex align-items-center gap-2">
-            Color: 
-            <input type="color" id="color-picker" value="#37bca4" class="form-control form-control-color">
-        </label>
-        
-        <label class="d-flex align-items-center gap-2">
-            Size: 
-            <input type="range" id="size-slider" min="1" max="50" value="5" class="form-range" style="width: 100px;">
-        </label>
-        
-        <button class="btn btn-danger" id="clear-btn">Clear Canvas</button>
+        <div class="btn-group">
+            <button class="btn btn-sm btn-outline-light active tool-btn" data-tool="brush"><i class="fa-solid fa-paintbrush"></i></button>
+            <button class="btn btn-sm btn-outline-light tool-btn" data-tool="rect"><i class="fa-regular fa-square"></i></button>
+            <button class="btn btn-sm btn-outline-light tool-btn" data-tool="circle"><i class="fa-regular fa-circle"></i></button>
+            <button class="btn btn-sm btn-outline-light tool-btn" data-tool="eraser"><i class="fa-solid fa-eraser"></i></button>
+        </div>
+
+        <div class="ms-auto d-flex gap-2">
+            <button id="btn-undo" class="btn btn-sm btn-secondary"><i class="fa-solid fa-rotate-left"></i></button>
+            <button id="btn-clear" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
+            <button id="btn-save" class="btn btn-sm btn-success"><i class="fa-solid fa-download"></i></button>
+        </div>
     </div>
 
-    <div class="text-center border border-secondary rounded">
-        <canvas id="drawing-canvas" width="750" height="450" style="background-color: white; cursor: crosshair;">
-            Your browser does not support the HTML Canvas element.
-        </canvas>
+    <!-- Canvas Wrapper -->
+    <div class="flex-grow-1 bg-white position-relative overflow-hidden cursor-crosshair">
+        <canvas id="drawing-canvas" class="d-block"></canvas>
     </div>
-    <p class="small text-muted text-center mt-3">Click and drag to draw!</p>
 </div>
+
+<style>
+.cursor-crosshair { cursor: crosshair; }
+.tool-btn.active { background-color: var(--primary-color); border-color: var(--primary-color); }
+</style>

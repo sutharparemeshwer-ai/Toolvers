@@ -1,38 +1,53 @@
-<!-- tools/code-editor.html -->
-<div class="container-fluid mt-4">
-  <h4 class="mb-4 text-center">
-    <i class="fa-solid fa-code me-2"></i> Live Code Editor
-  </h4>
-
-  <div class="row g-3">
-    <!-- Editor Column -->
-    <div class="col-lg-6">
-      <div class="card p-3 h-100">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <label for="language-select" class="form-label mb-0">Language:</label>
-          <select
-            id="language-select"
-            class="form-select form-select-sm"
-            style="max-width: 150px"
-          >
-            <option value="htmlmixed" selected>HTML</option>
-            <option value="css">CSS</option>
-            <option value="javascript">JavaScript</option>
-          </select>
+<div class="container-fluid h-100 p-0 d-flex flex-column" style="min-height: 85vh;">
+    <!-- Toolbar -->
+    <div class="border-bottom border-white-10 bg-dark p-2 d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-3">
+             <div class="d-flex align-items-center gap-2 px-3 py-1 rounded bg-white-5">
+                 <i class="fa-brands fa-html5 text-danger"></i>
+                 <span class="small fw-bold text-white">index.html</span>
+             </div>
+             <select id="language-select" class="form-select form-select-sm bg-dark border-white-10 text-white" style="width: 120px;">
+                <option value="htmlmixed">HTML</option>
+                <option value="css">CSS</option>
+                <option value="javascript">JavaScript</option>
+             </select>
         </div>
-        <textarea id="code-editor-textarea"></textarea>
-      </div>
+        <div class="d-flex gap-2">
+            <button class="btn btn-sm btn-success" id="run-btn"><i class="fa-solid fa-play me-1"></i> Run</button>
+            <button class="btn btn-sm btn-outline-light" onclick="location.reload()"><i class="fa-solid fa-rotate"></i></button>
+        </div>
     </div>
 
-    <!-- Preview Column -->
-    <div class="col-lg-6">
-      <div class="card p-3 h-100">
-        <h5 class="mb-2">Live Preview</h5>
-        <iframe
-          id="live-preview-iframe"
-          class="w-100 h-100 border rounded bg-white"
-        ></iframe>
-      </div>
+    <!-- Main Workspace -->
+    <div class="row g-0 flex-grow-1 h-100">
+        <!-- Editor -->
+        <div class="col-lg-6 h-100 border-end border-white-10 d-flex flex-column">
+             <div class="flex-grow-1 position-relative">
+                 <textarea id="code-editor-textarea" name="code-editor-textarea"></textarea>
+             </div>
+        </div>
+        
+        <!-- Preview -->
+        <div class="col-lg-6 h-100 d-flex flex-column bg-white">
+             <div class="bg-light border-bottom p-2 d-flex align-items-center justify-content-between">
+                 <small class="text-secondary fw-bold text-uppercase">Browser Preview</small>
+                 <div class="d-flex gap-1">
+                     <div class="rounded-circle bg-danger" style="width:10px;height:10px;"></div>
+                     <div class="rounded-circle bg-warning" style="width:10px;height:10px;"></div>
+                     <div class="rounded-circle bg-success" style="width:10px;height:10px;"></div>
+                 </div>
+             </div>
+             <iframe id="live-preview-iframe" class="flex-grow-1 border-0 w-100 h-100 bg-white"></iframe>
+        </div>
     </div>
-  </div>
 </div>
+
+<style>
+.CodeMirror {
+    height: 100% !important;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+}
+.bg-white-5 { background: rgba(255,255,255,0.05); }
+.border-white-10 { border-color: rgba(255,255,255,0.1) !important; }
+</style>

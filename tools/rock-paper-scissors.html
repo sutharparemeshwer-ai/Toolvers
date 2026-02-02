@@ -1,27 +1,47 @@
-<div class="card p-4 mx-auto text-center" style="max-width: 600px;">
-    <h4 class="mb-4"><i class="fa-solid fa-hand-fist"></i> Rock, Paper, Scissors</h4>
-    
-    <div class="d-flex justify-content-center gap-3 mb-4">
-        <button class="btn btn-lg btn-secondary choice-btn" data-choice="rock">✊ Rock</button>
-        <button class="btn btn-lg btn-secondary choice-btn" data-choice="paper">✋ Paper</button>
-        <button class="btn btn-lg btn-secondary choice-btn" data-choice="scissors">✌️ Scissors</button>
-    </div>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="glass-panel p-5 text-center">
+                <h4 class="text-white fw-bold mb-5">Rock Paper Scissors</h4>
+                
+                <div class="d-flex justify-content-center align-items-center gap-5 mb-5">
+                    <div class="text-center">
+                        <div class="rps-icon" id="p-choice">👊</div>
+                        <small class="text-secondary mt-2 d-block">YOU</small>
+                    </div>
+                    <div class="text-white fw-bold fs-4">VS</div>
+                    <div class="text-center">
+                        <div class="rps-icon" id="c-choice">👊</div>
+                        <small class="text-secondary mt-2 d-block">CPU</small>
+                    </div>
+                </div>
 
-    <div class="row mb-4">
-        <div class="col">
-            <h5 class="text-warning">You Chose:</h5>
-            <h1 id="player-choice-display">?</h1>
+                <div id="rps-result" class="h4 text-white fw-bold mb-5" style="min-height: 30px;">Choose your weapon!</div>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <button class="btn btn-outline-light rps-btn" data-choice="rock"><i class="fa-solid fa-hand-back-fist fa-2x"></i></button>
+                    <button class="btn btn-outline-light rps-btn" data-choice="paper"><i class="fa-solid fa-hand fa-2x"></i></button>
+                    <button class="btn btn-outline-light rps-btn" data-choice="scissors"><i class="fa-solid fa-hand-scissors fa-2x"></i></button>
+                </div>
+                
+                <div class="mt-4 text-secondary small">
+                    Score: <span class="text-white" id="score-val">0 - 0</span>
+                </div>
+            </div>
         </div>
-        <div class="col">
-            <h5 class="text-info">Computer Chose:</h5>
-            <h1 id="computer-choice-display">?</h1>
-        </div>
-    </div>
-
-    <h2 id="result-message" class="mb-4">Make your move!</h2>
-
-    <div class="d-flex justify-content-around p-3 mytool rounded">
-        <h5>Your Score: <span id="player-score">0</span></h5>
-        <h5>Computer Score: <span id="computer-score">0</span></h5>
     </div>
 </div>
+
+<style>
+.rps-icon { font-size: 4rem; transition: transform 0.2s; }
+.rps-btn { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.rps-btn:hover { background: white; color: black; transform: translateY(-5px); }
+.shake { animation: shake 0.5s; }
+@keyframes shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(20deg); }
+    50% { transform: rotate(-20deg); }
+    75% { transform: rotate(10deg); }
+    100% { transform: rotate(0deg); }
+}
+</style>

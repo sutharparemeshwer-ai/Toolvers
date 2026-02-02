@@ -1,41 +1,37 @@
-<!-- tools/whac-a-mole.html -->
-<div class="container-fluid mt-4">
-    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-keyboard me-2"></i> Keyboard Reaction Game</h4>
-
+<div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-lg-8 col-xl-6">
-            <div class="card p-3">
-                <!-- Score and Time -->
-                <div class="d-flex justify-content-around mb-3 fs-5">
-                    <div><strong>Score:</strong> <span id="w-score">0</span></div>
-                    <div><strong>Time Left:</strong> <span id="w-time-left">30</span>s</div>
+        <div class="col-lg-6">
+            <div class="glass-panel p-4 mx-auto text-center" style="max-width: 500px;">
+                <h4 class="text-white fw-bold mb-4">Reaction Test</h4>
+                
+                <div class="d-flex justify-content-between mb-3 px-2">
+                    <span class="badge bg-dark border border-white-10 p-2">Score: <span id="w-score">0</span></span>
+                    <span class="badge bg-dark border border-white-10 p-2">Time: <span id="w-time">30</span>s</span>
                 </div>
 
-                <!-- Game Grid -->
-                <div id="whac-a-mole-grid" class="mx-auto" style="width: 306px; height: 306px; user-select: none;">
-                    <!-- Grid will be populated by JS -->
+                <div class="d-grid gap-2 mb-4" style="grid-template-columns: repeat(3, 1fr); aspect-ratio: 1/1;" id="mole-grid">
+                    <!-- Grid -->
                 </div>
 
-                <!-- Controls -->
-                <div class="text-center mt-3">
-                    <p class="text-muted">Press the correct key on your keyboard to score!</p>
-                    <div id="difficulty-selector" class="mb-3">
-                        <label class="form-label">Select Difficulty:</label>
-                        <div class="btn-group" role="group" aria-label="Difficulty levels">
-                            <input type="radio" class="btn-check" name="difficulty" id="easy-btn" value="1200" autocomplete="off">
-                            <label class="btn btn-outline-success" for="easy-btn">Easy</label>
-
-                            <input type="radio" class="btn-check" name="difficulty" id="medium-btn" value="900" autocomplete="off" checked>
-                            <label class="btn btn-outline-warning" for="medium-btn">Medium</label>
-
-                            <input type="radio" class="btn-check" name="difficulty" id="hard-btn" value="600" autocomplete="off">
-                            <label class="btn btn-outline-danger" for="hard-btn">Hard</label>
-                        </div>
-                    </div>
-                    <button id="w-start-btn" class="btn btn-primary btn-lg">Start Game</button>
-                    <p id="w-game-status" class="mt-2 text-muted"></p>
-                </div>
+                <button id="start-btn" class="btn btn-primary w-100 fw-bold">Start Game</button>
+                <p class="text-white-50 mt-3 small">Press the KEY displayed on the active tile!</p>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+.mole-cell {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; font-weight: bold; color: white;
+    transition: all 0.1s;
+}
+.mole-cell.active {
+    background: var(--primary-color);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+    transform: scale(1.05);
+}
+</style>

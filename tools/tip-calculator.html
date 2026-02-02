@@ -1,39 +1,58 @@
-<div class="card p-4 mx-auto" style="max-width: 500px;">
-    <h4 class="text-center"><i class="fa-solid fa-calculator"></i> Tip Calculator</h4>
-    <p class="small  text-center mb-4">Calculate tip and total amount per person.</p>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="glass-panel p-5">
+                <h4 class="text-center text-white fw-bold mb-4"><i class="fa-solid fa-receipt me-2 text-warning"></i> Bill Splitter</h4>
+                
+                <div class="mb-4">
+                    <label class="text-white-50 small mb-1">Total Bill</label>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text bg-dark border-white-10 text-secondary">$</span>
+                        <input type="number" id="bill-amount" class="form-control bg-dark border-white-10 text-white fw-bold" placeholder="0.00">
+                    </div>
+                </div>
 
-    <form id="tip-calculator-form">
-        <div class="mb-3">
-            <label for="bill-amount" class="form-label">Bill Amount ($)</label>
-            <input type="number" class="form-control" id="bill-amount" min="0.01" step="0.01" required placeholder="e.g., 55.50">
-        </div>
+                <div class="mb-4">
+                    <label class="text-white-50 small mb-2 d-block">Select Tip %</label>
+                    <div class="d-flex gap-2 mb-2">
+                        <button class="btn btn-outline-light flex-grow-1 tip-btn active" data-tip="10">10%</button>
+                        <button class="btn btn-outline-light flex-grow-1 tip-btn" data-tip="15">15%</button>
+                        <button class="btn btn-outline-light flex-grow-1 tip-btn" data-tip="20">20%</button>
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text bg-black border-white-10 text-secondary">Custom</span>
+                        <input type="number" id="custom-tip" class="form-control bg-black border-white-10 text-white" placeholder="%">
+                    </div>
+                </div>
 
-        <div class="mb-3">
-            <label for="tip-percent" class="form-label">Tip Percentage (%)</label>
-            <input type="number" class="form-control" id="tip-percent" min="0" max="100" required value="15" placeholder="e.g., 15">
-        </div>
-        
-        <div class="mb-4">
-            <label for="num-people" class="form-label">Number of People</label>
-            <input type="number" class="form-control" id="num-people" min="1" required value="1" placeholder="e.g., 2">
-        </div>
+                <div class="mb-5">
+                    <label class="text-white-50 small mb-1">Number of People</label>
+                    <div class="input-group">
+                        <button class="btn btn-dark border-white-10 text-white" id="dec-people"><i class="fa-solid fa-minus"></i></button>
+                        <input type="number" id="people-count" class="form-control bg-black border-white-10 text-white text-center fw-bold" value="2">
+                        <button class="btn btn-dark border-white-10 text-white" id="inc-people"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
 
-        <button type="submit" class="btn btn-primary w-100 mb-4">Calculate Tip</button>
-    </form>
-    
-    <div id="results-area" class="d-none">
-        <h5 class="text-center mb-3">Results</h5>
-        
-        <div class="alert mytool p-3">
-            <p class="mb-1">Total Tip: <strong id="total-tip"></strong></p>
-            <p class="mb-1">Total Bill (with Tip): <strong id="total-bill"></strong></p>
-            <hr>
-            <p class="lead mb-0">Tip Per Person: <strong id="tip-per-person"></strong></p>
-            <p class="lead mb-0">Total Per Person: <strong id="total-per-person"></strong></p>
-        </div>
-    </div>
+                <!-- Result Card -->
+                <div class="bg-success p-4 rounded-3 text-center shadow-lg">
+                    <small class="text-white text-uppercase fw-bold opacity-75">Total Per Person</small>
+                    <h1 class="display-3 fw-bold text-white my-2" id="res-per-person">$0.00</h1>
+                    <div class="d-flex justify-content-between px-4 mt-3 border-top border-white-25 pt-3">
+                        <span class="text-white small opacity-75">Tip Amount</span>
+                        <span class="text-white fw-bold" id="res-tip-total">$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between px-4 mt-1">
+                        <span class="text-white small opacity-75">Total Bill</span>
+                        <span class="text-white fw-bold" id="res-total">$0.00</span>
+                    </div>
+                </div>
 
-    <div id="error-message" class="text-danger mt-3 d-none">
-        Please ensure all fields are filled out correctly.
+            </div>
+        </div>
     </div>
 </div>
+
+<style>
+.tip-btn.active { background: white; color: black; border-color: white; }
+</style>

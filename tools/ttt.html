@@ -1,29 +1,68 @@
-<body>
-  <br /><br /><br /><br />
-  <div class="container text-center">
-    <div class="row">
-      <div class="col text-light">
-        <h1>Tic Tac Toe</h1>
-        <br />
-        <!-- Game Mode Selection -->
-        <div id="game-mode-selection">
-          <h5>Choose your opponent:</h5>
-          <button id="vs-player-btn" class="btn btn-primary mx-2">
-            Player vs. Player
-          </button>
-          <button id="vs-computer-btn" class="btn btn-info mx-2">
-            Player vs. Computer
-          </button>
-        </div>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="glass-panel p-5 text-center">
+                <h2 class="text-white fw-bold mb-4">Tic Tac Toe</h2>
+                
+                <!-- Setup -->
+                <div id="setup-screen">
+                    <div class="d-grid gap-3">
+                        <button id="btn-pvp" class="btn btn-outline-light btn-lg py-3 hover-lift">
+                            <i class="fa-solid fa-user-group me-2"></i> Vs Player
+                        </button>
+                        <button id="btn-pvc" class="btn btn-primary btn-lg py-3 hover-lift">
+                            <i class="fa-solid fa-robot me-2"></i> Vs Computer
+                        </button>
+                    </div>
+                </div>
 
-        <!-- Game Board Area (Initially hidden) -->
-        <div id="game-area" class="d-none">
-          <div class="board" id="board"></div>
-          <div class="winner" id="winner"></div>
-          <br />
-          <button id="resetBtn" class="btn btn-light">Restart Game</button>
+                <!-- Board -->
+                <div id="game-screen" class="d-none">
+                    <div class="d-flex justify-content-between text-white-50 mb-4 px-2">
+                        <span id="p1-label">Player X</span>
+                        <span id="p2-label">Player O</span>
+                    </div>
+                    
+                    <div class="ttt-grid mb-4">
+                        <div class="ttt-cell" data-i="0"></div>
+                        <div class="ttt-cell" data-i="1"></div>
+                        <div class="ttt-cell" data-i="2"></div>
+                        <div class="ttt-cell" data-i="3"></div>
+                        <div class="ttt-cell" data-i="4"></div>
+                        <div class="ttt-cell" data-i="5"></div>
+                        <div class="ttt-cell" data-i="6"></div>
+                        <div class="ttt-cell" data-i="7"></div>
+                        <div class="ttt-cell" data-i="8"></div>
+                    </div>
+
+                    <h5 class="text-white mb-4" id="game-msg">Turn: X</h5>
+                    <button id="btn-reset" class="btn btn-sm btn-secondary w-100">Reset</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-</body>
+</div>
+
+<style>
+.ttt-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    aspect-ratio: 1/1;
+}
+.ttt-cell {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: white;
+}
+.ttt-cell:hover { background: rgba(255,255,255,0.1); }
+.ttt-cell.x { color: #3b82f6; text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+.ttt-cell.o { color: #ef4444; text-shadow: 0 0 10px rgba(239, 68, 68, 0.5); }
+</style>

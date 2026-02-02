@@ -1,109 +1,69 @@
 // js/tools/unit-converter.js
 
 const UNITS = {
-    length: {
-        meter: 1,
-        kilometer: 1000,
-        centimeter: 0.01,
-        millimeter: 0.001,
-        mile: 1609.34,
-        yard: 0.9144,
-        foot: 0.3048,
-        inch: 0.0254,
-    },
-    weight: {
-        gram: 1,
-        kilogram: 1000,
-        milligram: 0.001,
-        pound: 453.592,
-        ounce: 28.3495,
-    },
-    volume: {
-        liter: 1,
-        milliliter: 0.001,
-        gallon: 3.78541,
-        quart: 0.946353,
-        pint: 0.473176,
-        cup: 0.24,
-    },
+    length: { meter: 1, km: 1000, cm: 0.01, mm: 0.001, mile: 1609.34, yard: 0.9144, foot: 0.3048, inch: 0.0254 },
+    weight: { kg: 1, gram: 0.001, pound: 0.453592, ounce: 0.0283495 },
+    temp: { celsius: 'c', fahrenheit: 'f', kelvin: 'k' } // Handled separately
 };
 
-let categorySelect, fromSelect, toSelect, inputEl, outputEl, formulaEl;
+let cat, from, to, inp, out, formula;
 
-function populateCategories() {
-    Object.keys(UNITS).forEach(category => {
-        const option = document.createElement('option');
-        option.value = category;
-        option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
-        categorySelect.appendChild(option);
-    });
-}
+function render() {
+    const c = cat.value;
+    const v = parseFloat(inp.value);
+    
+    if(isNaN(v)) { out.textContent = '--'; return; }
 
-function populateUnits() {
-    const category = categorySelect.value;
-    fromSelect.innerHTML = '';
-    toSelect.innerHTML = '';
+    let res = 0;
+    const u1 = from.value;
+    const u2 = to.value;
 
-    Object.keys(UNITS[category]).forEach(unit => {
-        const fromOption = document.createElement('option');
-        fromOption.value = unit;
-        fromOption.textContent = unit;
-        fromSelect.appendChild(fromOption);
-
-        const toOption = document.createElement('option');
-        toOption.value = unit;
-        toOption.textContent = unit;
-        toSelect.appendChild(toOption);
-    });
-
-    // Set a different default 'to' unit
-    if (toSelect.options.length > 1) {
-        toSelect.selectedIndex = 1;
-    }
-    convert();
-}
-
-function convert() {
-    const category = categorySelect.value;
-    const fromUnit = fromSelect.value;
-    const toUnit = toSelect.value;
-    const inputValue = parseFloat(inputEl.value);
-
-    if (isNaN(inputValue)) {
-        outputEl.value = '';
-        return;
+    if (c === 'temp') {
+        if (u1 === u2) res = v;
+        else if (u1 === 'celsius' && u2 === 'fahrenheit') res = (v * 9/5) + 32;
+        else if (u1 === 'celsius' && u2 === 'kelvin') res = v + 273.15;
+        else if (u1 === 'fahrenheit' && u2 === 'celsius') res = (v - 32) * 5/9;
+        else if (u1 === 'fahrenheit' && u2 === 'kelvin') res = (v - 32) * 5/9 + 273.15;
+        else if (u1 === 'kelvin' && u2 === 'celsius') res = v - 273.15;
+        else if (u1 === 'kelvin' && u2 === 'fahrenheit') res = (v - 273.15) * 9/5 + 32;
+    } else {
+        const base = v * UNITS[c][u1];
+        res = base / UNITS[c][u2];
     }
 
-    const fromFactor = UNITS[category][fromUnit];
-    const toFactor = UNITS[category][toUnit];
+    out.textContent = parseFloat(res.toFixed(4));
+    formula.textContent = `1 ${u1} ≈ ${(1 * (c === 'temp' ? 1 : UNITS[c][u1] / UNITS[c][u2])).toFixed(4)} ${u2}`;
+}
 
-    const valueInBase = inputValue * fromFactor;
-    const outputValue = valueInBase / toFactor;
-
-    outputEl.value = outputValue.toFixed(6);
-    formulaEl.textContent = `1 ${fromUnit} = ${(fromFactor / toFactor).toFixed(6)} ${toUnit}`;
+function updateUnits() {
+    const c = cat.value;
+    const opts = Object.keys(UNITS[c]).map(u => `<option value="${u}">${u}</option>`).join('');
+    from.innerHTML = opts;
+    to.innerHTML = opts;
+    if (to.options[1]) to.selectedIndex = 1;
+    render();
 }
 
 export function init() {
-    categorySelect = document.getElementById('unit-category');
-    fromSelect = document.getElementById('from-unit');
-    toSelect = document.getElementById('to-unit');
-    inputEl = document.getElementById('input-value');
-    outputEl = document.getElementById('output-value');
-    formulaEl = document.getElementById('conversion-formula');
+    cat = document.getElementById('unit-category');
+    from = document.getElementById('from-unit');
+    to = document.getElementById('to-unit');
+    inp = document.getElementById('input-value');
+    out = document.getElementById('output-value');
+    formula = document.getElementById('formula-text');
 
-    populateCategories();
-    populateUnits();
+    Object.keys(UNITS).forEach(k => {
+        const o = document.createElement('option');
+        o.value = k;
+        o.textContent = k.toUpperCase();
+        cat.appendChild(o);
+    });
 
-    categorySelect.addEventListener('change', populateUnits);
-    fromSelect.addEventListener('change', convert);
-    toSelect.addEventListener('change', convert);
-    inputEl.addEventListener('input', convert);
+    cat.addEventListener('change', updateUnits);
+    from.addEventListener('change', render);
+    to.addEventListener('change', render);
+    inp.addEventListener('input', render);
+
+    updateUnits();
 }
-
-export function cleanup() {
-    categorySelect.removeEventListener('change', populateUnits);
-    fromSelect.removeEventListener('change', convert);
-    toSelect.removeEventListener('change', convert);
-    inputEl.removeEventListener('input', convert);
-}
+export function cleanup() {}

@@ -1,74 +1,106 @@
-<!-- tools/interactive-story-builder.html -->
-<div class="container-fluid mt-4">
-    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-book-open me-2"></i> Interactive Story Builder</h4>
-
-    <div class="row g-4">
-        <!-- Story Management Column -->
+<div class="container py-5">
+    <div class="row g-4 justify-content-center">
+        <!-- Editor Controls -->
         <div class="col-lg-4">
-            <div class="card p-3 sticky-lg-top" style="top: 20px;">
-                <h5 class="mb-3"><i class="fa-solid fa-sitemap me-2"></i>Story Map</h5>
-                <div id="story-parts-list" class="list-group mb-3">
-                    <!-- Story parts will be injected here -->
+            <div class="glass-panel p-4 h-100 d-flex flex-column">
+                <h4 class="text-white fw-bold mb-4"><i class="fa-brands fa-instagram me-2 text-danger"></i> Story Builder</h4>
+                
+                <!-- Background -->
+                <div class="mb-4">
+                    <label class="text-white-50 small mb-2">Background</label>
+                    <div class="d-flex gap-2 mb-2">
+                        <button class="btn btn-outline-light btn-sm flex-grow-1 bg-btn active" data-type="color">Color</button>
+                        <button class="btn btn-outline-light btn-sm flex-grow-1 bg-btn" data-type="image">Image</button>
+                    </div>
+                    <div id="bg-color-control">
+                        <input type="color" id="bg-color-picker" class="form-control form-control-color w-100 bg-black border-white-10" value="#833ab4">
+                    </div>
+                    <div id="bg-image-control" class="d-none">
+                        <input type="file" id="bg-image-upload" class="form-control form-control-sm bg-black border-white-10 text-white" accept="image/*">
+                    </div>
                 </div>
-                <div class="d-grid gap-2">
-                    <button id="add-new-part-btn" class="btn btn-primary">Add New Part</button>
-                    <button id="play-story-btn" class="btn btn-success">Play Story</button>
+
+                <!-- Stickers -->
+                <div class="mb-4">
+                    <label class="text-white-50 small mb-2">Add Stickers</label>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-dark border-white-10 text-start add-sticker" data-type="text">
+                            <i class="fa-solid fa-font me-2 text-primary"></i> Text
+                        </button>
+                        <button class="btn btn-dark border-white-10 text-start add-sticker" data-type="poll">
+                            <i class="fa-solid fa-square-poll-vertical me-2 text-success"></i> Poll
+                        </button>
+                        <button class="btn btn-dark border-white-10 text-start add-sticker" data-type="question">
+                            <i class="fa-solid fa-question me-2 text-warning"></i> Question Box
+                        </button>
+                        <button class="btn btn-dark border-white-10 text-start add-sticker" data-type="link">
+                            <i class="fa-solid fa-link me-2 text-info"></i> Link Badge
+                        </button>
+                    </div>
                 </div>
+
+                <button id="download-story-btn" class="btn btn-primary w-100 mt-auto py-2 fw-bold">
+                    <i class="fa-solid fa-download me-2"></i> Save Story
+                </button>
             </div>
         </div>
 
-        <!-- Editor Column -->
-        <div class="col-lg-8">
-            <div id="editor-panel" class="card p-3 d-none">
-                <h5 class="mb-3"><i class="fa-solid fa-pen-ruler me-2"></i>Part Editor</h5>
-                <form id="story-part-form">
-                    <input type="hidden" id="part-id-input">
-                    <div class="mb-3">
-                        <label for="part-title-input" class="form-label">Part Title</label>
-                        <input type="text" id="part-title-input" class="form-control" placeholder="e.g., The Crossroads" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="part-text-input" class="form-label">Story Text</label>
-                        <textarea id="part-text-input" class="form-control" rows="6" placeholder="The story text for this part..."></textarea>
-                    </div>
-
-                    <h6 class="mt-4">Choices</h6>
-                    <div id="choices-container">
-                        <!-- Dynamic choice inputs will be injected here -->
-                    </div>
-                    <button type="button" id="add-choice-btn" class="btn btn-sm btn-secondary mt-2">Add Choice</button>
-
-                    <hr>
-                    <div class="d-flex justify-content-between">
-                        <button type="button" id="delete-part-btn" class="btn btn-danger">Delete Part</button>
-                        <button type="submit" class="btn btn-primary">Save Part</button>
-                    </div>
-                </form>
-            </div>
-            <div id="editor-placeholder" class="card p-5 text-center text-muted">
-                <p>Select a story part on the left to edit it, or add a new one to begin.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Story Player Modal -->
-    <div class="modal fade" id="story-player-modal" tabindex="-1" aria-labelledby="storyPlayerModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content mytool">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="storyPlayerModalLabel">Story Player</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="player-content" class="p-3">
-                        <p id="player-scene-text" class="lead"></p>
-                        <hr>
-                        <div id="player-choices-container" class="d-grid gap-2">
-                            <!-- Player choices will be injected here -->
-                        </div>
-                    </div>
+        <!-- Canvas Preview -->
+        <div class="col-lg-5 d-flex justify-content-center">
+            <div id="story-canvas-container" class="position-relative overflow-hidden shadow-lg border border-white-10" style="width: 360px; height: 640px; background: #833ab4; border-radius: 12px;">
+                <!-- Content Layers -->
+                <img id="bg-image-layer" class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover d-none">
+                <div id="stickers-layer" class="position-absolute top-0 start-0 w-100 h-100"></div>
+                
+                <!-- Overlay UI (Not exported) -->
+                <div class="position-absolute top-0 start-0 w-100 p-3 d-flex justify-content-between text-white-50 small pointer-events-none">
+                    <span><i class="fa-solid fa-xmark"></i></span>
+                    <span class="fw-bold">Your Story</span>
+                    <span><i class="fa-solid fa-ellipsis"></i></span>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+.pointer-events-none { pointer-events: none; }
+.sticker-item {
+    position: absolute;
+    cursor: grab;
+    user-select: none;
+    transition: transform 0.1s;
+}
+.sticker-item:active { cursor: grabbing; transform: scale(1.02); }
+.sticker-content {
+    background: white;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    min-width: 150px;
+    text-align: center;
+}
+/* Sticker Styles */
+.sticker-poll { background: white; color: black; border-radius: 12px; overflow: hidden; }
+.sticker-poll-header { padding: 15px; font-weight: bold; font-size: 1.1rem; }
+.sticker-poll-option { padding: 10px; border-top: 1px solid #eee; font-size: 0.9rem; }
+
+.sticker-question { background: white; color: black; border-radius: 12px; padding: 20px; }
+.sticker-question-input { background: #f0f0f0; padding: 10px; border-radius: 8px; color: #999; margin-top: 10px; }
+
+.sticker-link { background: black; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; text-transform: uppercase; }
+
+.delete-sticker-btn {
+    position: absolute; top: -10px; right: -10px;
+    width: 24px; height: 24px;
+    background: red; color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.sticker-item:hover .delete-sticker-btn { opacity: 1; }
+</style>

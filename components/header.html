@@ -1,30 +1,24 @@
-<!-- This script runs immediately to prevent a "flash" of the wrong theme -->
-<script>
-  (function () {
-    const theme = localStorage.getItem("theme");
-    if (theme === "light") {
-      document.body.classList.add("light-theme");
-    }
-  })();
-</script>
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+<nav class="navbar navbar-expand-lg fixed-top glass-header">
   <div class="container-fluid">
     <button
-      class="btn btn-outline-secondary me-2"
+      class="btn btn-link text-white me-2 d-lg-none"
       type="button"
       data-bs-toggle="offcanvas"
       data-bs-target="#toolsOffcanvas"
       aria-controls="toolsOffcanvas"
     >
-      <i class="fa-solid fa-bars"></i>
+      <i class="fa-solid fa-bars fs-4"></i>
     </button>
+    
     <a class="navbar-brand d-flex align-items-center" href="#">
-      <i class="fa-brands fa-suse fs-2 me-2"></i>
-      <h3 class="mb-0">Toolverse</h3>
+      <div class="brand-icon-wrapper me-2">
+         <i class="fa-brands fa-suse fs-4 text-white"></i>
+      </div>
+      <h4 class="mb-0 fw-bold text-white tracking-tight">ToolVerse</h4>
     </a>
 
     <button
-      class="navbar-toggler"
+      class="navbar-toggler border-0 text-white"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navCollapse"
@@ -32,16 +26,37 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navCollapse">
-      <!-- This form will be pushed to the right -->
-      <!-- Theme Toggle Button -->
-      <button id="theme-toggle-btn" class="btn btn-outline-secondary ms-auto">
-        <i class="fa-solid fa-sun"></i>
-      </button>
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item">
+            <a href="#" class="nav-link text-white opacity-75 hover-opacity-100">Home</a>
+        </li>
+        <li class="nav-item">
+             <a href="#all-tools" class="nav-link text-white opacity-75 hover-opacity-100">All Tools</a>
+        </li>
+        <li class="nav-item ms-lg-3">
+             <button id="theme-toggle-btn" class="btn btn-outline-light rounded-circle border-opacity-25" style="width: 40px; height: 40px;">
+                <i class="fa-solid fa-sun"></i>
+             </button>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
+<style>
+.brand-icon-wrapper {
+    width: 40px; 
+    height: 40px; 
+    background: var(--primary-gradient); 
+    border-radius: 10px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+.tracking-tight { letter-spacing: -0.5px; }
+.hover-opacity-100:hover { opacity: 1 !important; }
+</style>
 <br /><br />

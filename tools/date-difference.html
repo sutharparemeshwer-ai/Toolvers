@@ -1,46 +1,62 @@
-<!-- tools/date-difference.html -->
-<div class="container-fluid mt-4">
-  <h4 class="mb-4 text-center">
-    <i class="fa-solid fa-calendar-days me-2"></i> Date Difference Calculator
-  </h4>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="glass-panel p-5">
+                <div class="text-center mb-5">
+                    <h3 class="text-white fw-bold"><i class="fa-solid fa-calendar-days me-2 text-primary"></i> Date Studio</h3>
+                    <p class="text-secondary small">Calculate the exact duration between two dates.</p>
+                </div>
 
-  <div class="card p-3 p-md-4 mx-auto" style="max-width: 500px">
-    <form id="date-diff-form">
-      <div class="mb-3">
-        <label for="start-date" class="form-label">Start Date:</label>
-        <input type="date" id="start-date" class="form-control" />
-      </div>
-      <div class="mb-3">
-        <label for="end-date" class="form-label">End Date:</label>
-        <input type="date" id="end-date" class="form-control" />
-      </div>
-      <button type="submit" class="btn btn-primary w-100">
-        Calculate Difference
-      </button>
-    </form>
+                <form id="date-diff-form" class="mb-5">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="text-white small fw-bold mb-2">Start Date</label>
+                            <input type="date" id="start-date" class="form-control bg-dark border-white-10 text-white">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="text-white small fw-bold mb-2">End Date</label>
+                            <input type="date" id="end-date" class="form-control bg-dark border-white-10 text-white">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-4 fw-bold">Calculate Duration</button>
+                </form>
 
-    <div id="date-diff-result-container" class="mt-4 text-center d-none">
-      <div class="row g-2 justify-content-center">
-        <div class="col">
-          <div class="p-3 themed-bg-alt rounded">
-            <div id="date-diff-years" class="display-6 fw-bold">--</div>
-            <small>Years</small>
-          </div>
+                <div id="results-grid" class="row g-3 text-center d-none">
+                    <div class="col-4">
+                        <div class="bg-white-5 p-3 rounded-3 h-100 d-flex flex-column justify-content-center">
+                            <h3 class="fw-bold text-white mb-0" id="res-years">0</h3>
+                            <small class="text-secondary text-uppercase fw-bold" style="font-size: 0.65rem;">Years</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="bg-white-5 p-3 rounded-3 h-100 d-flex flex-column justify-content-center">
+                            <h3 class="fw-bold text-white mb-0" id="res-months">0</h3>
+                            <small class="text-secondary text-uppercase fw-bold" style="font-size: 0.65rem;">Months</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="bg-white-5 p-3 rounded-3 h-100 d-flex flex-column justify-content-center">
+                            <h3 class="fw-bold text-white mb-0" id="res-days">0</h3>
+                            <small class="text-secondary text-uppercase fw-bold" style="font-size: 0.65rem;">Days</small>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12">
+                        <div class="bg-dark p-3 rounded-3 border border-white-10 mt-2">
+                            <div class="d-flex justify-content-between px-4">
+                                <div class="text-start">
+                                    <small class="text-secondary d-block">Total Weeks</small>
+                                    <span class="text-white fw-bold" id="total-weeks">0</span>
+                                </div>
+                                <div class="text-end">
+                                    <small class="text-secondary d-block">Total Days</small>
+                                    <span class="text-white fw-bold" id="total-days">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col">
-          <div class="p-3 themed-bg-alt rounded">
-            <div id="date-diff-months" class="display-6 fw-bold">--</div>
-            <small>Months</small>
-          </div>
-        </div>
-        <div class="col">
-          <div class="p-3 themed-bg-alt rounded">
-            <div id="date-diff-days" class="display-6 fw-bold">--</div>
-            <small>Days</small>
-          </div>
-        </div>
-      </div>
-      <p id="date-diff-error" class="text-danger mt-3 small"></p>
     </div>
-  </div>
 </div>

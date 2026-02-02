@@ -1,143 +1,143 @@
 // js/tools/drawing-app.js
 
-// Canvas and Context variables
 let canvas, ctx;
-
-// State variables for drawing
 let isDrawing = false;
-let lastX = 0;
-let lastY = 0;
+let startX, startY;
+let savedImageData;
+let history = [];
+let historyStep = -1;
 
-// Control variables
-let currentColor = '#37bca4';
-let currentSize = 5;
+let settings = {
+    color: '#3b82f6',
+    size: 5,
+    tool: 'brush'
+};
 
-// DOM elements
-let colorPickerEl, sizeSliderEl, clearBtnEl;
+function resize() {
+    const parent = canvas.parentElement;
+    // Save content before resize
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = canvas.width;
+    tempCanvas.height = canvas.height;
+    tempCanvas.getContext('2d').drawImage(canvas, 0, 0);
 
-// --- Core Drawing Logic ---
+    canvas.width = parent.clientWidth;
+    canvas.height = parent.clientHeight;
+    
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.drawImage(tempCanvas, 0, 0);
+    saveState(); // Initial state
+}
 
-/**
- * Starts the drawing process (on mousedown)
- */
-function startDrawing(e) {
+function saveState() {
+    historyStep++;
+    if (historyStep < history.length) {
+        history.length = historyStep; // Truncate redo
+    }
+    history.push(canvas.toDataURL());
+}
+
+function undo() {
+    if (historyStep > 0) {
+        historyStep--;
+        const img = new Image();
+        img.onload = () => {
+            ctx.clearRect(0,0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0);
+        };
+        img.src = history[historyStep];
+    }
+}
+
+function start(e) {
     isDrawing = true;
-    // Get the exact coordinates relative to the canvas
-    [lastX, lastY] = getMousePos(e);
+    startX = e.offsetX;
+    startY = e.offsetY;
+    
+    ctx.lineWidth = settings.size;
+    ctx.strokeStyle = settings.tool === 'eraser' ? '#ffffff' : settings.color;
+    ctx.fillStyle = settings.color;
+    
+    if (settings.tool !== 'brush' && settings.tool !== 'eraser') {
+        savedImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    } else {
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+    }
 }
 
-/**
- * Draws the line as the mouse moves
- */
 function draw(e) {
-    if (!isDrawing) return; // Stop the function if the mouse is not down
-
-    // Get the current mouse position
-    const [currentX, currentY] = getMousePos(e);
-
-    // Start drawing the line path
-    ctx.beginPath();
+    if(!isDrawing) return;
     
-    // Set line properties
-    ctx.strokeStyle = currentColor;
-    ctx.lineWidth = currentSize;
-    ctx.lineCap = 'round'; // Makes lines look smooth
+    const x = e.offsetX;
+    const y = e.offsetY;
 
-    // Move the pen to the last position and draw a line to the current position
-    ctx.moveTo(lastX, lastY);
-    ctx.lineTo(currentX, currentY);
-    ctx.stroke();
-
-    // Update the last position to the current position for the next movement
-    lastX = currentX;
-    lastY = currentY;
+    if (settings.tool === 'brush' || settings.tool === 'eraser') {
+        ctx.lineTo(x, y);
+        ctx.stroke();
+    } else {
+        ctx.putImageData(savedImageData, 0, 0); // Clear preview
+        ctx.beginPath();
+        
+        if (settings.tool === 'rect') {
+            ctx.rect(startX, startY, x - startX, y - startY);
+        } else if (settings.tool === 'circle') {
+            const radius = Math.sqrt(Math.pow(x - startX, 2) + Math.pow(y - startY, 2));
+            ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
+        }
+        
+        ctx.stroke();
+    }
 }
 
-/**
- * Stops the drawing process (on mouseup or mouseleave)
- */
-function stopDrawing() {
-    isDrawing = false;
+function stop() {
+    if(isDrawing) {
+        isDrawing = false;
+        saveState();
+    }
 }
-
-/**
- * Helper function to get the mouse position relative to the canvas.
- */
-function getMousePos(e) {
-    // Get canvas position offsets
-    const rect = canvas.getBoundingClientRect();
-    
-    // Calculate position relative to canvas viewport
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    return [x, y];
-}
-
-
-// --- Control Handlers ---
-
-function handleColorChange(e) {
-    currentColor = e.target.value;
-}
-
-function handleSizeChange(e) {
-    currentSize = e.target.value;
-}
-
-function handleClearCanvas() {
-    // Fills the entire canvas with a white rectangle
-    ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-}
-
-
-// --- Router Hooks ---
 
 export function init() {
-    // 1. Get Canvas and Context
     canvas = document.getElementById('drawing-canvas');
-    // Check if canvas exists and context can be retrieved
-    if (!canvas) {
-        console.error("Canvas element not found!");
-        return;
-    }
     ctx = canvas.getContext('2d');
     
-    // Draw initial white background
-    handleClearCanvas(); 
+    window.addEventListener('resize', resize);
+    // Initial setup needs a slight delay for parent container to be ready
+    setTimeout(resize, 50);
 
-    // 2. Get Control Elements
-    colorPickerEl = document.getElementById('color-picker');
-    sizeSliderEl = document.getElementById('size-slider');
-    clearBtnEl = document.getElementById('clear-btn');
-
-    // 3. Attach Control Listeners
-    colorPickerEl.addEventListener('input', handleColorChange);
-    sizeSliderEl.addEventListener('input', handleSizeChange);
-    clearBtnEl.addEventListener('click', handleClearCanvas);
-
-    // 4. Attach Canvas Drawing Listeners
-    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousedown', start);
     canvas.addEventListener('mousemove', draw);
-    // Stop drawing on mouseup or when mouse leaves the canvas area
-    canvas.addEventListener('mouseup', stopDrawing);
-    canvas.addEventListener('mouseleave', stopDrawing);
+    window.addEventListener('mouseup', stop);
+
+    // Controls
+    document.getElementById('color-picker').addEventListener('input', e => settings.color = e.target.value);
+    document.getElementById('size-slider').addEventListener('input', e => settings.size = e.target.value);
+    
+    document.querySelectorAll('.tool-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            settings.tool = btn.dataset.tool;
+        });
+    });
+
+    document.getElementById('btn-undo').addEventListener('click', undo);
+    
+    document.getElementById('btn-clear').addEventListener('click', () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        saveState();
+    });
+
+    document.getElementById('btn-save').addEventListener('click', () => {
+        const link = document.createElement('a');
+        link.download = 'art.png';
+        link.href = canvas.toDataURL();
+        link.click();
+    });
 }
 
 export function cleanup() {
-    // Remove all listeners
-    if (colorPickerEl) colorPickerEl.removeEventListener('input', handleColorChange);
-    if (sizeSliderEl) sizeSliderEl.removeEventListener('input', handleSizeChange);
-    if (clearBtnEl) clearBtnEl.removeEventListener('click', handleClearCanvas);
-    
-    if (canvas) {
-        canvas.removeEventListener('mousedown', startDrawing);
-        canvas.removeEventListener('mousemove', draw);
-        canvas.removeEventListener('mouseup', stopDrawing);
-        canvas.removeEventListener('mouseleave', stopDrawing);
-    }
-    
-    // Reset state
-    isDrawing = false;
+    window.removeEventListener('resize', resize);
+    window.removeEventListener('mouseup', stop);
 }

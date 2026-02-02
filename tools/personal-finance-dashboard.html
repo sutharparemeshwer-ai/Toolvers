@@ -1,87 +1,81 @@
-<!-- tools/personal-finance-dashboard.html -->
-<div class="container-fluid mt-4">
-    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-wallet me-2"></i> Personal Finance Dashboard</h4>
+<div class="container py-5">
+    <div class="row g-4 justify-content-center">
+        <!-- Dashboard -->
+        <div class="col-lg-8">
+            <div class="glass-panel p-4 mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="text-white fw-bold mb-0">Net Worth</h4>
+                    <h2 class="text-white fw-bold mb-0" id="nw-total">$0.00</h2>
+                </div>
+                
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="p-3 bg-success bg-opacity-10 border border-success border-opacity-25 rounded-3">
+                            <small class="text-success text-uppercase fw-bold">Assets</small>
+                            <div class="h4 text-white mb-0" id="assets-total">$0.00</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-3 bg-danger bg-opacity-10 border border-danger border-opacity-25 rounded-3">
+                            <small class="text-danger text-uppercase fw-bold">Liabilities</small>
+                            <div class="h4 text-white mb-0" id="liab-total">$0.00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Summary Cards -->
-    <div class="row g-3 mb-4">
-        <div class="col-md-4">
-            <div class="card text-center p-3">
-                <p class="mb-1 small">Net Worth</p>
-                <h4 id="net-worth-value" class="fw-bold">$0.00</h4>
+            <!-- List -->
+            <div class="glass-panel p-0 overflow-hidden">
+                <div class="p-3 bg-dark border-bottom border-white-10 d-flex justify-content-between align-items-center">
+                    <h6 class="text-white fw-bold mb-0">Accounts</h6>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-plus"></i> Add</button>
+                </div>
+                <div id="accounts-list" class="custom-scrollbar" style="max-height: 400px; overflow-y: auto;">
+                    <!-- Items -->
+                </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card text-center p-3">
-                <p class="mb-1 small">Total Assets</p>
-                <h4 id="total-assets-value" class="fw-bold text-success">$0.00</h4>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card text-center p-3">
-                <p class="mb-1 small">Total Liabilities</p>
-                <h4 id="total-liabilities-value" class="fw-bold text-danger">$0.00</h4>
+        
+        <!-- Chart -->
+        <div class="col-lg-4">
+            <div class="glass-panel p-4 h-100">
+                <h6 class="text-white fw-bold mb-4 text-center">Allocation</h6>
+                <div style="height: 250px; position: relative;">
+                    <canvas id="allocation-chart"></canvas>
+                </div>
+                <div id="chart-legend" class="mt-4 d-flex flex-wrap gap-2 justify-content-center"></div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="row g-4">
-        <!-- Left Column: Chart and Accounts -->
-        <div class="col-lg-7">
-            <div class="card p-3 mb-4">
-                <h5 class="mb-3">Asset Allocation</h5>
-                <div style="height: 300px; position: relative;">
-                    <canvas id="allocation-chart"></canvas>
-                </div>
+<!-- Modal -->
+<div class="modal fade" id="addModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-panel bg-dark border border-white-10">
+            <div class="modal-header border-bottom border-white-10">
+                <h5 class="modal-title text-white">Add Account</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
-            <div class="card p-3">
-                <h5 class="mb-3">Accounts & Balances</h5>
-                <div id="accounts-list">
-                    <!-- Accounts will be rendered here by JS -->
-                </div>
-                <p id="no-accounts-message" class="text-center text-muted mt-3">No accounts added yet.</p>
-            </div>
-        </div>
-
-        <!-- Right Column: Add Item Form -->
-        <div class="col-lg-5">
-            <div class="card p-3">
-                <h5 class="mb-3">Add New Item</h5>
-                <form id="finance-item-form">
+            <div class="modal-body">
+                <form id="finance-form">
                     <div class="mb-3">
-                        <label for="item-name" class="form-label">Item Name</label>
-                        <input type="text" id="item-name" class="form-control" placeholder="e.g., Savings Account, Car Loan" required>
+                        <label class="text-white-50 small">Name</label>
+                        <input type="text" id="fin-name" class="form-control bg-black border-white-10 text-white" placeholder="e.g. Chase Savings">
                     </div>
                     <div class="mb-3">
-                        <label for="item-type" class="form-label">Item Type</label>
-                        <select id="item-type" class="form-select" required>
-                            <option value="asset">Asset</option>
-                            <option value="liability">Liability</option>
+                        <label class="text-white-50 small">Type</label>
+                        <select id="fin-type" class="form-select bg-black border-white-10 text-white">
+                            <option value="asset">Asset (Cash, Property)</option>
+                            <option value="liability">Liability (Loan, Debt)</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="item-category" class="form-label">Category</label>
-                        <select id="item-category" class="form-select" required>
-                            <option value="Cash">Cash & Equivalents</option>
-                            <option value="Investments">Investments</option>
-                            <option value="Property">Property</option>
-                            <option value="Loan">Loan</option>
-                            <option value="Credit Card">Credit Card Debt</option>
-                            <option value="Other">Other</option>
-                        </select>
+                        <label class="text-white-50 small">Value ($)</label>
+                        <input type="number" id="fin-val" class="form-control bg-black border-white-10 text-white">
                     </div>
-                    <div class="mb-3">
-                        <label for="item-value" class="form-label">Current Value ($)</label>
-                        <input type="number" id="item-value" class="form-control" step="0.01" placeholder="e.g., 5000.00" required>
-                    </div>
-                    <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary">Add Item</button>
-                    </div>
+                    <button class="btn btn-primary w-100">Save</button>
                 </form>
-            </div>
-            <div class="text-end mt-3">
-                <button id="clear-all-btn" class="btn btn-sm btn-outline-danger">
-                    Clear All Data
-                </button>
             </div>
         </div>
     </div>

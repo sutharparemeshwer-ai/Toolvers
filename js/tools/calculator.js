@@ -5,7 +5,6 @@ let firstOperand = null;
 let operator = null;
 let waitingForSecondOperand = false;
 
-// Function to update the display element
 function updateDisplay() {
   const display = document.getElementById('display');
   if (display) {
@@ -13,7 +12,6 @@ function updateDisplay() {
   }
 }
 
-// Function to handle number and decimal clicks
 function inputDigit(digit) {
   if (waitingForSecondOperand === true) {
     displayValue = digit;
@@ -24,17 +22,14 @@ function inputDigit(digit) {
   updateDisplay();
 }
 
-// Function to handle the decimal point
 function inputDecimal(dot) {
   if (waitingForSecondOperand === true) return;
-  
   if (!displayValue.includes(dot)) {
     displayValue += dot;
   }
   updateDisplay();
 }
 
-// Function to handle operator clicks
 function handleOperator(nextOperator) {
   const inputValue = parseFloat(displayValue);
 
@@ -46,9 +41,9 @@ function handleOperator(nextOperator) {
   if (firstOperand === null) {
     firstOperand = inputValue;
   } else if (operator) {
-    const result = performCalculation[operator](firstOperand, inputValue);
-
-    displayValue = String(result);
+    const currentValue = firstOperand || 0;
+    const result = performCalculation[operator](currentValue, inputValue);
+    displayValue = String(parseFloat(result.toFixed(7))); // Prevent long decimals
     firstOperand = result;
   }
 
@@ -57,7 +52,6 @@ function handleOperator(nextOperator) {
   updateDisplay();
 }
 
-// The calculation logic
 const performCalculation = {
   '/': (first, second) => first / second,
   '*': (first, second) => first * second,
@@ -66,7 +60,6 @@ const performCalculation = {
   '=': (first, second) => second 
 };
 
-// Function to clear the calculator state
 function resetCalculator() {
   displayValue = '0';
   firstOperand = null;
@@ -75,11 +68,24 @@ function resetCalculator() {
   updateDisplay();
 }
 
-// Event handler for all calculator buttons
+function handleNegate() {
+  displayValue = String(parseFloat(displayValue) * -1);
+  updateDisplay();
+}
+
+function handlePercent() {
+  displayValue = String(parseFloat(displayValue) / 100);
+  updateDisplay();
+}
+
 function handleButtonClick(event) {
   const { target } = event;
-  const action = target.dataset.action;
-  const value = target.dataset.value;
+  // Handle clicks on the button itself or inner elements
+  const btn = target.closest('button');
+  if (!btn) return;
+  
+  const action = btn.dataset.action;
+  const value = btn.dataset.value;
 
   if (!action) return;
 
@@ -94,30 +100,44 @@ function handleButtonClick(event) {
       handleOperator(value);
       break;
     case 'calculate':
-      // The '=' button uses handleOperator to finalize the calculation
-      handleOperator(operator); 
+      handleOperator('='); 
       break;
     case 'clear':
       resetCalculator();
       break;
-    default:
+    case 'negate':
+      handleNegate();
+      break;
+    case 'percent':
+      handlePercent();
       break;
   }
 }
 
-// Initialization function for router
 export function init() {
   const calculator = document.getElementById('calculator-body');
   if (calculator) {
     calculator.addEventListener('click', handleButtonClick);
   }
   updateDisplay();
+  
+  // Keyboard support
+  document.addEventListener('keydown', handleKeyboard);
 }
 
-// Cleanup function for router
+function handleKeyboard(e) {
+  const key = e.key;
+  if (/\d/.test(key)) inputDigit(key);
+  if (key === '.') inputDecimal('.');
+  if (key === '=' || key === 'Enter') { e.preventDefault(); handleOperator('='); }
+  if (key === 'Backspace') resetCalculator(); // Simplified backspace to clear for now
+  if (key === '+' || key === '-' || key === '*' || key === '/') handleOperator(key);
+}
+
 export function cleanup() {
   const calculator = document.getElementById('calculator-body');
   if (calculator) {
     calculator.removeEventListener('click', handleButtonClick);
   }
+  document.removeEventListener('keydown', handleKeyboard);
 }

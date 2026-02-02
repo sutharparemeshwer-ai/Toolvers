@@ -1,120 +1,77 @@
 // js/tools/ai-text-rewriter.js
+import { Toast } from '../ui.js';
 
-// --- Configuration (Copied from AI Chat Assistant) ---
 const API_KEY = "AIzaSyAEIGOglo-ydWtyl-o-gtEyqh_URIVCGFQ";
-const MODEL_NAME = "gemini-2.5-flash";
+const MODEL = "gemini-2.5-flash";
 
-// --- DOM Elements ---
-let originalTextEl, rewrittenTextEl, toneSelectEl, submitBtn, statusEl;
+let originalInput, rewrittenInput, rewriteBtn, toneBtns;
+let currentTone = "formal";
 
-/**
- * Calls the Google Gemini API to rewrite text.
- * @param {string} text The original text to rewrite.
- * @param {string} tone The desired tone for the rewritten text.
- * @returns {Promise<string>} A promise that resolves with the rewritten text.
- */
-async function rewriteTextWithAI(text, tone) {
-  if (API_KEY === "YOUR_API_KEY") {
-    return Promise.reject(
-      "Please add your Google Gemini API key to 'js/tools/ai-text-rewriter.js' to use this tool."
-    );
-  }
+async function rewrite() {
+    const text = originalInput.value.trim();
+    if (!text) return Toast.show('Input Required', 'Please enter text to rewrite.', 'warning');
 
-  // Construct a clear prompt for the AI
-  const prompt = `Rewrite the following text to make it more "${tone}". Only return the rewritten text, without any additional commentary or introduction.
+    rewriteBtn.disabled = true;
+    rewriteBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Processing...';
+    rewrittenInput.value = "AI is rewriting...";
 
-Original Text:
----
-${text}
----
+    const prompt = `Rewrite the following text. Tone: ${currentTone}.
+    Keep the meaning the same but change the style.
+    
+    Original Text:
+    "${text}"`;
 
-Rewritten Text:`;
+    try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+        });
+        
+        const data = await res.json();
+        const result = data.candidates[0].content.parts[0].text;
+        
+        rewrittenInput.value = result;
+        updateStats(text, result);
+        Toast.show('Success', 'Text rewritten successfully.', 'success');
 
-  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${API_KEY}`;
-
-  const requestBody = {
-    contents: [{ parts: [{ text: prompt }] }],
-  };
-
-  const response = await fetch(API_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(requestBody),
-  });
-
-  if (!response.ok) {
-    const errorData = await response.json();
-    console.error("API Error:", errorData);
-    throw new Error(
-      errorData.error?.message || "The AI service failed to respond."
-    );
-  }
-
-  const data = await response.json();
-
-  try {
-    const rewrittenText = data.candidates[0].content.parts[0].text;
-    return rewrittenText.trim();
-  } catch (e) {
-    console.error("Error parsing AI response:", data);
-    throw new Error("Could not understand the AI's response format.");
-  }
+    } catch (e) {
+        rewrittenInput.value = "Error: " + e.message;
+    } finally {
+        rewriteBtn.disabled = false;
+        rewriteBtn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles me-2"></i> Rewrite Text';
+    }
 }
 
-async function handleSubmit() {
-  const originalText = originalTextEl.value.trim();
-  const selectedTone = toneSelectEl.options[toneSelectEl.selectedIndex].text;
-
-  if (!originalText) {
-    statusEl.textContent = "Please enter some text to rewrite.";
-    statusEl.className = "text-center small text-danger mt-3";
-    return;
-  }
-
-  // UI updates for loading state
-  submitBtn.disabled = true;
-  rewrittenTextEl.value = "";
-  statusEl.textContent = "Rewriting with AI...";
-  statusEl.className = "text-center small text-muted mt-3";
-
-  try {
-    const rewrittenText = await rewriteTextWithAI(originalText, selectedTone);
-    rewrittenTextEl.value = rewrittenText;
-    statusEl.textContent = "Rewrite complete!";
-    statusEl.className = "text-center small text-success mt-3";
-  } catch (error) {
-    console.error("Rewrite Error:", error);
-    rewrittenTextEl.value = `Sorry, an error occurred: ${error.message}`;
-    statusEl.textContent = "An error occurred.";
-    statusEl.className = "text-center small text-danger mt-3";
-  } finally {
-    submitBtn.disabled = false;
-  }
+function updateStats(original, rewritten) {
+    const w1 = original.split(/\s+/).length;
+    const w2 = rewritten.split(/\s+/).length;
+    document.getElementById('word-diff').textContent = `${w1} → ${w2}`;
+    document.getElementById('stats-panel').classList.remove('d-none');
 }
-
-// --- Router Hooks ---
 
 export function init() {
-  // Get DOM elements
-  originalTextEl = document.getElementById("rewriter-original-text");
-  rewrittenTextEl = document.getElementById("rewriter-rewritten-text");
-  toneSelectEl = document.getElementById("rewriter-tone-select");
-  submitBtn = document.getElementById("rewriter-submit-btn");
-  statusEl = document.getElementById("rewriter-status");
+    originalInput = document.getElementById('original-text');
+    rewrittenInput = document.getElementById('rewritten-text');
+    rewriteBtn = document.getElementById('rewrite-btn');
+    toneBtns = document.querySelectorAll('#tone-selector button');
 
-  // Check for API Key
-  if (API_KEY === "YOUR_API_KEY") {
-    statusEl.textContent =
-      "Warning: API key is not set in js/tools/ai-text-rewriter.js";
-    statusEl.className = "text-center small text-danger mt-3";
-    submitBtn.disabled = true;
-  }
+    if(rewriteBtn) rewriteBtn.onclick = rewrite;
 
-  // Attach event listeners
-  submitBtn.addEventListener("click", handleSubmit);
+    toneBtns.forEach(btn => {
+        btn.onclick = () => {
+            toneBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentTone = btn.dataset.tone;
+        };
+    });
+
+    document.getElementById('copy-btn').onclick = () => {
+        navigator.clipboard.writeText(rewrittenInput.value);
+        Toast.show('Copied', 'Rewritten text copied.', 'success');
+    };
 }
 
 export function cleanup() {
-  // Remove event listeners
-  submitBtn.removeEventListener("click", handleSubmit);
+    if(rewriteBtn) rewriteBtn.onclick = null;
 }

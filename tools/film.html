@@ -1,16 +1,53 @@
-<div class="card p-4 mx-auto" style="max-width: 600px;">
-    <h4 class="text-center"><i class="fa-solid fa-film"></i> Film Finder </h4>
-    <p class="small text-center mb-4">Search for a movie title to get details and ratings.</p>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="glass-panel p-0 overflow-hidden">
+                <!-- Search Bar -->
+                <div class="p-4 bg-dark border-bottom border-white-10">
+                    <form id="film-search-form">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text bg-black border-white-10 text-secondary"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <input type="text" id="movie-title-input" class="form-control bg-black border-white-10 text-white" placeholder="Search for a movie..." required>
+                            <button class="btn btn-primary px-4 fw-bold">Search</button>
+                        </div>
+                    </form>
+                </div>
 
-    <form id="film-search-form" class="input-group mb-3">
-        <input type="text" class="form-control" id="movie-title-input" placeholder="Enter movie title..." required>
-        <button class="btn btn-primary" type="submit" id="search-movie-btn">Search</button>
-    </form>
-    
-    <div id="message-area" class="alert alert-info text-center d-none" role="alert">
-        Searching...
-    </div>
+                <!-- Empty State -->
+                <div id="empty-state" class="text-center py-5">
+                    <i class="fa-solid fa-film fa-4x text-secondary opacity-25 mb-3"></i>
+                    <p class="text-white-50">Enter a movie title to see details.</p>
+                </div>
 
-    <div id="movie-results-container" class="mt-4">
+                <!-- Movie Content -->
+                <div id="movie-content" class="d-none">
+                    <div class="row g-0">
+                        <div class="col-md-5 bg-black d-flex align-items-center justify-content-center p-4">
+                            <img id="movie-poster" src="" class="img-fluid rounded shadow-lg border border-white-10" style="max-height: 400px;">
+                        </div>
+                        <div class="col-md-7 p-4 p-md-5">
+                            <div class="d-flex align-items-start justify-content-between mb-2">
+                                <h2 class="text-white fw-bold mb-0" id="movie-title">Title</h2>
+                                <span class="badge bg-warning text-dark border border-white-25 ms-2" id="movie-rating">IMDb</span>
+                            </div>
+                            
+                            <div class="text-secondary small mb-4">
+                                <span id="movie-year">Year</span> &bull; 
+                                <span id="movie-runtime">Time</span> &bull; 
+                                <span id="movie-genre" class="text-info">Genre</span>
+                            </div>
+
+                            <p class="text-white-50 mb-4" id="movie-plot" style="line-height: 1.7;">Plot summary...</p>
+
+                            <div class="d-flex flex-column gap-2 text-small text-white-50 small">
+                                <div><strong class="text-white">Director:</strong> <span id="movie-director"></span></div>
+                                <div><strong class="text-white">Cast:</strong> <span id="movie-cast"></span></div>
+                                <div><strong class="text-white">Awards:</strong> <span id="movie-awards"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
 </div>

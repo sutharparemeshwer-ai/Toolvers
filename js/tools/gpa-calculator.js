@@ -1,132 +1,75 @@
 // js/tools/gpa-calculator.js
 
-// --- DOM Elements ---
-let form, coursesList, emptyMsg, gpaResultEl, clearAllBtn, totalCreditsEl, totalPointsEl;
-
-// --- State ---
 let courses = [];
-const STORAGE_KEY = 'gpaCalculatorCourses';
+const STORE_KEY = 'toolverse_gpa_v2';
 
-// --- Local Storage Functions ---
-const loadCourses = () => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    courses = stored ? JSON.parse(stored) : [];
-};
+function load() {
+    courses = JSON.parse(localStorage.getItem(STORE_KEY)) || [];
+    render();
+}
 
-const saveCourses = () => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(courses));
-};
+function save() {
+    localStorage.setItem(STORE_KEY, JSON.stringify(courses));
+    render();
+}
 
-// --- Core Logic ---
-
-const calculateGPA = () => {
-    if (courses.length === 0) {
-        gpaResultEl.textContent = '0.00';
-        totalCreditsEl.textContent = '0';
-        totalPointsEl.textContent = '0.0';
-        return;
-    }
-
+function render() {
+    const list = document.getElementById('course-list');
+    list.innerHTML = '';
+    
     let totalPoints = 0;
-    let totalCredits = 0;
+    let totalCreds = 0;
 
-    courses.forEach(course => {
-        totalPoints += course.grade * course.credits;
-        totalCredits += course.credits;
+    courses.forEach((c, i) => {
+        totalPoints += (c.grade * c.credits);
+        totalCreds += c.credits;
+
+        const row = document.createElement('div');
+        row.className = 'd-flex align-items-center p-3 border-bottom border-white-10 text-white hover-bg-white-5';
+        row.innerHTML = `
+            <div style="width: 40%" class="fw-bold text-truncate pe-2">${c.name}</div>
+            <div style="width: 20%">${c.credits}</div>
+            <div style="width: 20%">${c.grade}</div>
+            <div style="width: 20%" class="text-end">
+                <button class="btn btn-sm btn-link text-danger p-0" onclick="window.delCourse(${i})"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        `;
+        list.appendChild(row);
     });
 
-    const gpa = totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : '0.00';
-    gpaResultEl.textContent = gpa;
-    totalCreditsEl.textContent = totalCredits;
-    totalPointsEl.textContent = totalPoints.toFixed(1);
-};
+    const gpa = totalCreds ? (totalPoints / totalCreds).toFixed(2) : '0.00';
+    document.getElementById('gpa-display').textContent = gpa;
+}
 
-// --- Rendering Functions ---
+function add(e) {
+    e.preventDefault();
+    const name = document.getElementById('c-name').value || 'Course';
+    const credits = parseFloat(document.getElementById('c-credits').value);
+    const grade = parseFloat(document.getElementById('c-grade').value);
 
-const renderCourses = () => {
-    coursesList.innerHTML = '';
-    if (courses.length === 0) {
-        emptyMsg.classList.remove('d-none');
-        coursesList.appendChild(emptyMsg);
-    } else {
-        emptyMsg.classList.add('d-none');
-        courses.forEach(course => {
-            const item = document.createElement('div');
-            item.className = 'list-group-item d-flex justify-content-between align-items-center';
-            item.innerHTML = `
-                <div>
-                    <strong>${course.name || 'Unnamed Course'}</strong>
-                    <small class="text-muted"> - ${course.credits} credits, Grade: ${course.gradeText}</small>
-                </div>
-                <button class="btn btn-sm btn-outline-danger delete-course-btn" data-id="${course.id}">&times;</button>
-            `;
-            coursesList.appendChild(item);
-        });
+    if (credits > 0) {
+        courses.push({ name, credits, grade });
+        save();
+        document.getElementById('c-name').value = '';
     }
-    calculateGPA();
+}
+
+window.delCourse = (i) => {
+    courses.splice(i, 1);
+    save();
 };
-
-// --- Event Handlers ---
-
-const handleAddCourse = (event) => {
-    event.preventDefault();
-    const name = form.querySelector('#course-name').value.trim();
-    const credits = parseFloat(form.querySelector('#course-credits').value);
-    const gradeSelect = form.querySelector('#course-grade');
-    const grade = parseFloat(gradeSelect.value);
-    const gradeText = gradeSelect.options[gradeSelect.selectedIndex].text;
-
-    if (isNaN(credits) || credits <= 0) {
-        alert('Please enter a valid number of credits.');
-        return;
-    }
-
-    courses.push({ id: Date.now(), name, credits, grade, gradeText });
-    saveCourses();
-    renderCourses();
-    form.reset();
-};
-
-const handleListClick = (event) => {
-    if (event.target.closest('.delete-course-btn')) {
-        const courseId = parseInt(event.target.closest('.delete-course-btn').dataset.id);
-        courses = courses.filter(course => course.id !== courseId);
-        saveCourses();
-        renderCourses();
-    }
-};
-
-const handleClearAll = () => {
-    if (confirm('Are you sure you want to clear all courses?')) {
-        courses = [];
-        saveCourses();
-        renderCourses();
-    }
-};
-
-// --- Router Hooks ---
 
 export function init() {
-    // Get DOM elements
-    form = document.getElementById('gpa-course-form');
-    coursesList = document.getElementById('courses-list');
-    emptyMsg = document.getElementById('empty-courses-msg');
-    gpaResultEl = document.getElementById('gpa-result');
-    clearAllBtn = document.getElementById('clear-all-courses-btn');
-    totalCreditsEl = document.getElementById('total-credits-result');
-    totalPointsEl = document.getElementById('total-points-result');
-
-    // Load data and render
-    loadCourses();
-    renderCourses();
-
-    // Attach event listeners
-    form.addEventListener('submit', handleAddCourse);
-    coursesList.addEventListener('click', handleListClick);
-    clearAllBtn.addEventListener('click', handleClearAll);
+    document.getElementById('add-form').addEventListener('submit', add);
+    document.getElementById('clear-btn').addEventListener('click', () => {
+        if(confirm('Clear all?')) {
+            courses = [];
+            save();
+        }
+    });
+    load();
 }
 
 export function cleanup() {
-    // Event listeners are attached to elements that will be removed from the DOM,
-    // so manual removal is not strictly necessary for this tool.
+    window.delCourse = undefined;
 }

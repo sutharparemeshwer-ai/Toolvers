@@ -1,48 +1,31 @@
-<div class="temp-converter-container">
-  <div class="text-center pt-4 pb-5">
-    <h1 class="display-5 fw-bold">Temperature Converter</h1>
-    <p class="lead ">
-      Instantly convert between Celsius, Fahrenheit, and Kelvin.
-    </p>
-  </div>
+<div class="container py-5">
+    <div class="glass-panel p-5 mx-auto" style="max-width: 600px;">
+        <h4 class="text-center text-white fw-bold mb-5"><i class="fa-solid fa-temperature-three-quarters me-2 text-danger"></i> Temp Converter</h4>
+        
+        <div class="d-flex flex-column gap-4">
+            
+            <!-- Celsius -->
+            <div>
+                <label class="text-white fw-bold mb-2 d-flex justify-content-between">
+                    <span>Celsius</span>
+                    <span id="c-val" class="text-info">0°C</span>
+                </label>
+                <input type="range" class="form-range" id="c-range" min="-100" max="100" value="0">
+                <input type="number" class="form-control bg-dark border-white-10 text-white mt-2" id="c-input" value="0">
+            </div>
 
-  <div class="converter-ui">
-    <!-- Celsius Input -->
-    <div class="temp-input-group">
-      <label for="celsius-input" class="temp-label">Celsius</label>
-      <div class="input-wrapper">
-        <input
-          type="number"
-          id="celsius-input"
-          class="form-control form-control-lg temp-input"
-          placeholder="0"
-        />
-        <span class="unit-symbol">°C</span>
-      </div>
-    </div>
+            <div class="text-center text-secondary"><i class="fa-solid fa-arrow-down-up"></i></div>
 
-    <!-- Separator -->
-    <div class="converter-separator">
-      <i class="fa-solid fa-equals"></i>
-    </div>
+            <!-- Fahrenheit -->
+            <div>
+                <label class="text-white fw-bold mb-2 d-flex justify-content-between">
+                    <span>Fahrenheit</span>
+                    <span id="f-val" class="text-warning">32°F</span>
+                </label>
+                <input type="range" class="form-range" id="f-range" min="-148" max="212" value="32">
+                <input type="number" class="form-control bg-dark border-white-10 text-white mt-2" id="f-input" value="32">
+            </div>
 
-    <!-- Fahrenheit Input -->
-    <div class="temp-input-group">
-      <label for="fahrenheit-input" class="temp-label">Fahrenheit</label>
-      <div class="input-wrapper">
-        <input
-          type="number"
-          id="fahrenheit-input"
-          class="form-control form-control-lg temp-input"
-          placeholder="32"
-        />
-        <span class="unit-symbol">°F</span>
-      </div>
+        </div>
     </div>
-
-    <!-- Separator -->
-    <div class="converter-separator">
-      <i class="fa-solid fa-equals"></i>
-    </div>
-  </div>
 </div>

@@ -1,39 +1,144 @@
-<!-- tools/ai-chat-assistant.html -->
-<div id="ai-chatbot-container" class="container-fluid mt-4">
-  <div class="card chat-card mx-auto">
-    <div class="card-header text-center">
-      <h5 class="mb-0">
-        <i class="fa-solid fa-robot me-2"></i> AI Chat Assistant
-      </h5>
-      <small class="text-muted">Powered by Google Gemini</small>
+<div class="container-fluid h-100 p-0 d-flex flex-column" style="min-height: 85vh;">
+  <!-- Chat Interface Wrapper -->
+  <div class="row g-0 h-100 flex-grow-1">
+    
+    <!-- Sidebar (Optional context/history) -->
+    <div class="col-lg-3 d-none d-lg-flex flex-column border-end border-white-10 bg-darker p-3">
+        <div class="mb-4">
+            <button class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2" onclick="location.reload()">
+                <i class="fa-solid fa-plus"></i> New Chat
+            </button>
+        </div>
+        
+        <small class="text-secondary text-uppercase fw-bold mb-2 px-2">Capabilities</small>
+        <div class="d-flex flex-column gap-2">
+             <div class="p-3 glass-panel rounded-3 text-white-50 small">
+                <i class="fa-solid fa-code me-2 text-primary"></i> Code Generation
+             </div>
+             <div class="p-3 glass-panel rounded-3 text-white-50 small">
+                <i class="fa-solid fa-pen-nib me-2 text-info"></i> Creative Writing
+             </div>
+             <div class="p-3 glass-panel rounded-3 text-white-50 small">
+                <i class="fa-solid fa-magnifying-glass me-2 text-success"></i> Research Assistant
+             </div>
+        </div>
+        
+        <div class="mt-auto text-center">
+            <small class="text-muted">Powered by Google Gemini 2.0</small>
+        </div>
     </div>
-    <div id="chat-window" class="card-body chat-window">
-      <!-- Initial message will be added by JS -->
-    </div>
-    <div class="card-footer chat-footer">
-      <div id="ai-typing-indicator" class="typing-indicator d-none">
-        <span></span><span></span><span></span>
-      </div>
-      <form id="chat-form" class="chat-input-form">
-        <input
-          type="text"
-          id="chat-input"
-          class="form-control"
-          placeholder="Type your message..."
-          autocomplete="off"
-          required
-        />
-        <button type="submit" id="chat-send-btn" class="btn btn-primary">
-          <i class="fa-solid fa-paper-plane"></i>
-        </button>
-      </form>
+
+    <!-- Main Chat Area -->
+    <div class="col-lg-9 d-flex flex-column h-100">
+        <!-- Chat Header -->
+        <div class="p-3 border-bottom border-white-10 d-flex align-items-center justify-content-between bg-dark">
+             <div class="d-flex align-items-center gap-3">
+                 <div class="ai-avatar-header">
+                     <i class="fa-solid fa-robot"></i>
+                 </div>
+                 <div>
+                     <h6 class="text-white mb-0 fw-bold">Gemini Assistant</h6>
+                     <div class="d-flex align-items-center gap-2">
+                         <span class="status-dot"></span>
+                         <small class="text-secondary">Online</small>
+                     </div>
+                 </div>
+             </div>
+             <button class="btn btn-sm btn-outline-light rounded-pill" onclick="document.getElementById('chat-window').innerHTML = ''">Clear Chat</button>
+        </div>
+
+        <!-- Chat Window (Scrollable) -->
+        <div id="chat-window" class="flex-grow-1 overflow-auto p-4 custom-scrollbar">
+            <!-- Messages go here -->
+        </div>
+
+        <!-- Input Area -->
+        <div class="p-4 bg-dark border-top border-white-10">
+            <div class="glass-panel p-2 d-flex align-items-end gap-2 position-relative">
+                <textarea id="chat-input" class="form-control bg-transparent border-0 text-white shadow-none custom-scrollbar" rows="1" placeholder="Ask anything..." style="resize: none; max-height: 150px;"></textarea>
+                <button id="chat-send-btn" class="btn btn-primary rounded-3 px-3 py-2">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="text-center mt-2">
+                <small class="text-muted" style="font-size: 0.7rem;">AI can make mistakes. Verify important information.</small>
+            </div>
+        </div>
     </div>
   </div>
 </div>
-<script type="module">
-  import { init, cleanup } from "./ai-chat-assistant.js";
 
-  // Simple router logic for initialization/cleanup (if needed for your setup)
-  document.addEventListener("DOMContentLoaded", init);
-  // window.addEventListener('beforeunload', cleanup);
-</script>
+<style>
+.bg-darker { background: rgba(0,0,0,0.2); }
+.border-white-10 { border-color: rgba(255,255,255,0.08) !important; }
+
+.ai-avatar-header {
+    width: 40px; height: 40px;
+    background: var(--primary-gradient);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+}
+
+.status-dot {
+    width: 8px; height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #10b981;
+}
+
+/* Chat Bubbles */
+.message-wrapper {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.user-message { justify-content: flex-end; }
+.ai-message { justify-content: flex-start; }
+
+.user-message .message-bubble {
+    background: #2563eb;
+    color: white;
+    border-radius: 1rem 1rem 0 1rem;
+}
+
+.ai-message .message-bubble {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.05);
+    color: #e5e7eb;
+    border-radius: 1rem 1rem 1rem 0;
+}
+
+.message-bubble {
+    padding: 1rem 1.25rem;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.message-avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.8rem;
+}
+.user-avatar { background: #4b5563; color: white; }
+.ai-avatar { background: var(--primary-gradient); color: white; }
+
+/* Code blocks in markdown */
+pre {
+    background: #0f1117;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+code { font-family: 'Fira Code', monospace; color: #f472b6; }
+</style>

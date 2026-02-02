@@ -5,7 +5,7 @@ let previewFrame;
 
 const CDN_URLS = {
     css: 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css',
-    theme: 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/material-darker.min.css',
+    theme: 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css', // Better theme
     js: 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js',
     modes: {
         xml: 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/xml/xml.min.js',
@@ -34,16 +34,10 @@ function loadCSS(url) {
     document.head.appendChild(link);
 }
 
-/**
- * Updates the content of the preview iframe.
- */
 function updatePreview() {
     if (!editor || !previewFrame) return;
-
     const code = editor.getValue();
     const previewDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
-
-    // Write the editor content directly into the iframe
     previewDoc.open();
     previewDoc.write(code);
     previewDoc.close();
@@ -62,35 +56,64 @@ async function initializeEditor() {
 
     const textarea = document.getElementById('code-editor-textarea');
     previewFrame = document.getElementById('live-preview-iframe');
+    
+    if(!textarea) return; // Guard
+
     editor = CodeMirror.fromTextArea(textarea, {
         lineNumbers: true,
-        theme: 'material-darker',
+        theme: 'dracula',
         mode: 'htmlmixed',
         tabSize: 2,
+        lineWrapping: true,
+        autofocus: true
     });
 
-    // Add event listener to update preview on change
-    editor.on('change', updatePreview);
+    editor.on('change', () => {
+         // Debounce slightly for performance
+         if(window.previewTimeout) clearTimeout(window.previewTimeout);
+         window.previewTimeout = setTimeout(updatePreview, 500);
+    });
 
     document.getElementById('language-select').addEventListener('change', (e) => {
         editor.setOption('mode', e.target.value);
     });
+    
+    document.getElementById('run-btn').addEventListener('click', updatePreview);
 
-    // Initial update
     updatePreview();
 }
 
 export async function init() {
     try {
-        // Set a default value for the editor
-        document.getElementById('code-editor-textarea').value = `<!DOCTYPE html>\n<html>\n<head>\n  <title>My Page</title>\n  <style>\n    body { font-family: sans-serif; background-color: #f0f0f0; }\n    h1 { color: #333; }\n  </style>\n</head>\n<body>\n\n  <h1>Hello, World!</h1>\n  <p>This is a live preview.</p>\n\n</body>\n</html>`;
+        const defaultCode = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Preview</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f0fdf4; }
+        .card { background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; }
+        h1 { color: #166534; }
+        button { background: #166534; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; margin-top: 1rem; }
+        button:hover { background: #14532d; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>ToolVerse Editor</h1>
+        <p>Edit the code on the left to see changes instantly!</p>
+        <button onclick="alert('It works!')">Click Me</button>
+    </div>
+</body>
+</html>`;
+        
+        const el = document.getElementById('code-editor-textarea');
+        if(el) el.value = defaultCode;
+        
         await initializeEditor();
     } catch (error) {
-        console.error("Failed to load CodeMirror editor:", error);
-        const editorArea = document.getElementById('code-editor-textarea');
-        if (editorArea) {
-            editorArea.value = "Error: Could not load the code editor. Please check your internet connection.";
-        }
+        console.error("Editor Init Error:", error);
     }
 }
 
@@ -98,6 +121,5 @@ export function cleanup() {
     if (editor) {
         editor.toTextArea();
         editor = null;
-        previewFrame = null;
     }
 }

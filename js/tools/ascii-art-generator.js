@@ -1,103 +1,79 @@
 // js/tools/ascii-art-generator.js
+import { Toast } from '../ui.js';
 
-// --- DOM Elements ---
-let imageUpload, densitySlider, invertCheckbox;
-let outputContainer, outputPre, messageEl, copyBtn;
-let canvas, ctx;
+let canvas, ctx, input, slider, invertCheck, output;
+const CHARS = ["@", "%", "#", "*", "+", "=", "-", ":", ".", " "];
 
-// --- ASCII Characters ---
-// Ordered from darkest to lightest
-const ASCII_CHARS = ["@", "#", "S", "%", "?", "*", "+", ";", ":", ",", "."];
-
-function grayScale(r, g, b) {
-  return 0.21 * r + 0.72 * g + 0.07 * b;
-}
-
-function convertToAscii() {
-  if (!canvas.width || !canvas.height) {
-    messageEl.textContent = "Please upload a valid image first.";
-    return;
-  }
-
-  messageEl.textContent = "Generating...";
-  outputContainer.classList.add("d-none");
-
-  // Use a timeout to allow the "Generating..." message to render
-  setTimeout(() => {
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const { data, width, height } = imageData;
-    const isInverted = invertCheckbox.checked;
-
-    let asciiImage = "";
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
-        const i = (y * width + x) * 4;
-        const [r, g, b] = [data[i], data[i + 1], data[i + 2]];
-
-        let gray = grayScale(r, g, b);
-        if (isInverted) {
-          gray = 255 - gray;
-        }
-
-        const charIndex = Math.floor((gray / 255) * (ASCII_CHARS.length - 1));
-        asciiImage += ASCII_CHARS[charIndex];
-      }
-      asciiImage += "\n";
-    }
-
-    outputPre.textContent = asciiImage;
-    outputContainer.classList.remove("d-none");
-    messageEl.textContent = "";
-  }, 50);
-}
-
-function handleImageUpload(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = (event) => {
+function render(src) {
     const img = new Image();
     img.onload = () => {
-      const max_width = parseInt(densitySlider.value, 10);
-      const scaleFactor = max_width / img.width;
-      canvas.width = max_width;
-      canvas.height = img.height * scaleFactor;
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      convertToAscii();
+        const w = parseInt(slider.value);
+        const scale = w / img.width;
+        const h = Math.floor(img.height * scale * 0.5); // 0.5 to fix aspect ratio of chars
+
+        canvas.width = w;
+        canvas.height = h;
+        ctx.drawImage(img, 0, 0, w, h);
+
+        const pixels = ctx.getImageData(0, 0, w, h).data;
+        let art = "";
+
+        for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+                const i = (y * w + x) * 4;
+                const r = pixels[i];
+                const g = pixels[i+1];
+                const b = pixels[i+2];
+                
+                let avg = (r + g + b) / 3;
+                if (invertCheck.checked) avg = 255 - avg;
+
+                const charIdx = Math.floor((avg / 255) * (CHARS.length - 1));
+                art += CHARS[charIdx];
+            }
+            art += "\n";
+        }
+        output.textContent = art;
     };
-    img.src = event.target.result;
-  };
-  reader.readAsDataURL(file);
+    img.src = src;
 }
 
-function handleCopy() {
-  navigator.clipboard.writeText(outputPre.textContent).then(() => {
-    copyBtn.innerHTML = '<i class="fa-solid fa-check me-1"></i> Copied!';
-    setTimeout(() => {
-      copyBtn.innerHTML = '<i class="fa-solid fa-copy me-1"></i> Copy';
-    }, 2000);
-  });
+function handleFile(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+            input.dataset.src = evt.target.result; // Store src
+            render(evt.target.result);
+        };
+        reader.readAsDataURL(file);
+    }
 }
 
 export function init() {
-  imageUpload = document.getElementById("ascii-image-upload");
-  densitySlider = document.getElementById("ascii-density");
-  invertCheckbox = document.getElementById("ascii-invert-colors");
-  outputContainer = document.getElementById("ascii-output-container");
-  outputPre = document.getElementById("ascii-output");
-  messageEl = document.getElementById("ascii-message");
-  copyBtn = document.getElementById("copy-ascii-btn");
+    canvas = document.createElement('canvas');
+    ctx = canvas.getContext('2d');
+    input = document.getElementById('img-upload');
+    slider = document.getElementById('resolution');
+    invertCheck = document.getElementById('invert-color');
+    output = document.getElementById('ascii-output');
 
-  canvas = document.createElement("canvas");
-  ctx = canvas.getContext("2d", { willReadFrequently: true });
+    input.addEventListener('change', handleFile);
+    
+    const update = () => {
+        if(input.dataset.src) {
+            document.getElementById('res-val').textContent = slider.value + ' chars';
+            render(input.dataset.src);
+        }
+    };
 
-  imageUpload.addEventListener("change", handleImageUpload);
-  densitySlider.addEventListener("input", handleImageUpload);
-  invertCheckbox.addEventListener("change", handleImageUpload);
-  copyBtn.addEventListener("click", handleCopy);
+    slider.addEventListener('input', update);
+    invertCheck.addEventListener('change', update);
+
+    document.getElementById('copy-btn').addEventListener('click', () => {
+        navigator.clipboard.writeText(output.textContent);
+        Toast.show('Copied', 'ASCII art copied to clipboard', 'success');
+    });
 }
 
-export function cleanup() {
-  // No complex cleanup needed as event listeners are on elements that will be removed
-}
+export function cleanup() {}

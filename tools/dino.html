@@ -1,19 +1,34 @@
-<div class="card p-4 text-center">
-    <h4><i class="fa-solid fa-gamepad"></i> Dinosaur Game</h4>
-    <p class="small text-muted">Press SPACE to jump and avoid the cacti! (Use the button if on mobile).</p>
-    
-    <div id="game-container" class="game-container mx-auto mt-4 mb-4">
-        <div id="dino" class="dino"></div>
-        <div id="obstacle" class="obstacle"></div>
-        <div id="ground" class="ground"></div>
-    </div>
-    
-    <div class="d-flex justify-content-between mx-auto w-50" style="max-width: 300px;">
-        <p>Score: <span id="score-display" class="fw-bold">0</span></p>
-        <p id="game-status" class="fw-bold text-success">Ready</p>
-    </div>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="glass-panel p-0 mx-auto overflow-hidden" style="max-width: 800px; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; background: #f7f7f7;">
+                
+                <!-- Game Canvas Area -->
+                <div class="position-relative" id="dino-game-wrapper" style="height: 250px; background: #fff; transition: background 1s;">
+                    <canvas id="dino-canvas" width="800" height="250" class="w-100 h-100"></canvas>
+                    
+                    <!-- HUD -->
+                    <div class="position-absolute top-0 end-0 p-3 font-monospace fw-bold text-secondary" style="font-size: 1.2rem;">
+                        HI <span id="hi-score">00000</span> <span id="curr-score">00000</span>
+                    </div>
 
-    <button id="jump-btn" class="btn btn-primary w-50 mx-auto mt-3 d-md-none">
-        <i class="fa-solid fa-up-long"></i> JUMP
-    </button>
+                    <!-- Overlays -->
+                    <div id="start-overlay" class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column align-items-center justify-content-center bg-white bg-opacity-50">
+                        <div class="mb-3" style="font-size: 3rem;">🦖</div>
+                        <button id="start-btn" class="btn btn-outline-dark fw-bold px-4 rounded-pill">START GAME</button>
+                        <p class="text-muted mt-2 small">Press Space or Tap to Jump</p>
+                    </div>
+
+                    <div id="game-over-overlay" class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column align-items-center justify-content-center bg-black bg-opacity-10 d-none">
+                        <h2 class="fw-bold text-dark mb-3">GAME OVER</h2>
+                        <button id="restart-btn" class="btn btn-dark rounded-circle" style="width: 50px; height: 50px;"><i class="fa-solid fa-rotate-right"></i></button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="text-center mt-3 text-secondary small">
+                <i class="fa-solid fa-keyboard me-1"></i> Use <strong>Space</strong> to jump. The game speeds up as you score!
+            </div>
+        </div>
+    </div>
 </div>

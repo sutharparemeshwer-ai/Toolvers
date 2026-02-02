@@ -1,0 +1,38 @@
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="glass-panel p-4 text-center">
+                <div class="d-flex justify-content-between align-items-center mb-4 bg-dark p-2 rounded border border-white-10">
+                    <div class="text-danger fw-bold font-monospace fs-4 w-25">010</div>
+                    <button class="btn btn-sm btn-secondary" onclick="window.initMines()">
+                        <i class="fa-solid fa-face-smile text-warning fs-4"></i>
+                    </button>
+                    <div class="text-danger fw-bold font-monospace fs-4 w-25" id="timer">000</div>
+                </div>
+
+                <div id="mine-grid" class="d-inline-grid bg-secondary border border-4 border-secondary mx-auto" style="gap: 2px;">
+                    <!-- Cells -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.mine-cell {
+    width: 30px; height: 30px;
+    background: #bdbdbd;
+    border-top: 3px solid #fff;
+    border-left: 3px solid #fff;
+    border-right: 3px solid #7b7b7b;
+    border-bottom: 3px solid #7b7b7b;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold; font-family: sans-serif;
+}
+.mine-cell.revealed {
+    border: 1px solid #7b7b7b;
+    background: #c0c0c0;
+}
+.mine-cell.mine { background: red; }
+</style>

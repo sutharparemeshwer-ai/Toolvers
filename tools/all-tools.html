@@ -1,26 +1,27 @@
-<!-- tools/all-tools.html -->
-<div class="all-tools-page-container pt-5">
-    <!-- Page Header -->
-    <div class="all-tools-header text-center pb-5">
-        <div class="container">
-            <h1 class="display-4">Tool Suite</h1>
-            <p class="lead text-muted">A collection of utilities, games, and generators to streamline your tasks.</p>
-        </div>
+<div class="container py-5">
+    <!-- Header -->
+    <div class="text-center mb-5">
+        <h1 class="hero-title-modern fs-2">Full Tool Catalog</h1>
+        <p class="text-secondary">Browse our complete collection of <span id="total-tools-count">100+</span> utilities.</p>
     </div>
 
-    <!-- Search and Grid Section -->
-    <div class="container my-5">
-        <!-- Search Bar -->
-        <div class="row justify-content-center mb-4">
-            <div class="col-lg-8">
-                <input type="text" id="all-tools-search-input" class="form-control form-control-lg" placeholder="🔍 Search for a tool...">
-            </div>
+    <!-- Search -->
+    <div class="search-wrapper-modern mb-5">
+        <i class="fa-solid fa-magnifying-glass search-icon-absolute"></i>
+        <input type="text" id="all-tools-search-input" class="search-input-modern" placeholder="Filter tools by name, tag, or category...">
+    </div>
+
+    <!-- Grid -->
+    <div id="all-tools-grid" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+        <!-- JS populates this -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="no-tools-found" class="text-center py-5 d-none">
+        <div class="glass-panel d-inline-block p-4 rounded-circle mb-3">
+             <i class="fa-solid fa-ghost fa-2x text-secondary"></i>
         </div>
-
-        <!-- Tool Grid -->
-        <div id="all-tools-grid" class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4"></div>
-
-        <!-- No Results Message -->
-        <div id="no-tools-found" class="text-center py-5 d-none"><h3>No tools found.</h3><p class="text-muted">Try a different search term.</p></div>
+        <h4 class="text-white">No tools found</h4>
+        <p class="text-secondary">Try adjusting your search query.</p>
     </div>
 </div>

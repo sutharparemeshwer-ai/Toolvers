@@ -1,276 +1,185 @@
 // js/tools/blackjack.js
 
-// --- Game State ---
-let deck = [];
-let playerCards = [];
-let dealerCards = [];
-let gameOver = false;
-let playerChips = 100;
-let currentBet = 0;
+const SUITS = ['♠', '♥', '♦', '♣'];
+const RANKS = ['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
 
-// --- DOM Elements ---
-let betBtn,
-  hitBtn,
-  standBtn,
-  betAmountInput,
-  playerChipsEl,
-  bettingArea,
-  actionArea;
+let deck = [], pHand = [], dHand = [];
+let bank = 1000, bet = 0;
+let gameActive = false;
 
-const suits = ["♠", "♥", "♦", "♣"];
-const values = [
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "10",
-  "J",
-  "Q",
-  "K",
-  "A",
-];
+function createDeck() {
+    deck = [];
+    SUITS.forEach(s => {
+        RANKS.forEach(r => {
+            deck.push({ r, s, val: getValue(r) });
+        });
+    });
+    deck.sort(() => Math.random() - 0.5);
+}
 
-// ------------------------------------
-// Router Lifecycle Functions
-// ------------------------------------
+function getValue(r) {
+    if(['J','Q','K'].includes(r)) return 10;
+    if(r === 'A') return 11;
+    return parseInt(r);
+}
+
+function getScore(hand) {
+    let score = hand.reduce((a, c) => a + c.val, 0);
+    let aces = hand.filter(c => c.r === 'A').length;
+    while(score > 21 && aces > 0) {
+        score -= 10;
+        aces--;
+    }
+    return score;
+}
+
+function renderCard(c, hidden = false) {
+    if(hidden) return `<div class="playing-card back"></div>`;
+    const color = (c.s === '♥' || c.s === '♦') ? 'red' : 'black';
+    return `
+        <div class="playing-card ${color} animate-fade-in">
+            <div class="top-left"><span>${c.r}</span><span class="suit-sm">${c.s}</span></div>
+            <div>${c.s}</div>
+            <div class="bottom-right"><span>${c.r}</span><span class="suit-sm">${c.s}</span></div>
+        </div>
+    `;
+}
+
+function render() {
+    const bankEl = document.getElementById('bank-val');
+    const betEl = document.getElementById('current-bet');
+    const pHandEl = document.getElementById('player-hand');
+    const dHandEl = document.getElementById('dealer-hand');
+    const pScoreEl = document.getElementById('player-score');
+    const dScoreEl = document.getElementById('dealer-score');
+    const dealBtn = document.getElementById('deal-btn');
+
+    if (bankEl) bankEl.textContent = bank;
+    if (betEl) betEl.textContent = bet;
+    
+    if (pHandEl) pHandEl.innerHTML = pHand.map(c => renderCard(c)).join('');
+    if (dHandEl) dHandEl.innerHTML = dHand.map((c, i) => renderCard(c, i === 0 && gameActive)).join('');
+    
+    if (pScoreEl) pScoreEl.textContent = getScore(pHand);
+    if (dScoreEl) dScoreEl.textContent = gameActive ? '?' : getScore(dHand);
+
+    if (dealBtn) dealBtn.disabled = bet === 0 || gameActive;
+}
+
+function placeBet(amt) {
+    if(gameActive) return;
+    if(amt > bank) {
+        alert("Not enough chips!");
+        return;
+    }
+    bet += amt;
+    bank -= amt;
+    render();
+}
+
+function clearBet() {
+    if(gameActive) return;
+    bank += bet;
+    bet = 0;
+    render();
+}
+
+function deal() {
+    if(bet === 0) return;
+    gameActive = true;
+    createDeck();
+    pHand = [deck.pop(), deck.pop()];
+    dHand = [deck.pop(), deck.pop()];
+    
+    document.getElementById('bet-controls').classList.add('d-none');
+    document.getElementById('action-controls').classList.remove('d-none');
+    document.getElementById('msg-area').textContent = '';
+    
+    render();
+    
+    if(getScore(pHand) === 21) {
+        // Natural Blackjack check immediately
+        stand(); 
+    }
+}
+
+function hit() {
+    pHand.push(deck.pop());
+    render();
+    if(getScore(pHand) > 21) endRound('Bust! Dealer Wins.');
+}
+
+function stand() {
+    // Dealer rule: hit on soft 17? Usually hit < 17.
+    while(getScore(dHand) < 17) {
+        dHand.push(deck.pop());
+    }
+    render();
+    
+    const p = getScore(pHand);
+    const d = getScore(dHand);
+    
+    if (p > 21) {
+        endRound('Bust! Dealer Wins.');
+    } else if (d > 21) {
+        bank += bet * 2;
+        endRound('Dealer Busts! You Win!');
+    } else if (p > d) {
+        bank += bet * 2;
+        endRound('You Win!');
+    } else if (d > p) {
+        endRound('Dealer Wins.');
+    } else {
+        bank += bet;
+        endRound('Push.');
+    }
+}
+
+function endRound(msg) {
+    gameActive = false;
+    render(); // Reveal dealer card
+    document.getElementById('msg-area').textContent = msg;
+    
+    setTimeout(() => {
+        // Reset state for next round
+        bet = 0;
+        pHand = [];
+        dHand = [];
+        document.getElementById('action-controls').classList.add('d-none');
+        document.getElementById('bet-controls').classList.remove('d-none');
+        render();
+    }, 2500); // 2.5s delay to see result
+}
+
 export function init() {
-  // Get DOM elements
-  betBtn = document.getElementById("bet-btn");
-  hitBtn = document.getElementById("hit-btn");
-  standBtn = document.getElementById("stand-btn");
-  betAmountInput = document.getElementById("bet-amount");
-  playerChipsEl = document.getElementById("player-chips");
-  bettingArea = document.getElementById("betting-area");
-  actionArea = document.getElementById("action-area");
+    window.requestAnimationFrame(() => {
+        const dealBtn = document.getElementById('deal-btn');
+        const hitBtn = document.getElementById('hit-btn');
+        const standBtn = document.getElementById('stand-btn');
+        const betDisplay = document.getElementById('current-bet');
 
-  // Attach listeners
-  betBtn.addEventListener("click", handleBet);
-  hitBtn.addEventListener("click", playerHit);
-  standBtn.addEventListener("click", playerStand);
+        if(dealBtn) dealBtn.onclick = deal;
+        if(hitBtn) hitBtn.onclick = hit;
+        if(standBtn) standBtn.onclick = stand;
+        
+        // Click the bet badge to clear bet
+        if(betDisplay) betDisplay.parentElement.onclick = clearBet;
+        if(betDisplay) betDisplay.parentElement.style.cursor = 'pointer';
+        if(betDisplay) betDisplay.parentElement.title = 'Click to Clear Bet';
 
-  // Initial UI setup
-  resetForNewRound();
+        document.querySelectorAll('.chip-btn').forEach(b => {
+            b.onclick = () => placeBet(parseInt(b.dataset.val));
+        });
+        
+        // Reset state on init
+        bet = 0;
+        pHand = [];
+        dHand = [];
+        gameActive = false;
+        render();
+    });
 }
 
 export function cleanup() {
-  betBtn?.removeEventListener("click", handleBet);
-  hitBtn?.removeEventListener("click", playerHit);
-  standBtn?.removeEventListener("click", playerStand);
-}
-
-// ------------------------------------
-// Core Game Logic
-// ------------------------------------
-function createDeck() {
-  deck = [];
-  for (let suit of suits) {
-    for (let value of values) {
-      deck.push({ suit, value });
-    }
-  }
-  deck = shuffle(deck);
-}
-
-function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-
-function handleBet() {
-  const betValue = parseInt(betAmountInput.value);
-  if (isNaN(betValue) || betValue <= 0) {
-    alert("Please enter a valid bet amount.");
-    return;
-  }
-  if (betValue > playerChips) {
-    alert("You cannot bet more chips than you have.");
-    return;
-  }
-
-  currentBet = betValue;
-  playerChips -= currentBet;
-  startGame();
-}
-
-function startGame() {
-  gameOver = false;
-  document.getElementById("game-result").textContent = "";
-
-  createDeck();
-  playerCards = [deck.pop(), deck.pop()];
-  dealerCards = [deck.pop(), deck.pop()];
-
-  bettingArea.classList.add("d-none");
-  actionArea.classList.remove("d-none");
-
-  // Check for immediate Blackjack
-  if (calculateScore(playerCards) === 21) {
-    // Player gets Blackjack, dealer does not have one
-    if (calculateScore(dealerCards) !== 21) {
-      endGame("win_blackjack");
-    } else {
-      // Both have blackjack, it's a push
-      endGame("push");
-    }
-    return;
-  }
-
-  updateUI();
-}
-
-function playerHit() {
-  if (gameOver) return;
-  playerCards.push(deck.pop());
-  const score = calculateScore(playerCards);
-
-  if (score > 21) {
-    endGame("loss");
-  }
-  updateUI();
-}
-
-function playerStand() {
-  if (gameOver) return;
-  gameOver = true;
-
-  // Dealer's turn: hit until score is 17 or more
-  while (calculateScore(dealerCards) < 17) {
-    dealerCards.push(deck.pop());
-  }
-
-  // Determine winner after dealer stands
-  determineWinner();
-  updateUI();
-}
-
-function determineWinner() {
-  const playerScore = calculateScore(playerCards);
-  const dealerScore = calculateScore(dealerCards);
-
-  if (playerScore > 21) {
-    endGame("loss");
-  } else if (dealerScore > 21) {
-    endGame("win");
-  } else if (dealerScore > playerScore) {
-    endGame("loss");
-  } else if (dealerScore < playerScore) {
-    endGame("win");
-  } else {
-    endGame("push");
-  }
-}
-
-function endGame(result) {
-  gameOver = true;
-  let message = "";
-
-  switch (result) {
-    case "win":
-      playerChips += currentBet * 2; // Bet back + winnings
-      message = `You win! +$${currentBet}`;
-      break;
-    case "win_blackjack":
-      playerChips += currentBet * 2.5; // Bet back + 1.5x winnings
-      message = `Blackjack! You win! +$${currentBet * 1.5}`;
-      break;
-    case "loss":
-      message = `You lose! -$${currentBet}`;
-      // Chips already subtracted when bet was placed
-      break;
-    case "push":
-      playerChips += currentBet; // Bet returned
-      message = "Push! It's a tie.";
-      break;
-  }
-
-  document.getElementById("game-result").textContent = message;
-  setTimeout(resetForNewRound, 2000); // Wait 2 seconds before starting next round
-}
-
-function calculateScore(cards) {
-  let sum = 0;
-  let aceCount = 0;
-  for (let card of cards) {
-    if (["J", "Q", "K"].includes(card.value)) sum += 10;
-    else if (card.value === "A") {
-      sum += 11;
-      aceCount++;
-    } else sum += Number(card.value);
-  }
-  while (sum > 21 && aceCount > 0) {
-    sum -= 10;
-    aceCount--;
-  }
-  return sum;
-}
-
-function resetForNewRound() {
-  gameOver = true; // Game is over until a new bet is placed
-  playerCards = [];
-  dealerCards = [];
-  currentBet = 0;
-
-  if (playerChips <= 0) {
-    alert("You're out of chips! Resetting to $100.");
-    playerChips = 100;
-  }
-
-  bettingArea.classList.remove("d-none");
-  actionArea.classList.add("d-none");
-  updateUI();
-}
-
-// ------------------------------------
-// UI/Design Logic (The fixed card display)
-// ------------------------------------
-function updateUI() {
-  const playerDiv = document.getElementById("player-cards");
-  const dealerDiv = document.getElementById("dealer-cards");
-  const resultDiv = document.getElementById("game-result");
-
-  playerDiv.innerHTML = "";
-  dealerDiv.innerHTML = "";
-
-  const getCardHTML = (card, isHidden = false) => {
-    if (isHidden) {
-      return '<div class="card-element card-back"></div>';
-    }
-    const suitColor =
-      card.suit === "♥" || card.suit === "♦" ? "text-danger" : "text-dark";
-    return `
-      <div class="card-element shadow-sm">
-        <span class="card-value ${suitColor}">${card.value}</span>
-        <span class="card-suit-top ${suitColor}">${card.suit}</span>
-        <span class="card-suit-bottom ${suitColor}">${card.suit}</span>
-      </div>`;
-  };
-
-  // Player Cards
-  playerCards.forEach((c) => {
-    playerDiv.innerHTML += getCardHTML(c);
-  });
-
-  // Dealer Cards (Hide the first card unless game is over)
-  dealerCards.forEach((c, index) => {
-    let isHidden = !gameOver && index === 0;
-    dealerDiv.innerHTML += getCardHTML(c, isHidden);
-  });
-
-  // Score Update Logic
-  let playerScore = calculateScore(playerCards);
-  let dealerScoreText = gameOver ? calculateScore(dealerCards) : "?";
-
-  document.getElementById("player-score").textContent = playerScore;
-  document.getElementById("dealer-score").textContent = dealerScoreText;
-  playerChipsEl.textContent = playerChips;
-
-  // Ensure bet input doesn't exceed available chips
-  betAmountInput.max = playerChips;
+    //
 }

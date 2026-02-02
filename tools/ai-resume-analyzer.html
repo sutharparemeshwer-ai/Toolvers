@@ -1,41 +1,69 @@
-<!-- tools/ai-resume-analyzer.html -->
-<div class="container-fluid mt-4">
-    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-robot me-2"></i> AI Resume Analyzer</h4>
-
+<div class="container py-5">
     <div class="row g-4">
-        <!-- Inputs -->
-        <div class="col-lg-6">
-            <div class="card p-3 h-100">
-                <h5><i class="fa-solid fa-file-alt me-2"></i> Paste Resume Text</h5>
-                <textarea id="resume-text-input" class="form-control" rows="15" placeholder="Paste the full text of your resume here..."></textarea>
+        <!-- Input Column -->
+        <div class="col-lg-5">
+            <div class="glass-panel p-4 h-100">
+                <h4 class="text-white fw-bold mb-4"><i class="fa-solid fa-briefcase me-2 text-primary"></i> Resume Analyzer</h4>
+                
+                <div class="mb-3">
+                    <label class="text-white-50 small mb-1">Paste Resume</label>
+                    <textarea id="resume-text" class="form-control bg-black border-white-10 text-white small custom-scrollbar" rows="8" placeholder="Experience..."></textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label class="text-white-50 small mb-1">Job Description</label>
+                    <textarea id="job-desc" class="form-control bg-black border-white-10 text-white small custom-scrollbar" rows="8" placeholder="Responsibilities..."></textarea>
+                </div>
+
+                <button id="analyze-btn" class="btn btn-primary w-100 py-2">Scan & Match</button>
             </div>
         </div>
-        <div class="col-lg-6">
-            <div class="card p-3 h-100">
-                <h5><i class="fa-solid fa-clipboard-list me-2"></i> Paste Job Description</h5>
-                <textarea id="job-desc-input" class="form-control" rows="15" placeholder="Paste the full job description here..."></textarea>
-            </div>
-        </div>
-    </div>
 
-    <div class="text-center my-4">
-        <button id="analyze-resume-btn" class="btn btn-primary btn-lg">
-            <i class="fa-solid fa-magnifying-glass-chart me-2"></i> Analyze Now
-        </button>
-    </div>
-
-    <!-- Results -->
-    <div id="analysis-results" class="d-none">
-        <div class="card p-4">
-            <h4 class="text-center mb-4">Analysis Report</h4>
-            <div class="text-center mb-4">
-                <h5>Match Score</h5>
-                <p id="match-score" class="display-3 fw-bold text-primary">0%</p>
+        <!-- Dashboard Column -->
+        <div class="col-lg-7">
+            <div class="glass-panel p-4 h-100 d-flex flex-column justify-content-center align-items-center text-center d-none" id="empty-state">
+                <i class="fa-solid fa-magnifying-glass-chart fa-4x text-secondary mb-3 opacity-25"></i>
+                <h5 class="text-white">Ready to Analyze</h5>
+                <p class="text-secondary small">Paste text on the left to see your ATS score.</p>
             </div>
-            <hr>
-            <h5>Keyword Analysis</h5>
-            <p id="matched-keywords" class="mb-3"><strong>Matched Keywords:</strong> </p>
-            <p id="missing-keywords" class="mb-0"><strong>Missing Keywords:</strong> </p>
+
+            <div id="results-dashboard" class="d-none">
+                <!-- Score Cards -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-4">
+                        <div class="glass-panel p-3 text-center border-top border-4 border-success">
+                            <h2 class="display-4 fw-bold text-white mb-0" id="score-val">0%</h2>
+                            <small class="text-secondary text-uppercase fw-bold">Match Score</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="glass-panel p-3 text-center border-top border-4 border-info">
+                            <h2 class="display-4 fw-bold text-white mb-0" id="keywords-found">0</h2>
+                            <small class="text-secondary text-uppercase fw-bold">Keywords Found</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="glass-panel p-3 text-center border-top border-4 border-warning">
+                            <h2 class="display-4 fw-bold text-white mb-0" id="keywords-missing">0</h2>
+                            <small class="text-secondary text-uppercase fw-bold">Missing</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Keywords Lists -->
+                <div class="glass-panel p-4 mb-3">
+                    <h6 class="text-white fw-bold border-bottom border-white-10 pb-2 mb-3">Missing Critical Keywords</h6>
+                    <div id="missing-list" class="d-flex flex-wrap gap-2">
+                        <!-- Badges injected here -->
+                    </div>
+                </div>
+
+                <div class="glass-panel p-4">
+                    <h6 class="text-white fw-bold border-bottom border-white-10 pb-2 mb-3">Matched Skills</h6>
+                    <div id="matched-list" class="d-flex flex-wrap gap-2">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

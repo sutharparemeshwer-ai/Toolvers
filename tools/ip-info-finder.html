@@ -1,67 +1,48 @@
-<!-- tools/ip-info-finder.html -->
-<div class="container-fluid mt-4">
-  <h4 class="mb-4 text-center text-light">
-    <i class="fa-solid fa-location-dot me-2"></i> IP Info / Location Finder
-  </h4>
+<div class="container py-5">
+    <div class="glass-panel p-0 mx-auto overflow-hidden" style="max-width: 800px;">
+        <!-- Header -->
+        <div class="p-4 bg-dark border-bottom border-white-10">
+            <h4 class="text-white fw-bold mb-3"><i class="fa-solid fa-globe me-2 text-info"></i> Network Intelligence</h4>
+            <div class="input-group">
+                <input type="text" id="ip-input" class="form-control bg-black border-white-10 text-white" placeholder="Enter IP Address (e.g. 8.8.8.8)">
+                <button id="find-ip-btn" class="btn btn-primary px-4">Trace</button>
+            </div>
+        </div>
 
-  <div class="card p-3 p-md-4 mx-auto" style="max-width: 700px">
-    <!-- Input -->
-    <div class="mb-3">
-      <label for="ip-input" class="form-label"
-        >Enter IP Address (leave blank for your IP):</label
-      >
-      <div class="input-group">
-        <input
-          type="text"
-          id="ip-input"
-          class="form-control"
-          placeholder="e.g., 8.8.8.8"
-        />
-        <button id="find-ip-btn" class="btn btn-primary">Find Info</button>
-      </div>
+        <!-- Map & Data -->
+        <div class="row g-0">
+            <div class="col-md-7 position-relative" style="min-height: 300px;">
+                <!-- Map Placeholder / Iframe -->
+                <iframe id="map-frame" class="w-100 h-100 border-0 bg-dark" style="filter: invert(90%) hue-rotate(180deg);"></iframe>
+                <div class="position-absolute bottom-0 start-0 p-2">
+                    <span class="badge bg-dark border border-white-10 text-white">Live Map</span>
+                </div>
+            </div>
+            
+            <div class="col-md-5 bg-darker border-start border-white-10 p-4">
+                <h6 class="text-secondary text-uppercase fw-bold mb-3 small">IP Details</h6>
+                
+                <div class="mb-3">
+                    <small class="text-white-50 d-block">IP Address</small>
+                    <div class="fw-bold text-white font-monospace fs-5" id="res-ip">--</div>
+                </div>
+                <div class="mb-3">
+                    <small class="text-white-50 d-block">ISP / Org</small>
+                    <div class="fw-bold text-white" id="res-org">--</div>
+                </div>
+                <div class="mb-3">
+                    <small class="text-white-50 d-block">Location</small>
+                    <div class="fw-bold text-white" id="res-loc">--</div>
+                </div>
+                <div class="mb-3">
+                    <small class="text-white-50 d-block">Coordinates</small>
+                    <div class="fw-bold text-white font-monospace small" id="res-coords">--</div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <!-- Status Message -->
-    <p id="ip-status" class="text-center small mt-2"></p>
-
-    <!-- Results -->
-    <div id="ip-results-container" class="d-none">
-      <ul class="list-group">
-        <li
-          class="list-group-item d-flex justify-content-between align-items-center"
-        >
-          IP Address
-          <strong id="result-ip">--</strong>
-        </li>
-        <li
-          class="list-group-item d-flex justify-content-between align-items-center"
-        >
-          Location
-          <strong id="result-location">--</strong>
-        </li>
-        <li
-          class="list-group-item d-flex justify-content-between align-items-center"
-        >
-          ISP
-          <strong id="result-isp">--</strong>
-        </li>
-        <li
-          class="list-group-item d-flex justify-content-between align-items-center"
-        >
-          Organization
-          <strong id="result-org">--</strong>
-        </li>
-      </ul>
-      <div class="text-center mt-3">
-        <a
-          id="map-link"
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn btn-secondary btn-sm"
-          >View on Map</a
-        >
-      </div>
-    </div>
-  </div>
 </div>
+
+<style>
+.bg-darker { background: rgba(0,0,0,0.3); }
+</style>

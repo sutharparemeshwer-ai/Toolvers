@@ -1,78 +1,44 @@
-<!-- tools/ascii-art-generator.html -->
-<div class="container-fluid mt-4">
-  <h4 class="mb-4 text-center">
-    <i class="fa-solid fa-font me-2"></i> ASCII Art Generator
-  </h4>
+<div class="container py-5">
+    <div class="glass-panel p-5 mx-auto" style="max-width: 800px;">
+        <h4 class="text-white fw-bold mb-4 text-center"><i class="fa-solid fa-terminal me-2 text-success"></i> ASCII Art Studio</h4>
+        
+        <div class="row g-4">
+            <div class="col-md-5">
+                <div class="p-4 bg-dark border border-white-10 rounded-3">
+                    <label class="btn btn-outline-light w-100 mb-3 border-dashed py-4">
+                        <i class="fa-solid fa-image fa-2x mb-2 d-block"></i>
+                        Upload Image
+                        <input type="file" id="img-upload" accept="image/*" hidden>
+                    </label>
+                    
+                    <div class="mb-3">
+                        <label class="text-white-50 small">Resolution (Width)</label>
+                        <input type="range" id="resolution" class="form-range" min="20" max="150" value="80">
+                        <div class="text-end text-white small" id="res-val">80 chars</div>
+                    </div>
 
-  <div class="card p-3 p-md-4 mx-auto" style="max-width: 800px">
-    <!-- Input Section -->
-    <div class="row g-3 align-items-end">
-      <div class="col-md-6">
-        <label for="ascii-image-upload" class="form-label"
-          >1. Upload an Image:</label
-        >
-        <input
-          class="form-control"
-          type="file"
-          id="ascii-image-upload"
-          accept="image/*"
-        />
-      </div>
-      <div class="col-md-6">
-        <label for="ascii-density" class="form-label">2. Adjust Detail:</label>
-        <input
-          type="range"
-          class="form-range"
-          id="ascii-density"
-          min="40"
-          max="200"
-          value="120"
-          step="10"
-        />
-        <small class="form-text text-muted">Higher value = more detail.</small>
-      </div>
-    </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="invert-color">
+                        <label class="form-check-label text-white small">Invert Brightness</label>
+                    </div>
+                </div>
+            </div>
 
-    <div class="mt-3">
-      <div class="form-check form-check-inline">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="ascii-invert-colors"
-        />
-        <label class="form-check-label" for="ascii-invert-colors"
-          >Invert Colors</label
-        >
-      </div>
+            <div class="col-md-7">
+                <div class="bg-black p-3 rounded-3 border border-white-10 position-relative custom-scrollbar" style="height: 400px; overflow: auto;">
+                    <pre id="ascii-output" class="text-success m-0" style="font-family: 'Courier New', monospace; font-size: 6px; line-height: 6px;">
+  __  __
+ /  \/  \
+|        |
+ \      /
+  \    /
+   \  /
+    \/
+(Upload an image!)
+                    </pre>
+                    <button id="copy-btn" class="btn btn-sm btn-light position-absolute top-0 end-0 m-3 opacity-50 hover-opacity-100">Copy</button>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <hr />
-
-    <!-- Output Section -->
-    <div id="ascii-output-container" class="d-none">
-      <h5 class="mb-2">Generated ASCII Art:</h5>
-      <div class="position-relative">
-        <pre
-          id="ascii-output"
-          class="p-3 rounded bg-dark text-light"
-          style="
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 8px;
-            line-height: 6px;
-            overflow-x: auto;
-            white-space: pre;
-          "
-        ></pre>
-        <button
-          id="copy-ascii-btn"
-          class="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2"
-        >
-          <i class="fa-solid fa-copy me-1"></i> Copy
-        </button>
-      </div>
-    </div>
-    <div id="ascii-message" class="text-center text-muted mt-3">
-      Upload an image to get started.
-    </div>
-  </div>
 </div>

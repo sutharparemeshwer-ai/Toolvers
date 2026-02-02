@@ -1,80 +1,73 @@
-<!-- tools/blog-with-ai-content-generator.html -->
-<div class="container-fluid mt-4">
-  <h4 class="mb-4 text-center text-light">
-    <i class="fa-solid fa-magic-sparkles me-2"></i> Blog with AI Content
-    Generator
-  </h4>
-
-  <div class="row g-4">
-    <!-- AI Assistant Column -->
-    <div class="col-lg-4">
-      <div class="card p-3 sticky-lg-top" style="top: 20px">
-        <h5 class="mb-3"><i class="fa-solid fa-robot me-2"></i>AI Assistant</h5>
-        <div class="mb-3">
-          <label for="ai-topic-input" class="form-label"
-            >Enter a Blog Topic</label
-          >
-          <input
-            type="text"
-            id="ai-topic-input"
-            class="form-control"
-            placeholder="e.g., The benefits of remote work"
-          />
+<div class="container-fluid h-100 p-0 d-flex flex-column" style="min-height: 85vh;">
+    <!-- Toolbar -->
+    <div class="border-bottom border-white-10 bg-dark p-3 d-flex justify-content-between align-items-center">
+        <h5 class="mb-0 fw-bold text-white"><i class="fa-solid fa-pen-nib me-2 text-primary"></i> AI Writer</h5>
+        <div class="d-flex gap-2">
+            <button id="new-post-btn" class="btn btn-outline-light btn-sm"><i class="fa-solid fa-plus me-1"></i> New Draft</button>
+            <button id="save-post-btn" class="btn btn-success btn-sm"><i class="fa-solid fa-floppy-disk me-1"></i> Save</button>
         </div>
-        <button id="generate-content-btn" class="btn btn-primary w-100">
-          Generate Content
-        </button>
-        <div id="ai-status" class="text-center small text-muted mt-2"></div>
-      </div>
     </div>
 
-    <!-- Blog Editor and Posts Column -->
-    <div class="col-lg-8">
-      <!-- Editor -->
-      <div class="card p-3 mb-4">
-        <h5 class="mb-3">
-          <i class="fa-solid fa-pen-to-square me-2"></i>Blog Post Editor
-        </h5>
-        <form id="blog-post-form">
-          <input type="hidden" id="post-id-input" />
-          <div class="mb-3">
-            <label for="post-title-input" class="form-label">Title</label>
-            <input
-              type="text"
-              id="post-title-input"
-              class="form-control"
-              required
-            />
-          </div>
-          <div class="mb-3">
-            <label for="post-content-input" class="form-label">Content</label>
-            <textarea
-              id="post-content-input"
-              class="form-control"
-              rows="10"
-              required
-            ></textarea>
-          </div>
-          <div class="d-flex justify-content-end gap-2">
-            <button type="button" id="clear-form-btn" class="btn btn-secondary">
-              New Post
-            </button>
-            <button type="submit" class="btn btn-success">Save Post</button>
-          </div>
-        </form>
-      </div>
+    <div class="row g-0 flex-grow-1 h-100">
+        <!-- Sidebar: AI Controls & Drafts -->
+        <div class="col-lg-3 bg-darker border-end border-white-10 d-flex flex-column custom-scrollbar" style="max-height: 85vh; overflow-y: auto;">
+            
+            <!-- AI Generator -->
+            <div class="p-4 border-bottom border-white-10">
+                <h6 class="text-white small fw-bold text-uppercase mb-3">AI Assistant</h6>
+                <div class="mb-3">
+                    <label class="text-white-50 small mb-1">Topic</label>
+                    <textarea id="ai-topic" class="form-control bg-black border-white-10 text-white" rows="2" placeholder="e.g. Future of Space Travel"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="text-white-50 small mb-1">Tone</label>
+                    <select id="ai-tone" class="form-select bg-black border-white-10 text-white">
+                        <option value="informative">Informative</option>
+                        <option value="casual">Casual</option>
+                        <option value="persuasive">Persuasive</option>
+                        <option value="storytelling">Storytelling</option>
+                    </select>
+                </div>
+                <button id="generate-btn" class="btn btn-primary w-100"><i class="fa-solid fa-magic me-2"></i> Draft with AI</button>
+            </div>
 
-      <!-- Saved Posts -->
-      <div class="card p-3">
-        <h5 class="mb-3">
-          <i class="fa-solid fa-list-alt me-2"></i>My Saved Posts
-        </h5>
-        <div id="saved-posts-list" class="list-group">
-          <p id="no-posts-message" class="text-center text-muted">
-            No posts saved yet.
-          </p>
+            <!-- Saved Drafts -->
+            <div class="p-4 flex-grow-1">
+                <h6 class="text-white small fw-bold text-uppercase mb-3">Saved Drafts</h6>
+                <div id="drafts-list" class="d-flex flex-column gap-2">
+                    <!-- Draft items injected here -->
+                </div>
+            </div>
         </div>
-      </div>
+
+        <!-- Editor Area -->
+        <div class="col-lg-9 bg-dark position-relative">
+            <div class="p-5 h-100 d-flex flex-column">
+                <input type="text" id="post-title" class="form-control bg-transparent border-0 text-white fw-bold display-6 mb-3 px-0" placeholder="Post Title..." style="outline: none; box-shadow: none;">
+                <textarea id="post-content" class="form-control bg-transparent border-0 text-secondary flex-grow-1 px-0 custom-scrollbar" style="resize: none; outline: none; box-shadow: none; font-size: 1.1rem; line-height: 1.8;" placeholder="Start writing or generate content..."></textarea>
+            </div>
+            
+            <!-- Loading Overlay -->
+            <div id="ai-loading" class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-75 d-none justify-content-center align-items-center z-3 backdrop-blur">
+                <div class="text-center">
+                    <div class="spinner-border text-primary mb-3" role="status"></div>
+                    <h5 class="text-white">Writing your masterpiece...</h5>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
+
+<style>
+.bg-darker { background: rgba(0,0,0,0.2); }
+.backdrop-blur { backdrop-filter: blur(5px); }
+.draft-item {
+    padding: 10px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.draft-item:hover { background: rgba(255,255,255,0.1); }
+.draft-item.active { border-left: 3px solid var(--primary-color); background: rgba(59, 130, 246, 0.1); }
+</style>

@@ -1,70 +1,53 @@
 // js/tools/date-difference.js
+
+function calc(e) {
+    if(e) e.preventDefault();
+    const startInput = document.getElementById('start-date');
+    const endInput = document.getElementById('end-date');
+    
+    if(!startInput.value || !endInput.value) return;
+
+    const d1 = new Date(startInput.value);
+    const d2 = new Date(endInput.value);
+    
+    // Swap if d1 > d2
+    const start = d1 < d2 ? d1 : d2;
+    const end = d1 < d2 ? d2 : d1;
+
+    // Years/Months/Days logic
+    let years = end.getFullYear() - start.getFullYear();
+    let months = end.getMonth() - start.getMonth();
+    let days = end.getDate() - start.getDate();
+
+    if (days < 0) {
+        months--;
+        days += new Date(end.getFullYear(), end.getMonth(), 0).getDate();
+    }
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+
+    // Totals
+    const diffTime = Math.abs(end - start);
+    const totalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const totalWeeks = (totalDays / 7).toFixed(1);
+
+    document.getElementById('res-years').textContent = years;
+    document.getElementById('res-months').textContent = months;
+    document.getElementById('res-days').textContent = days;
+    
+    document.getElementById('total-days').textContent = totalDays.toLocaleString();
+    document.getElementById('total-weeks').textContent = totalWeeks;
+    
+    document.getElementById('results-grid').classList.remove('d-none');
+}
+
 export function init() {
-  const form = document.getElementById("date-diff-form");
-  if (form) form.addEventListener("submit", handleSubmit);
+    const form = document.getElementById('date-diff-form');
+    if(form) form.addEventListener('submit', calc);
 }
 
 export function cleanup() {
-  const form = document.getElementById("date-diff-form");
-  if (form) form.removeEventListener("submit", handleSubmit);
-}
-
-function handleSubmit(e) {
-  e.preventDefault();
-  const startDateInput = document.getElementById("start-date");
-  const endDateInput = document.getElementById("end-date");
-  const resultContainer = document.getElementById("date-diff-result-container");
-  const yearsEl = document.getElementById("date-diff-years");
-  const monthsEl = document.getElementById("date-diff-months");
-  const daysEl = document.getElementById("date-diff-days");
-  const errorEl = document.getElementById("date-diff-error");
-
-  resultContainer.classList.remove("d-none"); // Show the results area
-  errorEl.textContent = ""; // Clear previous errors
-
-  const resetResults = () => {
-    yearsEl.textContent = "--";
-    monthsEl.textContent = "--";
-    daysEl.textContent = "--";
-  };
-
-  if (!startDateInput.value || !endDateInput.value) {
-    errorEl.textContent = "Please select both a start and end date.";
-    resetResults();
-    return;
-  }
-
-  let date1 = new Date(startDateInput.value);
-  let date2 = new Date(endDateInput.value);
-
-  // Ensure date1 is the earlier date
-  if (date1 > date2) {
-    [date1, date2] = [date2, date1]; // Swap dates
-  }
-
-  let years = date2.getFullYear() - date1.getFullYear();
-  let months = date2.getMonth() - date1.getMonth();
-  let days = date2.getDate() - date1.getDate();
-
-  // Adjust for negative days
-  if (days < 0) {
-    months--;
-    // Get the last day of the previous month for date2
-    const lastDayOfPrevMonth = new Date(
-      date2.getFullYear(),
-      date2.getMonth(),
-      0
-    ).getDate();
-    days += lastDayOfPrevMonth;
-  }
-
-  // Adjust for negative months
-  if (months < 0) {
-    years--;
-    months += 12;
-  }
-
-  yearsEl.textContent = years;
-  monthsEl.textContent = months;
-  daysEl.textContent = days;
+    //
 }

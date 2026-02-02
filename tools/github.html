@@ -1,16 +1,58 @@
-<div class="card p-4 mx-auto" style="max-width: 700px;">
-    <h4 class="text-center"><i class="fa-brands fa-github"></i> GitHub Profile Finder</h4>
-    <p class="small text-center mb-4">Enter a GitHub username to view their profile stats and repositories.</p>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="glass-panel p-4 mb-4">
+                <form id="gh-form" class="input-group">
+                    <span class="input-group-text bg-dark border-white-10 text-secondary">@</span>
+                    <input type="text" id="gh-input" class="form-control bg-dark border-white-10 text-white" placeholder="GitHub Username">
+                    <button class="btn btn-primary px-4"><i class="fa-solid fa-search"></i></button>
+                </form>
+            </div>
 
-    <form id="github-search-form" class="input-group mb-4">
-        <input type="text" class="form-control" id="github-username-input" placeholder="Enter GitHub Username (e.g., torvalds)" required>
-        <button class="btn btn-dark" type="submit" id="search-github-btn">Search Profile</button>
-    </form>
-    
-    <div id="message-area-github" class="alert alert-info text-center d-none" role="alert">
-        Fetching profile...
-    </div>
+            <div id="profile-card" class="d-none animate-fade-in">
+                <div class="glass-panel p-0 overflow-hidden">
+                    <!-- Header -->
+                    <div class="p-4 bg-dark border-bottom border-white-10 d-flex align-items-center gap-4">
+                        <img id="gh-avatar" src="" class="rounded-circle border border-white-10" width="80" height="80">
+                        <div>
+                            <h4 class="text-white fw-bold mb-1" id="gh-name">Name</h4>
+                            <a id="gh-login" href="#" target="_blank" class="text-primary text-decoration-none small">@login</a>
+                            <p class="text-white-50 small mt-2 mb-0" id="gh-bio">Bio goes here...</p>
+                        </div>
+                    </div>
 
-    <div id="profile-container" class="mt-4">
+                    <!-- Stats -->
+                    <div class="d-flex text-center border-bottom border-white-10 bg-black bg-opacity-25">
+                        <div class="flex-fill p-3 border-end border-white-10">
+                            <div class="fw-bold text-white" id="gh-repos">0</div>
+                            <small class="text-secondary text-uppercase" style="font-size: 0.7rem;">Repos</small>
+                        </div>
+                        <div class="flex-fill p-3 border-end border-white-10">
+                            <div class="fw-bold text-white" id="gh-followers">0</div>
+                            <small class="text-secondary text-uppercase" style="font-size: 0.7rem;">Followers</small>
+                        </div>
+                        <div class="flex-fill p-3">
+                            <div class="fw-bold text-white" id="gh-following">0</div>
+                            <small class="text-secondary text-uppercase" style="font-size: 0.7rem;">Following</small>
+                        </div>
+                    </div>
+
+                    <!-- Info -->
+                    <div class="p-4">
+                        <div class="d-flex gap-4 text-white-50 small mb-4">
+                            <span id="gh-location"><i class="fa-solid fa-location-dot me-2"></i> Location</span>
+                            <span id="gh-date"><i class="fa-regular fa-calendar me-2"></i> Joined</span>
+                        </div>
+                        
+                        <h6 class="text-white small fw-bold text-uppercase mb-3">Latest Repositories</h6>
+                        <div id="gh-repo-list" class="d-flex flex-column gap-2">
+                            <!-- Repos injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="gh-error" class="text-center text-danger mt-4 d-none"></div>
         </div>
+    </div>
 </div>

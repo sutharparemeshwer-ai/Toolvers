@@ -1,87 +1,71 @@
-<!-- tools/color-palette-generator.html -->
-<div class="container-fluid mt-4">
-  <h4 class="mb-4 text-center text-light">
-    <i class="fa-solid fa-palette me-2"></i> Color Palette Generator
-  </h4>
-
-  <div class="card p-3 p-md-4 mx-auto">
-    <div class="row g-4">
-      <!-- Color Picker & Info Column -->
-      <div class="col-lg-4 col-xl-3">
-        <div class="color-picker-container">
-          <h5 class="mb-3">Base Color</h5>
-          <div id="base-color-preview" class="mb-3">
-            <input
-              type="color"
-              id="base-color-picker"
-              value="#56caad"
-              title="Select a color"
-            />
-          </div>
-          <div id="color-info-display" class="p-3 rounded">
-            <!-- Color codes will be displayed here -->
-          </div>
-          <div class="mt-3">
-            <button id="random-color-btn" class="btn btn-secondary w-100">
-              Random Color
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Palettes Column -->
-      <div class="col-lg-8 col-xl-9">
-        <h5 class="mb-3">2. Generated Palettes</h5>
-
-        <!-- Monochromatic -->
-        <div class="mb-3">
-          <h6 class="palette-title">Monochromatic</h6>
-          <div id="monochromatic-palette" class="palette-row"></div>
+<div class="container py-5">
+    <div class="glass-panel p-5 mx-auto" style="max-width: 900px;">
+        <div class="text-center mb-5">
+            <h2 class="text-white fw-bold"><i class="fa-solid fa-palette me-2 text-primary"></i> Color Studio</h2>
+            <p class="text-secondary">Generate harmonious color schemes instantly.</p>
         </div>
 
-        <!-- Analogous -->
-        <div class="mb-3">
-          <h6 class="palette-title">Analogous</h6>
-          <div id="analogous-palette" class="palette-row"></div>
-        </div>
+        <div class="row g-5">
+            <!-- Controls -->
+            <div class="col-md-4 border-end border-white-10">
+                <div class="mb-4">
+                    <label class="text-white small fw-bold mb-2">Base Color</label>
+                    <div class="input-group">
+                        <input type="color" id="base-color-picker" class="form-control form-control-color bg-dark border-white-10" value="#3b82f6" title="Choose your color">
+                        <input type="text" id="base-color-text" class="form-control bg-dark border-white-10 text-white font-monospace" value="#3b82f6">
+                    </div>
+                </div>
+                <button id="random-color-btn" class="btn btn-outline-light w-100 mb-3"><i class="fa-solid fa-shuffle me-2"></i> Randomize</button>
+                
+                <div class="p-3 bg-white-5 rounded mt-4">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="small text-secondary">RGB</span>
+                        <span class="small text-white font-monospace" id="val-rgb">--</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="small text-secondary">HSL</span>
+                        <span class="small text-white font-monospace" id="val-hsl">--</span>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Complementary -->
-        <div class="mb-3">
-          <h6 class="palette-title">Complementary</h6>
-          <div id="complementary-palette" class="palette-row"></div>
+            <!-- Palettes -->
+            <div class="col-md-8">
+                <div class="mb-4">
+                    <h6 class="text-white small fw-bold text-uppercase mb-3">Monochromatic</h6>
+                    <div id="monochromatic-palette" class="palette-row d-flex rounded overflow-hidden"></div>
+                </div>
+                <div class="mb-4">
+                    <h6 class="text-white small fw-bold text-uppercase mb-3">Analogous</h6>
+                    <div id="analogous-palette" class="palette-row d-flex rounded overflow-hidden"></div>
+                </div>
+                <div class="mb-4">
+                    <h6 class="text-white small fw-bold text-uppercase mb-3">Complementary</h6>
+                    <div id="complementary-palette" class="palette-row d-flex rounded overflow-hidden"></div>
+                </div>
+                <div class="mb-4">
+                    <h6 class="text-white small fw-bold text-uppercase mb-3">Triadic</h6>
+                    <div id="triadic-palette" class="palette-row d-flex rounded overflow-hidden"></div>
+                </div>
+            </div>
         </div>
-
-        <!-- Triadic -->
-        <div class="mb-3">
-          <h6 class="palette-title">Triadic</h6>
-          <div id="triadic-palette" class="palette-row"></div>
-        </div>
-
-        <!-- Tints -->
-        <div class="mb-3 border-top pt-3">
-          <h6 class="palette-title">Tints (Mixed with White)</h6>
-          <div id="tints-palette" class="palette-row"></div>
-        </div>
-
-        <!-- Shades -->
-        <div class="mb-3">
-          <h6 class="palette-title">Shades (Mixed with Black)</h6>
-          <div id="shades-palette" class="palette-row"></div>
-        </div>
-      </div>
     </div>
-  </div>
-
-  <!-- Toast for copy confirmation -->
-  <div
-    id="copy-toast"
-    class="toast align-items-center text-white bg-success border-0 position-fixed bottom-0 end-0 m-3"
-    role="alert"
-    aria-live="assertive"
-    aria-atomic="true"
-  >
-    <div class="d-flex">
-      <div class="toast-body">Color code copied to clipboard!</div>
-    </div>
-  </div>
 </div>
+
+<style>
+.palette-row { height: 60px; cursor: pointer; }
+.color-swatch { flex: 1; transition: flex 0.2s; position: relative; }
+.color-swatch:hover { flex: 1.5; }
+.color-swatch::after {
+    content: attr(data-color);
+    position: absolute;
+    bottom: 0; left: 0; width: 100%;
+    text-align: center;
+    font-size: 10px;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.color-swatch:hover::after { opacity: 1; }
+</style>

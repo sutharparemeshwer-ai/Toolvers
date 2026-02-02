@@ -2,8 +2,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;700&display=swap");
 
 :root {
-  --bg-color: #1a1d24;
-  --card-bg-color: #252932;
+  --bg-color: #0b0f19;
+  --card-bg-color: #151b2b;
   --border-color: rgba(255, 255, 255, 0.1);
   --primary-accent: #3478f6;
   --primary-accent-glow: rgba(52, 120, 246, 0.15);
@@ -85,7 +85,7 @@ a {
 /* --- Light Theme Overrides --- */
 body.light-theme {
   --bg-color: #ffffff; /* A standard, clean light gray */
-  --card-bg-color: #f8f9fa; /* Pure white for cards */
+  --card-bg-color: #d4e5f7; /* Pure white for cards */
   --border-color: #dee2e6; /* A standard, subtle border color */
   --primary-accent: #3478f6; /* A modern, professional blue */
   --primary-accent-glow: rgba(52, 120, 246, 0.15);

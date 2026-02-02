@@ -1,21 +1,48 @@
-<!-- tools/connect-four.html -->
-<div class="container-fluid mt-4">
-    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-table-cells me-2"></i> Connect Four</h4>
-
+<div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-auto">
-            <div class="card p-3">
-                <!-- Game Info Bar -->
-                <div class="d-flex justify-content-between align-items-center mb-3 p-2 bg-dark rounded">
-                    <div id="c4-status" class="fw-bold">Player 1's Turn</div>
-                    <button id="c4-reset-btn" class="btn btn-sm btn-warning">Reset Game</button>
+        <div class="col-lg-6">
+            <div class="glass-panel p-4 text-center">
+                <h4 class="text-white fw-bold mb-4">Connect Four</h4>
+                
+                <div class="d-flex justify-content-between align-items-center mb-3 bg-black bg-opacity-25 p-2 rounded">
+                    <div id="c4-msg" class="text-white fw-bold small">Red's Turn</div>
+                    <button class="btn btn-sm btn-outline-warning" id="reset-btn">Reset</button>
                 </div>
 
-                <!-- Game Grid -->
-                <div id="connect-four-grid" style="display: grid; grid-template-columns: repeat(7, 50px); grid-template-rows: repeat(6, 50px); background-color: #0d6efd; border: 5px solid #0a58ca; border-radius: 10px; padding: 5px; gap: 5px;">
-                    <!-- Grid cells will be populated by JS -->
+                <div class="c4-board mx-auto" id="c4-grid">
+                    <!-- 6 rows x 7 cols -->
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+.c4-board {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    background: #2563eb; /* Classic Blue Board */
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+.c4-cell {
+    aspect-ratio: 1/1;
+    background: #0f172a; /* Dark background behind holes */
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+}
+.c4-cell:hover { background: #1e293b; }
+.c4-cell.red { background: #ef4444; box-shadow: inset 0 -2px 5px rgba(0,0,0,0.3); animation: drop 0.3s; }
+.c4-cell.yellow { background: #eab308; box-shadow: inset 0 -2px 5px rgba(0,0,0,0.3); animation: drop 0.3s; }
+
+@keyframes drop {
+    0% { transform: translateY(-300px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+</style>

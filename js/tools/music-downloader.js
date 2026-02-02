@@ -1,32 +1,19 @@
 // js/tools/music-downloader.js
 
 // --- Configuration ---
-// 🚨 IMPORTANT: Get your free API key from https://freesound.org/docs/api/authentication.html and replace 'YOUR_API_KEY'
 const FREESOUND_API_KEY = "GOmKdVpiFnZ7oAnKqI5Kfy0laMHssbh3gAFtp7Fn";
 const API_ENDPOINT = "https://freesound.org/apiv2/search/text/";
 
-// --- DOM Elements ---
-let searchInput, searchBtn, statusEl, resultsList;
-
-// --- State ---
+let searchInput, searchBtn, statusEl, resultsList, visualizer, titleEl;
 let currentAudio = null;
 
-/**
- * Displays a status message to the user.
- * @param {string} message - The text to display.
- * @param {boolean} isError - If true, formats the message as an error.
- */
 function showStatus(message, isError = false) {
   resultsList.innerHTML = "";
   statusEl.innerHTML = `<p class="my-0 ${
-    isError ? "text-danger" : "text-muted"
+    isError ? "text-danger" : "text-secondary"
   }">${message}</p>`;
 }
 
-/**
- * Renders the list of music tracks.
- * @param {Array} tracks - An array of track objects from the Freesound API.
- */
 function renderTracks(tracks) {
   resultsList.innerHTML = "";
   statusEl.innerHTML = "";
@@ -39,21 +26,21 @@ function renderTracks(tracks) {
   tracks.forEach((track) => {
     const trackElement = document.createElement("div");
     trackElement.className =
-      "list-group-item d-flex justify-content-between align-items-center";
+      "list-group-item d-flex justify-content-between align-items-center bg-transparent border-bottom border-white-10 text-white";
     const duration = Math.round(track.duration);
     trackElement.innerHTML = `
             <div>
-                <h6 class="mb-1">${track.name}</h6>
-                <small class="">Duration: ${Math.floor(
+                <h6 class="mb-1 fw-bold">${track.name}</h6>
+                <small class="text-secondary">Time: ${Math.floor(
                   duration / 60
-                )}:${String(duration % 60).padStart(2, "0")} | User: ${
+                )}:${String(duration % 60).padStart(2, "0")} | By: ${
       track.username
     }</small>
             </div>
             <div>
                 <button class="btn btn-sm btn-outline-primary play-pause-btn" data-src="${
                   track.previews["preview-hq-mp3"]
-                }">
+                }" data-title="${track.name}">
                     <i class="fa-solid fa-play"></i>
                 </button>
                 <a href="${track.download}" download="${
@@ -67,25 +54,18 @@ function renderTracks(tracks) {
   });
 }
 
-/**
- * Handles the search functionality.
- */
 async function handleSearch() {
   const query = searchInput.value.trim();
   if (!query) return;
 
   if (FREESOUND_API_KEY === "YOUR_API_KEY") {
-    showStatus(
-      "Please add your Freesound API key to js/tools/music-downloader.js to use this tool.",
-      true
-    );
+    showStatus("API Key Missing", true);
     return;
   }
 
   showStatus("Searching for sounds...");
 
   try {
-    // Freesound API requires the token in the Authorization header
     const response = await fetch(
       `${API_ENDPOINT}?query=${encodeURIComponent(
         query
@@ -100,18 +80,17 @@ async function handleSearch() {
   }
 }
 
-/**
- * Handles play/pause button clicks.
- */
 function handlePlayPause(event) {
   const button = event.target.closest(".play-pause-btn");
   if (!button) return;
 
   const audioSrc = button.dataset.src;
+  const trackTitle = button.dataset.title;
 
   if (currentAudio && currentAudio.src === audioSrc && !currentAudio.paused) {
     currentAudio.pause();
     button.innerHTML = '<i class="fa-solid fa-play"></i>';
+    visualizer.classList.add('d-none');
   } else {
     if (currentAudio) currentAudio.pause();
     document
@@ -121,18 +100,25 @@ function handlePlayPause(event) {
     currentAudio = new Audio(audioSrc);
     currentAudio.play();
     button.innerHTML = '<i class="fa-solid fa-pause"></i>';
-    currentAudio.onended = () =>
-      (button.innerHTML = '<i class="fa-solid fa-play"></i>');
+    
+    // Show Visualizer
+    visualizer.classList.remove('d-none');
+    titleEl.textContent = trackTitle;
+
+    currentAudio.onended = () => {
+      button.innerHTML = '<i class="fa-solid fa-play"></i>';
+      visualizer.classList.add('d-none');
+    };
   }
 }
-
-// --- Router Hooks ---
 
 export function init() {
   searchInput = document.getElementById("music-search-input");
   searchBtn = document.getElementById("music-search-btn");
   statusEl = document.getElementById("music-status");
   resultsList = document.getElementById("music-results-list");
+  visualizer = document.getElementById("visualizer-container");
+  titleEl = document.getElementById("now-playing-title");
 
   searchBtn.addEventListener("click", handleSearch);
   searchInput.addEventListener(

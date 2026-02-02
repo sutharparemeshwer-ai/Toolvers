@@ -1,151 +1,84 @@
 // js/tools/virtual-whiteboard.js
 
-let canvas, ctx;
-let colorPicker, brushSizeSlider, brushSizeValue, brushBtn, eraserBtn, clearBtn, downloadBtn;
-
+let canvas, ctx, colorInput;
 let isDrawing = false;
-let isErasing = false;
-let brushWidth = 5;
-let currentColor = '#FFFFFF';
-const ERASER_COLOR = '#212529'; // Match the app's dark background
+let mode = 'draw';
+let startX, startY;
+let savedData;
 
-function setCanvasSize() {
-    const parent = canvas.parentElement;
-    // Save current drawing
-    const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    canvas.width = parent.clientWidth;
-    // A common aspect ratio for whiteboards
-    canvas.height = parent.clientWidth * (9 / 16);
-    // Restore drawing
-    ctx.putImageData(data, 0, 0);
-    // Re-apply settings that might be lost on resize
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
-    ctx.lineWidth = brushWidth;
-    ctx.strokeStyle = isErasing ? ERASER_COLOR : currentColor;
+    ctx.lineWidth = 3;
 }
 
-function startDrawing(e) {
+function start(e) {
     isDrawing = true;
-    draw(e); // Start drawing immediately on click/touch
+    startX = e.clientX;
+    startY = e.clientY - 56; // Offset for header if needed
+    
+    if (mode === 'rect') {
+        savedData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    } else {
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+    }
 }
 
-function stopDrawing() {
-    isDrawing = false;
-    ctx.beginPath(); // Reset the path to start a new line next time
-}
-
-function draw(e) {
+function move(e) {
     if (!isDrawing) return;
+    const x = e.clientX;
+    const y = e.clientY - 56;
 
-    e.preventDefault();
+    ctx.strokeStyle = colorInput.value;
+    ctx.fillStyle = colorInput.value;
 
-    // Get coordinates for both mouse and touch events
-    const rect = canvas.getBoundingClientRect();
-    const x = (e.clientX || e.touches[0].clientX) - rect.left;
-    const y = (e.clientY || e.touches[0].clientY) - rect.top;
-
-    ctx.lineTo(x, y);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-}
-
-function handleColorChange(e) {
-    currentColor = e.target.value;
-    if (!isErasing) {
-        ctx.strokeStyle = currentColor;
+    if (mode === 'draw') {
+        ctx.lineTo(x, y);
+        ctx.stroke();
+    } else if (mode === 'rect') {
+        ctx.putImageData(savedData, 0, 0); // Clear preview
+        ctx.strokeRect(startX, startY, x - startX, y - startY);
     }
 }
 
-function handleBrushSizeChange(e) {
-    brushWidth = e.target.value;
-    brushSizeValue.textContent = brushWidth;
-    ctx.lineWidth = brushWidth;
+function end() {
+    isDrawing = false;
 }
-
-function activateBrush() {
-    isErasing = false;
-    ctx.strokeStyle = currentColor;
-    brushBtn.classList.add('active', 'btn-primary');
-    brushBtn.classList.remove('btn-outline-secondary');
-    eraserBtn.classList.remove('active', 'btn-primary');
-    eraserBtn.classList.add('btn-outline-secondary');
-}
-
-function activateEraser() {
-    isErasing = true;
-    ctx.strokeStyle = ERASER_COLOR;
-    eraserBtn.classList.add('active', 'btn-primary');
-    eraserBtn.classList.remove('btn-outline-secondary');
-    brushBtn.classList.remove('active', 'btn-primary');
-    brushBtn.classList.add('btn-outline-secondary');
-}
-
-function clearCanvas() {
-    if (confirm('Are you sure you want to clear the whiteboard?')) {
-        ctx.fillStyle = ERASER_COLOR;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-    }
-}
-
-function downloadImage() {
-    const link = document.createElement('a');
-    link.download = 'whiteboard.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-}
-
-let resizeObserver;
 
 export function init() {
-    canvas = document.getElementById('whiteboard-canvas');
-    if (!canvas) return;
+    canvas = document.getElementById('wb-canvas');
     ctx = canvas.getContext('2d');
+    colorInput = document.getElementById('wb-color');
+    
+    window.addEventListener('resize', resize);
+    resize();
 
-    // Get controls
-    colorPicker = document.getElementById('color-picker');
-    brushSizeSlider = document.getElementById('brush-size');
-    brushSizeValue = document.getElementById('brush-size-value');
-    brushBtn = document.getElementById('brush-btn');
-    eraserBtn = document.getElementById('eraser-btn');
-    clearBtn = document.getElementById('clear-btn');
-    downloadBtn = document.getElementById('download-btn');
+    canvas.addEventListener('mousedown', start);
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', end);
 
-    // Set initial canvas size and background
-    setCanvasSize();
-    ctx.fillStyle = ERASER_COLOR;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    document.getElementById('mode-draw').onclick = (e) => {
+        mode = 'draw';
+        e.target.classList.add('active');
+        document.getElementById('mode-rect').classList.remove('active');
+    };
+    
+    document.getElementById('mode-rect').onclick = (e) => {
+        mode = 'rect';
+        e.target.classList.add('active');
+        document.getElementById('mode-draw').classList.remove('active');
+    };
 
-    // Add event listeners
-    canvas.addEventListener('mousedown', startDrawing);
-    canvas.addEventListener('mouseup', stopDrawing);
-    canvas.addEventListener('mouseout', stopDrawing);
-    canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('touchstart', startDrawing, { passive: false });
-    canvas.addEventListener('touchend', stopDrawing);
-    canvas.addEventListener('touchmove', draw, { passive: false });
-
-    colorPicker.addEventListener('input', handleColorChange);
-    brushSizeSlider.addEventListener('input', handleBrushSizeChange);
-    brushBtn.addEventListener('click', activateBrush);
-    eraserBtn.addEventListener('click', activateEraser);
-    clearBtn.addEventListener('click', clearCanvas);
-    downloadBtn.addEventListener('click', downloadImage);
-
-    // Use ResizeObserver to handle responsive canvas size
-    resizeObserver = new ResizeObserver(setCanvasSize);
-    resizeObserver.observe(canvas.parentElement);
-
-    // Set initial tool state
-    activateBrush();
-    handleBrushSizeChange({ target: { value: brushWidth } });
+    document.getElementById('wb-clear').onclick = () => {
+        ctx.clearRect(0,0, canvas.width, canvas.height);
+    };
 }
 
 export function cleanup() {
-    if (resizeObserver && canvas) {
-        resizeObserver.unobserve(canvas.parentElement);
-    }
-    // All other listeners are on elements that will be removed from the DOM,
-    // so manual removal isn't strictly necessary for this tool.
+    window.removeEventListener('resize', resize);
+    window.removeEventListener('mouseup', end);
+    window.removeEventListener('mousemove', move);
 }

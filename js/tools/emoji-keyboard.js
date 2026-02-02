@@ -1,103 +1,473 @@
 // js/tools/emoji-keyboard.js
+import { Toast } from '../ui.js';
 
-// A curated list of emojis with keywords for searching
-const EMOJI_LIST = [
-    { emoji: '😀', name: 'grinning face' }, { emoji: '😂', name: 'face with tears of joy' }, { emoji: '😍', name: 'smiling face with heart-eyes' },
-    { emoji: '🤔', name: 'thinking face' }, { emoji: '👍', name: 'thumbs up' }, { emoji: '👎', name: 'thumbs down' }, { emoji: '❤️', name: 'red heart' },
-    { emoji: '🔥', name: 'fire' }, { emoji: '🚀', name: 'rocket' }, { emoji: '🎉', name: 'party popper' }, { emoji: '💻', name: 'laptop computer' },
-    { emoji: '🧠', name: 'brain' }, { emoji: '💡', name: 'light bulb' }, { emoji: '💰', name: 'money bag' }, { emoji: '📈', name: 'chart increasing' },
-    { emoji: '⭐', name: 'star' }, { emoji: '✅', name: 'check mark button' }, { emoji: '❌', name: 'cross mark' }, { emoji: '👋', name: 'waving hand' },
-    { emoji: '😊', name: 'smiling face with smiling eyes' }, { emoji: '😎', name: 'smiling face with sunglasses' }, { emoji: '😢', name: 'crying face' },
-    { emoji: '🤯', name: 'exploding head' }, { emoji: '🙌', name: 'raising hands' }, { emoji: '🙏', name: 'folded hands' }, { emoji: '💪', name: 'flexed biceps' },
-    { emoji: '👀', name: 'eyes' }, { emoji: '💯', name: 'hundred points' }, { emoji: '🤖', name: 'robot' }, { emoji: '👻', name: 'ghost' },
-    { emoji: '🍕', name: 'pizza' }, { emoji: '🍔', name: 'hamburger' }, { emoji: '☕', name: 'coffee' }, { emoji: '🌍', name: 'earth globe europe-africa' },
-    { emoji: '☀️', name: 'sun' }, { emoji: '🌙', 'name': 'crescent moon' }, { emoji: '🚗', name: 'car' }, { emoji: '✈️', name: 'airplane' }
+// Massive Emoji Dataset
+const EMOJIS = [
+    // Smileys & Emotion
+    {c:'smileys', e:'😀', n:'grinning face'}, {c:'smileys', e:'😃', n:'grinning face with big eyes'}, {c:'smileys', e:'😄', n:'grinning face with smiling eyes'},
+    {c:'smileys', e:'😁', n:'beaming face with smiling eyes'}, {c:'smileys', e:'😆', n:'grinning squinting face'}, {c:'smileys', e:'😅', n:'grinning face with sweat'},
+    {c:'smileys', e:'🤣', n:'rolling on the floor laughing'}, {c:'smileys', e:'😂', n:'face with tears of joy'}, {c:'smileys', e:'🙂', n:'slightly smiling face'},
+    {c:'smileys', e:'🙃', n:'upside-down face'}, {c:'smileys', e:'😉', n:'winking face'}, {c:'smileys', e:'😊', n:'smiling face with smiling eyes'},
+    {c:'smileys', e:'😇', n:'smiling face with halo'}, {c:'smileys', e:'🥰', n:'smiling face with hearts'}, {c:'smileys', e:'😍', n:'smiling face with heart-eyes'},
+    {c:'smileys', e:'🤩', n:'star-struck'}, {c:'smileys', e:'😘', n:'face blowing a kiss'}, {c:'smileys', e:'😗', n:'kissing face'},
+    {c:'smileys', e:'☺️', n:'smiling face'}, {c:'smileys', e:'😚', n:'kissing face with closed eyes'}, {c:'smileys', e:'😙', n:'kissing face with smiling eyes'},
+    {c:'smileys', e:'😋', n:'face savoring food'}, {c:'smileys', e:'😛', n:'face with tongue'}, {c:'smileys', e:'😜', n:'winking face with tongue'},
+    {c:'smileys', e:'🤪', n:'zany face'}, {c:'smileys', e:'😝', n:'squinting face with tongue'}, {c:'smileys', e:'🤑', n:'money-mouth face'},
+    {c:'smileys', e:'🤗', n:'hugging face'}, {c:'smileys', e:'🤭', n:'face with hand over mouth'}, {c:'smileys', e:'🤫', n:'shushing face'},
+    {c:'smileys', e:'🤔', n:'thinking face'}, {c:'smileys', e:'🤐', n:'zipper-mouth face'}, {c:'smileys', e:'🤨', n:'face with raised eyebrow'},
+    {c:'smileys', e:'😐', n:'neutral face'}, {c:'smileys', e:'😑', n:'expressionless face'}, {c:'smileys', e:'😶', n:'face without mouth'},
+    {c:'smileys', e:'😏', n:'smirking face'}, {c:'smileys', e:'😒', n:'unamused face'}, {c:'smileys', e:'🙄', n:'face with rolling eyes'},
+    {c:'smileys', e:'😬', n:'grimacing face'}, {c:'smileys', e:'🤥', n:'lying face'}, {c:'smileys', e:'😌', n:'relieved face'},
+    {c:'smileys', e:'😔', n:'pensive face'}, {c:'smileys', e:'😪', n:'sleepy face'}, {c:'smileys', e:'🤤', n:'drooling face'},
+    {c:'smileys', e:'😴', n:'sleeping face'}, {c:'smileys', e:'😷', n:'face with medical mask'}, {c:'smileys', e:'🤒', n:'face with thermometer'},
+    {c:'smileys', e:'🤕', n:'face with head-bandage'}, {c:'smileys', e:'🤢', n:'nauseated face'}, {c:'smileys', e:'🤮', n:'face vomiting'},
+    {c:'smileys', e:'🤧', n:'sneezing face'}, {c:'smileys', e:'🥵', n:'hot face'}, {c:'smileys', e:'🥶', n:'cold face'},
+    {c:'smileys', e:'🥴', n:'woozy face'}, {c:'smileys', e:'😵', n:'dizzy face'}, {c:'smileys', e:'🤯', n:'exploding head'},
+    {c:'smileys', e:'🤠', n:'cowboy hat face'}, {c:'smileys', e:'🥳', n:'partying face'}, {c:'smileys', e:'😎', n:'smiling face with sunglasses'},
+    {c:'smileys', e:'🤓', n:'nerd face'}, {c:'smileys', e:'🧐', n:'face with monocle'}, {c:'smileys', e:'😕', n:'confused face'},
+    {c:'smileys', e:'😟', n:'worried face'}, {c:'smileys', e:'🙁', n:'slightly frowning face'}, {c:'smileys', e:'☹️', n:'frowning face'},
+    {c:'smileys', e:'😮', n:'face with open mouth'}, {c:'smileys', e:'😯', n:'hushed face'}, {c:'smileys', e:'😲', n:'astonished face'},
+    {c:'smileys', e:'😳', n:'flushed face'}, {c:'smileys', e:'🥺', n:'pleading face'}, {c:'smileys', e:'😦', n:'frowning face with open mouth'},
+    {c:'smileys', e:'😧', n:'anguished face'}, {c:'smileys', e:'😨', n:'fearful face'}, {c:'smileys', e:'😰', n:'anxious face with sweat'},
+    {c:'smileys', e:'😥', n:'sad but relieved face'}, {c:'smileys', e:'😢', n:'crying face'}, {c:'smileys', e:'😭', n:'loudly crying face'},
+    {c:'smileys', e:'😱', n:'face screaming in fear'}, {c:'smileys', e:'😖', n:'confounded face'}, {c:'smileys', e:'😣', n:'persevering face'},
+    {c:'smileys', e:'😞', n:'disappointed face'}, {c:'smileys', e:'😓', n:'downcast face with sweat'}, {c:'smileys', e:'😩', n:'weary face'},
+    {c:'smileys', e:'😫', n:'tired face'}, {c:'smileys', e:'🥱', n:'yawning face'}, {c:'smileys', e:'😤', n:'face with steam from nose'},
+    {c:'smileys', e:'😡', n:'pouting face'}, {c:'smileys', e:'😠', n:'angry face'}, {c:'smileys', e:'🤬', n:'face with symbols on mouth'},
+    {c:'smileys', e:'😈', n:'smiling face with horns'}, {c:'smileys', e:'👿', n:'angry face with horns'}, {c:'smileys', e:'💀', n:'skull'},
+    {c:'smileys', e:'☠️', n:'skull and crossbones'}, {c:'smileys', e:'💩', n:'pile of poo'}, {c:'smileys', e:'🤡', n:'clown face'},
+    {c:'smileys', e:'👹', n:'ogre'}, {c:'smileys', e:'👺', n:'goblin'}, {c:'smileys', e:'👻', n:'ghost'},
+    {c:'smileys', e:'👽', n:'alien'}, {c:'smileys', e:'👾', n:'alien monster'}, {c:'smileys', e:'🤖', n:'robot'},
+
+    // People & Body
+    {c:'people', e:'👋', n:'waving hand'}, {c:'people', e:'🤚', n:'raised back of hand'}, {c:'people', e:'🖐️', n:'hand with fingers splayed'},
+    {c:'people', e:'✋', n:'raised hand'}, {c:'people', e:'🖖', n:'vulcan salute'}, {c:'people', e:'👌', n:'OK hand'},
+    {c:'people', e:'🤏', n:'pinching hand'}, {c:'people', e:'✌️', n:'victory hand'}, {c:'people', e:'🤞', n:'crossed fingers'},
+    {c:'people', e:'🤟', n:'love-you gesture'}, {c:'people', e:'🤘', n:'sign of the horns'}, {c:'people', e:'🤙', n:'call me hand'},
+    {c:'people', e:'👈', n:'backhand index pointing left'}, {c:'people', e:'👉', n:'backhand index pointing right'}, {c:'people', e:'👆', n:'backhand index pointing up'},
+    {c:'people', e:'🖕', n:'middle finger'}, {c:'people', e:'👇', n:'backhand index pointing down'}, {c:'people', e:'👍', n:'thumbs up'},
+    {c:'people', e:'👎', n:'thumbs down'}, {c:'people', e:'✊', n:'raised fist'}, {c:'people', e:'👊', n:'oncoming fist'},
+    {c:'people', e:'🤛', n:'left-facing fist'}, {c:'people', e:'🤜', n:'right-facing fist'}, {c:'people', e:'👏', n:'clapping hands'},
+    {c:'people', e:'🙌', n:'raising hands'}, {c:'people', e:'👐', n:'open hands'}, {c:'people', e:'🤲', n:'palms up together'},
+    {c:'people', e:'🤝', n:'handshake'}, {c:'people', e:'🙏', n:'folded hands'}, {c:'people', e:'💪', n:'flexed biceps'},
+    {c:'people', e:'🧠', n:'brain'}, {c:'people', e:'🦷', n:'tooth'}, {c:'people', e:'🦴', n:'bone'},
+    {c:'people', e:'👀', n:'eyes'}, {c:'people', e:'👁️', n:'eye'}, {c:'people', e:'👅', n:'tongue'},
+    {c:'people', e:'👄', n:'mouth'}, {c:'people', e:'💋', n:'kiss mark'}, {c:'people', e:'👶', n:'baby'},
+    {c:'people', e:'🧒', n:'child'}, {c:'people', e:'👦', n:'boy'}, {c:'people', e:'👧', n:'girl'},
+    {c:'people', e:'🧑', n:'person'}, {c:'people', e:'👱', n:'person: blond hair'}, {c:'people', e:'👨', n:'man'},
+    {c:'people', e:'🧔', n:'person: beard'}, {c:'people', e:'👩', n:'woman'}, {c:'people', e:'🧓', n:'older person'},
+    {c:'people', e:'👴', n:'old man'}, {c:'people', e:'👵', n:'old woman'}, {c:'people', e:'👮', n:'police officer'},
+    {c:'people', e:'🕵️', n:'detective'}, {c:'people', e:'💂', n:'guard'}, {c:'people', e:'👷', n:'construction worker'},
+    {c:'people', e:'🤴', n:'prince'}, {c:'people', e:'👸', n:'princess'}, {c:'people', e:'👳', n:'person wearing turban'},
+    {c:'people', e:'👲', n:'person with skullcap'}, {c:'people', e:'🧕', n:'woman with headscarf'}, {c:'people', e:'🤵', n:'person in tuxedo'},
+    {c:'people', e:'👰', n:'person with veil'}, {c:'people', e:'🤰', n:'pregnant woman'}, {c:'people', e:'🤱', n:'breast-feeding'},
+    {c:'people', e:'👼', n:'baby angel'}, {c:'people', e:'🎅', n:'Santa Claus'}, {c:'people', e:'🤶', n:'Mrs. Claus'},
+    {c:'people', e:'🦸', n:'superhero'}, {c:'people', e:'🦹', n:'supervillain'}, {c:'people', e:'🧙', n:'mage'},
+    {c:'people', e:'🧚', n:'fairy'}, {c:'people', e:'🧛', n:'vampire'}, {c:'people', e:'🧜', n:'merperson'},
+    {c:'people', e:'🧝', n:'elf'}, {c:'people', e:'🧞', n:'genie'}, {c:'people', e:'🧟', n:'zombie'},
+
+    // Animals & Nature
+    {c:'animals', e:'🙈', n:'see-no-evil monkey'}, {c:'animals', e:'🙉', n:'hear-no-evil monkey'}, {c:'animals', e:'🙊', n:'speak-no-evil monkey'},
+    {c:'animals', e:'🐵', n:'monkey face'}, {c:'animals', e:'🐒', n:'monkey'}, {c:'animals', e:'🦍', n:'gorilla'},
+    {c:'animals', e:'🐶', n:'dog face'}, {c:'animals', e:'🐕', n:'dog'}, {c:'animals', e:'🦮', n:'guide dog'},
+    {c:'animals', e:'🐕‍🦺', n:'service dog'}, {c:'animals', e:'🐩', n:'poodle'}, {c:'animals', e:'🐺', n:'wolf'},
+    {c:'animals', e:'🦊', n:'fox'}, {c:'animals', e:'🦝', n:'raccoon'}, {c:'animals', e:'🐱', n:'cat face'},
+    {c:'animals', e:'🐈', n:'cat'}, {c:'animals', e:'🦁', n:'lion'}, {c:'animals', e:'🐯', n:'tiger face'},
+    {c:'animals', e:'🐅', n:'tiger'}, {c:'animals', e:'🐆', n:'leopard'}, {c:'animals', e:'🐴', n:'horse face'},
+    {c:'animals', e:'🐎', n:'horse'}, {c:'animals', e:'🦄', n:'unicorn'}, {c:'animals', e:'🦓', n:'zebra'},
+    {c:'animals', e:'🦌', n:'deer'}, {c:'animals', e:'🐮', n:'cow face'}, {c:'animals', e:'ox', n:'ox'},
+    {c:'animals', e:'🐃', n:'water buffalo'}, {c:'animals', e:'🐄', n:'cow'}, {c:'animals', e:'🐷', n:'pig face'},
+    {c:'animals', e:'🐖', n:'pig'}, {c:'animals', e:'🐗', n:'boar'}, {c:'animals', e:'🐽', n:'pig nose'},
+    {c:'animals', e:'🐏', n:'ram'}, {c:'animals', e:'🐑', n:'sheep'}, {c:'animals', e:'🐐', n:'goat'},
+    {c:'animals', e:'🐪', n:'camel'}, {c:'animals', e:'🐫', n:'two-hump camel'}, {c:'animals', e:'🦙', n:'llama'},
+    {c:'animals', e:'🦒', n:'giraffe'}, {c:'animals', e:'🐘', n:'elephant'}, {c:'animals', e:'🦏', n:'rhinoceros'},
+    {c:'animals', e:'🦛', n:'hippopotamus'}, {c:'animals', e:'🐭', n:'mouse face'}, {c:'animals', e:'🐁', n:'mouse'},
+    {c:'animals', e:'🐀', n:'rat'}, {c:'animals', e:'🐹', n:'hamster'}, {c:'animals', e:'🐰', n:'rabbit face'},
+    {c:'animals', e:'🐇', n:'rabbit'}, {c:'animals', e:'🐿️', n:'raccoon'}, {c:'animals', e:'🦔', n:'hedgehog'},
+    {c:'animals', e:'🦇', n:'bat'}, {c:'animals', e:'🐻', n:'bear'}, {c:'animals', e:'🐨', n:'koala'},
+    {c:'animals', e:'🐼', n:'panda'}, {c:'animals', e:'🦥', n:'sloth'}, {c:'animals', e:'🦦', n:'otter'},
+    {c:'animals', e:'🦨', n:'skunk'}, {c:'animals', e:'🦘', n:'kangaroo'}, {c:'animals', e:'🦡', n:'badger'},
+    {c:'animals', e:'🐾', n:'paw prints'}, {c:'animals', e:'🦃', n:'turkey'}, {c:'animals', e:'🐔', n:'chicken'},
+    {c:'animals', e:'🐓', n:'rooster'}, {c:'animals', e:'🐣', n:'hatching chick'}, {c:'animals', e:'🐤', n:'baby chick'},
+    {c:'animals', e:'🐥', n:'front-facing baby chick'}, {c:'animals', e:'🐦', n:'bird'}, {c:'animals', e:'🐧', n:'penguin'},
+    {c:'animals', e:'🦅', n:'eagle'}, {c:'animals', e:'🦆', n:'duck'}, {c:'animals', e:'🦢', n:'swan'},
+    {c:'animals', e:'🦉', n:'owl'}, {c:'animals', e:'🦩', n:'flamingo'}, {c:'animals', e:'🦚', n:'peacock'},
+    {c:'animals', e:'🦜', n:'parrot'}, {c:'animals', e:'🐸', n:'frog'}, {c:'animals', e:'🐊', n:'crocodile'},
+    {c:'animals', e:'🐢', n:'turtle'}, {c:'animals', e:'🦎', n:'lizard'}, {c:'animals', e:'🐍', n:'snake'},
+    {c:'animals', e:'🐲', n:'dragon face'}, {c:'animals', e:'🐉', n:'dragon'}, {c:'animals', e:'🦕', n:'sauropod'},
+    {c:'animals', e:'🦖', n:'T-Rex'}, {c:'animals', e:'🐳', n:'spouting whale'}, {c:'animals', e:'🐋', n:'whale'},
+    {c:'animals', e:'🐬', n:'dolphin'}, {c:'animals', e:'🐟', n:'fish'}, {c:'animals', e:'🐠', n:'tropical fish'},
+    {c:'animals', e:'🐡', n:'blowfish'}, {c:'animals', e:'🦈', n:'shark'}, {c:'animals', e:'🐙', n:'octopus'},
+    {c:'animals', e:'🐚', n:'spiral shell'}, {c:'animals', e:'🐌', n:'snail'}, {c:'animals', e:'🦋', n:'butterfly'},
+    {c:'animals', e:'🐛', n:'bug'}, {c:'animals', e:'🐜', n:'ant'}, {c:'animals', e:'🐝', n:'honeybee'},
+    {c:'animals', e:'🐞', n:'lady beetle'}, {c:'animals', e:'🦗', n:'cricket'}, {c:'animals', e:'🕷️', n:'spider'},
+    {c:'animals', e:'🕸️', n:'spider web'}, {c:'animals', e:'🦂', n:'scorpion'}, {c:'animals', e:'🦟', n:'mosquito'},
+    {c:'animals', e:'🦠', n:'microbe'}, {c:'animals', e:'💐', n:'bouquet'}, {c:'animals', e:'🌸', n:'cherry blossom'},
+    {c:'animals', e:'💮', n:'white flower'}, {c:'animals', e:'🏵️', n:'rosette'}, {c:'animals', e:'🌹', n:'rose'},
+    {c:'animals', e:'🥀', n:'wilted flower'}, {c:'animals', e:'🌺', n:'hibiscus'}, {c:'animals', e:'🌻', n:'sunflower'},
+    {c:'animals', e:'🌼', n:'blossom'}, {c:'animals', e:'🌷', n:'tulip'}, {c:'animals', e:'🌱', n:'seedling'},
+    {c:'animals', e:'🌲', n:'evergreen tree'}, {c:'animals', e:'🌳', n:'deciduous tree'}, {c:'animals', e:'🌴', n:'palm tree'},
+    {c:'animals', e:'🌵', n:'cactus'}, {c:'animals', e:'🌾', n:'sheaf of rice'}, {c:'animals', e:'🌿', n:'herb'},
+    {c:'animals', e:'☘️', n:'shamrock'}, {c:'animals', e:'🍀', n:'four leaf clover'}, {c:'animals', e:'🍁', n:'maple leaf'},
+    {c:'animals', e:'🍂', n:'fallen leaf'}, {c:'animals', e:'🍃', n:'leaf fluttering in wind'},
+
+    // Food & Drink
+    {c:'food', e:'🍇', n:'grapes'}, {c:'food', e:'🍈', n:'melon'}, {c:'food', e:'🍉', n:'watermelon'},
+    {c:'food', e:'🍊', n:'tangerine'}, {c:'food', e:'🍋', n:'lemon'}, {c:'food', e:'🍌', n:'banana'},
+    {c:'food', e:'🍍', n:'pineapple'}, {c:'food', e:'🥭', n:'mango'}, {c:'food', e:'🍎', n:'red apple'},
+    {c:'food', e:'🍏', n:'green apple'}, {c:'food', e:'🍐', n:'pear'}, {c:'food', e:'🍑', n:'peach'},
+    {c:'food', e:'🍒', n:'cherries'}, {c:'food', e:'🍓', n:'strawberry'}, {c:'food', e:'🥝', n:'kiwi fruit'},
+    {c:'food', e:'🍅', n:'tomato'}, {c:'food', e:'🥥', n:'coconut'}, {c:'food', e:'🥑', n:'avocado'},
+    {c:'food', e:'🍆', n:'eggplant'}, {c:'food', e:'🥔', n:'potato'}, {c:'food', e:'🥕', n:'carrot'},
+    {c:'food', e:'🌽', n:'ear of corn'}, {c:'food', e:'🌶️', n:'hot pepper'}, {c:'food', e:'🥒', n:'cucumber'},
+    {c:'food', e:'🥬', n:'leafy green'}, {c:'food', e:'🥦', n:'broccoli'}, {c:'food', e:'🧄', n:'garlic'},
+    {c:'food', e:'🧅', n:'onion'}, {c:'food', e:'🍄', n:'mushroom'}, {c:'food', e:'🥜', n:'peanuts'},
+    {c:'food', e:'🌰', n:'chestnut'}, {c:'food', e:'🍞', n:'bread'}, {c:'food', e:'🥐', n:'croissant'},
+    {c:'food', e:'🥖', n:'baguette bread'}, {c:'food', e:'🥨', n:'pretzel'}, {c:'food', e:'🥯', n:'bagel'},
+    {c:'food', e:'🥞', n:'pancakes'}, {c:'food', e:'🧇', n:'waffle'}, {c:'food', e:'🧀', n:'cheese wedge'},
+    {c:'food', e:'🍖', n:'meat on bone'}, {c:'food', e:'🍗', n:'poultry leg'}, {c:'food', e:'🥩', n:'cut of meat'},
+    {c:'food', e:'🥓', n:'bacon'}, {c:'food', e:'🍔', n:'hamburger'}, {c:'food', e:'🍟', n:'french fries'},
+    {c:'food', e:'🍕', n:'pizza'}, {c:'food', e:'🌭', n:'hot dog'}, {c:'food', e:'🥪', n:'sandwich'},
+    {c:'food', e:'🌮', n:'taco'}, {c:'food', e:'🌯', n:'burrito'}, {c:'food', e:'🥙', n:'stuffed flatbread'},
+    {c:'food', e:'🧆', n:'falafel'}, {c:'food', e:'🥚', n:'egg'}, {c:'food', e:'🍳', n:'cooking'},
+    {c:'food', e:'🥘', n:'shallow pan of food'}, {c:'food', e:'🍲', n:'pot of food'}, {c:'food', e:'🥣', n:'bowl with spoon'},
+    {c:'food', e:'🥗', n:'green salad'}, {c:'food', e:'🍿', n:'popcorn'}, {c:'food', e:'🧈', n:'butter'},
+    {c:'food', e:'🧂', n:'salt'}, {c:'food', e:'🥫', n:'canned food'}, {c:'food', e:'🍱', n:'bento box'},
+    {c:'food', e:'🍘', n:'rice cracker'}, {c:'food', e:'🍙', n:'rice ball'}, {c:'food', e:'🍚', n:'cooked rice'},
+    {c:'food', e:'🍛', n:'curry rice'}, {c:'food', e:'🍜', n:'steaming bowl'}, {c:'food', e:'🍝', n:'spaghetti'},
+    {c:'food', e:'🍠', n:'roasted sweet potato'}, {c:'food', e:'🍢', n:'oden'}, {c:'food', e:'🍣', n:'sushi'},
+    {c:'food', e:'🍤', n:'fried shrimp'}, {c:'food', e:'🍥', n:'fish cake with swirl'}, {c:'food', e:'🥮', n:'moon cake'},
+    {c:'food', e:'🍡', n:'dango'}, {c:'food', e:'🥟', n:'dumpling'}, {c:'food', e:'🥠', n:'fortune cookie'},
+    {c:'food', e:'🥡', n:'takeout box'}, {c:'food', e:'🦀', n:'crab'}, {c:'food', e:'🦞', n:'lobster'},
+    {c:'food', e:'🦐', n:'shrimp'}, {c:'food', e:'🦑', n:'squid'}, {c:'food', e:'🦪', n:'oyster'},
+    {c:'food', e:'🍦', n:'soft ice cream'}, {c:'food', e:'🍧', n:'shaved ice'}, {c:'food', e:'🍨', n:'ice cream'},
+    {c:'food', e:'🍩', n:'doughnut'}, {c:'food', e:'🍪', n:'cookie'}, {c:'food', e:'🎂', n:'birthday cake'},
+    {c:'food', e:'🍰', n:'shortcake'}, {c:'food', e:'🧁', n:'cupcake'}, {c:'food', e:'🥧', n:'pie'},
+    {c:'food', e:'🍫', n:'chocolate bar'}, {c:'food', e:'🍬', n:'candy'}, {c:'food', e:'🍭', n:'lollipop'},
+    {c:'food', e:'🍮', n:'custard'}, {c:'food', e:'🍯', n:'honey pot'}, {c:'food', e:'🍼', n:'baby bottle'},
+    {c:'food', e:'🥛', n:'glass of milk'}, {c:'food', e:'☕', n:'hot beverage'}, {c:'food', e:'🍵', n:'teacup without handle'},
+    {c:'food', e:'🍶', n:'sake'}, {c:'food', e:'🍾', n:'bottle with popping cork'}, {c:'food', e:'🍷', n:'wine glass'},
+    {c:'food', e:'🍸', n:'cocktail glass'}, {c:'food', e:'🍹', n:'tropical drink'}, {c:'food', e:'🍺', n:'beer mug'},
+    {c:'food', e:'🍻', n:'clinking beer mugs'}, {c:'food', e:'🥂', n:'clinking glasses'}, {c:'food', e:'🥃', n:'tumbler glass'},
+    {c:'food', e:'🥤', n:'cup with straw'}, {c:'food', e:'🧃', n:'beverage box'}, {c:'food', e:'🧉', n:'mate'},
+    {c:'food', e:'🧊', n:'ice'}, {c:'food', e:'🥢', n:'chopsticks'}, {c:'food', e:'🍽️', n:'fork and knife with plate'},
+    {c:'food', e:'🍴', n:'fork and knife'}, {c:'food', e:'🥄', n:'spoon'}, {c:'food', e:'🔪', n:'kitchen knife'},
+    {c:'food', e:'🏺', n:'amphora'},
+
+    // Travel & Places
+    {c:'travel', e:'🌍', n:'globe showing Europe-Africa'}, {c:'travel', e:'🌎', n:'globe showing Americas'}, {c:'travel', e:'🌏', n:'globe showing Asia-Australia'},
+    {c:'travel', e:'🌐', n:'globe with meridians'}, {c:'travel', e:'🗺️', n:'world map'}, {c:'travel', e:'🗾', n:'map of Japan'},
+    {c:'travel', e:'🧭', n:'compass'}, {c:'travel', e:'🏔️', n:'snow-capped mountain'}, {c:'travel', e:'⛰️', n:'mountain'},
+    {c:'travel', e:'🌋', n:'volcano'}, {c:'travel', e:'🗻', n:'mount fuji'}, {c:'travel', e:'🏕️', n:'camping'},
+    {c:'travel', e:'🏖️', n:'beach with umbrella'}, {c:'travel', e:'🏜️', n:'desert'}, {c:'travel', e:'🏝️', n:'desert island'},
+    {c:'travel', e:'🏞️', n:'national park'}, {c:'travel', e:'🏟️', n:'stadium'}, {c:'travel', e:'🏛️', n:'classical building'},
+    {c:'travel', e:'🏗️', n:'building construction'}, {c:'travel', e:'🧱', n:'brick'}, {c:'travel', e:'🏘️', n:'houses'},
+    {c:'travel', e:'🏚️', n:'derelict house'}, {c:'travel', e:'🏠', n:'house'}, {c:'travel', e:'🏡', n:'house with garden'},
+    {c:'travel', e:'🏢', n:'office building'}, {c:'travel', e:'🏣', n:'Japanese post office'}, {c:'travel', e:'🏤', n:'post office'},
+    {c:'travel', e:'🏥', n:'hospital'}, {c:'travel', e:'🏦', n:'bank'}, {c:'travel', e:'🏨', n:'hotel'},
+    {c:'travel', e:'🏩', n:'love hotel'}, {c:'travel', e:'🏪', n:'convenience store'}, {c:'travel', e:'🏫', n:'school'},
+    {c:'travel', e:'🏬', n:'department store'}, {c:'travel', e:'🏭', n:'factory'}, {c:'travel', e:'🏯', n:'Japanese castle'},
+    {c:'travel', e:'🏰', n:'castle'}, {c:'travel', e:'💒', n:'wedding'}, {c:'travel', e:'🗼', n:'Tokyo tower'},
+    {c:'travel', e:'🗽', n:'Statue of Liberty'}, {c:'travel', e:'⛪', n:'church'}, {c:'travel', e:'🕌', n:'mosque'},
+    {c:'travel', e:'🛕', n:'hindu temple'}, {c:'travel', e:'🕍', n:'synagogue'}, {c:'travel', e:'⛩️', n:'shinto shrine'},
+    {c:'travel', e:'🕋', n:'kaaba'}, {c:'travel', e:'⛲', n:'fountain'}, {c:'travel', e:'⛺', n:'tent'},
+    {c:'travel', e:'🌁', n:'foggy'}, {c:'travel', e:'🌃', n:'night with stars'}, {c:'travel', e:'🏙️', n:'cityscape'},
+    {c:'travel', e:'🌄', n:'sunrise over mountains'}, {c:'travel', e:'🌅', n:'sunrise'}, {c:'travel', e:'🌆', n:'cityscape at dusk'},
+    {c:'travel', e:'🌇', n:'sunset'}, {c:'travel', e:'🌉', n:'bridge at night'}, {c:'travel', e:'♨️', n:'hot springs'},
+    {c:'travel', e:'🎠', n:'carousel horse'}, {c:'travel', e:'🎡', n:'ferris wheel'}, {c:'travel', e:'🎢', n:'roller coaster'},
+    {c:'travel', e:'💈', n:'barber pole'}, {c:'travel', e:'🎪', n:'circus tent'}, {c:'travel', e:'🚂', n:'locomotive'},
+    {c:'travel', e:'🚃', n:'railway car'}, {c:'travel', e:'🚄', n:'high-speed train'}, {c:'travel', e:'🚅', n:'bullet train'},
+    {c:'travel', e:'🚆', n:'train'}, {c:'travel', e:'🚇', n:'metro'}, {c:'travel', e:'🚈', n:'light rail'},
+    {c:'travel', e:'🚉', n:'station'}, {c:'travel', e:'🚊', n:'tram'}, {c:'travel', e:'🚝', n:'monorail'},
+    {c:'travel', e:'🚞', n:'mountain railway'}, {c:'travel', e:'🚋', n:'tram car'}, {c:'travel', e:'🚌', n:'bus'},
+    {c:'travel', e:'🚍', n:'oncoming bus'}, {c:'travel', e:'🚎', n:'trolleybus'}, {c:'travel', e:'🚐', n:'minibus'},
+    {c:'travel', e:'🚑', n:'ambulance'}, {c:'travel', e:'🚒', n:'fire engine'}, {c:'travel', e:'🚓', n:'police car'},
+    {c:'travel', e:'🚔', n:'oncoming police car'}, {c:'travel', e:'🚕', n:'taxi'}, {c:'travel', e:'🚖', n:'oncoming taxi'},
+    {c:'travel', e:'🚗', n:'automobile'}, {c:'travel', e:'🚘', n:'oncoming automobile'}, {c:'travel', e:'🚙', n:'sport utility vehicle'},
+    {c:'travel', e:'🚚', n:'delivery truck'}, {c:'travel', e:'🚛', n:'articulated lorry'}, {c:'travel', e:'🚜', n:'tractor'},
+    {c:'travel', e:'🏎️', n:'racing car'}, {c:'travel', e:'🏍️', n:'motorcycle'}, {c:'travel', e:'🛵', n:'motor scooter'},
+    {c:'travel', e:'🦽', n:'manual wheelchair'}, {c:'travel', e:'🦼', n:'motorized wheelchair'}, {c:'travel', e:'🛺', n:'auto rickshaw'},
+    {c:'travel', e:'🚲', n:'bicycle'}, {c:'travel', e:'🛴', n:'kick scooter'}, {c:'travel', e:'🛹', n:'skateboard'},
+    {c:'travel', e:'🚏', n:'bus stop'}, {c:'travel', e:'🛣️', n:'motorway'}, {c:'travel', e:'🛤️', n:'railway track'},
+    {c:'travel', e:'🛢️', n:'oil drum'}, {c:'travel', e:'⛽', n:'fuel pump'}, {c:'travel', e:'🚨', n:'police car light'},
+    {c:'travel', e:'🚥', n:'horizontal traffic light'}, {c:'travel', e:'🚦', n:'vertical traffic light'}, {c:'travel', e:'🛑', n:'stop sign'},
+    {c:'travel', e:'🚧', n:'construction'}, {c:'travel', e:'⚓', n:'anchor'}, {c:'travel', e:'⛵', n:'sailboat'},
+    {c:'travel', e:'🛶', n:'canoe'}, {c:'travel', e:'🚤', n:'speedboat'}, {c:'travel', e:'🛳️', n:'passenger ship'},
+    {c:'travel', e:'⛴️', n:'ferry'}, {c:'travel', e:'🛥️', n:'motor boat'}, {c:'travel', e:'🚢', n:'ship'},
+    {c:'travel', e:'✈️', n:'airplane'}, {c:'travel', e:'🛩️', n:'small airplane'}, {c:'travel', e:'🛫', n:'airplane departure'},
+    {c:'travel', e:'🛬', n:'airplane arrival'}, {c:'travel', e:'🪂', n:'parachute'}, {c:'travel', e:'💺', n:'seat'},
+    {c:'travel', e:'🚁', n:'helicopter'}, {c:'travel', e:'🚟', n:'suspension railway'}, {c:'travel', e:'🚠', n:'mountain cableway'},
+    {c:'travel', e:'🚡', n:'aerial tramway'}, {c:'travel', e:'🛰️', n:'satellite'}, {c:'travel', e:'🚀', n:'rocket'},
+    {c:'travel', e:'🛸', n:'flying saucer'}, {c:'travel', e:'🛎️', n:'bellhop bell'}, {c:'travel', e:'🧳', n:'luggage'},
+    {c:'travel', e:'⌛', n:'hourglass done'}, {c:'travel', e:'⏳', n:'hourglass not done'}, {c:'travel', e:'⌚', n:'watch'},
+    {c:'travel', e:'⏰', n:'alarm clock'}, {c:'travel', e:'⏱️', n:'stopwatch'}, {c:'travel', e:'⏲️', n:'timer clock'},
+    {c:'travel', e:'🕰️', n:'mantelpiece clock'}, {c:'travel', e:'🕛', n:'twelve o’clock'}, {c:'travel', e:'🕧', n:'twelve-thirty'},
+    {c:'travel', e:'🕐', n:'one o’clock'}, {c:'travel', e:'🕜', n:'one-thirty'}, {c:'travel', e:'🕑', n:'two o’clock'},
+    {c:'travel', e:'🕝', n:'two-thirty'}, {c:'travel', e:'🕒', n:'three o’clock'}, {c:'travel', e:'🕞', n:'three-thirty'},
+    {c:'travel', e:'🕓', n:'four o’clock'}, {c:'travel', e:'🕟', n:'four-thirty'}, {c:'travel', e:'🕔', n:'five o’clock'},
+    {c:'travel', e:'🕠', n:'five-thirty'}, {c:'travel', e:'🕕', n:'six o’clock'}, {c:'travel', e:'🕡', n:'six-thirty'},
+    {c:'travel', e:'🕖', n:'seven o’clock'}, {c:'travel', e:'🕢', n:'seven-thirty'}, {c:'travel', e:'🕗', n:'eight o’clock'},
+    {c:'travel', e:'🕣', n:'eight-thirty'}, {c:'travel', e:'🕘', n:'nine o’clock'}, {c:'travel', e:'🕤', n:'nine-thirty'},
+    {c:'travel', e:'🕙', n:'ten o’clock'}, {c:'travel', e:'🕥', n:'ten-thirty'}, {c:'travel', e:'🕚', n:'eleven o’clock'},
+    {c:'travel', e:'🕦', n:'eleven-thirty'}, {c:'travel', e:'🌑', n:'new moon'}, {c:'travel', e:'🌒', n:'waxing crescent moon'},
+    {c:'travel', e:'🌓', n:'first quarter moon'}, {c:'travel', e:'🌔', n:'waxing gibbous moon'}, {c:'travel', e:'🌕', n:'full moon'},
+    {c:'travel', e:'🌖', n:'waning gibbous moon'}, {c:'travel', e:'🌗', n:'last quarter moon'}, {c:'travel', e:'🌘', n:'waning crescent moon'},
+    {c:'travel', e:'🌙', n:'crescent moon'}, {c:'travel', e:'🌚', n:'new moon face'}, {c:'travel', e:'🌛', n:'first quarter moon face'},
+    {c:'travel', e:'🌜', n:'last quarter moon face'}, {c:'travel', e:'🌡️', n:'thermometer'}, {c:'travel', e:'☀️', n:'sun'},
+    {c:'travel', e:'🌝', n:'full moon face'}, {c:'travel', e:'🌞', n:'sun with face'}, {c:'travel', e:'⭐', n:'star'},
+    {c:'travel', e:'🌟', n:'glowing star'}, {c:'travel', e:'🌠', n:'shooting star'}, {c:'travel', e:'🌌', n:'milky way'},
+    {c:'travel', e:'☁️', n:'cloud'}, {c:'travel', e:'⛅', n:'sun behind cloud'}, {c:'travel', e:'⛈️', n:'cloud with lightning and rain'},
+    {c:'travel', e:'🌤️', n:'sun behind small cloud'}, {c:'travel', e:'🌥️', n:'sun behind large cloud'}, {c:'travel', e:'🌦️', n:'sun behind rain cloud'},
+    {c:'travel', e:'🌧️', n:'cloud with rain'}, {c:'travel', e:'🌨️', n:'cloud with snow'}, {c:'travel', e:'🌩️', n:'cloud with lightning'},
+    {c:'travel', e:'🌪️', n:'tornado'}, {c:'travel', e:'🌫️', n:'fog'}, {c:'travel', e:'🌬️', n:'wind face'},
+    {c:'travel', e:'🌀', n:'cyclone'}, {c:'travel', e:'🌈', n:'rainbow'}, {c:'travel', e:'🌂', n:'closed umbrella'},
+    {c:'travel', e:'☂️', n:'umbrella'}, {c:'travel', e:'☔', n:'umbrella with rain drops'}, {c:'travel', e:'⛱️', n:'umbrella on ground'},
+    {c:'travel', e:'⚡', n:'high voltage'}, {c:'travel', e:'❄️', n:'snowflake'}, {c:'travel', e:'☃️', n:'snowman'},
+    {c:'travel', e:'⛄', n:'snowman without snow'}, {c:'travel', e:'☄️', n:'comet'}, {c:'travel', e:'🔥', n:'fire'},
+    {c:'travel', e:'💧', n:'droplet'}, {c:'travel', e:'🌊', n:'water wave'},
+
+    // Objects
+    {c:'objects', e:'🎃', n:'jack-o-lantern'}, {c:'objects', e:'🎄', n:'Christmas tree'}, {c:'objects', e:'🎆', n:'fireworks'},
+    {c:'objects', e:'🎇', n:'sparkler'}, {c:'objects', e:'🧨', n:'firecracker'}, {c:'objects', e:'✨', n:'sparkles'},
+    {c:'objects', e:'🎈', n:'balloon'}, {c:'objects', e:'🎉', n:'party popper'}, {c:'objects', e:'🎊', n:'confetti ball'},
+    {c:'objects', e:'🎋', n:'tanabata tree'}, {c:'objects', e:'🎍', n:'pine decoration'}, {c:'objects', e:'🎎', n:'Japanese dolls'},
+    {c:'objects', e:'🎏', n:'carp streamer'}, {c:'objects', e:'🎐', n:'wind chime'}, {c:'objects', e:'🎑', n:'moon viewing ceremony'},
+    {c:'objects', e:'🧧', n:'red envelope'}, {c:'objects', e:'🎀', n:'ribbon'}, {c:'objects', e:'🎁', n:'wrapped gift'},
+    {c:'objects', e:'🎗️', n:'reminder ribbon'}, {c:'objects', e:'🎟️', n:'admission tickets'}, {c:'objects', e:'🎫', n:'ticket'},
+    {c:'objects', e:'🎖️', n:'military medal'}, {c:'objects', e:'🏆', n:'trophy'}, {c:'objects', e:'🏅', n:'sports medal'},
+    {c:'objects', e:'🥇', n:'1st place medal'}, {c:'objects', e:'🥈', n:'2nd place medal'}, {c:'objects', e:'🥉', n:'3rd place medal'},
+    {c:'objects', e:'⚽', n:'soccer ball'}, {c:'objects', e:'⚾', n:'baseball'}, {c:'objects', e:'🥎', n:'softball'},
+    {c:'objects', e:'🏀', n:'basketball'}, {c:'objects', e:'🏐', n:'volleyball'}, {c:'objects', e:'🏈', n:'american football'},
+    {c:'objects', e:'🏉', n:'rugby football'}, {c:'objects', e:'🎾', n:'tennis'}, {c:'objects', e:'🥏', n:'flying disc'},
+    {c:'objects', e:'🎳', n:'bowling'}, {c:'objects', e:'🏏', n:'cricket game'}, {c:'objects', e:'🏑', n:'field hockey'},
+    {c:'objects', e:'🏒', n:'ice hockey'}, {c:'objects', e:'🥍', n:'lacrosse'}, {c:'objects', e:'🏓', n:'ping pong'},
+    {c:'objects', e:'🏸', n:'badminton'}, {c:'objects', e:'🥊', n:'boxing glove'}, {c:'objects', e:'🥋', n:'martial arts uniform'},
+    {c:'objects', e:'🥅', n:'goal net'}, {c:'objects', e:'⛳', n:'flag in hole'}, {c:'objects', e:'⛸️', n:'ice skate'},
+    {c:'objects', e:'🎣', n:'fishing pole'}, {c:'objects', e:'🤿', n:'diving mask'}, {c:'objects', e:'🎽', n:'running shirt'},
+    {c:'objects', e:'🎿', n:'skis'}, {c:'objects', e:'🛷', n:'sled'}, {c:'objects', e:'🥌', n:'curling stone'},
+    {c:'objects', e:'🎯', n:'bullseye'}, {c:'objects', e:'🪀', n:'yo-yo'}, {c:'objects', e:'🪁', n:'kite'},
+    {c:'objects', e:'🎱', n:'pool 8 ball'}, {c:'objects', e:'🔮', n:'crystal ball'}, {c:'objects', e:'🧿', n:'nazar amulet'},
+    {c:'objects', e:'🎮', n:'video game'}, {c:'objects', e:'🕹️', n:'joystick'}, {c:'objects', e:'🎰', n:'slot machine'},
+    {c:'objects', e:'🎲', n:'game die'}, {c:'objects', e:'🧩', n:'puzzle piece'}, {c:'objects', e:'🧸', n:'teddy bear'},
+    {c:'objects', e:'♠️', n:'spade suit'}, {c:'objects', e:'♥️', n:'heart suit'}, {c:'objects', e:'♦️', n:'diamond suit'},
+    {c:'objects', e:'♣️', n:'club suit'}, {c:'objects', e:'♟️', n:'chess pawn'}, {c:'objects', e:'🃏', n:'joker'},
+    {c:'objects', e:'🀄', n:'mahjong red dragon'}, {c:'objects', e:'🎴', n:'flower playing cards'}, {c:'objects', e:'🎭', n:'performing arts'},
+    {c:'objects', e:'🖼️', n:'framed picture'}, {c:'objects', e:'🎨', n:'artist palette'}, {c:'objects', e:'🧵', n:'thread'},
+    {c:'objects', e:'🧶', n:'yarn'}, {c:'objects', e:'👓', n:'glasses'}, {c:'objects', e:'🕶️', n:'sunglasses'},
+    {c:'objects', e:'🥽', n:'goggles'}, {c:'objects', e:'🥼', n:'lab coat'}, {c:'objects', e:'🦺', n:'safety vest'},
+    {c:'objects', e:'👔', n:'necktie'}, {c:'objects', e:'👕', n:'t-shirt'}, {c:'objects', e:'👖', n:'jeans'},
+    {c:'objects', e:'🧣', n:'scarf'}, {c:'objects', e:'🧤', n:'gloves'}, {c:'objects', e:'🧥', n:'coat'},
+    {c:'objects', e:'🧦', n:'socks'}, {c:'objects', e:'👗', n:'dress'}, {c:'objects', e:'👘', n:'kimono'},
+    {c:'objects', e:'🥻', n:'sari'}, {c:'objects', e:'🩱', n:'one-piece swimsuit'}, {c:'objects', e:'🩲', n:'briefs'},
+    {c:'objects', e:'🩳', n:'shorts'}, {c:'objects', e:'👙', n:'bikini'}, {c:'objects', e:'👚', n:'woman’s clothes'},
+    {c:'objects', e:'👛', n:'purse'}, {c:'objects', e:'👜', n:'handbag'}, {c:'objects', e:'👝', n:'clutch bag'},
+    {c:'objects', e:'🛍️', n:'shopping bags'}, {c:'objects', e:'🎒', n:'backpack'}, {c:'objects', e:'👞', n:'man’s shoe'},
+    {c:'objects', e:'👟', n:'running shoe'}, {c:'objects', e:'🥾', n:'hiking boot'}, {c:'objects', e:'🥿', n:'flat shoe'},
+    {c:'objects', e:'👠', n:'high-heeled shoe'}, {c:'objects', e:'👡', n:'woman’s sandal'}, {c:'objects', e:'🩰', n:'ballet shoes'},
+    {c:'objects', e:'👢', n:'woman’s boot'}, {c:'objects', e:'👑', n:'crown'}, {c:'objects', e:'👒', n:'woman’s hat'},
+    {c:'objects', e:'🎩', n:'top hat'}, {c:'objects', e:'🎓', n:'graduation cap'}, {c:'objects', e:'🧢', n:'billed cap'},
+    {c:'objects', e:'⛑️', n:'rescue worker’s helmet'}, {c:'objects', e:'📿', n:'prayer beads'}, {c:'objects', e:'💄', n:'lipstick'},
+    {c:'objects', e:'💍', n:'ring'}, {c:'objects', e:'💎', n:'gem stone'}, {c:'objects', e:'🔇', n:'muted speaker'},
+    {c:'objects', e:'🔈', n:'speaker low volume'}, {c:'objects', e:'🔉', n:'speaker medium volume'}, {c:'objects', e:'🔊', n:'speaker high volume'},
+    {c:'objects', e:'📢', n:'loudspeaker'}, {c:'objects', e:'📣', n:'megaphone'}, {c:'objects', e:'📯', n:'postal horn'},
+    {c:'objects', e:'🔔', n:'bell'}, {c:'objects', e:'🔕', n:'bell with slash'}, {c:'objects', e:'🎼', n:'musical score'},
+    {c:'objects', e:'🎵', n:'musical note'}, {c:'objects', e:'🎶', n:'musical notes'}, {c:'objects', e:'🎙️', n:'studio microphone'},
+    {c:'objects', e:'🎚️', n:'level slider'}, {c:'objects', e:'🎛️', n:'control knobs'}, {c:'objects', e:'🎤', n:'microphone'},
+    {c:'objects', e:'🎧', n:'headphone'}, {c:'objects', e:'📻', n:'radio'}, {c:'objects', e:'🎷', n:'saxophone'},
+    {c:'objects', e:'🎸', n:'guitar'}, {c:'objects', e:'🎹', n:'musical keyboard'}, {c:'objects', e:'🎺', n:'trumpet'},
+    {c:'objects', e:'🎻', n:'violin'}, {c:'objects', e:'🪕', n:'banjo'}, {c:'objects', e:'🥁', n:'drum'},
+    {c:'objects', e:'📱', n:'mobile phone'}, {c:'objects', e:'📲', n:'mobile phone with arrow'}, {c:'objects', e:'☎️', n:'telephone'},
+    {c:'objects', e:'📞', n:'telephone receiver'}, {c:'objects', e:'📟', n:'pager'}, {c:'objects', e:'📠', n:'fax machine'},
+    {c:'objects', e:'🔋', n:'battery'}, {c:'objects', e:'🔌', n:'electric plug'}, {c:'objects', e:'💻', n:'laptop'},
+    {c:'objects', e:'🖥️', n:'desktop computer'}, {c:'objects', e:'🖨️', n:'printer'}, {c:'objects', e:'⌨️', n:'keyboard'},
+    {c:'objects', e:'🖱️', n:'computer mouse'}, {c:'objects', e:'🖲️', n:'trackball'}, {c:'objects', e:'💽', n:'computer disk'},
+    {c:'objects', e:'💾', n:'floppy disk'}, {c:'objects', e:'💿', n:'optical disk'}, {c:'objects', e:'📀', n:'dvd'},
+    {c:'objects', e:'🧮', n:'abacus'}, {c:'objects', e:'🎥', n:'movie camera'}, {c:'objects', e:'🎞️', n:'film frames'},
+    {c:'objects', e:'📽️', n:'film projector'}, {c:'objects', e:'🎬', n:'clapper board'}, {c:'objects', e:'📺', n:'television'},
+    {c:'objects', e:'📷', n:'camera'}, {c:'objects', e:'📸', n:'camera with flash'}, {c:'objects', e:'📹', n:'video camera'},
+    {c:'objects', e:'📼', n:'videocassette'}, {c:'objects', e:'🔍', n:'magnifying glass tilted left'}, {c:'objects', e:'🔎', n:'magnifying glass tilted right'},
+    {c:'objects', e:'🕯️', n:'candle'}, {c:'objects', e:'💡', n:'light bulb'}, {c:'objects', e:'🔦', n:'flashlight'},
+    {c:'objects', e:'🏮', n:'red paper lantern'}, {c:'objects', e:'📔', n:'notebook with decorative cover'}, {c:'objects', e:'📕', n:'closed book'},
+    {c:'objects', e:'📖', n:'open book'}, {c:'objects', e:'📗', n:'green book'}, {c:'objects', e:'📘', n:'blue book'},
+    {c:'objects', e:'📙', n:'orange book'}, {c:'objects', e:'📚', n:'books'}, {c:'objects', e:'📓', n:'notebook'},
+    {c:'objects', e:'📒', n:'ledger'}, {c:'objects', e:'📃', n:'page with curl'}, {c:'objects', e:'📜', n:'scroll'},
+    {c:'objects', e:'📄', n:'page facing up'}, {c:'objects', e:'📰', n:'newspaper'}, {c:'objects', e:'🗞️', n:'rolled-up newspaper'},
+    {c:'objects', e:'📑', n:'bookmark tabs'}, {c:'objects', e:'🔖', n:'bookmark'}, {c:'objects', e:'🏷️', n:'label'},
+    {c:'objects', e:'💰', n:'money bag'}, {c:'objects', e:'💴', n:'yen banknote'}, {c:'objects', e:'💵', n:'dollar banknote'},
+    {c:'objects', e:'💶', n:'euro banknote'}, {c:'objects', e:'💷', n:'pound banknote'}, {c:'objects', e:'💸', n:'money with wings'},
+    {c:'objects', e:'💳', n:'credit card'}, {c:'objects', e:'🧾', n:'receipt'}, {c:'objects', e:'💹', n:'chart increasing with yen'},
+    {c:'objects', e:'✉️', n:'envelope'}, {c:'objects', e:'📧', n:'e-mail'}, {c:'objects', e:'📨', n:'incoming envelope'},
+    {c:'objects', e:'📩', n:'envelope with arrow'}, {c:'objects', e:'📤', n:'outbox tray'}, {c:'objects', e:'📥', n:'inbox tray'},
+    {c:'objects', e:'📦', n:'package'}, {c:'objects', e:'📫', n:'closed mailbox with raised flag'}, {c:'objects', e:'📪', n:'closed mailbox with lowered flag'},
+    {c:'objects', e:'📬', n:'open mailbox with raised flag'}, {c:'objects', e:'📭', n:'open mailbox with lowered flag'}, {c:'objects', e:'📮', n:'postbox'},
+    {c:'objects', e:'🗳️', n:'ballot box with ballot'}, {c:'objects', e:'✏️', n:'pencil'}, {c:'objects', e:'✒️', n:'black nib'},
+    {c:'objects', e:'🖋️', n:'fountain pen'}, {c:'objects', e:'🖊️', n:'pen'}, {c:'objects', e:'🖌️', n:'paintbrush'},
+    {c:'objects', e:'🖍️', n:'crayon'}, {c:'objects', e:'📝', n:'memo'}, {c:'objects', e:'💼', n:'briefcase'},
+    {c:'objects', e:'📁', n:'file folder'}, {c:'objects', e:'📂', n:'open file folder'}, {c:'objects', e:'🗂️', n:'card index dividers'},
+    {c:'objects', e:'📅', n:'calendar'}, {c:'objects', e:'📆', n:'tear-off calendar'}, {c:'objects', e:'🗒️', n:'spiral notepad'},
+    {c:'objects', e:'🗓️', n:'spiral calendar'}, {c:'objects', e:'📇', n:'card index'}, {c:'objects', e:'📈', n:'chart increasing'},
+    {c:'objects', e:'📉', n:'chart decreasing'}, {c:'objects', e:'📊', n:'bar chart'}, {c:'objects', e:'📋', n:'clipboard'},
+    {c:'objects', e:'📌', n:'pushpin'}, {c:'objects', e:'📍', n:'round pushpin'}, {c:'objects', e:'📎', n:'paperclip'},
+    {c:'objects', e:'🖇️', n:'linked paperclips'}, {c:'objects', e:'📏', n:'straight ruler'}, {c:'objects', e:'📐', n:'triangular ruler'},
+    {c:'objects', e:'✂️', n:'scissors'}, {c:'objects', e:'🗃️', n:'card file box'}, {c:'objects', e:'🗄️', n:'file cabinet'},
+    {c:'objects', e:'🗑️', n:'wastebasket'}, {c:'objects', e:'🔒', n:'locked'}, {c:'objects', e:'🔓', n:'unlocked'},
+    {c:'objects', e:'🔏', n:'locked with pen'}, {c:'objects', e:'🔐', n:'locked with key'}, {c:'objects', e:'🔑', n:'key'},
+    {c:'objects', e:'🗝️', n:'old key'}, {c:'objects', e:'🔨', n:'hammer'}, {c:'objects', e:'🪓', n:'axe'},
+    {c:'objects', e:'⛏️', n:'axe'}, {c:'objects', e:'⚒️', n:'hammer and pick'}, {c:'objects', e:'🛠️', n:'hammer and wrench'},
+    {c:'objects', e:'🗡️', n:'dagger'}, {c:'objects', e:'⚔️', n:'crossed swords'}, {c:'objects', e:'🔫', n:'pistol'},
+    {c:'objects', e:'🏹', n:'bow and arrow'}, {c:'objects', e:'🛡️', n:'shield'}, {c:'objects', e:'🔧', n:'wrench'},
+    {c:'objects', e:'🔩', n:'nut and bolt'}, {c:'objects', e:'⚙️', n:'gear'}, {c:'objects', e:'🗜️', n:'clamp'},
+    {c:'objects', e:'⚖️', n:'balance scale'}, {c:'objects', e:'🔗', n:'link'}, {c:'objects', e:'⛓️', n:'chains'},
+    {c:'objects', e:'🧰', n:'toolbox'}, {c:'objects', e:'🧲', n:'magnet'}, {c:'objects', e:'⚗️', n:'alembic'},
+    {c:'objects', e:'🧪', n:'test tube'}, {c:'objects', e:'🧫', n:'petri dish'}, {c:'objects', e:'🧬', n:'dna'},
+    {c:'objects', e:'🔬', n:'microscope'}, {c:'objects', e:'🔭', n:'telescope'}, {c:'objects', e:'📡', n:'satellite antenna'},
+    {c:'objects', e:'💉', n:'syringe'}, {c:'objects', e:'🩸', n:'drop of blood'}, {c:'objects', e:'💊', n:'pill'},
+    {c:'objects', e:'🩹', n:'adhesive bandage'}, {c:'objects', e:'🩺', n:'stethoscope'}, {c:'objects', e:'🚪', n:'door'},
+    {c:'objects', e:'🛏️', n:'bed'}, {c:'objects', e:'🛋️', n:'couch and lamp'}, {c:'objects', e:'🪑', n:'chair'},
+    {c:'objects', e:'🚽', n:'toilet'}, {c:'objects', e:'🚿', n:'shower'}, {c:'objects', e:'🛁', n:'bathtub'},
+    {c:'objects', e:'🪒', n:'razor'}, {c:'objects', e:'🧴', n:'lotion bottle'}, {c:'objects', e:'🧷', n:'safety pin'},
+    {c:'objects', e:'🧹', n:'broom'}, {c:'objects', e:'🧺', n:'basket'}, {c:'objects', e:'🧻', n:'roll of paper'},
+    {c:'objects', e:'🧼', n:'soap'}, {c:'objects', e:'🧽', n:'sponge'}, {c:'objects', e:'🧯', n:'fire extinguisher'},
+    {c:'objects', e:'🛒', n:'shopping cart'}, {c:'objects', e:'🚬', n:'cigarette'}, {c:'objects', e:'⚰️', n:'coffin'},
+    {c:'objects', e:'⚱️', n:'funeral urn'}, {c:'objects', e:'🗿', n:'moai'},
+
+    // Symbols
+    {c:'symbols', e:'🏧', n:'ATM sign'}, {c:'symbols', e:'🚮', n:'litter in bin sign'}, {c:'symbols', e:'🚰', n:'potable water'},
+    {c:'symbols', e:'♿', n:'wheelchair symbol'}, {c:'symbols', e:'🚹', n:'men’s room'}, {c:'symbols', e:'🚺', n:'women’s room'},
+    {c:'symbols', e:'🚻', n:'restroom'}, {c:'symbols', e:'🚼', n:'baby symbol'}, {c:'symbols', e:'🚾', n:'water closet'},
+    {c:'symbols', e:'🛂', n:'passport control'}, {c:'symbols', e:'🛃', n:'customs'}, {c:'symbols', e:'🛄', n:'baggage claim'},
+    {c:'symbols', e:'🛅', n:'left luggage'}, {c:'symbols', e:'⚠️', n:'warning'}, {c:'symbols', e:'🚸', n:'children crossing'},
+    {c:'symbols', e:'⛔', n:'no entry'}, {c:'symbols', e:'🚫', n:'prohibited'}, {c:'symbols', e:'🚳', n:'no bicycles'},
+    {c:'symbols', e:'🚭', n:'no smoking'}, {c:'symbols', e:'🚯', n:'no littering'}, {c:'symbols', e:'🚱', n:'non-potable water'},
+    {c:'symbols', e:'🚷', n:'no pedestrians'}, {c:'symbols', e:'📵', n:'no mobile phones'}, {c:'symbols', e:'🔞', n:'no one under eighteen'},
+    {c:'symbols', e:'☢️', n:'radioactive'}, {c:'symbols', e:'☣️', n:'biohazard'}, {c:'symbols', e:'⬆️', n:'up arrow'},
+    {c:'symbols', e:'↗️', n:'up-right arrow'}, {c:'symbols', e:'➡️', n:'right arrow'}, {c:'symbols', e:'↘️', n:'down-right arrow'},
+    {c:'symbols', e:'⬇️', n:'down arrow'}, {c:'symbols', e:'↙️', n:'down-left arrow'}, {c:'symbols', e:'⬅️', n:'left arrow'},
+    {c:'symbols', e:'↖️', n:'up-left arrow'}, {c:'symbols', e:'↕️', n:'up-down arrow'}, {c:'symbols', e:'↔️', n:'left-right arrow'},
+    {c:'symbols', e:'↩️', n:'right arrow curving left'}, {c:'symbols', e:'↪️', n:'left arrow curving right'}, {c:'symbols', e:'⤴️', n:'right arrow curving up'},
+    {c:'symbols', e:'⤵️', n:'right arrow curving down'}, {c:'symbols', e:'🔃', n:'clockwise vertical arrows'}, {c:'symbols', e:'🔄', n:'counterclockwise arrows button'},
+    {c:'symbols', e:'🔙', n:'BACK arrow'}, {c:'symbols', e:'🔚', n:'END arrow'}, {c:'symbols', e:'🔛', n:'ON! arrow'},
+    {c:'symbols', e:'🔜', n:'SOON arrow'}, {c:'symbols', e:'🔝', n:'TOP arrow'}, {c:'symbols', e:'🛐', n:'place of worship'},
+    {c:'symbols', e:'⚛️', n:'atom symbol'}, {c:'symbols', e:'🕉️', n:'om'}, {c:'symbols', e:'✡️', n:'star of David'},
+    {c:'symbols', e:'☸️', n:'wheel of dharma'}, {c:'symbols', e:'☯️', n:'yin yang'}, {c:'symbols', e:'✝️', n:'latin cross'},
+    {c:'symbols', e:'☦️', n:'orthodox cross'}, {c:'symbols', e:'☪️', n:'star and crescent'}, {c:'symbols', e:'☮️', n:'peace symbol'},
+    {c:'symbols', e:'🕎', n:'menorah'}, {c:'symbols', e:'🔯', n:'dotted six-pointed star'}, {c:'symbols', e:'♈', n:'Aries'},
+    {c:'symbols', e:'♉', n:'Taurus'}, {c:'symbols', e:'♊', n:'Gemini'}, {c:'symbols', e:'♋', n:'Cancer'},
+    {c:'symbols', e:'♌', n:'Leo'}, {c:'symbols', e:'♍', n:'Virgo'}, {c:'symbols', e:'♎', n:'Libra'},
+    {c:'symbols', e:'♏', n:'Scorpio'}, {c:'symbols', e:'♐', n:'Sagittarius'}, {c:'symbols', e:'♑', n:'Capricorn'},
+    {c:'symbols', e:'♒', n:'Aquarius'}, {c:'symbols', e:'♓', n:'Pisces'}, {c:'symbols', e:'⛎', n:'Ophiuchus'},
+    {c:'symbols', e:'🔀', n:'shuffle tracks button'}, {c:'symbols', e:'🔁', n:'repeat button'}, {c:'symbols', e:'🔂', n:'repeat single button'},
+    {c:'symbols', e:'▶️', n:'play button'}, {c:'symbols', e:'⏩', n:'fast-forward button'}, {c:'symbols', e:'⏭️', n:'next track button'},
+    {c:'symbols', e:'⏯️', n:'play or pause button'}, {c:'symbols', e:'◀️', n:'reverse button'}, {c:'symbols', e:'⏪', n:'fast reverse button'},
+    {c:'symbols', e:'⏮️', n:'last track button'}, {c:'symbols', e:'🔼', n:'upwards button'}, {c:'symbols', e:'⏫', n:'fast up button'},
+    {c:'symbols', e:'🔽', n:'downwards button'}, {c:'symbols', e:'⏬', n:'fast down button'}, {c:'symbols', e:'⏸️', n:'pause button'},
+    {c:'symbols', e:'⏹️', n:'stop button'}, {c:'symbols', e:'⏺️', n:'record button'}, {c:'symbols', e:'⏏️', n:'eject button'},
+    {c:'symbols', e:'🎦', n:'cinema'}, {c:'symbols', e:'🔅', n:'dim button'}, {c:'symbols', e:'🔆', n:'bright button'},
+    {c:'symbols', e:'📶', n:'antenna bars'}, {c:'symbols', e:'📳', n:'vibration mode'}, {c:'symbols', e:'📴', n:'mobile phone off'},
+    {c:'symbols', e:'♀️', n:'female sign'}, {c:'symbols', e:'♂️', n:'male sign'}, {c:'symbols', e:'⚕️', n:'medical symbol'},
+    {c:'symbols', e:'♾️', n:'infinity'}, {c:'symbols', e:'♻️', n:'recycling symbol'}, {c:'symbols', e:'⚜️', n:'fleur-de-lis'},
+    {c:'symbols', e:'🔱', n:'trident emblem'}, {c:'symbols', e:'📛', n:'name badge'}, {c:'symbols', e:'🔰', n:'Japanese symbol for beginner'},
+    {c:'symbols', e:'⭕', n:'hollow red circle'}, {c:'symbols', e:'✅', n:'check mark button'}, {c:'symbols', e:'☑️', n:'check box with check'},
+    {c:'symbols', e:'✔️', n:'check mark'}, {c:'symbols', e:'✖️', n:'multiply'}, {c:'symbols', e:'❌', n:'cross mark'},
+    {c:'symbols', e:'❎', n:'cross mark button'}, {c:'symbols', e:'➕', n:'plus'}, {c:'symbols', e:'➖', n:'minus'},
+    {c:'symbols', e:'➗', n:'divide'}, {c:'symbols', e:'➰', n:'curly loop'}, {c:'symbols', e:'➿', n:'double curly loop'},
+    {c:'symbols', e:'〽️', n:'part alternation mark'}, {c:'symbols', e:'✳️', n:'eight-spoked asterisk'}, {c:'symbols', e:'✴️', n:'eight-pointed star'},
+    {c:'symbols', e:'❇️', n:'sparkle'}, {c:'symbols', e:'‼️', n:'double exclamation mark'}, {c:'symbols', e:'⁉️', n:'exclamation question mark'},
+    {c:'symbols', e:'❓', n:'question mark'}, {c:'symbols', e:'❔', n:'white question mark'}, {c:'symbols', e:'❕', n:'white exclamation mark'},
+    {c:'symbols', e:'❗', n:'exclamation mark'}, {c:'symbols', e:'〰️', n:'wavy dash'}, {c:'symbols', e:'©️', n:'copyright'},
+    {c:'symbols', e:'®️', n:'registered'}, {c:'symbols', e:'™️', n:'trade mark'}, {c:'symbols', e:'#️⃣', n:'keycap: #'},
+    {c:'symbols', e:'*️⃣', n:'keycap: *'}, {c:'symbols', e:'0️⃣', n:'keycap: 0'}, {c:'symbols', e:'1️⃣', n:'keycap: 1'},
+    {c:'symbols', e:'2️⃣', n:'keycap: 2'}, {c:'symbols', e:'3️⃣', n:'keycap: 3'}, {c:'symbols', e:'4️⃣', n:'keycap: 4'},
+    {c:'symbols', e:'5️⃣', n:'keycap: 5'}, {c:'symbols', e:'6️⃣', n:'keycap: 6'}, {c:'symbols', e:'7️⃣', n:'keycap: 7'},
+    {c:'symbols', e:'8️⃣', n:'keycap: 8'}, {c:'symbols', e:'9️⃣', n:'keycap: 9'}, {c:'symbols', e:'🔟', n:'keycap: 10'},
+    {c:'symbols', e:'🔠', n:'input latin uppercase'}, {c:'symbols', e:'🔡', n:'input latin lowercase'}, {c:'symbols', e:'🔢', n:'input numbers'},
+    {c:'symbols', e:'🔣', n:'input symbols'}, {c:'symbols', e:'🔤', n:'input latin letters'}, {c:'symbols', e:'🅰️', n:'A button (blood type)'},
+    {c:'symbols', e:'🆎', n:'AB button (blood type)'}, {c:'symbols', e:'🅱️', n:'B button (blood type)'}, {c:'symbols', e:'🆑', n:'CL button'},
+    {c:'symbols', e:'🆒', n:'COOL button'}, {c:'symbols', e:'🆓', n:'FREE button'}, {c:'symbols', e:'ℹ️', n:'information'},
+    {c:'symbols', e:'🆔', n:'ID button'}, {c:'symbols', e:'Ⓜ️', n:'circled M'}, {c:'symbols', e:'🆕', n:'NEW button'},
+    {c:'symbols', e:'🆖', n:'NG button'}, {c:'symbols', e:'🅾️', n:'O button (blood type)'}, {c:'symbols', e:'🆗', n:'OK button'},
+    {c:'symbols', e:'🅿️', n:'P button'}, {c:'symbols', e:'🆘', n:'SOS button'}, {c:'symbols', e:'🆙', n:'UP! button'},
+    {c:'symbols', e:'🆚', n:'VS button'}, {c:'symbols', e:'🈁', n:'Japanese “here” button'}, {c:'symbols', e:'🈂️', n:'Japanese “service charge” button'},
+    {c:'symbols', e:'🈷️', n:'Japanese “monthly amount” button'}, {c:'symbols', e:'🈶', n:'Japanese “not free of charge” button'}, {c:'symbols', e:'🈯', n:'Japanese “reserved” button'},
+    {c:'symbols', e:'🉐', n:'Japanese “bargain” button'}, {c:'symbols', e:'🈹', n:'Japanese “discount” button'}, {c:'symbols', e:'🈚', n:'Japanese “free of charge” button'},
+    {c:'symbols', e:'🈲', n:'Japanese “prohibited” button'}, {c:'symbols', e:'🉑', n:'Japanese “acceptable” button'}, {c:'symbols', e:'🈸', n:'Japanese “application” button'},
+    {c:'symbols', e:'🈴', n:'Japanese “passing grade” button'}, {c:'symbols', e:'🈳', n:'Japanese “vacancy” button'}, {c:'symbols', e:'㊗️', n:'Japanese “congratulations” button'},
+    {c:'symbols', e:'㊙️', n:'Japanese “secret” button'}, {c:'symbols', e:'🈺', n:'Japanese “open for business” button'}, {c:'symbols', e:'🈵', n:'Japanese “no vacancy” button'},
+    {c:'symbols', e:'🔴', n:'red circle'}, {c:'symbols', e:'🟠', n:'orange circle'}, {c:'symbols', e:'🟡', n:'yellow circle'},
+    {c:'symbols', e:'🟢', n:'green circle'}, {c:'symbols', e:'🔵', n:'blue circle'}, {c:'symbols', e:'🟣', n:'purple circle'},
+    {c:'symbols', e:'🟤', n:'brown circle'}, {c:'symbols', e:'⚫', n:'black circle'}, {c:'symbols', e:'⚪', n:'white circle'},
+    {c:'symbols', e:'🟥', n:'red square'}, {c:'symbols', e:'🟧', n:'orange square'}, {c:'symbols', e:'🟨', n:'yellow square'},
+    {c:'symbols', e:'🟩', n:'green square'}, {c:'symbols', e:'🟦', n:'blue square'}, {c:'symbols', e:'🟪', n:'purple square'},
+    {c:'symbols', e:'🟫', n:'brown square'}, {c:'symbols', e:'⬛', n:'black large square'}, {c:'symbols', e:'⬜', n:'white large square'},
+    {c:'symbols', e:'◼️', n:'black medium square'}, {c:'symbols', e:'◻️', n:'white medium square'}, {c:'symbols', e:'◾', n:'black medium-small square'},
+    {c:'symbols', e:'◽', n:'white medium-small square'}, {c:'symbols', e:'▪️', n:'black small square'}, {c:'symbols', e:'▫️', n:'white small square'},
+    {c:'symbols', e:'🔶', n:'large orange diamond'}, {c:'symbols', e:'🔷', n:'large blue diamond'}, {c:'symbols', e:'🔸', n:'small orange diamond'},
+    {c:'symbols', e:'🔹', n:'small blue diamond'}, {c:'symbols', e:'🔺', n:'red triangle pointed up'}, {c:'symbols', e:'🔻', n:'red triangle pointed down'},
+    {c:'symbols', e:'💠', n:'diamond with a dot'}, {c:'symbols', e:'🔘', n:'radio button'}, {c:'symbols', e:'🔳', n:'white square button'},
+    {c:'symbols', e:'🔲', n:'black square button'}
 ];
 
-// --- DOM Elements ---
-let searchInput, emojiGrid, copyToastEl, copyToast;
+let grid, input, cats;
+let currentCat = 'all';
 
-// --- Rendering Functions ---
+function render() {
+    grid.innerHTML = '';
+    const query = input.value.toLowerCase();
+    
+    // Filter
+    const filtered = EMOJIS.filter(item => {
+        const matchesSearch = item.n.includes(query) || item.e.includes(query);
+        const matchesCat = currentCat === 'all' || item.c === currentCat;
+        return matchesSearch && matchesCat;
+    });
 
-function renderEmojis(filter = '') {
-    emojiGrid.innerHTML = '';
-    const filteredList = EMOJI_LIST.filter(item =>
-        item.name.toLowerCase().includes(filter.toLowerCase())
-    );
-
-    if (filteredList.length === 0) {
-        emojiGrid.innerHTML = '<p class="text-muted">No emojis found.</p>';
+    if(filtered.length === 0) {
+        grid.innerHTML = `<div class="col-12 text-center text-muted py-5">No emojis found.</div>`;
         return;
     }
 
-    filteredList.forEach(item => {
-        const button = document.createElement('button');
-        button.className = 'emoji-btn';
-        button.textContent = item.emoji;
-        button.dataset.emoji = item.emoji;
-        button.setAttribute('aria-label', item.name);
-        button.title = item.name;
-        emojiGrid.appendChild(button);
+    // Use document fragment for performance
+    const fragment = document.createDocumentFragment();
+    
+    filtered.forEach(item => {
+        const btn = document.createElement('button');
+        btn.className = 'emoji-btn';
+        btn.textContent = item.e;
+        btn.title = item.n;
+        btn.onclick = () => copy(item.e);
+        fragment.appendChild(btn);
     });
+    
+    grid.appendChild(fragment);
 }
 
-// --- Event Handlers ---
-
-function handleSearch() {
-    renderEmojis(searchInput.value);
+function copy(char) {
+    navigator.clipboard.writeText(char);
+    Toast.show('Copied', `${char} copied to clipboard`, 'success');
 }
 
-function handleEmojiClick(event) {
-    const target = event.target.closest('.emoji-btn');
-    if (!target) return;
-
-    const emojiToCopy = target.dataset.emoji;
-
-    navigator.clipboard.writeText(emojiToCopy).then(() => {
-        // Show a success notification
-        if (copyToast) {
-            copyToast.show();
-        }
-    }).catch(err => {
-        console.error('Failed to copy emoji: ', err);
-        alert('Failed to copy emoji to clipboard.');
-    });
+function handleCat(e) {
+    if(!e.target.dataset.cat) return;
+    
+    document.querySelectorAll('#emoji-cats .btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    
+    currentCat = e.target.dataset.cat;
+    input.value = ''; // Clear search on cat change for better UX
+    render();
 }
-
-// --- Router Hooks ---
 
 export function init() {
-    // Get DOM elements
-    searchInput = document.getElementById('emoji-search-input');
-    emojiGrid = document.getElementById('emoji-grid');
-    copyToastEl = document.getElementById('emoji-copy-toast');
+    grid = document.getElementById('emoji-grid');
+    input = document.getElementById('emoji-search');
+    cats = document.getElementById('emoji-cats');
 
-    // Initialize Bootstrap Toast
-    if (copyToastEl) {
-        copyToast = new bootstrap.Toast(copyToastEl);
-    }
+    input.addEventListener('input', render);
+    cats.addEventListener('click', handleCat);
 
-    // Initial render
-    renderEmojis();
-
-    // Attach event listeners
-    if (searchInput) {
-        searchInput.addEventListener('input', handleSearch);
-    }
-    if (emojiGrid) {
-        emojiGrid.addEventListener('click', handleEmojiClick);
-    }
+    render();
 }
 
 export function cleanup() {
-    // Remove event listeners
-    if (searchInput) {
-        searchInput.removeEventListener('input', handleSearch);
-    }
-    if (emojiGrid) {
-        emojiGrid.removeEventListener('click', handleEmojiClick);
-    }
-    if (copyToast) {
-        copyToast.dispose();
-    }
+    //
 }

@@ -1,30 +1,62 @@
-<div class="card p-4 mx-auto text-center" style="max-width: 800px">
-  <h4 class="text-center"><i class="fa-solid fa-music"></i> Virtual Piano</h4>
-  <p class="small text-muted mb-2">
-    Click the keys or use your keyboard to play.
-  </p>
+<div class="container py-5">
+    <div class="glass-panel p-5 mx-auto text-center" style="max-width: 900px; overflow-x: auto;">
+        <h3 class="text-white fw-bold mb-4"><i class="fa-solid fa-music me-2 text-info"></i> Piano Pro</h3>
+        
+        <div class="position-relative d-inline-block px-4 pt-4 pb-2 bg-black rounded-3 shadow-lg border-top border-white-10">
+            <!-- Keys Container -->
+            <div class="d-flex position-relative">
+                <!-- White Keys -->
+                <div class="key white" data-note="C"></div>
+                <div class="key white" data-note="D"></div>
+                <div class="key white" data-note="E"></div>
+                <div class="key white" data-note="F"></div>
+                <div class="key white" data-note="G"></div>
+                <div class="key white" data-note="A"></div>
+                <div class="key white" data-note="B"></div>
+                <div class="key white" data-note="C2"></div>
 
-  <div id="piano-keys" class="d-flex justify-content-center mt-5 mb-3">
-    <!-- White Keys -->
-    <div class="key white" data-note="C"><span>A</span></div>
-    <div class="key white" data-note="D"><span>S</span></div>
-    <div class="key white" data-note="E"><span>D</span></div>
-    <div class="key white" data-note="F"><span>F</span></div>
-    <div class="key white" data-note="G"><span>G</span></div>
-    <div class="key white" data-note="A"><span>H</span></div>
-    <div class="key white" data-note="B"><span>J</span></div>
+                <!-- Black Keys (Absolute) -->
+                <div class="key black" data-note="C#" style="left: 45px;"></div>
+                <div class="key black" data-note="D#" style="left: 105px;"></div>
+                <div class="key black" data-note="F#" style="left: 225px;"></div>
+                <div class="key black" data-note="G#" style="left: 285px;"></div>
+                <div class="key black" data-note="A#" style="left: 345px;"></div>
+            </div>
+        </div>
 
-    <!-- Black Keys -->
-    <div class="key black" data-note="C#"><span>W</span></div>
-    <div class="key black" data-note="D#"><span>E</span></div>
-    <div class="key black" data-note="F#"><span>T</span></div>
-    <div class="key black" data-note="G#"><span>Y</span></div>
-    <div class="key black" data-note="A#"><span>U</span></div>
-  </div>
-  <div id="piano-audio-container" style="display: none"></div>
-  <div class="mt-3">
-    <div id="sustain-pedal-indicator" class="sustain-pedal">
-      <i class="fa-solid fa-shoe-prints"></i> Sustain (Spacebar)
+        <div class="mt-4 text-secondary small">
+            Use keys <span class="badge bg-dark border border-white-10">A</span> through <span class="badge bg-dark border border-white-10">K</span> to play.
+        </div>
     </div>
-  </div>
 </div>
+
+<style>
+.key {
+    cursor: pointer;
+    transition: all 0.1s;
+    border-radius: 0 0 4px 4px;
+}
+.key.white {
+    width: 60px; height: 200px;
+    background: linear-gradient(to bottom, white 0%, #eee 100%);
+    border: 1px solid #ccc;
+    z-index: 1;
+}
+.key.white:active, .key.white.active {
+    background: #ddd;
+    transform: translateY(2px);
+    border-bottom: 4px solid #ccc;
+}
+.key.black {
+    width: 40px; height: 120px;
+    background: linear-gradient(to bottom, #333 0%, black 100%);
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+.key.black:active, .key.black.active {
+    background: #222;
+    transform: translateY(2px);
+}
+</style>

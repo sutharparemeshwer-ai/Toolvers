@@ -1,57 +1,54 @@
-<!-- tools/ai-text-rewriter.html -->
-<div class="container-fluid mt-4">
-  <h4 class="mb-4 text-center">
-    <i class="fa-solid fa-pen-nib me-2"></i> AI Text Rewriter
-  </h4>
+<div class="container py-5">
+    <div class="row g-4 h-100">
+        <!-- Controls -->
+        <div class="col-lg-3">
+            <div class="glass-panel p-4 h-100">
+                <h4 class="text-white fw-bold mb-4"><i class="fa-solid fa-pen-nib me-2 text-warning"></i> Text Rewriter</h4>
+                
+                <label class="text-white-50 small mb-2">Rewrite Tone</label>
+                <div class="d-flex flex-column gap-2 mb-4" id="tone-selector">
+                    <button class="btn btn-outline-light text-start active" data-tone="formal"><i class="fa-solid fa-user-tie me-2"></i> Formal</button>
+                    <button class="btn btn-outline-light text-start" data-tone="casual"><i class="fa-solid fa-mug-hot me-2"></i> Casual</button>
+                    <button class="btn btn-outline-light text-start" data-tone="concise"><i class="fa-solid fa-scissors me-2"></i> Concise</button>
+                    <button class="btn btn-outline-light text-start" data-tone="creative"><i class="fa-solid fa-paintbrush me-2"></i> Creative</button>
+                </div>
 
-  <div class="card p-3">
-    <div class="row g-4">
-      <!-- Input Text -->
-      <div class="col-lg-6">
-        <h5>Original Text</h5>
-        <textarea
-          id="rewriter-original-text"
-          class="form-control"
-          rows="12"
-          placeholder="Paste or type your text here..."
-        ></textarea>
-      </div>
+                <div id="stats-panel" class="d-none">
+                    <hr class="border-white-10">
+                    <div class="d-flex justify-content-between text-white-50 small mb-1">
+                        <span>Word Count</span>
+                        <span id="word-diff" class="text-white">0 → 0</span>
+                    </div>
+                </div>
 
-      <!-- Rewritten Text -->
-      <div class="col-lg-6">
-        <h5>Rewritten Text</h5>
-        <textarea
-          id="rewriter-rewritten-text"
-          class="form-control"
-          rows="12"
-          placeholder="The rewritten text will appear here..."
-          readonly
-        ></textarea>
-      </div>
+                <button id="rewrite-btn" class="btn btn-primary w-100 mt-auto">
+                    <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Rewrite Text
+                </button>
+            </div>
+        </div>
+
+        <!-- Editor -->
+        <div class="col-lg-9">
+            <div class="row g-0 h-100">
+                <!-- Original -->
+                <div class="col-md-6 d-flex flex-column">
+                    <div class="bg-dark p-2 border-bottom border-white-10 text-center text-white-50 small fw-bold">ORIGINAL</div>
+                    <textarea id="original-text" class="form-control bg-dark border-end border-white-10 text-white rounded-0 flex-grow-1 p-4 custom-scrollbar" style="resize: none; border: none;" placeholder="Paste text here..."></textarea>
+                </div>
+                
+                <!-- Rewritten -->
+                <div class="col-md-6 d-flex flex-column">
+                    <div class="bg-dark p-2 border-bottom border-white-10 text-center text-success small fw-bold">REWRITTEN</div>
+                    <div class="position-relative flex-grow-1 bg-black">
+                        <textarea id="rewritten-text" class="form-control bg-transparent text-white h-100 p-4 custom-scrollbar" style="resize: none; border: none;" placeholder="AI output will appear here..." readonly></textarea>
+                        <button id="copy-btn" class="btn btn-sm btn-dark border border-white-10 position-absolute top-0 end-0 m-3"><i class="fa-solid fa-copy"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <!-- Controls -->
-    <div class="row g-3 align-items-center mt-3">
-      <div class="col-md-6">
-        <label for="rewriter-tone-select" class="form-label"
-          >Choose a Tone:</label
-        >
-        <select id="rewriter-tone-select" class="form-select">
-          <option value="formal">Make More Formal</option>
-          <option value="casual">Make More Casual</option>
-          <option value="concise">Make More Concise</option>
-          <option value="expanded">Expand On It</option>
-          <option value="simpler">Simplify the Language</option>
-        </select>
-      </div>
-      <div class="col-md-6 d-grid">
-        <button id="rewriter-submit-btn" class="btn btn-primary btn-lg mt-md-4">
-          <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Rewrite
-        </button>
-      </div>
-    </div>
-
-    <!-- Status -->
-    <div id="rewriter-status" class="text-center small text-muted mt-3"></div>
-  </div>
 </div>
+
+<style>
+#tone-selector .btn.active { background: white; color: black; border-color: white; }
+</style>

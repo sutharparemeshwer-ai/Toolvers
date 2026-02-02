@@ -1,14 +1,112 @@
-<div class="card p-4 mx-auto" style="max-width: 500px;">
-    <h4 class="mb-4 text-center"><i class="fa-solid fa-list-check"></i> Simple To-Do List</h4>
-    
-    <div class="input-group mb-4">
-        <input type="text" class="form-control" id="new-task-input" placeholder="Enter a new task...">
-        <button class="btn btn-primary" type="button" id="add-task-btn">Add Task</button>
-    </div>
+<div class="container py-4">
+    <div class="glass-panel p-4 mx-auto" style="max-width: 800px;">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="m-0 fw-bold text-white"><i class="fa-solid fa-list-check me-2 text-primary"></i>Task Master</h3>
+            <div class="d-flex gap-2">
+                <button id="clear-completed-btn" class="btn btn-outline-light btn-sm rounded-pill">Clear Completed</button>
+                <button id="clear-all-btn" class="btn btn-danger btn-sm rounded-pill">Clear All</button>
+            </div>
+        </div>
 
-    <ul id="task-list" class="list-group">
-        <p class="text-muted text-center small">Your tasks will appear here. They are saved locally!</p>
-    </ul>
-    
-    <button class="btn btn-danger mt-4" id="clear-all-btn">Clear All Tasks</button>
+        <!-- Add Task Input -->
+        <div class="add-task-wrapper mb-4 position-relative">
+            <input type="text" id="new-task-input" class="form-control form-control-lg rounded-pill ps-4 pe-5 border-0 bg-white bg-opacity-10 text-white" placeholder="What needs to be done?">
+            <button id="add-task-btn" class="btn btn-primary rounded-circle position-absolute end-0 top-50 translate-middle-y me-2" style="width: 40px; height: 40px;">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+        </div>
+
+        <!-- Filters -->
+        <ul class="nav nav-pills nav-fill mb-4 gap-2" id="task-filters">
+            <li class="nav-item">
+                <a class="nav-link active rounded-pill" href="#" data-filter="all">All</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link rounded-pill" href="#" data-filter="active">Active</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link rounded-pill" href="#" data-filter="completed">Completed</a>
+            </li>
+        </ul>
+
+        <!-- Task List -->
+        <div id="task-list-container" class="custom-scrollbar" style="max-height: 500px; overflow-y: auto;">
+            <ul id="task-list" class="list-group list-group-flush">
+                <!-- Tasks rendered here -->
+            </ul>
+            <div id="empty-state" class="text-center py-5 text-muted d-none">
+                <i class="fa-solid fa-clipboard-check fa-3x mb-3 opacity-50"></i>
+                <p>No tasks found. Enjoy your day!</p>
+            </div>
+        </div>
+        
+        <div class="d-flex justify-content-between text-white-50 mt-3 px-2 small">
+            <span id="items-left">0 items left</span>
+            <span>Drag and drop to reorder</span>
+        </div>
+    </div>
 </div>
+
+<style>
+/* Todo Specific Styles */
+.task-item {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: white;
+    transition: all 0.2s;
+    cursor: grab;
+}
+
+.task-item:hover {
+    background: rgba(255,255,255,0.02);
+}
+
+.task-item.completed .task-text {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.task-checkbox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #6366f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.task-checkbox.checked {
+    background: #6366f1;
+}
+
+.task-checkbox.checked::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: white;
+    font-size: 10px;
+}
+
+.delete-task-btn {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.task-item:hover .delete-task-btn {
+    opacity: 1;
+}
+
+/* Nav Pills Custom */
+.nav-pills .nav-link {
+    color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.05);
+}
+.nav-pills .nav-link.active {
+    background: var(--primary-gradient);
+    color: white;
+}
+</style>

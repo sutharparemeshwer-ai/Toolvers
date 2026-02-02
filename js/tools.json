@@ -1,5 +1,12 @@
 [
   {
+    "id": "cookie-clicker",
+    "name": "Cookie Clicker",
+    "description": "Bake billions of cookies in this addictive idle game.",
+    "tags": ["game", "idle", "clicker", "fun"],
+    "category": "Games"
+  },
+  {
     "id": "bmi",
     "name": "BMI Calculator",
     "description": "Calculate body-mass index",
@@ -622,13 +629,7 @@
     "tags": ["data", "chart", "visualization", "dashboard"],
     "category": "Data & API"
   },
-  {
-    "id": "ai-powered-news-aggregator",
-    "name": "News Aggregator",
-    "description": "Fetches and displays the latest news articles from various sources, powered by a news API.",
-    "tags": ["news", "api", "aggregator", "data"],
-    "category": "AI Tools"
-  },
+
   {
     "id": "instagram-caption-generator",
     "name": "Instagram Caption / Hashtag Generator",

@@ -1,27 +1,39 @@
-<div id="hangman-container" class="card p-4 mx-auto" style="max-width: 600px;">
-    <h4 class="mb-4 text-center"><i class="fa-solid fa-person-falling-danger"></i> Hangman Game</h4>
-    
-    <div class="text-center text-light mb-4">
-        <svg id="hangman-drawing" width="150" height="200" viewbox="0 0 150 200" class="text-light">
-            <line x1="20" y1="190" x2="130" y2="190" stroke="#000" stroke-width="6" />
-            <line x1="20" y1="190" x2="20" y2="10" stroke="#000" stroke-width="6" />
-            <line x1="20" y1="10" x2="100" y2="10" stroke="#000" stroke-width="6" />
-            <line x1="100" y1="10" x2="100" y2="30" stroke="#000" stroke-width="4" />
-        </svg>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="glass-panel p-5 text-center">
+                <h4 class="text-white fw-bold mb-4">Hangman</h4>
+                
+                <!-- Gallow -->
+                <div class="mb-4 bg-black bg-opacity-25 rounded-3 p-4 border border-white-10">
+                    <svg width="200" height="200" viewBox="0 0 200 200" class="mx-auto">
+                        <line x1="20" y1="180" x2="180" y2="180" stroke="white" stroke-width="4"/>
+                        <line x1="40" y1="180" x2="40" y2="20" stroke="white" stroke-width="4"/>
+                        <line x1="40" y1="20" x2="120" y2="20" stroke="white" stroke-width="4"/>
+                        <line x1="120" y1="20" x2="120" y2="40" stroke="white" stroke-width="4"/>
+                        
+                        <!-- Body Parts -->
+                        <circle id="h-head" cx="120" cy="60" r="20" stroke="white" stroke-width="4" fill="none" class="d-none"/>
+                        <line id="h-body" x1="120" y1="80" x2="120" y2="130" stroke="white" stroke-width="4" class="d-none"/>
+                        <line id="h-larm" x1="120" y1="100" x2="90" y2="80" stroke="white" stroke-width="4" class="d-none"/>
+                        <line id="h-rarm" x1="120" y1="100" x2="150" y2="80" stroke="white" stroke-width="4" class="d-none"/>
+                        <line id="h-lleg" x1="120" y1="130" x2="100" y2="160" stroke="white" stroke-width="4" class="d-none"/>
+                        <line id="h-rleg" x1="120" y1="130" x2="140" y2="160" stroke="white" stroke-width="4" class="d-none"/>
+                    </svg>
+                </div>
 
-        <p id="game-message" class="lead mt-3 text-info">Guess a letter!</p>
-    </div>
+                <div class="mb-5">
+                    <div id="word-display" class="display-4 text-white fw-bold font-monospace" style="letter-spacing: 0.5rem;">_ _ _ _</div>
+                    <p class="text-secondary mt-3">Mistakes: <span id="wrong-count" class="text-danger">0</span> / 6</p>
+                </div>
 
-    <div class="mb-4 text-center">
-        <h2 id="word-display" class="display-4 fw-bold letter-spacing-lg mb-4"></h2>
-        
-        <p class="mb-0 text-danger">Wrong Guesses: <strong id="wrong-guesses-count">0</strong> / 6</p>
-    </div>
+                <div id="keyboard" class="d-flex flex-wrap justify-content-center gap-2">
+                    <!-- Buttons -->
+                </div>
 
-    <div id="keyboard-container" class="d-flex flex-wrap justify-content-center">
+                <div id="hm-msg" class="h5 mt-4 fw-bold"></div>
+                <button class="btn btn-outline-light mt-4 d-none" id="hm-restart">Try Again</button>
+            </div>
         </div>
-
-    <div class="mt-4 text-center">
-        <button id="reset-btn" class="btn btn-outline-primary w-50">New Game</button>
     </div>
 </div>

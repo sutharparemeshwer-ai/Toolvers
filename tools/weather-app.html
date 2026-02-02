@@ -1,54 +1,102 @@
-<!-- tools/weather-app.html -->
-<div class="container mt-4">
-    <div class="card p-4 mx-auto" style="max-width: 450px;">
-        <h4 class="mb-4 text-center"><i class="fa-solid fa-cloud-sun me-2"></i> Weather App</h4>
-
-        <!-- Search Bar -->
-        <div class="input-group mb-3">
-            <input type="text" id="city-input" class="form-control" placeholder="Enter city name..." aria-label="City name">
-            <button class="btn btn-primary" type="button" id="search-btn"><i class="fa-solid fa-search"></i></button>
-        </div>
-        <div class="text-center mb-3">
-            <button class="btn btn-secondary btn-sm" id="location-btn">
-                <i class="fa-solid fa-location-crosshairs me-2"></i>Use My Location
-            </button>
-        </div>
-
-        <!-- Status Messages -->
-        <div id="weather-status" class="text-center my-3">
-            <!-- Loading spinner or error messages will appear here -->
+<div id="weather-app-container" class="weather-wrapper-modern">
+  <div class="weather-bg-layer" id="weather-bg"></div>
+  
+  <div class="container position-relative z-2">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8">
+        
+        <!-- Search Section -->
+        <div class="glass-panel p-2 mb-4 d-flex align-items-center">
+          <i class="fa-solid fa-location-dot text-white mx-3"></i>
+          <input type="text" id="city-input" class="form-control bg-transparent border-0 text-white shadow-none" placeholder="Search city..." style="color: white !important;">
+          <button id="search-btn" class="btn btn-primary rounded-pill px-4 ms-2">Search</button>
+          <button id="location-btn" class="btn btn-outline-light rounded-circle ms-2" title="Use my location"><i class="fa-solid fa-crosshairs"></i></button>
         </div>
 
-        <!-- Weather Display (Initially Hidden) -->
-        <div id="weather-display" class="d-none">
-            <!-- Main Info -->
-            <div class="text-center text-light">
-                <img id="weather-icon" src="" alt="Weather icon" style="width: 100px; height: 100px;">
-                <h1 id="temperature" class="display-4 fw-bold">--°C</h1>
-                <p id="weather-description" class="lead text-capitalize">--</p>
-                <p id="city-name" class="h5 ">--, --</p>
-            </div>
+        <!-- Main Weather Card -->
+        <div id="weather-display" class="glass-panel p-5 text-center text-white d-none animate-fade-in">
+          <div class="d-flex justify-content-center align-items-center mb-3">
+             <h2 id="city-name" class="fw-bold mb-0 me-2">City Name</h2>
+             <span class="badge bg-white text-dark rounded-pill" id="country-code">--</span>
+          </div>
+          
+          <div class="weather-icon-large my-4">
+             <img id="weather-icon" src="" alt="Weather" width="120">
+          </div>
+          
+          <h1 id="temperature" class="display-1 fw-bold mb-0">--°</h1>
+          <p id="weather-description" class="lead text-capitalize opacity-75 mb-4">--</p>
 
-            <hr class="my-4">
-
-            <!-- Detailed Info -->
-            <div class="row text-center text-light">
-                <div class="col-4">
-                    <i class="fa-solid fa-temperature-half fa-2x mb-2 text-primary"></i>
-                    <p class="mb-0 fw-bold" id="feels-like">--°C</p>
-                    <p class="small text-muted">Feels Like</p>
-                </div>
-                <div class="col-4">
-                    <i class="fa-solid fa-droplet fa-2x mb-2 text-primary"></i>
-                    <p class="mb-0 fw-bold" id="humidity">--%</p>
-                    <p class="small text-muted">Humidity</p>
-                </div>
-                <div class="col-4">
-                    <i class="fa-solid fa-wind fa-2x mb-2 text-primary"></i>
-                    <p class="mb-0 fw-bold" id="wind-speed">-- m/s</p>
-                    <p class="small text-muted">Wind</p>
-                </div>
-            </div>
+          <div class="row g-3 mt-4 border-top border-white-50 pt-4">
+             <div class="col-4">
+               <div class="d-flex flex-column">
+                 <i class="fa-solid fa-droplet mb-2 opacity-75"></i>
+                 <span class="fw-bold" id="humidity">--%</span>
+                 <small class="opacity-75">Humidity</small>
+               </div>
+             </div>
+             <div class="col-4">
+               <div class="d-flex flex-column">
+                 <i class="fa-solid fa-wind mb-2 opacity-75"></i>
+                 <span class="fw-bold" id="wind-speed">-- km/h</span>
+                 <small class="opacity-75">Wind</small>
+               </div>
+             </div>
+             <div class="col-4">
+               <div class="d-flex flex-column">
+                 <i class="fa-solid fa-temperature-half mb-2 opacity-75"></i>
+                 <span class="fw-bold" id="feels-like">--°</span>
+                 <small class="opacity-75">Feels Like</small>
+               </div>
+             </div>
+          </div>
         </div>
+
+        <!-- Status/Error -->
+        <div id="weather-status" class="text-center text-white mt-3"></div>
+
+      </div>
     </div>
+  </div>
 </div>
+
+<style>
+.weather-wrapper-modern {
+  position: relative;
+  min-height: 600px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  padding: 3rem 1rem;
+  background: #0f172a;
+}
+
+.weather-bg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: all 1s ease;
+  z-index: 1;
+  filter: brightness(0.7);
+}
+
+/* Dynamic Backgrounds classes will be added via JS */
+.bg-clear { background: linear-gradient(to bottom, #2980b9, #6dd5fa); }
+.bg-clouds { background: linear-gradient(to bottom, #373b44, #4286f4); }
+.bg-rain { background: linear-gradient(to bottom, #000046, #1cb5e0); }
+.bg-snow { background: linear-gradient(to bottom, #83a4d4, #b6fbff); }
+.bg-thunder { background: linear-gradient(to bottom, #141e30, #243b55); }
+.bg-default { background: linear-gradient(to bottom, #0f172a, #334155); }
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Override placeholder color for this specific input */
+#city-input::placeholder {
+  color: rgba(255,255,255,0.6) !important;
+}
+</style>

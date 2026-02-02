@@ -1,71 +1,87 @@
-<!-- tools/instagram-caption-generator.html -->
-<div class="container mt-4">
-  <div class="card p-4 mx-auto" style="max-width: 700px">
-    <h4 class="mb-4 text-center">
-      <i class="fa-brands fa-instagram me-2"></i> Instagram Caption &amp;
-      Hashtag Generator
-    </h4>
+<div class="container py-5">
+    <div class="row g-4 h-100">
+        <!-- Controls -->
+        <div class="col-lg-5">
+            <div class="glass-panel p-4 h-100 d-flex flex-column">
+                <h4 class="text-white fw-bold mb-4"><i class="fa-brands fa-instagram me-2 text-danger"></i> Caption Studio</h4>
+                
+                <div class="mb-3">
+                    <label class="text-white-50 small mb-1">Platform</label>
+                    <select id="platform-select" class="form-select bg-dark border-white-10 text-white">
+                        <option value="instagram">Instagram</option>
+                        <option value="tiktok">TikTok</option>
+                        <option value="linkedin">LinkedIn</option>
+                    </select>
+                </div>
 
-    <div class="mb-3">
-      <label for="post-description" class="form-label"
-        >Describe your post:</label
-      >
-      <textarea
-        id="post-description"
-        class="form-control"
-        rows="4"
-        placeholder="e.g., A photo of a golden retriever puppy playing in a field of flowers at sunset."
-      ></textarea>
-    </div>
+                <div class="mb-3">
+                    <label class="text-white-50 small mb-1">Vibe / Tone</label>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-light btn-sm flex-grow-1 vibe-btn active" data-vibe="casual">Chill</button>
+                        <button class="btn btn-outline-light btn-sm flex-grow-1 vibe-btn" data-vibe="professional">Pro</button>
+                        <button class="btn btn-outline-light btn-sm flex-grow-1 vibe-btn" data-vibe="funny">Funny</button>
+                    </div>
+                </div>
 
-    <button id="generate-caption-btn" class="btn btn-primary w-100 mb-3">
-      <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Generate with AI
-    </button>
+                <div class="mb-4 flex-grow-1">
+                    <label class="text-white-50 small mb-1">What's in the photo?</label>
+                    <textarea id="post-desc" class="form-control bg-black border-white-10 text-white h-100" style="min-height: 150px; resize: none;" placeholder="e.g. Sunset at the beach with friends..."></textarea>
+                </div>
 
-    <div
-      id="ai-status"
-      class="text-center small text-muted mb-3"
-      style="min-height: 20px"
-    ></div>
-
-    <div id="results-container" class="d-none">
-      <div class="mb-3">
-        <label class="form-label">Generated Caption:</label>
-        <div class="position-relative">
-          <textarea
-            id="generated-caption"
-            class="form-control"
-            rows="5"
-            readonly
-          ></textarea>
-          <button
-            class="btn btn-sm btn-outline-secondary copy-btn"
-            data-target="generated-caption"
-            title="Copy Caption"
-          >
-            <i class="fa-solid fa-copy"></i>
-          </button>
+                <button id="generate-btn" class="btn btn-primary w-100 py-3 fw-bold shadow-lg">
+                    <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Generate Magic
+                </button>
+            </div>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label class="form-label">Suggested Hashtags:</label>
-        <div class="position-relative">
-          <textarea
-            id="generated-hashtags"
-            class="form-control"
-            rows="3"
-            readonly
-          ></textarea>
-          <button
-            class="btn btn-sm btn-outline-secondary copy-btn"
-            data-target="generated-hashtags"
-            title="Copy Hashtags"
-          >
-            <i class="fa-solid fa-copy"></i>
-          </button>
+        <!-- Preview -->
+        <div class="col-lg-7">
+            <div class="glass-panel p-4 h-100 bg-dark">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="text-white small text-uppercase fw-bold m-0">Preview</h6>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-sm btn-outline-secondary" id="copy-caption"><i class="fa-regular fa-copy"></i> Caption</button>
+                        <button class="btn btn-sm btn-outline-secondary" id="copy-tags"><i class="fa-regular fa-copy"></i> Hashtags</button>
+                    </div>
+                </div>
+
+                <!-- Mock Phone UI -->
+                <div class="mx-auto bg-black border border-secondary rounded-4 overflow-hidden shadow-lg position-relative" style="max-width: 400px;">
+                    <!-- Header -->
+                    <div class="p-3 d-flex align-items-center border-bottom border-secondary">
+                        <div class="rounded-circle bg-secondary" style="width: 32px; height: 32px;"></div>
+                        <span class="ms-2 text-white fw-bold small">your_handle</span>
+                        <i class="fa-solid fa-ellipsis ms-auto text-white"></i>
+                    </div>
+                    
+                    <!-- Image Placeholder -->
+                    <div class="bg-dark d-flex align-items-center justify-content-center text-white-50" style="aspect-ratio: 1/1;">
+                        <i class="fa-regular fa-image fa-3x"></i>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="p-3 pb-0 d-flex gap-3 text-white fs-5">
+                        <i class="fa-regular fa-heart"></i>
+                        <i class="fa-regular fa-comment"></i>
+                        <i class="fa-regular fa-paper-plane"></i>
+                        <i class="fa-regular fa-bookmark ms-auto"></i>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-3 pt-2 text-white" style="font-size: 0.9rem;">
+                        <div class="fw-bold mb-1 small">1,234 likes</div>
+                        <div>
+                            <span class="fw-bold me-1">your_handle</span>
+                            <span id="preview-caption" class="text-white-50">Your caption will appear here...</span>
+                        </div>
+                        <div class="mt-2 text-primary small" id="preview-hashtags">#hashtags #appear #here</div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
+
+<style>
+.vibe-btn.active { background: white; color: black; border-color: white; }
+</style>

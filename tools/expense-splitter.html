@@ -1,61 +1,59 @@
-<div id="expenses-splitter-container" class="card p-4 mx-auto" style="max-width: 800px;">
-    <h4 class="mb-4 text-center"><i class="fa-solid fa-handshake"></i> Group Expenses Splitter</h4>
-    
-    <div class="mb-5 p-3 border rounded ">
-        <h5 class="mb-3 text-light"><i class="fa-solid fa-users"></i> 1. Who is involved?</h5>
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" id="new-person-input" placeholder="Enter name (e.g., Alice, Bob)">
-            <button class="btn btn-primary" type="button" id="add-person-btn">Add Person</button>
-        </div>
-        <div id="people-list" class="d-flex flex-wrap gap-2">
-            <span id="empty-people-msg" class="text-muted small">Add people to start tracking expenses.</span>
-        </div>
-    </div>
-
-    <div class="mb-5 p-3 border rounded">
-        <h5 class="mb-3 "><i class="fa-solid fa-receipt"></i> 2. Add Expenses</h5>
-        
-        <div id="expense-form-container" class="mb-4">
-            <div class="row g-3 mb-3">
-                <div class="col-md-5">
-                    <input type="text" class="form-control" id="expense-name" placeholder="Description (e.g., Dinner, Taxi)">
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="glass-panel p-5">
+                <div class="text-center mb-5">
+                    <h3 class="text-white fw-bold"><i class="fa-solid fa-money-bill-transfer me-2 text-primary"></i> Split It</h3>
+                    <p class="text-secondary small">Track shared expenses and settle up easily.</p>
                 </div>
-                <div class="col-md-3">
-                    <div class="input-group">
-                        <span class="input-group-text">$</span>
-                        <input type="number" step="0.01" class="form-control" id="expense-amount" placeholder="Amount">
+
+                <!-- Step 1: People -->
+                <div class="mb-5">
+                    <h6 class="text-white small fw-bold text-uppercase mb-3">1. Add People</h6>
+                    <div class="input-group mb-3">
+                        <input type="text" id="person-name" class="form-control bg-dark border-white-10 text-white" placeholder="Name (e.g. Alice)">
+                        <button class="btn btn-outline-light" id="add-person-btn"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                    <div id="people-container" class="d-flex flex-wrap gap-2">
+                        <!-- Chips -->
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <select class="form-select" id="expense-paid-by">
-                        <option value="">Paid by...</option>
-                        </select>
+
+                <!-- Step 2: Expenses -->
+                <div class="mb-5">
+                    <h6 class="text-white small fw-bold text-uppercase mb-3">2. Add Expense</h6>
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <input type="text" id="exp-desc" class="form-control bg-dark border-white-10 text-white" placeholder="Description">
+                        </div>
+                        <div class="col-3">
+                            <input type="number" id="exp-amt" class="form-control bg-dark border-white-10 text-white" placeholder="$0.00">
+                        </div>
+                        <div class="col-3">
+                            <select id="exp-payer" class="form-select bg-dark border-white-10 text-white">
+                                <option value="" disabled selected>Payer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="add-expense-btn" class="btn btn-primary w-100 mb-3">Add Expense</button>
+                    
+                    <div id="expense-list" class="list-group custom-scrollbar" style="max-height: 200px; overflow-y: auto;">
+                        <!-- List -->
+                    </div>
+                </div>
+
+                <!-- Step 3: Settlement -->
+                <div>
+                    <h6 class="text-white small fw-bold text-uppercase mb-3">3. Settlement Plan</h6>
+                    <div id="settlement-plan" class="bg-black bg-opacity-25 rounded-3 p-3">
+                        <p class="text-white-50 text-center small my-2">Add expenses to see who owes whom.</p>
+                    </div>
+                </div>
+
+                <div class="text-end mt-4">
+                    <button id="reset-btn" class="btn btn-sm btn-outline-danger">Reset All</button>
                 </div>
             </div>
-            <button class="btn btn-light w-100" id="add-expense-btn" disabled>Record Expense</button>
         </div>
-
-        <div id="expenses-list" class="list-group">
-            <p id="empty-expense-msg" class=" small text-center">No expenses added yet.</p>
-        </div>
-    </div>
-
-    <div class="p-3 border rounded ">
-        <h5 class="mb-3 "><i class="fa-solid fa-scale-balanced"></i> 3. Settlement Summary</h5>
-        <button class="btn btn-warning w-100 mb-3" id="calculate-btn">Calculate Balances</button>
-        
-        <div id="summary-section">
-            <h6 class="mb-2">Balances:</h6>
-            <ul id="balances-list" class="list-group small mb-3">
-                </ul>
-
-            <h6 class="mb-2">Settlement Plan:</h6>
-            <ul id="settlement-list" class="list-group small">
-                </ul>
-        </div>
-    </div>
-    
-    <div class="mt-4 text-center">
-        <button class="btn btn-danger btn-sm" id="clear-all-btn">Clear All Data</button>
     </div>
 </div>

@@ -15,6 +15,9 @@
     />
 
     <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/modern-theme.css" />
+    <link rel="stylesheet" href="assets/css/enterprise.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="manifest" href="manifest.json" />
     
     <!-- PWA Settings -->
@@ -23,6 +26,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ToolVerse">
     <link rel="apple-touch-icon" href="assets/images/icon.png">
+
+    <!-- Chart.js for Dashboards -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Markdown parser for AI tools -->
     <script src="https://cdn.jsdelivr.net/npm/marked@4.0.0/marked.min.js"></script>
@@ -73,7 +79,66 @@
       <i class="fa-solid fa-arrow-up"></i>
     </a>
 
-    <div id="footer"></div>
+    <!-- Rich Enterprise Footer -->
+    <footer class="footer-enterprise">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <div class="brand-icon-wrapper" style="width: 32px; height: 32px;">
+                                <i class="fa-brands fa-suse text-white small"></i>
+                            </div>
+                            ToolVerse
+                        </div>
+                        <p class="footer-desc mt-3">
+                            The definitive suite of developer utilities, productivity tools, and AI solutions. 
+                            Open source, privacy-first, and designed for professionals.
+                        </p>
+                        <div class="d-flex gap-3 mt-4">
+                            <a href="#" class="text-white opacity-50 hover-opacity-100"><i class="fa-brands fa-github fa-lg"></i></a>
+                            <a href="#" class="text-white opacity-50 hover-opacity-100"><i class="fa-brands fa-twitter fa-lg"></i></a>
+                            <a href="#" class="text-white opacity-50 hover-opacity-100"><i class="fa-brands fa-discord fa-lg"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h6 class="footer-heading">Product</h6>
+                    <ul class="footer-links">
+                        <li><a href="#all-tools">All Tools</a></li>
+                        <li><a href="#ai-chat-assistant">AI Assistant</a></li>
+                        <li><a href="#interactive-resume-builder">Resume Builder</a></li>
+                        <li><a href="#weather-app">Weather Pro</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h6 class="footer-heading">Resources</h6>
+                    <ul class="footer-links">
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Access</a></li>
+                        <li><a href="#">System Status</a></li>
+                        <li><a href="#">Changelog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h6 class="footer-heading">Stay Updated</h6>
+                    <p class="small text-secondary mb-3">Get the latest tool updates and developer news.</p>
+                    <div class="input-group">
+                        <input type="email" class="form-control bg-dark border-white-10 text-white" placeholder="Enter your email">
+                        <button class="btn btn-primary">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>&copy; 2025 ToolVerse Inc. All rights reserved.</div>
+                <div class="d-flex gap-4">
+                    <a href="#" class="text-secondary text-decoration-none">Privacy Policy</a>
+                    <a href="#" class="text-secondary text-decoration-none">Terms of Service</a>
+                    <a href="#" class="text-secondary text-decoration-none">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 

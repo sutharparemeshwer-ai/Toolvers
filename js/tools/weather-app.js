@@ -1,148 +1,115 @@
 // js/tools/weather-app.js
 
-// --- Configuration ---
-// 🚨 IMPORTANT: Replace with your own free API key from OpenWeatherMap
-const API_KEY = '83dfa2159edbf4ac901682e4e3a84531'; // 👈 Replace this with your actual key
+const API_KEY = '83dfa2159edbf4ac901682e4e3a84531'; // Keep existing key
 const API_BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
 
-// --- DOM Elements ---
 let cityInput, searchBtn, locationBtn, statusEl, weatherDisplayEl;
-let weatherIcon, temperatureEl, descriptionEl, cityNameEl;
-let feelsLikeEl, humidityEl, windSpeedEl;
+let weatherIcon, temperatureEl, descriptionEl, cityNameEl, countryCodeEl;
+let feelsLikeEl, humidityEl, windSpeedEl, weatherBgEl;
 
-// --- UI Update Functions ---
+function updateBackground(condition) {
+    weatherBgEl.className = 'weather-bg-layer'; // Reset
+    const code = condition.toLowerCase();
+    
+    if (code.includes('clear')) {
+        weatherBgEl.classList.add('bg-clear');
+    } else if (code.includes('cloud')) {
+        weatherBgEl.classList.add('bg-clouds');
+    } else if (code.includes('rain') || code.includes('drizzle')) {
+        weatherBgEl.classList.add('bg-rain');
+    } else if (code.includes('snow')) {
+        weatherBgEl.classList.add('bg-snow');
+    } else if (code.includes('thunder')) {
+        weatherBgEl.classList.add('bg-thunder');
+    } else {
+        weatherBgEl.classList.add('bg-default');
+    }
+}
 
 function showLoading(message) {
+    statusEl.innerHTML = `<div class="spinner-border text-light" role="status"></div><p class="mt-2">${message}</p>`;
     weatherDisplayEl.classList.add('d-none');
-    statusEl.innerHTML = `
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-        <p class="mt-2">${message}</p>
-    `;
 }
 
 function showError(message) {
+    statusEl.innerHTML = `<div class="alert alert-danger bg-danger text-white border-0">${message}</div>`;
     weatherDisplayEl.classList.add('d-none');
-    statusEl.innerHTML = `<p class="text-danger fw-bold">${message}</p>`;
 }
 
-function updateWeatherUI(data) {
+function updateUI(data) {
     statusEl.innerHTML = '';
     weatherDisplayEl.classList.remove('d-none');
-
-    // Main info
-    weatherIcon.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
-    weatherIcon.alt = data.weather[0].description;
-    temperatureEl.textContent = `${Math.round(data.main.temp)}°C`;
+    
+    cityNameEl.textContent = data.name;
+    countryCodeEl.textContent = data.sys.country;
+    temperatureEl.textContent = `${Math.round(data.main.temp)}°`;
     descriptionEl.textContent = data.weather[0].description;
-    cityNameEl.textContent = `${data.name}, ${data.sys.country}`;
-
-    // Detailed info
-    feelsLikeEl.textContent = `${Math.round(data.main.feels_like)}°C`;
+    
+    feelsLikeEl.textContent = `${Math.round(data.main.feels_like)}°`;
     humidityEl.textContent = `${data.main.humidity}%`;
-    windSpeedEl.textContent = `${data.wind.speed.toFixed(1)} m/s`;
+    windSpeedEl.textContent = `${(data.wind.speed * 3.6).toFixed(1)} km/h`; // Convert m/s to km/h
+    
+    const iconCode = data.weather[0].icon;
+    weatherIcon.src = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
+    
+    updateBackground(data.weather[0].main);
 }
-
-// --- API & Geolocation Functions ---
 
 async function fetchWeather(url) {
-    if (API_KEY === 'YOUR_API_KEY_HERE') {
-        showError('API Key not configured. Please add your OpenWeatherMap API key to js/tools/weather-app.js');
-        return;
-    }
-
     try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            if (response.status === 404) {
-                throw new Error('City not found. Please check the spelling.');
-            } else {
-                throw new Error(`API Error: ${response.statusText} (Status: ${response.status})`);
-            }
-        }
-        const data = await response.json();
-        updateWeatherUI(data);
-    } catch (error) {
-        console.error('Weather Fetch Error:', error);
-        showError(error.message);
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('City not found or API error.');
+        const data = await res.json();
+        updateUI(data);
+    } catch (err) {
+        showError(err.message);
     }
 }
 
-function getWeatherByCity(city) {
-    if (!city) {
-        showError('Please enter a city name.');
-        return;
-    }
-    showLoading(`Fetching weather for ${city}...`);
-    const url = `${API_BASE_URL}?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`;
-    fetchWeather(url);
+function handleSearch() {
+    const city = cityInput.value.trim();
+    if (!city) return;
+    showLoading(`Searching for ${city}...`);
+    fetchWeather(`${API_BASE_URL}?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`);
 }
 
-function getWeatherByCoords(lat, lon) {
-    showLoading('Fetching weather for your location...');
-    const url = `${API_BASE_URL}?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
-    fetchWeather(url);
-}
-
-function handleGeolocation() {
-    if (!navigator.geolocation) {
-        showError('Geolocation is not supported by your browser.');
-        return;
-    }
-
-    showLoading('Getting your location...');
+function handleLocation() {
+    if (!navigator.geolocation) return showError('Geolocation not supported.');
+    showLoading('Locating...');
     navigator.geolocation.getCurrentPosition(
-        (position) => {
-            getWeatherByCoords(position.coords.latitude, position.coords.longitude);
-        },
-        (error) => {
-            showError(`Geolocation Error: ${error.message}. Try searching for a city manually.`);
-        }
+        pos => fetchWeather(`${API_BASE_URL}?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&appid=${API_KEY}&units=metric`),
+        err => showError('Location access denied.')
     );
 }
 
-// --- Event Handlers ---
-
-function handleSearch() {
-    getWeatherByCity(cityInput.value.trim());
-}
-
-function handleKeyPress(event) {
-    if (event.key === 'Enter') {
-        handleSearch();
-    }
-}
-
-// --- Router Hooks ---
-
 export function init() {
-    // Get DOM elements
     cityInput = document.getElementById('city-input');
     searchBtn = document.getElementById('search-btn');
     locationBtn = document.getElementById('location-btn');
     statusEl = document.getElementById('weather-status');
     weatherDisplayEl = document.getElementById('weather-display');
-    weatherIcon = document.getElementById('weather-icon');
+    weatherBgEl = document.getElementById('weather-bg');
+    
+    cityNameEl = document.getElementById('city-name');
+    countryCodeEl = document.getElementById('country-code');
     temperatureEl = document.getElementById('temperature');
     descriptionEl = document.getElementById('weather-description');
-    cityNameEl = document.getElementById('city-name');
+    weatherIcon = document.getElementById('weather-icon');
+    
     feelsLikeEl = document.getElementById('feels-like');
     humidityEl = document.getElementById('humidity');
     windSpeedEl = document.getElementById('wind-speed');
-
-    // Attach event listeners
+    
     searchBtn.addEventListener('click', handleSearch);
-    cityInput.addEventListener('keypress', handleKeyPress);
-    locationBtn.addEventListener('click', handleGeolocation);
-
-    // Automatically get weather by location on initial load
-    handleGeolocation();
+    locationBtn.addEventListener('click', handleLocation);
+    cityInput.addEventListener('keypress', e => {
+        if(e.key === 'Enter') handleSearch();
+    });
+    
+    // Default search (London) or empty state
+    // handleLocation(); // Optional: Auto-locate on load
 }
 
 export function cleanup() {
-    // Remove event listeners to prevent memory leaks
-    searchBtn.removeEventListener('click', handleSearch);
-    cityInput.removeEventListener('keypress', handleKeyPress);
-    locationBtn.removeEventListener('click', handleGeolocation);
+    // Cleanup listeners if needed
 }

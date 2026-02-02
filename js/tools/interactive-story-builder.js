@@ -1,218 +1,158 @@
 // js/tools/interactive-story-builder.js
+import { Toast } from '../ui.js';
 
-// --- DOM Elements ---
-let storyPartsList, editorPanel, editorPlaceholder, form;
-let partIdInput, partTitleInput, partTextInput, choicesContainer;
-let addNewPartBtn, addChoiceBtn, deletePartBtn, playStoryBtn;
-let playerModal, playerModalInstance, playerTitle, playerSceneText, playerChoicesContainer;
+let canvas, stickersLayer, bgImg;
+let activeSticker = null;
+let startX, startY, initialLeft, initialTop;
 
-// --- State ---
-let storyData = {};
-let currentEditingPartId = null;
-const STORAGE_KEY = 'interactiveStoryData';
+function addSticker(type) {
+    const el = document.createElement('div');
+    el.className = 'sticker-item';
+    el.style.left = '50px';
+    el.style.top = '100px';
+    
+    let content = '';
+    if(type === 'text') content = `<div class="sticker-content" contenteditable="true">Tap to edit</div>`;
+    if(type === 'poll') content = `
+        <div class="sticker-poll">
+            <div class="sticker-poll-header" contenteditable="true">Ask a question...</div>
+            <div class="sticker-poll-option">YES</div>
+            <div class="sticker-poll-option">NO</div>
+        </div>`;
+    if(type === 'question') content = `
+        <div class="sticker-question">
+            <div class="fw-bold">Ask me anything</div>
+            <div class="sticker-question-input">Type something...</div>
+        </div>`;
+    if(type === 'link') content = `<div class="sticker-link"><i class="fa-solid fa-link me-1"></i> LINK</div>`;
 
-// --- Local Storage ---
-const loadStory = () => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    storyData = stored ? JSON.parse(stored) : {};
-};
-
-const saveStory = () => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(storyData));
-};
-
-// --- Rendering ---
-
-function renderStoryPartsList() {
-    storyPartsList.innerHTML = '';
-    if (Object.keys(storyData).length === 0) {
-        storyPartsList.innerHTML = '<p class="text-muted small">No story parts yet.</p>';
-        playStoryBtn.disabled = true;
-        return;
-    }
-    playStoryBtn.disabled = false;
-    Object.keys(storyData).forEach(partId => {
-        const part = storyData[partId];
-        const item = document.createElement('a');
-        item.href = '#';
-        item.className = `list-group-item list-group-item-action ${partId === currentEditingPartId ? 'active' : ''}`;
-        item.textContent = part.title || `Part ${partId}`;
-        item.dataset.partId = partId;
-        storyPartsList.appendChild(item);
-    });
-}
-
-function renderEditor(partId) {
-    currentEditingPartId = partId;
-    const part = storyData[partId];
-    if (!part) return;
-
-    editorPlaceholder.classList.add('d-none');
-    editorPanel.classList.remove('d-none');
-
-    partIdInput.value = partId;
-    partTitleInput.value = part.title;
-    partTextInput.value = part.text;
-    deletePartBtn.disabled = Object.keys(storyData).length <= 1;
-
-    choicesContainer.innerHTML = '';
-    part.choices.forEach((choice, index) => {
-        addChoiceInput(choice.text, choice.target);
-    });
-
-    renderStoryPartsList();
-}
-
-function addChoiceInput(text = '', target = '') {
-    const choiceIndex = choicesContainer.children.length;
-    const choiceDiv = document.createElement('div');
-    choiceDiv.className = 'input-group mb-2';
-    choiceDiv.innerHTML = `
-        <input type="text" class="form-control choice-text" placeholder="Choice text" value="${text}">
-        <span class="input-group-text">→</span>
-        <select class="form-select choice-target">${generatePartOptions(target)}</select>
-        <button type="button" class="btn btn-outline-danger remove-choice-btn">×</button>
+    el.innerHTML = `
+        ${content}
+        <div class="delete-sticker-btn"><i class="fa-solid fa-xmark"></i></div>
     `;
-    choicesContainer.appendChild(choiceDiv);
-}
 
-function generatePartOptions(selectedPartId) {
-    return Object.keys(storyData)
-        .map(partId => `<option value="${partId}" ${partId === selectedPartId ? 'selected' : ''}>${storyData[partId].title || `Part ${partId}`}</option>`)
-        .join('');
-}
-
-function renderPlayerScene(partId) {
-    const part = storyData[partId];
-    if (!part) {
-        playerSceneText.textContent = 'The story ends here.';
-        playerChoicesContainer.innerHTML = '';
-        return;
-    }
-    playerTitle.textContent = part.title;
-    playerSceneText.textContent = part.text || '(This part has no text.)';
-    playerChoicesContainer.innerHTML = '';
-    part.choices.forEach(choice => {
-        const button = document.createElement('button');
-        button.className = 'btn btn-outline-light';
-        button.textContent = choice.text;
-        button.dataset.target = choice.target;
-        playerChoicesContainer.appendChild(button);
+    stickersLayer.appendChild(el);
+    setupDrag(el);
+    
+    el.querySelector('.delete-sticker-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        el.remove();
     });
 }
 
-// --- Event Handlers ---
-
-function handleAddNewPart() {
-    const newPartId = `part_${Date.now()}`;
-    storyData[newPartId] = { title: 'New Part', text: '', choices: [] };
-    saveStory();
-    renderEditor(newPartId);
+function setupDrag(el) {
+    el.addEventListener('mousedown', dragStart);
+    el.addEventListener('touchstart', dragStart, {passive: false});
 }
 
-function handleFormSubmit(e) {
+function dragStart(e) {
+    if(e.target.isContentEditable) return;
+    activeSticker = e.currentTarget;
+    const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+    
+    startX = clientX;
+    startY = clientY;
+    initialLeft = parseInt(activeSticker.style.left || 0);
+    initialTop = parseInt(activeSticker.style.top || 0);
+
+    document.addEventListener('mousemove', dragMove);
+    document.addEventListener('mouseup', dragEnd);
+    document.addEventListener('touchmove', dragMove, {passive: false});
+    document.addEventListener('touchend', dragEnd);
+}
+
+function dragMove(e) {
+    if(!activeSticker) return;
     e.preventDefault();
-    const partId = partIdInput.value;
-    const choices = [];
-    choicesContainer.querySelectorAll('.input-group').forEach(group => {
-        const text = group.querySelector('.choice-text').value.trim();
-        const target = group.querySelector('.choice-target').value;
-        if (text && target) {
-            choices.push({ text, target });
-        }
-    });
+    const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
 
-    storyData[partId] = {
-        title: partTitleInput.value.trim(),
-        text: partTextInput.value.trim(),
-        choices: choices
-    };
-    saveStory();
-    renderStoryPartsList();
-    alert('Part saved!');
+    const dx = clientX - startX;
+    const dy = clientY - startY;
+
+    activeSticker.style.left = `${initialLeft + dx}px`;
+    activeSticker.style.top = `${initialTop + dy}px`;
 }
 
-function handleDeletePart() {
-    if (!currentEditingPartId || Object.keys(storyData).length <= 1) return;
-    if (confirm(`Are you sure you want to delete "${storyData[currentEditingPartId].title}"?`)) {
-        delete storyData[currentEditingPartId];
-        // Clean up choices pointing to the deleted part
-        Object.values(storyData).forEach(part => {
-            part.choices = part.choices.filter(c => c.target !== currentEditingPartId);
+function dragEnd() {
+    activeSticker = null;
+    document.removeEventListener('mousemove', dragMove);
+    document.removeEventListener('mouseup', dragEnd);
+    document.removeEventListener('touchmove', dragMove);
+    document.removeEventListener('touchend', dragEnd);
+}
+
+async function download() {
+    Toast.show('Exporting', 'Rendering story...', 'info');
+    
+    // Load library if needed
+    if(!window.html2canvas) {
+        await new Promise(r => {
+            const s = document.createElement('script');
+            s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+            s.onload = r;
+            document.head.appendChild(s);
         });
-        saveStory();
-        currentEditingPartId = null;
-        editorPanel.classList.add('d-none');
-        editorPlaceholder.classList.remove('d-none');
-        renderStoryPartsList();
     }
-}
 
-function handlePlayStory() {
-    const startPartId = Object.keys(storyData)[0];
-    if (!startPartId) return;
-    renderPlayerScene(startPartId);
-    playerModalInstance.show();
-}
+    // Hide UI elements before capture
+    const ui = document.querySelectorAll('.delete-sticker-btn');
+    ui.forEach(el => el.style.display = 'none');
 
-// --- Init & Cleanup ---
+    html2canvas(canvas, { scale: 2, backgroundColor: null }).then(c => {
+        const link = document.createElement('a');
+        link.download = 'story.png';
+        link.href = c.toDataURL();
+        link.click();
+        
+        ui.forEach(el => el.style.display = 'flex'); // Restore UI
+        Toast.show('Saved', 'Story saved to device', 'success');
+    });
+}
 
 export function init() {
-    // Get DOM elements
-    storyPartsList = document.getElementById('story-parts-list');
-    editorPanel = document.getElementById('editor-panel');
-    editorPlaceholder = document.getElementById('editor-placeholder');
-    form = document.getElementById('story-part-form');
-    partIdInput = document.getElementById('part-id-input');
-    partTitleInput = document.getElementById('part-title-input');
-    partTextInput = document.getElementById('part-text-input');
-    choicesContainer = document.getElementById('choices-container');
-    addNewPartBtn = document.getElementById('add-new-part-btn');
-    addChoiceBtn = document.getElementById('add-choice-btn');
-    deletePartBtn = document.getElementById('delete-part-btn');
-    playStoryBtn = document.getElementById('play-story-btn');
-    playerModal = document.getElementById('story-player-modal');
-    playerTitle = document.getElementById('storyPlayerModalLabel');
-    playerSceneText = document.getElementById('player-scene-text');
-    playerChoicesContainer = document.getElementById('player-choices-container');
-    playerModalInstance = new bootstrap.Modal(playerModal);
+    canvas = document.getElementById('story-canvas-container');
+    stickersLayer = document.getElementById('stickers-layer');
+    bgImg = document.getElementById('bg-image-layer');
 
-    // Load data and render
-    loadStory();
-    renderStoryPartsList();
-
-    // Attach event listeners
-    addNewPartBtn.addEventListener('click', handleAddNewPart);
-    form.addEventListener('submit', handleFormSubmit);
-    deletePartBtn.addEventListener('click', handleDeletePart);
-    playStoryBtn.addEventListener('click', handlePlayStory);
-    addChoiceBtn.addEventListener('click', () => addChoiceInput());
-
-    storyPartsList.addEventListener('click', e => {
-        e.preventDefault();
-        const partId = e.target.dataset.partId;
-        if (partId) renderEditor(partId);
+    // Background Controls
+    document.querySelectorAll('.bg-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.bg-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            if(btn.dataset.type === 'color') {
+                document.getElementById('bg-color-control').classList.remove('d-none');
+                document.getElementById('bg-image-control').classList.add('d-none');
+                bgImg.classList.add('d-none');
+            } else {
+                document.getElementById('bg-color-control').classList.add('d-none');
+                document.getElementById('bg-image-control').classList.remove('d-none');
+                bgImg.classList.remove('d-none');
+            }
+        });
     });
 
-    choicesContainer.addEventListener('click', e => {
-        if (e.target.closest('.remove-choice-btn')) {
-            e.target.closest('.input-group').remove();
+    document.getElementById('bg-color-picker').addEventListener('input', e => {
+        canvas.style.backgroundColor = e.target.value;
+    });
+
+    document.getElementById('bg-image-upload').addEventListener('change', e => {
+        const file = e.target.files[0];
+        if(file) {
+            bgImg.src = URL.createObjectURL(file);
         }
     });
 
-    playerChoicesContainer.addEventListener('click', e => {
-        const targetId = e.target.dataset.target;
-        if (targetId) renderPlayerScene(targetId);
+    // Sticker Controls
+    document.querySelectorAll('.add-sticker').forEach(btn => {
+        btn.addEventListener('click', () => addSticker(btn.dataset.type));
     });
+
+    document.getElementById('download-story-btn').addEventListener('click', download);
 }
 
 export function cleanup() {
-    // Remove all listeners (simplified for brevity)
-    // In a real app, you'd store and remove specific listener functions
-    const newInit = document.getElementById('app').cloneNode(true);
-    document.getElementById('app').parentNode.replaceChild(newInit, document.getElementById('app'));
-
-    if (playerModalInstance) {
-        playerModalInstance.dispose();
-    }
+    //
 }

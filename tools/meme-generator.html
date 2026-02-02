@@ -1,40 +1,79 @@
-<div class="card p-4 mx-auto" style="max-width: 900px;">
-    <h4 class="text-center"><i class="fa-solid fa-face-grin-squint-tears"></i> Meme Generator</h4>
-    <p class="small text-muted text-center mb-4">Search an image, add text, and generate your custom meme.</p>
+<div class="container-fluid h-100 p-0 d-flex flex-column" style="min-height: 85vh;">
+    <!-- Toolbar -->
+    <div class="border-bottom border-white-10 bg-dark p-3 d-flex justify-content-between align-items-center">
+        <h5 class="mb-0 fw-bold text-white"><i class="fa-solid fa-face-grin-squint-tears me-2 text-warning"></i> Meme Studio</h5>
+        <div class="d-flex gap-2">
+            <button id="download-btn" class="btn btn-primary btn-sm px-3 fw-bold"><i class="fa-solid fa-download me-2"></i> Export</button>
+        </div>
+    </div>
 
-    <div class="row">
-        <div class="col-md-5">
-            <form id="meme-controls-form" class="mb-4">
-                
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="image-search-input" placeholder="Search background image (e.g., cat, confused)" required>
-                    <button class="btn btn-primary" type="submit">Search</button>
-                </div>
-
-                <div class="mb-3">
-                    <label for="top-text-input" class="form-label">Top Text</label>
-                    <input type="text" class="form-control" id="top-text-input" placeholder="Enter top meme text">
-                </div>
-                <div class="mb-3">
-                    <label for="bottom-text-input" class="form-label">Bottom Text</label>
-                    <input type="text" class="form-control" id="bottom-text-input" placeholder="Enter bottom meme text">
-                </div>
-
-                <div class="d-grid gap-2">
-                    <button id="generate-meme-btn" type="button" class="btn btn-success" disabled>Draw Text</button>
-                    <a id="download-meme-link" class="btn btn-warning d-none" download="my-meme.png">Download Meme</a>
-                </div>
-            </form>
-            
-            <div id="search-results-list" class="list-group">
-                </div>
-            <div id="search-message" class="text-center small mt-2"></div>
+    <div class="row g-0 flex-grow-1 h-100">
+        <!-- Canvas Area -->
+        <div class="col-lg-8 bg-black d-flex justify-content-center align-items-center p-4 position-relative overflow-hidden">
+            <canvas id="meme-canvas" class="shadow-lg border border-white-10" style="max-width: 100%; max-height: 80vh;"></canvas>
+            <div id="placeholder-msg" class="text-white-50 position-absolute text-center">
+                <i class="fa-regular fa-image fa-3x mb-3"></i>
+                <p>Select a template or upload an image</p>
+            </div>
         </div>
 
-        <div class="col-md-7 d-flex justify-content-center align-items-center">
-            <div id="canvas-container" class="border border-secondary rounded overflow-hidden" style="width: 100%; max-width: 500px;">
-                <canvas id="meme-canvas" style="display: block; width: 100%; height: auto;"></canvas>
+        <!-- Sidebar Controls -->
+        <div class="col-lg-4 bg-dark border-start border-white-10 d-flex flex-column h-100 custom-scrollbar" style="max-height: 85vh; overflow-y: auto;">
+            <div class="p-4">
+                <!-- Image Source -->
+                <h6 class="text-white small fw-bold text-uppercase mb-3">Background</h6>
+                <div class="input-group mb-3">
+                    <input type="text" id="search-input" class="form-control bg-black border-white-10 text-white" placeholder="Search templates...">
+                    <button id="search-btn" class="btn btn-outline-light"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                
+                <div id="templates-grid" class="d-grid gap-2 mb-4" style="grid-template-columns: repeat(3, 1fr);">
+                    <!-- Templates injected here -->
+                </div>
+
+                <div class="d-grid">
+                    <label class="btn btn-outline-secondary border-dashed">
+                        <i class="fa-solid fa-upload me-2"></i> Upload Own Image
+                        <input type="file" id="upload-input" accept="image/*" hidden>
+                    </label>
+                </div>
+
+                <hr class="border-white-10 my-4">
+
+                <!-- Text Controls -->
+                <h6 class="text-white small fw-bold text-uppercase mb-3">Text Layers</h6>
+                
+                <div class="mb-3">
+                    <label class="text-white-50 small mb-1">Top Text</label>
+                    <input type="text" id="top-text" class="form-control bg-black border-white-10 text-white fw-bold" placeholder="TOP TEXT">
+                </div>
+                
+                <div class="mb-3">
+                    <label class="text-white-50 small mb-1">Bottom Text</label>
+                    <input type="text" id="bottom-text" class="form-control bg-black border-white-10 text-white fw-bold" placeholder="BOTTOM TEXT">
+                </div>
+
+                <div class="row g-2">
+                    <div class="col-6">
+                        <label class="text-white-50 small mb-1">Size</label>
+                        <input type="number" id="font-size" class="form-control bg-black border-white-10 text-white" value="40">
+                    </div>
+                    <div class="col-6">
+                        <label class="text-white-50 small mb-1">Color</label>
+                        <input type="color" id="text-color" class="form-control form-control-color bg-black border-white-10 w-100" value="#ffffff">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+.border-dashed { border-style: dashed; }
+#templates-grid img { 
+    width: 100%; aspect-ratio: 1/1; object-fit: cover; 
+    cursor: pointer; border-radius: 4px; border: 2px solid transparent;
+    transition: all 0.2s;
+}
+#templates-grid img:hover { border-color: var(--primary-color); transform: scale(1.05); }
+</style>

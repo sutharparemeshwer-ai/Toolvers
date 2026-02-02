@@ -1,0 +1,118 @@
+<div class="container-fluid h-100 p-0 overflow-hidden" style="min-height: 85vh;">
+    <div class="row g-0 h-100">
+        <!-- Left: The Cookie -->
+        <div class="col-lg-4 bg-dark border-end border-white-10 d-flex flex-column align-items-center justify-content-center position-relative overflow-hidden">
+            <!-- Falling cookies background effect can go here -->
+            
+            <div class="text-center mb-5 z-2">
+                <div id="bakery-name" class="text-secondary small fw-bold text-uppercase mb-2">My Bakery</div>
+                <h2 class="text-white fw-bold mb-0 display-4"><span id="cookie-count">0</span> cookies</h2>
+                <div class="text-white-50 small">per second: <span id="cps-display">0.0</span></div>
+            </div>
+
+            <div id="big-cookie" class="cookie-btn z-2">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Cookie Base -->
+                    <circle cx="50" cy="50" r="45" fill="#d2691e" stroke="#8b4513" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="40" fill="#f4a460"/>
+                    <!-- Chocolate Chips -->
+                    <circle cx="30" cy="30" r="5" fill="#3d1f00"/>
+                    <circle cx="70" cy="35" r="6" fill="#3d1f00"/>
+                    <circle cx="45" cy="55" r="5" fill="#3d1f00"/>
+                    <circle cx="60" cy="70" r="7" fill="#3d1f00"/>
+                    <circle cx="25" cy="65" r="4" fill="#3d1f00"/>
+                    <circle cx="55" cy="20" r="5" fill="#3d1f00"/>
+                    <!-- Crumbs/Texture -->
+                    <circle cx="35" cy="45" r="1" fill="#8b4513" opacity="0.5"/>
+                    <circle cx="65" cy="55" r="1" fill="#8b4513" opacity="0.5"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Center: Upgrades/Store -->
+        <div class="col-lg-4 bg-black border-end border-white-10 d-flex flex-column custom-scrollbar" style="overflow-y: auto;">
+            <div class="p-3 bg-dark border-bottom border-white-10 sticky-top">
+                <h6 class="text-white fw-bold mb-0 text-center">Store</h6>
+            </div>
+            
+            <div id="store-container" class="p-2">
+                <!-- Buildings injected here -->
+            </div>
+        </div>
+
+        <!-- Right: Stats / News (Optional, or just combine store) -->
+        <!-- For simplicity in this layout, let's make it 2-column or use the right for achievements/stats later. 
+             Actually, let's make the right column a "Log/Stats" area for that authentic feel. -->
+        <div class="col-lg-4 bg-dark d-none d-lg-flex flex-column custom-scrollbar" style="overflow-y: auto;">
+             <div class="p-3 bg-dark border-bottom border-white-10 sticky-top">
+                <h6 class="text-white fw-bold mb-0 text-center">Stats & Upgrades</h6>
+            </div>
+            
+            <div class="p-4">
+                <h6 class="text-white-50 small text-uppercase fw-bold mb-3">Statistics</h6>
+                <div class="d-flex justify-content-between text-white small mb-2">
+                    <span>Cookies Baked (All Time)</span>
+                    <span id="stat-total">0</span>
+                </div>
+                <div class="d-flex justify-content-between text-white small mb-2">
+                    <span>Clicks</span>
+                    <span id="stat-clicks">0</span>
+                </div>
+                <div class="d-flex justify-content-between text-white small mb-2">
+                    <span>Buildings Owned</span>
+                    <span id="stat-buildings">0</span>
+                </div>
+
+                <hr class="border-white-10 my-4">
+                
+                <h6 class="text-white-50 small text-uppercase fw-bold mb-3">Unlockables</h6>
+                <div id="upgrades-grid" class="d-grid gap-2" style="grid-template-columns: repeat(4, 1fr);">
+                    <!-- Upgrade Icons -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.cookie-btn {
+    width: 250px; height: 250px;
+    cursor: pointer;
+    transition: transform 0.1s;
+    user-select: none;
+}
+.cookie-btn:active { transform: scale(0.95); }
+.cookie-btn img { width: 100%; height: 100%; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); }
+
+.store-item {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+.store-item:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+.store-item.locked { opacity: 0.5; pointer-events: none; filter: grayscale(1); }
+.store-item .icon { font-size: 2rem; width: 50px; text-align: center; margin-right: 15px; }
+
+/* Floating Text Animation */
+.floating-text {
+    position: absolute;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
+    pointer-events: none;
+    animation: floatUp 1s ease-out forwards;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+@keyframes floatUp {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-50px) scale(1.2); }
+}
+</style>

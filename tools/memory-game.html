@@ -1,17 +1,38 @@
-<div class="card p-4 mx-auto" style="max-width: 650px;">
-    <h4 class="mb-4 text-center"><i class="fa-solid fa-brain"></i> Memory Card Game</h4>
-    
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <span class="badge bg-secondary">Moves: <span id="moves-count">0</span></span>
-        <button id="reset-btn" class="btn btn-sm btn-outline-primary">
-            <i class="fa-solid fa-rotate-right"></i> Reset Game
-        </button>
-    </div>
-
-    <div id="game-board" class="memory-grid mb-4">
+<div class="container py-5">
+    <div class="glass-panel p-4 mx-auto" style="max-width: 600px;">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="text-white fw-bold mb-0">Memory Match</h4>
+            <button class="btn btn-outline-light btn-sm" id="restart-btn"><i class="fa-solid fa-rotate me-1"></i> Restart</button>
         </div>
 
-    <div id="win-message" class="alert alert-success text-center d-none" role="alert">
-        🎉 **Congratulations!** You matched all cards in <span id="final-moves">0</span> moves!
+        <div id="memory-grid" class="d-grid gap-2" style="grid-template-columns: repeat(4, 1fr); perspective: 1000px;">
+            <!-- Generated via JS -->
+        </div>
+        
+        <div id="win-overlay" class="text-center mt-4 d-none">
+            <h3 class="text-success fw-bold">You Won!</h3>
+            <p class="text-white-50">Score: <span id="final-moves"></span> moves</p>
+        </div>
     </div>
 </div>
+
+<style>
+.mem-card {
+    aspect-ratio: 1/1;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+    cursor: pointer;
+}
+.mem-card.flipped { transform: rotateY(180deg); }
+.mem-face {
+    position: absolute; width: 100%; height: 100%;
+    backface-visibility: hidden;
+    border-radius: 8px;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 2rem;
+}
+.mem-front { background: var(--primary-gradient); transform: rotateY(180deg); color: white; }
+.mem-back { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.2); }
+.mem-card.matched .mem-front { background: #10b981; }
+</style>

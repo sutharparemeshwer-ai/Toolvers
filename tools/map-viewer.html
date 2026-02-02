@@ -1,9 +1,35 @@
-<!-- tools/map-viewer.html -->
-<div class="container-fluid mt-4">
-    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-map-location-dot me-2"></i> Geolocation & Map Viewer</h4>
+<div class="container-fluid p-0 position-relative" style="height: 85vh;">
+    <!-- Map Container -->
+    <div id="map-container" class="w-100 h-100 bg-dark"></div>
 
-    <div class="card p-3">
-        <div id="map-status" class="alert alert-info">Getting your location...</div>
-        <div id="map-container" style="height: 600px; border-radius: 0.25rem;"></div>
+    <!-- Floating Info Panel -->
+    <div class="position-absolute top-0 start-0 m-3 z-3 glass-panel p-3" style="max-width: 300px;">
+        <h6 class="text-white fw-bold mb-2"><i class="fa-solid fa-location-crosshairs text-primary me-2"></i> Location Data</h6>
+        
+        <div class="d-flex justify-content-between text-white-50 small mb-1">
+            <span>Latitude</span>
+            <span class="text-white font-monospace" id="val-lat">--</span>
+        </div>
+        <div class="d-flex justify-content-between text-white-50 small mb-1">
+            <span>Longitude</span>
+            <span class="text-white font-monospace" id="val-long">--</span>
+        </div>
+        <div class="d-flex justify-content-between text-white-50 small">
+            <span>Accuracy</span>
+            <span class="text-white font-monospace" id="val-acc">--</span>
+        </div>
+
+        <hr class="border-white-10 my-2">
+        <div id="map-status" class="small text-warning">Waiting for GPS...</div>
+    </div>
+
+    <!-- Floating Controls -->
+    <div class="position-absolute bottom-0 end-0 m-4 z-3 d-flex flex-column gap-2">
+        <button class="btn btn-dark border border-white-10 rounded-circle shadow-lg" id="btn-layer" style="width: 45px; height: 45px;">
+            <i class="fa-solid fa-layer-group text-white"></i>
+        </button>
+        <button class="btn btn-primary rounded-circle shadow-lg" id="btn-locate" style="width: 45px; height: 45px;">
+            <i class="fa-solid fa-location-arrow"></i>
+        </button>
     </div>
 </div>

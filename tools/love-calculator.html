@@ -1,26 +1,35 @@
-<div class="card p-4 mx-auto text-center" style="max-width: 500px;">
-    <h4 class="text-center"><i class="fa-solid fa-heart"></i> Love Calculator</h4>
-    <p class="small mb-4">Enter two names to calculate your compatibility percentage!</p>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="glass-panel p-5 text-center">
+                <div class="mb-4">
+                    <i class="fa-solid fa-heart fa-4x text-danger animate-pulse"></i>
+                </div>
+                <h2 class="text-white fw-bold mb-4">Love Meter</h2>
+                
+                <form id="love-form" class="mb-4">
+                    <div class="mb-3">
+                        <input type="text" id="name1" class="form-control bg-dark border-white-10 text-white text-center py-3" placeholder="First Name" required>
+                    </div>
+                    <div class="mb-4">
+                        <input type="text" id="name2" class="form-control bg-dark border-white-10 text-white text-center py-3" placeholder="Partner's Name" required>
+                    </div>
+                    <button class="btn btn-danger w-100 py-3 fw-bold shadow-lg">Calculate Compatibility</button>
+                </form>
 
-    <form id="love-calculator-form">
-        <div class="mb-3">
-            <input type="text" class="form-control" id="name1" placeholder="Enter Your Name" required>
+                <div id="result-card" class="d-none animate-fade-in">
+                    <div class="display-1 fw-bold text-white mb-2" id="score">0%</div>
+                    <div class="progress bg-dark mb-3" style="height: 10px;">
+                        <div class="progress-bar bg-danger" id="score-bar" style="width: 0%"></div>
+                    </div>
+                    <p class="text-white-50 lead" id="msg">--</p>
+                </div>
+            </div>
         </div>
-
-        <div class="mb-4">
-            <input type="text" class="form-control" id="name2" placeholder="Enter Partner's Name" required>
-        </div>
-
-        <button type="submit" class="btn btn-danger w-100 mb-4">Calculate Love %</button>
-    </form>
-    
-    <div id="results-area" class="d-none alert mytool p-3">
-        <h5 class="mb-1">Compatibility Score:</h5>
-        <div class="display-1 fw-bold mb-3" id="love-percentage"></div>
-        <p class="lead" id="love-message"></p>
-    </div>
-
-    <div id="error-message" class="text-danger mt-3 d-none">
-        Please enter both names.
     </div>
 </div>
+
+<style>
+.animate-pulse { animation: pulse 1.5s infinite; }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+</style>

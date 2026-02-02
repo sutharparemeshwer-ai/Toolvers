@@ -1,151 +1,87 @@
 // js/tools/instagram-caption-generator.js
+import { Toast } from '../ui.js';
 
-// --- Configuration (Copied from AI Chat Assistant) ---
+// Configuration
 const API_KEY = "AIzaSyAEIGOglo-ydWtyl-o-gtEyqh_URIVCGFQ";
-const MODEL_NAME = "gemini-2.5-flash";
+const MODEL = "gemini-2.5-flash";
 
-// --- DOM Elements ---
-let descriptionInput,
-  generateBtn,
-  statusEl,
-  resultsContainer,
-  captionOutput,
-  hashtagsOutput;
+let descInput, genBtn, captionEl, tagsEl, vibeBtns, platformSelect;
+let currentVibe = 'casual';
 
-/**
- * Calls the Google Gemini API to generate content.
- * @param {string} description The user's description of their post.
- * @returns {Promise<string>} A promise that resolves with the AI's response.
- */
-async function generateWithAI(description) {
-  if (API_KEY === "YOUR_API_KEY") {
-    return Promise.reject(
-      "Please add your Google Gemini API key to 'js/tools/instagram-caption-generator.js' to use this tool."
-    );
-  }
-
-  // Construct a clear, structured prompt for the AI
-  const prompt = `
-    Generate an engaging Instagram caption and a list of relevant hashtags for the following post description.
-
-    Post Description: "${description}"
-
-    Please format your response exactly as follows, with no extra text or explanations:
-    CAPTION:
-    [Your generated caption here]
-
-    HASHTAGS:
-    [A list of 10-15 relevant hashtags, separated by spaces, starting with #]
-  `;
-
-  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${API_KEY}`;
-
-  const requestBody = {
-    contents: [{ parts: [{ text: prompt }] }],
-  };
-
-  const response = await fetch(API_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(requestBody),
-  });
-
-  if (!response.ok) {
-    const errorData = await response.json();
-    console.error("API Error:", errorData);
-    throw new Error(
-      errorData.error?.message || "The AI service failed to respond."
-    );
-  }
-
-  const data = await response.json();
-
-  try {
-    const aiResponseText = data.candidates[0].content.parts[0].text;
-    return aiResponseText.trim();
-  } catch (e) {
-    console.error("Error parsing AI response:", data);
-    throw new Error("Could not understand the AI's response format.");
-  }
+function getVibePrompt(vibe) {
+    if(vibe === 'professional') return "professional, concise, and clean";
+    if(vibe === 'funny') return "humorous, witty, maybe a pun";
+    return "chill, aesthetic, and casual";
 }
 
-async function handleSubmit() {
-  const description = descriptionInput.value.trim();
-  if (!description) {
-    alert("Please describe your post first.");
-    return;
-  }
+async function generate() {
+    const desc = descInput.value.trim();
+    if(!desc) return Toast.show('Input Required', 'Describe your photo first!', 'warning');
 
-  // UI updates for loading state
-  generateBtn.disabled = true;
-  statusEl.textContent = "Generating content with AI...";
-  resultsContainer.classList.add("d-none");
+    genBtn.disabled = true;
+    genBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Writing...';
 
-  try {
-    const rawResponse = await generateWithAI(description);
+    const prompt = `Write an Instagram caption for a photo of: "${desc}". 
+    Tone: ${getVibePrompt(currentVibe)}. 
+    Platform: ${platformSelect.value}.
+    Format: Return ONLY the caption text on the first line, and a list of 10 relevant hashtags on the second line.`;
 
-    // Parse the structured response
-    const captionMatch = rawResponse.match(/CAPTION:\s*([\s\S]*?)\s*HASHTAGS:/);
-    const hashtagsMatch = rawResponse.match(/HASHTAGS:\s*([\s\S]*)/);
+    try {
+        if (!API_KEY || API_KEY.includes('YOUR_API')) throw new Error('API Key missing');
 
-    const caption = captionMatch
-      ? captionMatch[1].trim()
-      : "Could not generate caption.";
-    const hashtags = hashtagsMatch
-      ? hashtagsMatch[1].trim()
-      : "Could not generate hashtags.";
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+        });
 
-    captionOutput.value = caption;
-    hashtagsOutput.value = hashtags;
+        const data = await res.json();
+        const text = data.candidates[0].content.parts[0].text.trim();
+        
+        // Simple parse (assuming AI follows instruction)
+        const parts = text.split('\n').filter(l => l.trim() !== '');
+        const caption = parts[0] || text;
+        const tags = parts.length > 1 ? parts.slice(1).join(' ') : '#ai #toolverse';
 
-    resultsContainer.classList.remove("d-none");
-    statusEl.textContent = "";
-  } catch (error) {
-    console.error("Generation Error:", error);
-    statusEl.textContent = `An error occurred: ${error.message}`;
-  } finally {
-    generateBtn.disabled = false;
-  }
+        captionEl.textContent = caption;
+        tagsEl.textContent = tags;
+
+    } catch (e) {
+        // Fallback Mock Logic
+        captionEl.textContent = `Just vibing with this view! ✨ (AI Error: ${e.message}, using fallback)`;
+        tagsEl.textContent = `#${currentVibe} #lifestyle #moments`;
+    } finally {
+        genBtn.disabled = false;
+        genBtn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles me-2"></i> Generate Magic';
+    }
 }
 
-function handleCopy(event) {
-  const targetId = event.currentTarget.dataset.target;
-  const textElement = document.getElementById(targetId);
-  if (textElement) {
-    textElement.select();
-    navigator.clipboard
-      .writeText(textElement.value)
-      .then(() => alert("Copied to clipboard!"))
-      .catch((err) => console.error("Failed to copy:", err));
-  }
+function copyText(id) {
+    const txt = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(txt);
+    Toast.show('Copied', 'Text copied to clipboard', 'success');
 }
-
-// --- Router Hooks ---
 
 export function init() {
-  // Get DOM elements
-  descriptionInput = document.getElementById("post-description");
-  generateBtn = document.getElementById("generate-caption-btn");
-  statusEl = document.getElementById("ai-status");
-  resultsContainer = document.getElementById("results-container");
-  captionOutput = document.getElementById("generated-caption");
-  hashtagsOutput = document.getElementById("generated-hashtags");
+    descInput = document.getElementById('post-desc');
+    genBtn = document.getElementById('generate-btn');
+    captionEl = document.getElementById('preview-caption');
+    tagsEl = document.getElementById('preview-hashtags');
+    platformSelect = document.getElementById('platform-select');
+    vibeBtns = document.querySelectorAll('.vibe-btn');
 
-  // Check for API Key
-  if (API_KEY === "YOUR_API_KEY") {
-    statusEl.textContent =
-      "Warning: API key is not set in js/tools/instagram-caption-generator.js";
-    generateBtn.disabled = true;
-  }
+    genBtn.addEventListener('click', generate);
+    
+    document.getElementById('copy-caption').addEventListener('click', () => copyText('preview-caption'));
+    document.getElementById('copy-tags').addEventListener('click', () => copyText('preview-hashtags'));
 
-  // Attach event listeners
-  generateBtn.addEventListener("click", handleSubmit);
-  document.querySelectorAll(".copy-btn").forEach((btn) => {
-    btn.addEventListener("click", handleCopy);
-  });
+    vibeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            vibeBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentVibe = btn.dataset.vibe;
+        });
+    });
 }
 
-export function cleanup() {
-  // Remove event listeners
-  generateBtn.removeEventListener("click", handleSubmit);
-}
+export function cleanup() {}

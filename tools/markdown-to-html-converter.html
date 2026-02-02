@@ -1,26 +1,33 @@
-<!-- tools/markdown-to-html-converter.html -->
-<div class="container-fluid mt-4">
-    <h4 class="mb-4 text-center text-light"><i class="fa-brands fa-markdown me-2"></i> Markdown to HTML Converter</h4>
-    <div class="row">
-        <!-- Markdown Input -->
-        <div class="col-md-6 text-light">
-            <h5>Markdown Input</h5>
-            <textarea id="markdown-input" class="form-control" rows="20" placeholder="Type your Markdown here...
-# Hello World!
-
-This is a **real-time** Markdown to HTML converter.
-
-- List item 1
-- List item 2"></textarea>
+<div class="container-fluid h-100 p-0 d-flex flex-column" style="min-height: 85vh;">
+    <!-- Toolbar -->
+    <div class="border-bottom border-white-10 bg-dark p-2 d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-3 ps-2">
+             <i class="fa-brands fa-markdown text-white fs-4"></i>
+             <h6 class="mb-0 fw-bold text-white">Markdown Editor</h6>
         </div>
+        <div class="d-flex gap-2">
+            <button class="btn btn-sm btn-outline-light" id="copy-html-btn"><i class="fa-solid fa-copy me-1"></i> Copy HTML</button>
+            <button class="btn btn-sm btn-outline-light" id="download-html-btn"><i class="fa-solid fa-download me-1"></i> Export</button>
+        </div>
+    </div>
 
-        <!-- HTML Output & Preview -->
-        <div class="col-md-6 text-light">
-            <h5>HTML Output</h5>
-            <pre><code id="html-output" class="html language-html" style="min-height: 250px; display: block; border-radius: 5px; white-space: pre-wrap; word-break: break-all;"></code></pre>
-            
-            <h5 class="mt-3">Live Preview</h5>
-            <div id="html-preview" class="p-3 border rounded" style="min-height: 200px;"></div>
+    <!-- Main Workspace -->
+    <div class="row g-0 flex-grow-1 h-100">
+        <!-- Editor -->
+        <div class="col-lg-6 h-100 border-end border-white-10 d-flex flex-column">
+             <div class="bg-dark p-2 text-secondary small text-uppercase fw-bold border-bottom border-white-10">Input (Markdown)</div>
+             <textarea id="markdown-input" class="flex-grow-1 bg-dark text-white border-0 p-3 custom-scrollbar" style="resize: none; outline: none; font-family: 'Fira Code', monospace;"></textarea>
+        </div>
+        
+        <!-- Preview -->
+        <div class="col-lg-6 h-100 d-flex flex-column bg-white">
+             <div class="bg-light border-bottom p-2 d-flex align-items-center justify-content-between">
+                 <small class="text-secondary fw-bold text-uppercase">Live Preview</small>
+                 <div class="d-flex gap-1">
+                     <span class="badge bg-secondary">HTML5</span>
+                 </div>
+             </div>
+             <div id="html-preview" class="flex-grow-1 p-4 overflow-auto text-dark"></div>
         </div>
     </div>
 </div>

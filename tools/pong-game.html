@@ -1,32 +1,25 @@
-<!-- tools/pong-game.html -->
-<div class="container-fluid mt-4">
-    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-table-tennis-paddle-ball me-2"></i> Classic Pong Game</h4>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="glass-panel p-0 mx-auto overflow-hidden" style="max-width: 800px; border: 4px solid #333; border-radius: 20px;">
+                <!-- CRT Screen -->
+                <div class="bg-black p-4 position-relative">
+                    <div class="d-flex justify-content-around text-info font-monospace mb-2" style="font-size: 2rem;">
+                        <span id="p1-score">0</span>
+                        <span id="p2-score">0</span>
+                    </div>
+                    
+                    <canvas id="pong-canvas" width="800" height="400" class="w-100 h-100 border border-info" style="box-shadow: inset 0 0 20px rgba(0,255,255,0.2);"></canvas>
+                    
+                    <!-- Scanlines Overlay -->
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03)); background-size: 100% 2px, 3px 100%; pointer-events: none;"></div>
+                </div>
 
-    <div class="card p-3 text-center">
-        <!-- Score Display -->
-        <div class="d-flex justify-content-around align-items-center mb-3">
-            <div>
-                <p class="mb-0">Player 1 Score</p>
-                <h2 id="player1-score" class="display-4 fw-bold">0</h2>
-            </div>
-            <div>
-                <p class="mb-0">Player 2 Score</p>
-                <h2 id="player2-score" class="display-4 fw-bold">0</h2>
-            </div>
-        </div>
-
-        <!-- Game Canvas -->
-        <div class="pong-canvas-container mx-auto">
-            <canvas id="pong-canvas" width="800" height="400"></canvas>
-        </div>
-
-        <!-- Controls and Status -->
-        <div class="mt-3">
-            <p id="pong-game-status" class="fw-bold">Press Start to Play!</p>
-            <button id="pong-start-btn" class="btn btn-primary btn-lg">Start Game</button>
-            <div class="mt-3 text-muted">
-                <p class="mb-0">Player 1 Controls: 'W' (Up), 'S' (Down)</p>
-                <p class="mb-0">Player 2 Controls: 'ArrowUp' (Up), 'ArrowDown' (Down)</p>
+                <!-- Controls -->
+                <div class="bg-dark p-4 border-top border-secondary text-center">
+                    <button id="start-btn" class="btn btn-info w-50 fw-bold font-monospace">START SESSION</button>
+                    <div class="mt-3 text-secondary small font-monospace">PLAYER 1: W / S • PLAYER 2: UP / DOWN</div>
+                </div>
             </div>
         </div>
     </div>

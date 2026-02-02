@@ -1,39 +1,84 @@
-<div class="card p-4 mx-auto" style="max-width: 450px;">
-    <h4 class="text-center"><i class="fa-solid fa-money-bill-transfer"></i> Expense Tracker</h4>
-    <p class="small text-center">Track your personal finances.</p>
+<div class="container py-4">
+    <div class="row g-4">
+        <!-- Dashboard Header -->
+        <div class="col-12">
+            <div class="glass-panel p-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h3 class="fw-bold text-white mb-0">Expense Dashboard</h3>
+                    <p class="text-secondary small mb-0">Track your cash flow</p>
+                </div>
+                <div class="text-end">
+                    <small class="text-secondary text-uppercase fw-bold">Current Balance</small>
+                    <h2 class="fw-bold text-white mb-0" id="balance">$0.00</h2>
+                </div>
+            </div>
+        </div>
 
-    <div class="mt-3 text-center">
-        <h5>YOUR BALANCE</h5>
-        <h1 id="balance" class="display-4 fw-bold">$0.00</h1>
+        <!-- Left Column: Form & List -->
+        <div class="col-lg-4">
+            <!-- Add Transaction -->
+            <div class="glass-panel p-4 mb-4">
+                <h6 class="text-white fw-bold mb-3 border-bottom border-white-10 pb-2">Add Transaction</h6>
+                <form id="form">
+                    <div class="mb-3">
+                        <label class="form-label text-white-50 small">Description</label>
+                        <input type="text" id="text" class="form-control bg-dark border-white-10 text-white" placeholder="e.g. Salary, Rent">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-white-50 small">Amount <span class="text-muted">(negative = expense)</span></label>
+                        <input type="number" id="amount" class="form-control bg-dark border-white-10 text-white" placeholder="e.g. -150 or 2000" step="0.01">
+                    </div>
+                    <button class="btn btn-primary w-100">Add Transaction</button>
+                </form>
+            </div>
+
+            <!-- Recent Transactions List -->
+            <div class="glass-panel p-4" style="max-height: 400px; overflow-y: auto;">
+                <h6 class="text-white fw-bold mb-3 border-bottom border-white-10 pb-2">History</h6>
+                <ul id="list" class="list-group list-group-flush">
+                    <!-- Dynamic Items -->
+                </ul>
+                <div id="no-transactions" class="text-center text-muted py-3 small">No transactions added yet.</div>
+            </div>
+        </div>
+
+        <!-- Right Column: Visualizations -->
+        <div class="col-lg-8">
+            <div class="row g-4">
+                <!-- Summary Cards -->
+                <div class="col-md-6">
+                    <div class="glass-panel p-3 text-center border-start border-4 border-success">
+                        <small class="text-uppercase text-secondary fw-bold">Total Income</small>
+                        <h4 class="text-success fw-bold my-1" id="money-plus">+$0.00</h4>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="glass-panel p-3 text-center border-start border-4 border-danger">
+                        <small class="text-uppercase text-secondary fw-bold">Total Expenses</small>
+                        <h4 class="text-danger fw-bold my-1" id="money-minus">-$0.00</h4>
+                    </div>
+                </div>
+
+                <!-- Main Chart -->
+                <div class="col-12">
+                    <div class="glass-panel p-4">
+                        <h6 class="text-white fw-bold mb-3">Income vs Expense</h6>
+                        <div class="chart-container" style="position: relative; height:300px; width:100%">
+                            <canvas id="expense-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="row bg-light p-3 my-3 rounded">
-        <div class="col-6 text-center border-end">
-            <h6 class="text-success">INCOME</h6>
-            <p id="money-plus" class="lead fw-bold text-success">+$0.00</p>
-        </div>
-        <div class="col-6 text-center">
-            <h6 class="text-danger">EXPENSE</h6>
-            <p id="money-minus" class="lead fw-bold text-danger">-$0.00</p>
-        </div>
-    </div>
-
-    <h5 class=" pb-2">History</h5>
-    <ul id="list" class="list-group list-group-flush mb-4" style="max-height: 250px; overflow-y: auto;">
-        <li class="list-group-item text-center text-muted small" id="no-transactions">No transactions yet.</li>
-    </ul>
-
-    <h5 class="border-bottom pb-2 mt-3">Add New Transaction</h5>
-    <form id="form">
-        <div class="mb-3">
-            <label for="text" class="form-label">Description (e.g., Salary, Groceries)</label>
-            <input type="text" class="form-control" id="text" placeholder="Enter text..." required>
-        </div>
-        <div class="mb-3">
-            <label for="amount" class="form-label">Amount</label>
-            <p class="small ">Negative - expense, Positive - income (e.g., -20.50 or 100.00)</p>
-            <input type="number" class="form-control" id="amount" placeholder="Enter amount..."  required>
-        </div>
-        <button type="submit" class="btn btn-primary w-100">Add Transaction</button>
-    </form>
 </div>
+
+<style>
+.list-group-item {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: white;
+}
+.border-white-10 { border-color: rgba(255,255,255,0.1) !important; }
+</style>

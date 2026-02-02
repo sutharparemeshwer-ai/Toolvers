@@ -1,27 +1,56 @@
-<!-- tools/emoji-keyboard.html -->
-<div class="container-fluid mt-4">
-    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-face-smile me-2"></i> Emoji Keyboard</h4>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="glass-panel p-4 h-100 d-flex flex-column" style="min-height: 600px;">
+                <h4 class="text-white fw-bold mb-4 text-center">Emoji Keyboard</h4>
+                
+                <!-- Search -->
+                <div class="position-relative mb-4">
+                    <i class="fa-solid fa-magnifying-glass position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary"></i>
+                    <input type="text" id="emoji-search" class="form-control bg-dark border-white-10 text-white ps-5" placeholder="Search emojis (e.g. heart, cat, fire)...">
+                </div>
 
-    <div class="card p-3">
-        <!-- Search Bar -->
-        <div class="mb-3">
-            <input type="text" id="emoji-search-input" class="form-control" placeholder="Search for an emoji...">
-        </div>
+                <!-- Category Tabs -->
+                <div class="d-flex gap-2 mb-3 overflow-auto custom-scrollbar pb-2" id="emoji-cats">
+                    <button class="btn btn-sm btn-outline-light active flex-shrink-0" data-cat="all">All</button>
+                    <button class="btn btn-sm btn-outline-light flex-shrink-0" data-cat="smileys">😊 Smileys</button>
+                    <button class="btn btn-sm btn-outline-light flex-shrink-0" data-cat="people">👋 People</button>
+                    <button class="btn btn-sm btn-outline-light flex-shrink-0" data-cat="animals">🐶 Animals</button>
+                    <button class="btn btn-sm btn-outline-light flex-shrink-0" data-cat="food">🍔 Food</button>
+                    <button class="btn btn-sm btn-outline-light flex-shrink-0" data-cat="travel">✈️ Travel</button>
+                    <button class="btn btn-sm btn-outline-light flex-shrink-0" data-cat="objects">💡 Objects</button>
+                    <button class="btn btn-sm btn-outline-light flex-shrink-0" data-cat="symbols">❤️ Symbols</button>
+                </div>
 
-        <!-- Emoji Grid -->
-        <div id="emoji-grid" class="emoji-grid">
-            <!-- Emojis will be injected here by JS -->
-        </div>
-    </div>
-
-    <!-- Copy Notification Toast -->
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
-        <div id="emoji-copy-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <strong class="me-auto">Copied!</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                <!-- Grid -->
+                <div id="emoji-grid" class="d-grid gap-2 custom-scrollbar flex-grow-1 overflow-auto p-2" style="grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));">
+                    <!-- Emojis injected here -->
+                </div>
             </div>
-            <div class="toast-body">Emoji copied to clipboard.</div>
         </div>
     </div>
 </div>
+
+<style>
+.emoji-btn {
+    font-size: 1.5rem;
+    background: rgba(255,255,255,0.05);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.1s;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.emoji-btn:hover {
+    background: rgba(255,255,255,0.2);
+    transform: scale(1.2);
+}
+#emoji-cats .btn.active {
+    background: white;
+    color: black;
+    border-color: white;
+}
+</style>

@@ -1,35 +1,110 @@
-<!-- tools/kanban-board.html -->
-<div class="container-fluid mt-4">
-    <h4 class="mb-4 text-center text-light"><i class="fa-solid fa-columns me-2"></i> Kanban Board</h4>
-
-    <div class="card p-3 mb-4">
-        <form id="new-task-form" class="d-flex gap-2">
-            <input type="text" id="new-task-input" class="form-control" placeholder="Enter a new task..." required>
-            <button type="submit" class="btn btn-primary">Add Task</button>
-        </form>
+<div class="container-fluid py-4 h-100">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="text-white fw-bold mb-0"><i class="fa-solid fa-layer-group text-primary me-2"></i> Project Board</h4>
+            <p class="text-secondary small mb-0">Drag and drop cards to manage your workflow.</p>
+        </div>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+            <i class="fa-solid fa-plus me-2"></i> New Task
+        </button>
     </div>
 
-    <div class="kanban-board row">
-        <!-- To Do Column -->
+    <!-- Board -->
+    <div class="row g-4 h-100 align-items-stretch">
+        <!-- To Do -->
         <div class="col-md-4">
-            <div class="kanban-column card">
-                <div class="card-header fw-bold">To Do</div>
-                <div class="kanban-tasks p-2" id="todo-column" data-column="todo"></div>
+            <div class="glass-panel h-100 d-flex flex-column">
+                <div class="p-3 border-bottom border-white-10 d-flex justify-content-between align-items-center">
+                    <span class="fw-bold text-white small text-uppercase">To Do</span>
+                    <span class="badge bg-dark border border-white-10 text-secondary" id="count-todo">0</span>
+                </div>
+                <div class="kanban-tasks flex-grow-1 p-3 custom-scrollbar" id="todo-column" data-column="todo" style="min-height: 200px;">
+                    <!-- Items -->
+                </div>
             </div>
         </div>
-        <!-- In Progress Column -->
+
+        <!-- In Progress -->
         <div class="col-md-4">
-            <div class="kanban-column card">
-                <div class="card-header fw-bold">In Progress</div>
-                <div class="kanban-tasks p-2" id="inprogress-column" data-column="inprogress"></div>
+             <div class="glass-panel h-100 d-flex flex-column">
+                <div class="p-3 border-bottom border-white-10 d-flex justify-content-between align-items-center">
+                    <span class="fw-bold text-white small text-uppercase">In Progress</span>
+                    <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25" id="count-inprogress">0</span>
+                </div>
+                <div class="kanban-tasks flex-grow-1 p-3 custom-scrollbar" id="inprogress-column" data-column="inprogress" style="min-height: 200px;">
+                    <!-- Items -->
+                </div>
             </div>
         </div>
-        <!-- Done Column -->
+
+        <!-- Done -->
         <div class="col-md-4">
-            <div class="kanban-column card">
-                <div class="card-header fw-bold">Done</div>
-                <div class="kanban-tasks p-2" id="done-column" data-column="done"></div>
+             <div class="glass-panel h-100 d-flex flex-column">
+                <div class="p-3 border-bottom border-white-10 d-flex justify-content-between align-items-center">
+                    <span class="fw-bold text-white small text-uppercase">Done</span>
+                    <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25" id="count-done">0</span>
+                </div>
+                <div class="kanban-tasks flex-grow-1 p-3 custom-scrollbar" id="done-column" data-column="done" style="min-height: 200px;">
+                    <!-- Items -->
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Add Task Modal -->
+<div class="modal fade" id="addTaskModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content glass-panel border border-white-10 bg-dark">
+      <div class="modal-header border-bottom border-white-10">
+        <h5 class="modal-title text-white">Add New Task</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="new-task-form">
+            <div class="mb-3">
+                <label class="form-label text-secondary small">Task Description</label>
+                <textarea id="new-task-input" class="form-control bg-black border-white-10 text-white" rows="3" required placeholder="What needs to be done?"></textarea>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary w-100">Create Task</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.kanban-task {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    color: white;
+    cursor: grab;
+    transition: all 0.2s;
+    position: relative;
+}
+.kanban-task:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+.kanban-task:active { cursor: grabbing; }
+
+.kanban-tasks.drag-over {
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 0.5rem;
+}
+
+.delete-task-btn {
+    position: absolute;
+    top: 0.5rem; right: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.kanban-task:hover .delete-task-btn { opacity: 1; }
+</style>

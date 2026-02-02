@@ -1,40 +1,91 @@
-<div class="card p-4 text-center">
-    <h4><i class="fa-solid fa-drum"></i> Drum Kit</h4>
-    <p class="small">Press the keys or click the pads to play the drums!</p>
-    
-    <div id="drum-kit-container" class="d-flex flex-wrap justify-content-center gap-3 mt-4">
-        
-        <div class="drum-pad" data-key="65">
-            <kbd>A</kbd>
-            <span class="sound-name">Kick</span>
-        </div>
-        
-        <div class="drum-pad" data-key="83">
-            <kbd>S</kbd>
-            <span class="sound-name">Snare</span>
-        </div>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="glass-panel p-5 text-center">
+                <h2 class="text-white fw-bold mb-4"><i class="fa-solid fa-drum text-warning me-2"></i> Beat Studio</h2>
+                <p class="text-secondary mb-5">Tap pads or use keyboard keys (A-S-D...)</p>
 
-        <div class="drum-pad" data-key="68">
-            <kbd>D</kbd>
-            <span class="sound-name">Crash</span>
-        </div>
+                <div class="beat-grid">
+                    <!-- Row 1 -->
+                    <div class="beat-pad" data-key="65">
+                        <span class="pad-label">Kick</span>
+                        <kbd class="pad-key">A</kbd>
+                    </div>
+                    <div class="beat-pad" data-key="83">
+                        <span class="pad-label">Snare</span>
+                        <kbd class="pad-key">S</kbd>
+                    </div>
+                    <div class="beat-pad" data-key="68">
+                        <span class="pad-label">Clap</span>
+                        <kbd class="pad-key">D</kbd>
+                    </div>
 
-        <div class="drum-pad" data-key="70">
-            <kbd>F</kbd>
-            <span class="sound-name">Hi-Hat Open</span>
+                    <!-- Row 2 -->
+                    <div class="beat-pad" data-key="70">
+                        <span class="pad-label">Hi-Hat</span>
+                        <kbd class="pad-key">F</kbd>
+                    </div>
+                    <div class="beat-pad" data-key="71">
+                        <span class="pad-label">Open Hat</span>
+                        <kbd class="pad-key">G</kbd>
+                    </div>
+                    <div class="beat-pad" data-key="72">
+                        <span class="pad-label">Tom</span>
+                        <kbd class="pad-key">H</kbd>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="drum-pad" data-key="71">
-            <kbd>G</kbd>
-            <span class="sound-name">Hi-Hat Close</span>
-        </div>
-
-        <div class="drum-pad" data-key="72">
-            <kbd>H</kbd>
-            <span class="sound-name">Tom</span>
-        </div>
-        
     </div>
-
-    <div id="audio-container" style="display: none;"></div>
 </div>
+
+<style>
+.beat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    perspective: 1000px;
+}
+
+.beat-pad {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 2rem;
+    cursor: pointer;
+    transition: all 0.1s;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.beat-pad:active, .beat-pad.playing {
+    transform: translateY(4px);
+    box-shadow: none;
+    background: rgba(59, 130, 246, 0.2);
+    border-color: #3b82f6;
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
+}
+
+.pad-label {
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.pad-key {
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #94a3b8;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+</style>

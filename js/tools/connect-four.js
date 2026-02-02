@@ -1,100 +1,87 @@
 // js/tools/connect-four.js
 
-let grid, statusEl, resetBtn;
-const ROWS = 6;
-const COLS = 7;
-let board = [];
-let currentPlayer = 1;
-let isGameOver = false;
+const ROWS = 6, COLS = 7;
+let board = [], curr = 1, active = true;
 
-function createBoard() {
-    grid.innerHTML = '';
+function setup() {
     board = Array(ROWS).fill(null).map(() => Array(COLS).fill(0));
-    isGameOver = false;
-    currentPlayer = 1;
-    statusEl.textContent = "Player 1's Turn";
-    statusEl.style.color = 'var(--bs-red)';
-
-    for (let r = 0; r < ROWS; r++) {
-        for (let c = 0; c < COLS; c++) {
+    curr = 1;
+    active = true;
+    document.getElementById('c4-msg').textContent = "Red's Turn";
+    document.getElementById('c4-msg').className = 'text-danger fw-bold small';
+    
+    const grid = document.getElementById('c4-grid');
+    grid.innerHTML = '';
+    
+    for(let r=0; r<ROWS; r++) {
+        for(let c=0; c<COLS; c++) {
             const cell = document.createElement('div');
-            cell.dataset.row = r;
-            cell.dataset.col = c;
-            cell.style.backgroundColor = '#212529';
-            cell.style.borderRadius = '50%';
-            cell.addEventListener('click', handleCellClick);
+            cell.className = 'c4-cell';
+            cell.dataset.r = r;
+            cell.dataset.c = c;
             grid.appendChild(cell);
         }
     }
 }
 
-function handleCellClick(e) {
-    if (isGameOver) return;
-
-    const col = parseInt(e.target.dataset.col);
-    for (let r = ROWS - 1; r >= 0; r--) {
-        if (board[r][col] === 0) {
-            dropToken(r, col);
-            return;
-        }
+function drop(c) {
+    if(!active) return;
+    
+    // Find lowest empty
+    let r = -1;
+    for(let i=ROWS-1; i>=0; i--) {
+        if(board[i][c] === 0) { r = i; break; }
+    }
+    
+    if(r === -1) return; // Col full
+    
+    board[r][c] = curr;
+    
+    const cell = document.querySelector(`.c4-cell[data-r="${r}"][data-c="${c}"]`);
+    cell.classList.add(curr === 1 ? 'red' : 'yellow');
+    
+    if(checkWin(r, c)) {
+        active = false;
+        document.getElementById('c4-msg').textContent = `${curr === 1 ? 'Red' : 'Yellow'} Wins!`;
+    } else {
+        curr = curr === 1 ? 2 : 1;
+        document.getElementById('c4-msg').textContent = `${curr === 1 ? 'Red' : 'Yellow'}'s Turn`;
+        document.getElementById('c4-msg').className = curr === 1 ? 'text-danger fw-bold small' : 'text-warning fw-bold small';
     }
 }
 
-function dropToken(r, c) {
-    board[r][c] = currentPlayer;
-    const cell = document.querySelector(`[data-row='${r}'][data-col='${c}']`);
-    cell.style.backgroundColor = currentPlayer === 1 ? 'var(--bs-red)' : 'var(--bs-yellow)';
-
-    if (checkForWin(r, c)) {
-        isGameOver = true;
-        statusEl.textContent = `Player ${currentPlayer} Wins!`;
-        return;
-    }
-
-    if (board.flat().every(cell => cell !== 0)) {
-        isGameOver = true;
-        statusEl.textContent = "It's a Draw!";
-        return;
-    }
-
-    currentPlayer = currentPlayer === 1 ? 2 : 1;
-    statusEl.textContent = `Player ${currentPlayer}'s Turn`;
-    statusEl.style.color = currentPlayer === 1 ? 'var(--bs-red)' : 'var(--bs-yellow)';
-}
-
-function checkForWin(r, c) {
-    const player = board[r][c];
-
-    function checkDirection(dr, dc) {
-        let count = 0;
-        for (let i = -3; i <= 3; i++) {
-            const newR = r + i * dr;
-            const newC = c + i * dc;
-            if (newR >= 0 && newR < ROWS && newC >= 0 && newC < COLS && board[newR][newC] === player) {
-                count++;
-                if (count === 4) return true;
-            } else {
-                count = 0;
-            }
+function checkWin(r, c) {
+    const p = board[r][c];
+    
+    // Directions: Horiz, Vert, Diag1, Diag2
+    const dirs = [[0,1], [1,0], [1,1], [1,-1]];
+    
+    return dirs.some(([dr, dc]) => {
+        let count = 1;
+        // Check forward
+        for(let i=1; i<4; i++) {
+            const nr = r + dr*i, nc = c + dc*i;
+            if(nr<0 || nr>=ROWS || nc<0 || nc>=COLS || board[nr][nc]!==p) break;
+            count++;
         }
-        return false;
-    }
-
-    return checkDirection(0, 1) || // Horizontal
-           checkDirection(1, 0) || // Vertical
-           checkDirection(1, 1) || // Diagonal \
-           checkDirection(1, -1);  // Diagonal /
+        // Check backward
+        for(let i=1; i<4; i++) {
+            const nr = r - dr*i, nc = c - dc*i;
+            if(nr<0 || nr>=ROWS || nc<0 || nc>=COLS || board[nr][nc]!==p) break;
+            count++;
+        }
+        return count >= 4;
+    });
 }
 
 export function init() {
-    grid = document.getElementById('connect-four-grid');
-    statusEl = document.getElementById('c4-status');
-    resetBtn = document.getElementById('c4-reset-btn');
-
-    createBoard();
-    resetBtn.addEventListener('click', createBoard);
+    setup();
+    document.getElementById('c4-grid').addEventListener('click', e => {
+        if(e.target.classList.contains('c4-cell')) {
+            drop(parseInt(e.target.dataset.c));
+        }
+    });
+    document.getElementById('reset-btn').addEventListener('click', setup);
 }
 
-export function cleanup() {
-    resetBtn?.removeEventListener('click', createBoard);
-}
+export function cleanup() {}

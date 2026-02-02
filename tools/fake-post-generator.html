@@ -1,141 +1,88 @@
-<!-- tools/fake-post-generator.html -->
-<div class="container mt-4">
-  <div class="card p-4 mx-auto" style="max-width: 1000px">
-    <h4 class="mb-4 text-center">
-      <i class="fa-solid fa-image me-2"></i> Fake Post Generator
-    </h4>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="glass-panel p-4 mb-4">
+                <h4 class="text-white fw-bold mb-4">Social Post Studio</h4>
+                
+                <form id="post-form">
+                    <!-- Profile -->
+                    <div class="row g-2 mb-3">
+                        <div class="col-3">
+                            <label class="text-white-50 small">Avatar</label>
+                            <div class="position-relative">
+                                <img id="preview-avatar-src" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" class="w-100 rounded-circle border border-white-10">
+                                <input type="file" id="avatar-upload" class="position-absolute top-0 start-0 w-100 h-100 opacity-0 cursor-pointer">
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="mb-2">
+                                <label class="text-white-50 small">Name</label>
+                                <input type="text" id="input-name" class="form-control form-control-sm bg-black border-white-10 text-white" value="John Doe">
+                            </div>
+                            <div>
+                                <label class="text-white-50 small">Handle</label>
+                                <input type="text" id="input-handle" class="form-control form-control-sm bg-black border-white-10 text-white" value="@johndoe">
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="row">
-      <!-- Controls Column -->
-      <div class="col-lg-5">
-        <div class="card p-3 shadow-sm" style="background-color: #3e3f3f">
-          <h5 class="mb-3">
-            <i class="fa-solid fa-sliders me-2"></i>Customize Post
-          </h5>
-          <form id="fake-post-form">
-            <!-- Post Type -->
-            <div class="mb-3">
-              <label for="post-type" class="form-label small">Post Type</label>
-              <select id="post-type" class="form-select">
-                <option value="tweet" selected>Tweet (X)</option>
-                <option value="news">News Headline</option>
-              </select>
+                    <!-- Content -->
+                    <div class="mb-3">
+                        <label class="text-white-50 small">Content</label>
+                        <textarea id="input-text" class="form-control bg-black border-white-10 text-white" rows="3">Just launched my new project! 🚀 #coding #webdev</textarea>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="row g-2 mb-4">
+                        <div class="col-4">
+                            <label class="text-white-50 small">Likes</label>
+                            <input type="text" id="input-likes" class="form-control form-control-sm bg-black border-white-10 text-white" value="1.2K">
+                        </div>
+                        <div class="col-4">
+                            <label class="text-white-50 small">Retweets</label>
+                            <input type="text" id="input-rts" class="form-control form-control-sm bg-black border-white-10 text-white" value="450">
+                        </div>
+                        <div class="col-4">
+                            <label class="text-white-50 small">Date</label>
+                            <input type="text" id="input-date" class="form-control form-control-sm bg-black border-white-10 text-white" value="Oct 24, 2023">
+                        </div>
+                    </div>
+
+                    <button type="button" id="download-btn" class="btn btn-primary w-100">Download Image</button>
+                </form>
             </div>
-
-            <!-- Tweet Specific Fields -->
-            <div id="tweet-fields">
-              <div class="mb-2">
-                <label for="tweet-name" class="form-label small"
-                  >Display Name</label
-                >
-                <input
-                  type="text"
-                  id="tweet-name"
-                  class="form-control"
-                  value="Gemini Code Assist"
-                />
-              </div>
-              <div class="mb-2">
-                <label for="tweet-handle" class="form-label small"
-                  >Username (@handle)</label
-                >
-                <input
-                  type="text"
-                  id="tweet-handle"
-                  class="form-control"
-                  value="@gemini"
-                />
-              </div>
-              <div class="mb-2">
-                <label for="tweet-pfp" class="form-label small"
-                  >Profile Picture URL</label
-                >
-                <input
-                  type="text"
-                  id="tweet-pfp"
-                  class="form-control"
-                  placeholder="https://via.placeholder.com/48"
-                />
-              </div>
-              <div class="form-check mb-3">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  id="tweet-verified"
-                  checked
-                />
-                <label class="form-check-label small" for="tweet-verified">
-                  Verified Account
-                </label>
-              </div>
-            </div>
-
-            <!-- News Specific Fields -->
-            <div id="news-fields" class="d-none">
-              <div class="mb-2">
-                <label for="news-source" class="form-label small"
-                  >News Source</label
-                >
-                <input
-                  type="text"
-                  id="news-source"
-                  class="form-control"
-                  value="GNews"
-                />
-              </div>
-              <div class="mb-2">
-                <label for="news-date" class="form-label small">Date</label>
-                <input
-                  type="text"
-                  id="news-date"
-                  class="form-control"
-                  value="October 26, 2023"
-                />
-              </div>
-            </div>
-
-            <!-- Common Fields -->
-            <div class="mb-3">
-              <label for="post-content" class="form-label small"
-                >Content / Headline</label
-              >
-              <textarea
-                id="post-content"
-                class="form-control"
-                rows="5"
-                required
-              >
-Hello world! I can now generate fake tweet images. This is a great way to demonstrate the power of the HTML Canvas API for creating dynamic graphics on the client-side.</textarea
-              >
-            </div>
-
-            <button
-              type="button"
-              id="generate-btn"
-              class="btn btn-primary w-100"
-            >
-              <i class="fa-solid fa-sync-alt me-2"></i>Update Preview
-            </button>
-          </form>
         </div>
-      </div>
 
-      <!-- Preview Column -->
-      <div class="col-lg-7 mt-4 mt-lg-0">
-        <h5 class="text-center mb-3">Preview</h5>
-        <div
-          id="preview-container"
-          class="d-flex justify-content-center align-items-center p-3 rounded"
-          style="background-color: #2c302f; min-height: 300px"
-        >
-          <canvas id="post-canvas"></canvas>
+        <div class="col-lg-6 d-flex align-items-center justify-content-center">
+            <!-- The Mockup Card -->
+            <div id="tweet-preview" class="bg-black text-white p-4 rounded-3 border border-secondary shadow-lg" style="width: 500px; max-width: 100%;">
+                <div class="d-flex mb-3">
+                    <img id="display-avatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" class="rounded-circle me-3" style="width: 48px; height: 48px; object-fit: cover;">
+                    <div>
+                        <div class="fw-bold d-flex align-items-center">
+                            <span id="display-name">John Doe</span>
+                            <i class="fa-solid fa-certificate text-primary ms-1 small"></i>
+                        </div>
+                        <div class="text-secondary small" id="display-handle">@johndoe</div>
+                    </div>
+                    <div class="ms-auto text-secondary"><i class="fa-solid fa-ellipsis"></i></div>
+                </div>
+                
+                <div class="fs-5 mb-3" id="display-text" style="line-height: 1.5;">
+                    Just launched my new project! 🚀 <span class="text-primary">#coding</span> <span class="text-primary">#webdev</span>
+                </div>
+
+                <div class="text-secondary small mb-3 pb-3 border-bottom border-secondary">
+                    <span id="display-date">Oct 24, 2023</span> · <span class="text-white fw-bold">Twitter for Web</span>
+                </div>
+
+                <div class="d-flex justify-content-between text-secondary">
+                    <div><span class="text-white fw-bold" id="display-rts">450</span> <span class="small">Retweets</span></div>
+                    <div><span class="text-white fw-bold">89</span> <span class="small">Quotes</span></div>
+                    <div><span class="text-white fw-bold" id="display-likes">1.2K</span> <span class="small">Likes</span></div>
+                    <div><i class="fa-solid fa-share-nodes"></i></div>
+                </div>
+            </div>
         </div>
-        <div class="text-center mt-3">
-          <a id="download-btn" class="btn btn-success" download="fake-post.png">
-            <i class="fa-solid fa-download me-2"></i>Download Image
-          </a>
-        </div>
-      </div>
     </div>
-  </div>
 </div>

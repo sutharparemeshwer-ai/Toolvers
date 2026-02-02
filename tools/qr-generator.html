@@ -1,20 +1,21 @@
-<div class="card p-4">
-  <h4 class="mb-3">QR Code Generator</h4>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="glass-panel p-5 text-center">
+                <h3 class="text-white fw-bold mb-4">QR Generator</h3>
+                
+                <div class="mb-4">
+                    <input type="text" id="qr-input" class="form-control form-control-lg bg-dark border-white-10 text-white text-center" placeholder="https://example.com">
+                </div>
 
-  <div class="mb-3">
-    <label for="qr-input" class="form-label">Enter text or URL</label>
-    <input
-      type="text"
-      id="qr-input"
-      class="form-control"
-      placeholder="e.g. https://github.com/yourname"
-    />
-  </div>
+                <div class="bg-white p-3 rounded-3 d-inline-block mb-4 shadow-lg">
+                    <canvas id="qr-canvas"></canvas>
+                </div>
 
-  <button id="generate-qr" class="btn btn-primary mb-3">Generate QR Code</button>
-
-  <div id="qr-result" class="text-center">
-    <canvas id="qr-canvas" class="border rounded p-2"></canvas>
-    <p id="qr-download" class="mt-2"></p>
-  </div>
+                <div>
+                    <button id="download-btn" class="btn btn-primary px-4"><i class="fa-solid fa-download me-2"></i> Download PNG</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

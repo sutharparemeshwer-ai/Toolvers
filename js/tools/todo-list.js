@@ -1,182 +1,178 @@
 // js/tools/todo-list.js
 
-const STORAGE_KEY = 'todoListTasks';
-
-// The main array to hold all tasks
+const STORAGE_KEY = 'toolverse_tasks_v2';
 let tasks = [];
+let currentFilter = 'all';
 
-// DOM Elements
-let taskListEl, newTaskInputEl, addTaskBtnEl, clearAllBtnEl;
+// DOM
+let taskListEl, inputEl, addBtn, itemsLeftEl, emptyStateEl;
+let clearCompletedBtn, clearAllBtn, filtersEl;
 
-// --- Local Storage Functions ---
-
-/**
- * Loads tasks from localStorage or returns an empty array.
- */
 function loadTasks() {
-    const storedTasks = localStorage.getItem(STORAGE_KEY);
-    return storedTasks ? JSON.parse(storedTasks) : [];
+    tasks = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 }
 
-/**
- * Saves the current tasks array to localStorage.
- */
 function saveTasks() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    render();
 }
 
-// --- DOM Rendering Functions ---
+function addTask(text) {
+    if(!text.trim()) return;
+    tasks.unshift({
+        id: Date.now(),
+        text: text.trim(),
+        completed: false
+    });
+    saveTasks();
+    inputEl.value = '';
+}
 
-/**
- * Renders the entire tasks array to the DOM.
- */
-function renderTasks() {
-    taskListEl.innerHTML = ''; // Clear existing list content
-
-    if (tasks.length === 0) {
-        taskListEl.innerHTML = `<p class="text-muted text-center small">Your list is empty. Add a task!</p>`;
-        return;
+function toggleTask(id) {
+    const task = tasks.find(t => t.id === id);
+    if(task) {
+        task.completed = !task.completed;
+        saveTasks();
     }
+}
 
-    tasks.forEach((task, index) => {
-        const listItem = document.createElement('li');
-        listItem.className = 'list-group-item d-flex justify-content-between align-items-center mytool mb-2';
-        listItem.dataset.index = index;
+function deleteTask(id) {
+    tasks = tasks.filter(t => t.id !== id);
+    saveTasks();
+}
+
+function clearCompleted() {
+    tasks = tasks.filter(t => !t.completed);
+    saveTasks();
+}
+
+function clearAll() {
+    if(confirm('Delete all tasks?')) {
+        tasks = [];
+        saveTasks();
+    }
+}
+
+function getFilteredTasks() {
+    if(currentFilter === 'active') return tasks.filter(t => !t.completed);
+    if(currentFilter === 'completed') return tasks.filter(t => t.completed);
+    return tasks;
+}
+
+function render() {
+    const filtered = getFilteredTasks();
+    
+    taskListEl.innerHTML = '';
+    
+    if(filtered.length === 0) {
+        emptyStateEl.classList.remove('d-none');
+    } else {
+        emptyStateEl.classList.add('d-none');
+        filtered.forEach(task => {
+            const li = document.createElement('li');
+            li.className = `list-group-item task-item d-flex align-items-center py-3 ${task.completed ? 'completed' : ''}`;
+            li.draggable = true;
+            li.dataset.id = task.id;
+            
+            li.innerHTML = `
+                <div class="task-checkbox me-3 ${task.completed ? 'checked' : ''}" role="button"></div>
+                <span class="task-text flex-grow-1">${task.text}</span>
+                <button class="btn btn-sm text-danger delete-task-btn"><i class="fa-solid fa-trash"></i></button>
+            `;
+            
+            // Event Listeners
+            li.querySelector('.task-checkbox').addEventListener('click', () => toggleTask(task.id));
+            li.querySelector('.delete-task-btn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                deleteTask(task.id);
+            });
+            
+            // Drag Events
+            li.addEventListener('dragstart', handleDragStart);
+            li.addEventListener('dragover', handleDragOver);
+            li.addEventListener('drop', handleDrop);
+            li.addEventListener('dragenter', e => e.preventDefault());
+
+            taskListEl.appendChild(li);
+        });
+    }
+    
+    // Update Stats
+    const activeCount = tasks.filter(t => !t.completed).length;
+    itemsLeftEl.textContent = `${activeCount} item${activeCount !== 1 ? 's' : ''} left`;
+}
+
+// --- Drag & Drop Logic ---
+let draggedItem = null;
+
+function handleDragStart(e) {
+    draggedItem = this;
+    e.dataTransfer.effectAllowed = 'move';
+    this.style.opacity = '0.4';
+}
+
+function handleDragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    return false;
+}
+
+function handleDrop(e) {
+    e.stopPropagation();
+    draggedItem.style.opacity = '1';
+    
+    if (draggedItem !== this) {
+        // Reorder array
+        const draggedId = Number(draggedItem.dataset.id);
+        const targetId = Number(this.dataset.id);
         
-        // Task Text (with completion status)
-        const taskText = document.createElement('span');
-        taskText.textContent = task.text;
-        if (task.completed) {
-            taskText.style.textDecoration = 'line-through';
-            taskText.classList.add('text-muted');
+        const draggedIdx = tasks.findIndex(t => t.id === draggedId);
+        const targetIdx = tasks.findIndex(t => t.id === targetId);
+        
+        // Move item
+        const [removed] = tasks.splice(draggedIdx, 1);
+        tasks.splice(targetIdx, 0, removed);
+        
+        saveTasks();
+    }
+    return false;
+}
+
+
+// --- Init ---
+export function init() {
+    taskListEl = document.getElementById('task-list');
+    inputEl = document.getElementById('new-task-input');
+    addBtn = document.getElementById('add-task-btn');
+    itemsLeftEl = document.getElementById('items-left');
+    emptyStateEl = document.getElementById('empty-state');
+    clearCompletedBtn = document.getElementById('clear-completed-btn');
+    clearAllBtn = document.getElementById('clear-all-btn');
+    filtersEl = document.getElementById('task-filters');
+    
+    loadTasks();
+    render();
+    
+    addBtn.addEventListener('click', () => addTask(inputEl.value));
+    inputEl.addEventListener('keypress', e => { if(e.key === 'Enter') addTask(inputEl.value); });
+    
+    clearCompletedBtn.addEventListener('click', clearCompleted);
+    clearAllBtn.addEventListener('click', clearAll);
+    
+    // Filters delegation
+    filtersEl.addEventListener('click', (e) => {
+        if(e.target.classList.contains('nav-link')) {
+            e.preventDefault();
+            // Remove active from all
+            filtersEl.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            e.target.classList.add('active');
+            
+            currentFilter = e.target.dataset.filter;
+            render();
         }
-        
-        // Buttons Container
-        const buttonGroup = document.createElement('div');
-        
-        // 1. Complete/Toggle Button
-        const toggleBtn = document.createElement('button');
-        toggleBtn.className = `btn btn-sm ${task.completed ? 'btn-success' : 'btn-outline-success'} me-2`;
-        toggleBtn.innerHTML = `<i class="fa-solid ${task.completed ? 'fa-check-square' : 'fa-square'}"></i>`;
-        toggleBtn.addEventListener('click', () => toggleTask(index));
-        
-        // 2. Delete Button
-        const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'btn btn-sm btn-danger';
-        deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
-        deleteBtn.addEventListener('click', () => deleteTask(index));
-
-        // Assemble the list item
-        buttonGroup.appendChild(toggleBtn);
-        buttonGroup.appendChild(deleteBtn);
-        listItem.appendChild(taskText);
-        listItem.appendChild(buttonGroup);
-        
-        taskListEl.appendChild(listItem);
     });
 }
 
-// --- CRUD Operations ---
-
-/**
- * Adds a new task.
- */
-function addTask() {
-    const text = newTaskInputEl.value.trim();
-    if (text === "") {
-        alert("Task cannot be empty.");
-        return;
-    }
-
-    // Add new task object to the array
-    tasks.push({ text: text, completed: false });
-    
-    // Clear input and save/render
-    newTaskInputEl.value = '';
-    saveTasks();
-    renderTasks();
-}
-
-/**
- * Toggles the 'completed' status of a task by its index.
- */
-function toggleTask(index) {
-    if (index >= 0 && index < tasks.length) {
-        tasks[index].completed = !tasks[index].completed;
-        saveTasks();
-        renderTasks();
-    }
-}
-
-/**
- * Deletes a task by its index.
- */
-function deleteTask(index) {
-    if (index >= 0 && index < tasks.length) {
-        tasks.splice(index, 1);
-        saveTasks();
-        renderTasks();
-    }
-}
-
-/**
- * Clears all tasks.
- */
-function clearAllTasks() {
-    if (confirm("Are you sure you want to delete all tasks?")) {
-        tasks = []; // Reset array
-        saveTasks(); // Clear local storage
-        renderTasks(); // Update DOM
-    }
-}
-
-// --- Event Handlers ---
-
-function handleAddButtonClick() {
-    addTask();
-}
-
-function handleInputKeypress(e) {
-    if (e.key === 'Enter') {
-        addTask();
-    }
-}
-
-// --- Router Hooks ---
-
-export function init() {
-    // 1. Get DOM elements
-    taskListEl = document.getElementById('task-list');
-    newTaskInputEl = document.getElementById('new-task-input');
-    addTaskBtnEl = document.getElementById('add-task-btn');
-    clearAllBtnEl = document.getElementById('clear-all-btn');
-
-    // 2. Load and render tasks immediately
-    tasks = loadTasks();
-    renderTasks();
-
-    // 3. Attach listeners
-    if (addTaskBtnEl) {
-        addTaskBtnEl.addEventListener('click', handleAddButtonClick);
-    }
-    if (newTaskInputEl) {
-        newTaskInputEl.addEventListener('keypress', handleInputKeypress);
-    }
-    if (clearAllBtnEl) {
-        clearAllBtnEl.addEventListener('click', clearAllTasks);
-    }
-}
-
 export function cleanup() {
-    // Remove listeners
-    if (addTaskBtnEl) {
-        addTaskBtnEl.removeEventListener('click', handleAddButtonClick);
-    }
-    if (newTaskInputEl) {
-        newTaskInputEl.removeEventListener('keypress', handleInputKeypress);
-    }
-    if (clearAllBtnEl) {
-        clearAllBtnEl.removeEventListener('click', clearAllTasks);
-    }
-    // Note: We don't clear localStorage here, as the goal is persistence!
+    // Basic cleanup
 }

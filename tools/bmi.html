@@ -1,61 +1,42 @@
-<br /><br /><br /><br />
-<div class="card p-3 text-center mytool">
-  <h4><i class="fa-solid fa-database"></i> BMI Calculator</h4>
-  <br />
-  <form id="bmi-form" class="row gy-3 gx-3 align-items-end">
-    <div class="col-12 col-md-5">
-      <label class="form-label small">Weight</label>
-      <div class="input-group">
-        <input
-          id="weight"
-          class="form-control"
-          type="number"
-          step="any"
-          required
-        />
-        <select
-          id="weight-unit"
-          class="form-select flex-grow-0"
-          style="width: 75px"
-        >
-          <option value="kg" selected>kg</option>
-          <option value="lbs">lbs</option>
-        </select>
-      </div>
-    </div>
-    <div class="col-12 col-md-5">
-      <label class="form-label small">Height</label>
-      <div class="input-group">
-        <input
-          id="height"
-          class="form-control"
-          type="number"
-          step="any"
-          required
-        />
-        <select
-          id="height-unit"
-          class="form-select flex-grow-0"
-          style="width: 75px"
-        >
-          <option value="m" selected>m</option>
-          <option value="cm">cm</option>
-          <option value="ft">ft</option>
-          <option value="in">in</option>
-        </select>
-      </div>
-    </div>
-    <div class="col-12 col-md-2">
-      <button class="btn btn-light w-100" type="submit">Calculate</button>
-    </div>
-  </form>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="glass-panel p-5 text-center">
+                <h3 class="text-white fw-bold mb-4"><i class="fa-solid fa-weight-scale me-2 text-warning"></i> BMI Calculator</h3>
+                
+                <form id="bmi-form" class="mb-4">
+                    <div class="row g-3 mb-3">
+                        <div class="col-6">
+                            <label class="text-white-50 small mb-1">Weight</label>
+                            <div class="input-group">
+                                <input type="number" id="weight" class="form-control bg-dark border-white-10 text-white" placeholder="0">
+                                <select id="weight-unit" class="form-select bg-dark border-white-10 text-white" style="max-width: 70px;">
+                                    <option value="kg">kg</option>
+                                    <option value="lbs">lbs</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label class="text-white-50 small mb-1">Height</label>
+                            <div class="input-group">
+                                <input type="number" id="height" class="form-control bg-dark border-white-10 text-white" placeholder="0">
+                                <select id="height-unit" class="form-select bg-dark border-white-10 text-white" style="max-width: 70px;">
+                                    <option value="cm">cm</option>
+                                    <option value="m">m</option>
+                                    <option value="ft">ft</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-warning w-100 fw-bold">Calculate BMI</button>
+                </form>
 
-  <div class="mt-4">
-    <strong>Your BMI:</strong>
-    <h3 id="bmi-result" class="mb-0 mt-1">—</h3>
-  </div>
-
-  <div id="bmi-status" class="alert mt-3" style="min-height: 40px">
-    Enter your details to calculate your status.
-  </div>
+                <div class="py-4 border-top border-white-10">
+                    <small class="text-secondary text-uppercase fw-bold">Your Score</small>
+                    <h1 class="display-3 fw-bold text-white mb-2" id="bmi-result">--</h1>
+                    <span class="badge bg-dark border border-white-10 px-3 py-2 rounded-pill" id="bmi-status">Enter details</span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
